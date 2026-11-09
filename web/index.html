@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="zh-Hant-HK" data-lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="copyright" content="© SCOUT SYSTEM">
+<meta name="app-version" content="0.7.0">
+<meta name="description" content="飛機圖鑑 Aircraft Encyclopedia：由圖片認識飛機，學識辨認。資料逐款核實。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="飛機圖鑑 Aircraft Encyclopedia v0.7">
+<meta property="og:description" content="一眼見到飛機，用一張圖認識飛機。">
+<meta property="og:image" content="icons/og-image.png">
+<meta name="theme-color" content="#0a2a4a">
+<link rel="icon" href="icons/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<title>飛機圖鑑 v0.7｜Aircraft Encyclopedia</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<!-- Aircraft-Encyclopedia v0.7 · © SCOUT SYSTEM -->
+<header class="topbar">
+  <a class="brand" href="./" aria-label="Aircraft Encyclopedia home">
+    <img src="icons/icon-192.png" alt="" width="38" height="38">
+    <span><strong data-i18n="brand">飛機圖鑑</strong><small>Aircraft Encyclopedia v0.7</small></span>
+  </a>
+  <button id="langToggle" data-lang-toggle type="button" class="lang-btn" aria-label="Switch to English" title="Switch to English">EN</button>
+</header>
+
+<main>
+  <section class="hero">
+    <p class="kicker" data-i18n="kicker">香港童軍航空活動章 · 辨認學習圖鑑</p>
+    <h1 data-i18n="heroTitle">一眼見到飛機，用一張圖認識飛機</h1>
+    <p data-i18n="heroText">第一批跟童軍初級航空活動章清單（18 款）逐款核實：有齊相片、WEFT 辨認特徵同有來源的規格，先會出圖卡。</p>
+    <div class="stats" id="stats" aria-live="polite"></div>
+    <div class="hero-progress">
+      <span data-i18n="batch1Label">第一批（初級航空活動章）進度</span>
+      <div class="progress big"><i id="batch1Bar"></i></div>
+      <b id="batch1Text"></b>
+    </div>
+  </section>
+
+  <section class="controls" aria-label="Search and filter">
+    <label class="search">
+      <span data-i18n="searchLabel">搜尋</span>
+      <input id="searchInput" type="search" data-i18n-ph="searchPh" placeholder="名稱、代碼、製造商…">
+    </label>
+    <div class="chip-group"><span class="chip-label" data-i18n="catLabel">類別</span><div id="categoryChips" class="chips" role="group" aria-label="Category"></div></div>
+    <div class="chip-group"><span class="chip-label" data-i18n="scoutLabel">章級別</span><div id="scoutChips" class="chips" role="group" aria-label="Scout badge"></div></div>
+    <div class="chip-group"><span class="chip-label" data-i18n="statusLabel">狀態</span><div id="statusChips" class="chips" role="group" aria-label="Status"></div></div>
+    <div class="chip-group"><span class="chip-label" data-i18n="facetLabel">特徵</span><select id="facetSelect" class="facet-select" aria-label="Features"></select></div>
+  </section>
+
+  <section aria-label="Aircraft list">
+    <div id="loadError" class="notice error" hidden>
+      <strong data-i18n="loadErrorTitle">資料載入失敗</strong>
+      <span data-i18n="loadErrorText">請檢查網絡後重新整理；如果用檔案方式打開，請改用靜態伺服器開本站。</span>
+    </div>
+    <p id="noResults" class="notice" hidden data-i18n="noResults">搵唔到符合嘅飛機，試下改搜尋字或清除分類。</p>
+    <div id="grid" class="grid"></div>
+  </section>
+
+  <section id="compareSection" class="panel" aria-labelledby="compareTitle">
+    <h2 id="compareTitle" data-i18n="compareTitle">比較兩款飛機</h2>
+    <div id="compareBody"></div>
+  </section>
+
+  <section id="quizSection" class="panel" aria-labelledby="quizTitle">
+    <h2 id="quizTitle" data-i18n="quizTitle">小測驗：睇相認飛機</h2>
+    <div id="quizBody"></div>
+  </section>
+
+  <section class="locked">
+    <article>
+      <h2 data-i18n="examTitle">考卷（領袖出卷）</h2>
+      <p data-i18n="examLocked">按章級別出試卷連領袖答案紙，要等嗰一級核實的機型夠數先開放，確保每條題目答案正確。</p>
+    </article>
+    <article>
+      <h2 data-i18n="gamesTitle">未來小遊戲</h2>
+      <p data-i18n="gamesLocked">航空公司配對同機場名稱遊戲會喺資料核實後推出，對應航空活動章同空勤員章的辨認要求。</p>
+    </article>
+  </section>
+</main>
+
+<dialog id="detailDialog" aria-labelledby="detailTitle">
+  <div class="dialog-head">
+    <h2 id="detailTitle"></h2>
+    <button id="detailClose" type="button" class="lang-btn dark" aria-label="Close">×</button>
+  </div>
+  <div id="detailBody"></div>
+</dialog>
+
+<footer>
+  <p>© SCOUT SYSTEM · COPYRIGHT SCOUT SYSTEM · Aircraft-Encyclopedia v0.7 · <a href="https://github.com/playerkousas-rgb/Aircraft-Encyclopedia/blob/main/CREDITS.md">CREDITS</a> · MIT License</p>
+  <p data-i18n="footerNote">相片未核實前唔會上載；規格要有來源先會顯示。第三方相片依原授權標示，不加本站水印。</p>
+</footer>
+<script src="app.js"></script>
+</body>
+</html>
