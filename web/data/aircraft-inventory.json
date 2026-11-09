@@ -1,5 +1,5 @@
 {
- "version": "0.7.0",
+ "version": "0.8.0",
  "updated": "2026-11-09",
  "note": "逐款核實：已核實機型 specs 逐項附來源/子型號/核實日期；未核實機型 specs 留空，唔估數字。icaoCandidate 帶 * 代表代碼本身亦待核實。scout 欄位為香港童軍總會航空活動章辨認清單對應（2021-06-15 通告 41/2021），舊網頁版清單差異見 docs/05。",
  "categories": {
@@ -17106,6 +17106,2852 @@
      "url": "https://commons.wikimedia.org/wiki/Category:Xian_H-6"
     }
    ]
+  },
+  {
+   "seq": "AC-0072",
+   "nameZh": "空中巴士 A350-1000",
+   "nameEn": "Airbus A350-1000",
+   "manufacturer": "Airbus",
+   "icao": "A35K",
+   "icaoCandidate": "A35K",
+   "category": "airliner",
+   "categoryLabel": {
+    "zh": "民航客機",
+    "en": "Airliner"
+   },
+   "tags": [
+    "widebody",
+    "long-haul"
+   ],
+   "dataStatus": "verified",
+   "verifiedDate": "2026-11-09",
+   "specs": {
+    "length": {
+     "value": "73.79",
+     "unit": "m",
+     "noteZh": "全長（A350 家族最長）",
+     "noteEn": "Overall length (longest of the A350 family)",
+     "source": "https://en.wikipedia.org/wiki/Airbus_A350",
+     "variant": "A350-1000",
+     "verified": "2026-11-09"
+    },
+    "wingspan": {
+     "value": "64.75",
+     "unit": "m",
+     "noteZh": "翼展，連上彎翼尖",
+     "noteEn": "Wingspan with upward-curved winglets",
+     "source": "https://en.wikipedia.org/wiki/Airbus_A350",
+     "variant": "A350-1000",
+     "verified": "2026-11-09"
+    },
+    "height": {
+     "value": "17.08",
+     "unit": "m",
+     "noteZh": "全高",
+     "noteEn": "Overall height",
+     "source": "https://en.wikipedia.org/wiki/Airbus_A350",
+     "variant": "A350-1000",
+     "verified": "2026-11-09"
+    },
+    "engines": {
+     "value": "2 × Rolls-Royce Trent XWB-97",
+     "unit": "",
+     "noteZh": "勞斯萊斯渦輪扇引擎（-1000 專用大推力版）",
+     "noteEn": "Rolls-Royce turbofans (higher-thrust version unique to the -1000)",
+     "source": "https://en.wikipedia.org/wiki/Airbus_A350",
+     "variant": "A350-1000",
+     "verified": "2026-11-09"
+    },
+    "seats": {
+     "value": "366",
+     "unit": "座",
+     "noteZh": "三級艙典型佈局（最多可載 480）",
+     "noteEn": "Typical three-class layout (up to 480 maximum)",
+     "source": "https://en.wikipedia.org/wiki/Airbus_A350",
+     "variant": "A350-1000",
+     "verified": "2026-11-09"
+    },
+    "range": {
+     "value": "16,100",
+     "unit": "km",
+     "noteZh": "最大航程（8,700 海里）",
+     "noteEn": "Maximum range (8,700 nmi)",
+     "source": "https://en.wikipedia.org/wiki/Airbus_A350",
+     "variant": "A350-1000",
+     "verified": "2026-11-09"
+    },
+    "cruise": {
+     "value": "Mach 0.85",
+     "unit": "",
+     "noteZh": "典型巡航",
+     "noteEn": "Typical cruise",
+     "source": "https://en.wikipedia.org/wiki/Airbus_A350",
+     "variant": "A350-1000",
+     "verified": "2026-11-09"
+    }
+   },
+   "weft": {
+    "wings": {
+     "zh": "大後掠主翼，翼尖向上彎起的鯊鰭小翼（blended winglet）是 A350 家族的招牌線條。",
+     "en": "Big swept wing with upward-curving blended winglets — the A350 family's signature line."
+    },
+    "engines": {
+     "zh": "兩台 Trent XWB 引擎艙巨大，風扇直徑逾 3 米；引擎艙後緣平滑，沒有鋸齒。",
+     "en": "Two huge Trent XWB nacelles with fans over 3 m across and smooth exhaust lips."
+    },
+    "fuselage": {
+     "zh": "機身特長，駕駛艙窗外框有一圈黑色「面罩」描邊；主起落架是三對輪（-900 是兩對），是分辨 -1000 最快的方法。",
+     "en": "Very long fuselage with a black 'mask' outline around the cockpit windows; three pairs of main-gear wheels (the -900 has two) are the quickest -1000 tell."
+    },
+    "tail": {
+     "zh": "傳統尾翼，垂直尾翼根部線條圓滑過渡，尾錐收窄上翹。",
+     "en": "Conventional tail with a smoothly blended fin root and an upswept tail cone."
+    }
+   },
+   "recognitionEn": [
+    "Big swept wing with upward-curving blended winglets — the A350 family's signature line.",
+    "Two huge Trent XWB nacelles with fans over 3 m across and smooth exhaust lips.",
+    "Very long fuselage with a black 'mask' outline around the cockpit windows; three pairs of main-gear wheels (the -900 has two) are the quickest -1000 tell.",
+    "Conventional tail with a smoothly blended fin root and an upswept tail cone."
+   ],
+   "recognitionZh": [
+    "大後掠主翼，翼尖向上彎起的鯊鰭小翼（blended winglet）是 A350 家族的招牌線條。",
+    "兩台 Trent XWB 引擎艙巨大，風扇直徑逾 3 米；引擎艙後緣平滑，沒有鋸齒。",
+    "機身特長，駕駛艙窗外框有一圈黑色「面罩」描邊；主起落架是三對輪（-900 是兩對），是分辨 -1000 最快的方法。",
+    "傳統尾翼，垂直尾翼根部線條圓滑過渡，尾錐收窄上翹。"
+   ],
+   "similarEn": "Versus the A350-900 (card AC-0001): the -1000 is about 7 m longer with three-wheel-pair main gears and more thrust. Versus the rival 777-300ER (card AC-0005): the 777 is fatter with bigger engines but no curved winglets — use the nose profile and cockpit mask to split them, as both have triple bogies.",
+   "similarZh": "同自家 A350-900 比（本網 AC-0001 有卡）：-1000 長約 7 米、主起落架三對輪（-900 兩對）、引擎推力更大。同對手 777-300ER 比（本網 AC-0005）：777 機身較粗、引擎更大但翼尖沒有上彎小翼，而且起落架同樣三對輪，要靠機鼻線條同駕駛艙黑面罩分辨。",
+   "introEn": "One of Cathay Pacific's long-haul flagships: with a carbon-fibre fuselage and huge Trent XWB fans, the A350-1000 flies over 16,000 km and is an everyday sight at Hong Kong International Airport — a benchmark modern ultra-long-range twin.",
+   "introZh": "國泰航空的長途旗艦之一：A350-1000 用碳纖維機身、Trent XWB 大風扇引擎飛出逾 16,000 公里航程，在香港國際機場每日都見得到，是現今最常見的超長程雙發客機代表。",
+   "variantNoteEn": "The longest member of the A350 family (about 7 m longer than the A350-900); figures are for the -1000. The photo is Cathay Pacific's first A350-1000 (B-LXA) landing at Hong Kong International Airport.",
+   "variantNoteZh": "A350 家族最長的一員（比 A350-900 長約 7 米）；本卡數字為 -1000 型。相片是國泰航空首架 A350-1000（B-LXA）降落香港國際機場。",
+   "history": {
+    "firstFlight": "2016-11-24",
+    "enteredService": "2018",
+    "statusZh": "服役中並持續交付（ launch 用戶卡塔爾航空 2018 年首航；國泰航空是主要用戶之一，營運來往歐美澳的長途航線）。",
+    "statusEn": "In service with deliveries continuing (launched by Qatar Airways in 2018; Cathay Pacific is a major operator on long-haul routes to Europe, North America and Australia).",
+    "source": "https://en.wikipedia.org/wiki/Airbus_A350"
+   },
+   "photo": {
+    "filePage": "https://commons.wikimedia.org/wiki/File:Cathay_Pacific_A350-1000_(B-LXA)_@_HKG,_March_2019.jpg",
+    "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/77/Cathay_Pacific_A350-1000_%28B-LXA%29_%40_HKG%2C_March_2019.jpg/960px-Cathay_Pacific_A350-1000_%28B-LXA%29_%40_HKG%2C_March_2019.jpg",
+    "author": "N509FZ",
+    "licence": "CC BY-SA 4.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "creditZh": "相片：N509FZ／Wikimedia Commons（CC BY-SA 4.0）· 國泰航空 A350-1000（B-LXA）降落香港國際機場（2019 年）",
+    "creditEn": "Photo: N509FZ / Wikimedia Commons (CC BY-SA 4.0) · Cathay Pacific A350-1000 (B-LXA) landing at Hong Kong International Airport (2019)",
+    "captionZh": "香港主場：國泰 A350-1000 放起落架降落，留意三對主輪同駕駛艙黑面罩。",
+    "captionEn": "Home turf: a Cathay A350-1000 on finals at Hong Kong — note the triple bogies and cockpit mask.",
+    "annotations": [
+     {
+      "part": "fuselage",
+      "x": 45,
+      "y": 50,
+      "zh": "特長機身與黑面罩窗框",
+      "en": "Long fuselage and masked cockpit"
+     },
+     {
+      "part": "engines",
+      "x": 60,
+      "y": 60,
+      "zh": "Trent XWB-97 引擎",
+      "en": "Trent XWB-97 engine"
+     },
+     {
+      "part": "wings",
+      "x": 52,
+      "y": 52,
+      "zh": "上彎翼尖主翼",
+      "en": "Wing with curved winglet"
+     },
+     {
+      "part": "tail",
+      "x": 12,
+      "y": 38,
+      "zh": "垂直尾翼",
+      "en": "Vertical tail"
+     }
+    ]
+   },
+   "deepLinks": [
+    {
+     "type": "wikipedia-en",
+     "labelZh": "英文維基：Airbus A350",
+     "labelEn": "English Wikipedia: Airbus A350",
+     "url": "https://en.wikipedia.org/wiki/Airbus_A350"
+    },
+    {
+     "type": "wikipedia-zh",
+     "labelZh": "中文維基：空中巴士A350",
+     "labelEn": "Chinese Wikipedia: Airbus A350",
+     "url": "https://zh.wikipedia.org/wiki/空中巴士A350"
+    },
+    {
+     "type": "manufacturer",
+     "labelZh": "Airbus 官方：A350 機型頁",
+     "labelEn": "Airbus: A350 family page",
+     "url": "https://www.airbus.com/en/products-services/commercial-aircraft/passenger-aircraft/a350-family"
+    },
+    {
+     "type": "flightradar24",
+     "labelZh": "Flightradar24：A35K 機型頁",
+     "labelEn": "Flightradar24: A35K aircraft page",
+     "url": "https://www.flightradar24.com/data/aircraft/a35k"
+    },
+    {
+     "type": "commons",
+     "labelZh": "Wikimedia Commons：本卡相片頁",
+     "labelEn": "Wikimedia Commons: this photo",
+     "url": "https://commons.wikimedia.org/wiki/File:Cathay_Pacific_A350-1000_(B-LXA)_@_HKG,_March_2019.jpg"
+    }
+   ],
+   "sourcesToCheck": [
+    {
+     "type": "wikipedia-en",
+     "labelZh": "英文維基：Airbus A350",
+     "url": "https://en.wikipedia.org/wiki/Airbus_A350",
+     "status": "done"
+    },
+    {
+     "type": "wikipedia-zh",
+     "labelZh": "中文維基：空中巴士A350",
+     "url": "https://zh.wikipedia.org/wiki/空中巴士A350",
+     "status": "done"
+    },
+    {
+     "type": "manufacturer",
+     "labelZh": "Airbus 官方：A350 機型頁",
+     "url": "https://www.airbus.com/en/products-services/commercial-aircraft/passenger-aircraft/a350-family",
+     "status": "done"
+    },
+    {
+     "type": "flightradar24",
+     "labelZh": "Flightradar24：A35K 機型頁",
+     "url": "https://www.flightradar24.com/data/aircraft/a35k",
+     "status": "done"
+    },
+    {
+     "type": "commons",
+     "labelZh": "Wikimedia Commons：本卡相片頁",
+     "url": "https://commons.wikimedia.org/wiki/File:Cathay_Pacific_A350-1000_(B-LXA)_@_HKG,_March_2019.jpg",
+     "status": "done"
+    }
+   ],
+   "checklist": {
+    "identity": "done",
+    "history": "done",
+    "specs": "done",
+    "recognition": "done",
+    "photo": "done",
+    "links": "done",
+    "bilingual": "done",
+    "quiz": "done"
+   },
+   "scout": null
+  },
+  {
+   "seq": "AC-0073",
+   "nameZh": "空中巴士 A321neo",
+   "nameEn": "Airbus A321neo",
+   "manufacturer": "Airbus",
+   "icao": "A21N",
+   "icaoCandidate": "A21N",
+   "category": "airliner",
+   "categoryLabel": {
+    "zh": "民航客機",
+    "en": "Airliner"
+   },
+   "tags": [
+    "narrowbody"
+   ],
+   "dataStatus": "verified",
+   "verifiedDate": "2026-11-09",
+   "specs": {
+    "length": {
+     "value": "44.51",
+     "unit": "m",
+     "noteZh": "全長（A320neo 家族最長）",
+     "noteEn": "Overall length (longest of the A320neo family)",
+     "source": "https://en.wikipedia.org/wiki/Airbus_A320neo_family",
+     "variant": "A321neo",
+     "verified": "2026-11-09"
+    },
+    "wingspan": {
+     "value": "35.80",
+     "unit": "m",
+     "noteZh": "翼展，連鯊鰭小翼",
+     "noteEn": "Wingspan with Sharklets",
+     "source": "https://en.wikipedia.org/wiki/Airbus_A320neo_family",
+     "variant": "A321neo",
+     "verified": "2026-11-09"
+    },
+    "height": {
+     "value": "11.76",
+     "unit": "m",
+     "noteZh": "全高",
+     "noteEn": "Overall height",
+     "source": "https://en.wikipedia.org/wiki/Airbus_A320neo_family",
+     "variant": "A321neo",
+     "verified": "2026-11-09"
+    },
+    "engines": {
+     "value": "2 × CFM LEAP-1A 或 P&W PW1100G",
+     "unit": "",
+     "noteZh": "兩款新一代渦輪扇引擎任選其一",
+     "noteEn": "Choice of two new-generation turbofans",
+     "source": "https://en.wikipedia.org/wiki/Airbus_A320neo_family",
+     "variant": "A321neo",
+     "verified": "2026-11-09"
+    },
+    "seats": {
+     "value": "180–220",
+     "unit": "座",
+     "noteZh": "典型佈局（單級艙最多 244）",
+     "noteEn": "Typical layouts (up to 244 single-class)",
+     "source": "https://en.wikipedia.org/wiki/Airbus_A320neo_family",
+     "variant": "A321neo",
+     "verified": "2026-11-09"
+    },
+    "range": {
+     "value": "6,480",
+     "unit": "km",
+     "noteZh": "標準型航程；LR 型 7,400 公里、XLR 型 8,700 公里",
+     "noteEn": "Standard range; LR flies 7,400 km and XLR 8,700 km",
+     "source": "https://en.wikipedia.org/wiki/Airbus_A320neo_family",
+     "variant": "A321neo",
+     "verified": "2026-11-09"
+    },
+    "cruise": {
+     "value": "Mach 0.78",
+     "unit": "",
+     "noteZh": "典型巡航",
+     "noteEn": "Typical cruise",
+     "source": "https://en.wikipedia.org/wiki/Airbus_A320neo_family",
+     "variant": "A321neo",
+     "verified": "2026-11-09"
+    }
+   },
+   "weft": {
+    "wings": {
+     "zh": "主翼帶向上翹的鯊鰭小翼（Sharklet）；比 A320neo 的翼完全同款，靠機身長度分辨。",
+     "en": "Wing with upturned Sharklets, shared with the A320neo — length is the giveaway."
+    },
+    "engines": {
+     "zh": "引擎艙明顯比舊款 A321 大一圈（LEAP-1A 風扇直徑近 2 米），短艙設計。",
+     "en": "Nacelles visibly fatter than the old A321's (LEAP-1A fan near 2 m), on short pylons."
+    },
+    "fuselage": {
+     "zh": "家族中最長的機身；新款 ACF 艙門佈局是翼前後各一對門加一對翼上出口，窗排特別長。",
+     "en": "The family's longest fuselage; the ACF layout has doors fore and aft of the wing plus overwing exits, and a very long window line."
+    },
+    "tail": {
+     "zh": "傳統尾翼，與 A320neo 相同設計。",
+     "en": "Conventional tail, shared with the A320neo."
+    }
+   },
+   "recognitionEn": [
+    "Wing with upturned Sharklets, shared with the A320neo — length is the giveaway.",
+    "Nacelles visibly fatter than the old A321's (LEAP-1A fan near 2 m), on short pylons.",
+    "The family's longest fuselage; the ACF layout has doors fore and aft of the wing plus overwing exits, and a very long window line.",
+    "Conventional tail, shared with the A320neo."
+   ],
+   "recognitionZh": [
+    "主翼帶向上翹的鯊鰭小翼（Sharklet）；比 A320neo 的翼完全同款，靠機身長度分辨。",
+    "引擎艙明顯比舊款 A321 大一圈（LEAP-1A 風扇直徑近 2 米），短艙設計。",
+    "家族中最長的機身；新款 ACF 艙門佈局是翼前後各一對門加一對翼上出口，窗排特別長。",
+    "傳統尾翼，與 A320neo 相同設計。"
+   ],
+   "similarEn": "Versus the A320neo (card AC-0003): about 7 m longer and some 40 more seats on the same wing and engines — count windows and judge the stretch. Versus the 737 MAX 8 (card AC-0074): the MAX has split up-down winglets and sits lower; the Airbus has a single upturned Sharklet.",
+   "similarZh": "同自家 A320neo 比（本網 AC-0003 有卡）：A321neo 長約 7 米、載客多約 40 人，引擎同翼一樣，要數窗同睇機身長度。同對手 737 MAX 8 比（本網 AC-0074）：MAX 的翼尖是上下分叉，A321neo 是向上單片鯊鰭；MAX 機身較低矮。",
+   "introEn": "The big brother of the world's best-selling narrowbody family: Cathay Pacific and HK Express fly the A321neo on Asian short- and medium-haul routes, making it a daily sight at Hong Kong airport.",
+   "introZh": "全球賣得最好的窄體客機家族成員：A321neo 是 A320neo 家族的大哥，國泰航空同香港快運都用它飛亞洲短中程航線，在香港機場日日見到。",
+   "variantNoteEn": "Figures are for the standard A321neo; the longer-range LR (7,400 km) and XLR (8,700 km) look almost identical. The photo is a Cathay Pacific A321-251NX (B-HPJ) on a pre-delivery test flight.",
+   "variantNoteZh": "本卡數字為標準型 A321neo；家族另有長程 LR（7,400 km）與超長程 XLR（8,700 km）型，外形幾乎一樣。相片是國泰航空的 A321-251NX（B-HPJ）交機試飛。",
+   "history": {
+    "firstFlight": "2016-02-09",
+    "enteredService": "2017",
+    "statusZh": "服役中，是全球交付量最大的窄體機家族之一（連 LR／XLR 型訂單龐大；國泰集團用於區域航線）。",
+    "statusEn": "In service and among the highest-selling narrowbodies ever (with large LR/XLR backlogs; the Cathay Group flies it regionally).",
+    "source": "https://en.wikipedia.org/wiki/Airbus_A320neo_family"
+   },
+   "photo": {
+    "filePage": "https://commons.wikimedia.org/wiki/File:Hamburg-Finkenwerder_Airport_Cathay_Pacific_Airbus_A321-251NX_B-HPJ_(DSC00523).jpg",
+    "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1a/Hamburg-Finkenwerder_Airport_Cathay_Pacific_Airbus_A321-251NX_B-HPJ_%28DSC00523%29.jpg/960px-Hamburg-Finkenwerder_Airport_Cathay_Pacific_Airbus_A321-251NX_B-HPJ_%28DSC00523%29.jpg",
+    "author": "MarcelX42",
+    "licence": "CC BY-SA 4.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "creditZh": "相片：MarcelX42／Wikimedia Commons（CC BY-SA 4.0）· 國泰航空 A321neo（B-HPJ）在漢堡 Finkenwerder 交機試飛（2023 年）",
+    "creditEn": "Photo: MarcelX42 / Wikimedia Commons (CC BY-SA 4.0) · Cathay Pacific A321neo (B-HPJ) on a test flight at Hamburg Finkenwerder (2023)",
+    "captionZh": "交機前的國泰 A321neo：特長機身、大引擎同鯊鰭翼尖齊晒。",
+    "captionEn": "A Cathay A321neo before delivery: long fuselage, big engines and Sharklets.",
+    "annotations": [
+     {
+      "part": "fuselage",
+      "x": 52,
+      "y": 42,
+      "zh": "家族最長機身",
+      "en": "Family's longest fuselage"
+     },
+     {
+      "part": "engines",
+      "x": 40,
+      "y": 55,
+      "zh": "LEAP-1A 大風扇引擎",
+      "en": "LEAP-1A big-fan engine"
+     },
+     {
+      "part": "wings",
+      "x": 45,
+      "y": 50,
+      "zh": "鯊鰭小翼主翼",
+      "en": "Wing with Sharklet"
+     },
+     {
+      "part": "tail",
+      "x": 90,
+      "y": 40,
+      "zh": "垂直尾翼",
+      "en": "Vertical tail"
+     }
+    ]
+   },
+   "deepLinks": [
+    {
+     "type": "wikipedia-en",
+     "labelZh": "英文維基：Airbus A320neo family",
+     "labelEn": "English Wikipedia: Airbus A320neo family",
+     "url": "https://en.wikipedia.org/wiki/Airbus_A320neo_family"
+    },
+    {
+     "type": "wikipedia-zh",
+     "labelZh": "中文維基：空中巴士A320neo",
+     "labelEn": "Chinese Wikipedia: Airbus A320neo",
+     "url": "https://zh.wikipedia.org/wiki/空中巴士A320neo"
+    },
+    {
+     "type": "manufacturer",
+     "labelZh": "Airbus 官方：A321neo 機型頁",
+     "labelEn": "Airbus: A321neo page",
+     "url": "https://www.airbus.com/en/products-services/commercial-aircraft/passenger-aircraft/a320-family/a321neo"
+    },
+    {
+     "type": "flightradar24",
+     "labelZh": "Flightradar24：A21N 機型頁",
+     "labelEn": "Flightradar24: A21N aircraft page",
+     "url": "https://www.flightradar24.com/data/aircraft/a21n"
+    },
+    {
+     "type": "commons",
+     "labelZh": "Wikimedia Commons：本卡相片頁",
+     "labelEn": "Wikimedia Commons: this photo",
+     "url": "https://commons.wikimedia.org/wiki/File:Hamburg-Finkenwerder_Airport_Cathay_Pacific_Airbus_A321-251NX_B-HPJ_(DSC00523).jpg"
+    }
+   ],
+   "sourcesToCheck": [
+    {
+     "type": "wikipedia-en",
+     "labelZh": "英文維基：Airbus A320neo family",
+     "url": "https://en.wikipedia.org/wiki/Airbus_A320neo_family",
+     "status": "done"
+    },
+    {
+     "type": "wikipedia-zh",
+     "labelZh": "中文維基：空中巴士A320neo",
+     "url": "https://zh.wikipedia.org/wiki/空中巴士A320neo",
+     "status": "done"
+    },
+    {
+     "type": "manufacturer",
+     "labelZh": "Airbus 官方：A321neo 機型頁",
+     "url": "https://www.airbus.com/en/products-services/commercial-aircraft/passenger-aircraft/a320-family/a321neo",
+     "status": "done"
+    },
+    {
+     "type": "flightradar24",
+     "labelZh": "Flightradar24：A21N 機型頁",
+     "url": "https://www.flightradar24.com/data/aircraft/a21n",
+     "status": "done"
+    },
+    {
+     "type": "commons",
+     "labelZh": "Wikimedia Commons：本卡相片頁",
+     "url": "https://commons.wikimedia.org/wiki/File:Hamburg-Finkenwerder_Airport_Cathay_Pacific_Airbus_A321-251NX_B-HPJ_(DSC00523).jpg",
+     "status": "done"
+    }
+   ],
+   "checklist": {
+    "identity": "done",
+    "history": "done",
+    "specs": "done",
+    "recognition": "done",
+    "photo": "done",
+    "links": "done",
+    "bilingual": "done",
+    "quiz": "done"
+   },
+   "scout": null
+  },
+  {
+   "seq": "AC-0074",
+   "nameZh": "波音 737 MAX 8",
+   "nameEn": "Boeing 737 MAX 8",
+   "manufacturer": "Boeing",
+   "icao": "B38M",
+   "icaoCandidate": "B38M",
+   "category": "airliner",
+   "categoryLabel": {
+    "zh": "民航客機",
+    "en": "Airliner"
+   },
+   "tags": [
+    "narrowbody"
+   ],
+   "dataStatus": "verified",
+   "verifiedDate": "2026-11-09",
+   "specs": {
+    "length": {
+     "value": "39.52",
+     "unit": "m",
+     "noteZh": "全長",
+     "noteEn": "Overall length",
+     "source": "https://en.wikipedia.org/wiki/Boeing_737_MAX",
+     "variant": "737 MAX 8",
+     "verified": "2026-11-09"
+    },
+    "wingspan": {
+     "value": "35.92",
+     "unit": "m",
+     "noteZh": "翼展，連分叉翼尖",
+     "noteEn": "Wingspan with split-tip winglets",
+     "source": "https://en.wikipedia.org/wiki/Boeing_737_MAX",
+     "variant": "737 MAX 8",
+     "verified": "2026-11-09"
+    },
+    "height": {
+     "value": "12.29",
+     "unit": "m",
+     "noteZh": "全高",
+     "noteEn": "Overall height",
+     "source": "https://en.wikipedia.org/wiki/Boeing_737_MAX",
+     "variant": "737 MAX 8",
+     "verified": "2026-11-09"
+    },
+    "engines": {
+     "value": "2 × CFM LEAP-1B",
+     "unit": "",
+     "noteZh": "CFM International 渦輪扇引擎（737 專用版）",
+     "noteEn": "CFM International turbofans (737-dedicated version)",
+     "source": "https://en.wikipedia.org/wiki/Boeing_737_MAX",
+     "variant": "737 MAX 8",
+     "verified": "2026-11-09"
+    },
+    "seats": {
+     "value": "162–178",
+     "unit": "座",
+     "noteZh": "兩級艙典型（單級艙最多 210）",
+     "noteEn": "Typical two-class (up to 210 single-class)",
+     "source": "https://en.wikipedia.org/wiki/Boeing_737_MAX",
+     "variant": "737 MAX 8",
+     "verified": "2026-11-09"
+    },
+    "range": {
+     "value": "6,570",
+     "unit": "km",
+     "noteZh": "最大航程（3,550 海里）",
+     "noteEn": "Maximum range (3,550 nmi)",
+     "source": "https://en.wikipedia.org/wiki/Boeing_737_MAX",
+     "variant": "737 MAX 8",
+     "verified": "2026-11-09"
+    },
+    "cruise": {
+     "value": "Mach 0.79",
+     "unit": "",
+     "noteZh": "典型巡航",
+     "noteEn": "Typical cruise",
+     "source": "https://en.wikipedia.org/wiki/Boeing_737_MAX",
+     "variant": "737 MAX 8",
+     "verified": "2026-11-09"
+    }
+   },
+   "weft": {
+    "wings": {
+     "zh": "翼尖是上下分叉的「剪刀」小翼（AT winglet），是 MAX 一望即認的標記。",
+     "en": "Split 'scissor' winglets pointing up and down — the MAX's instant tell."
+    },
+    "engines": {
+     "zh": "LEAP-1B 引擎艙比 737NG 大，裝得更前更高，引擎艙尾緣有鋸齒（chevron）降噪。",
+     "en": "LEAP-1B nacelles are bigger than the 737NG's, mounted further forward and higher, with chevron exhaust lips."
+    },
+    "fuselage": {
+     "zh": "機身同 737-800 一樣長，但尾錐（APU 排氣）拉長收尖；起落架較短令機身離地較低。",
+     "en": "Same length as the 737-800, but with a longer, tapered tail cone; short gears keep the fuselage low."
+    },
+    "tail": {
+     "zh": "傳統尾翼，垂直尾翼根部有長延伸段（dorsal fillet 加長）。",
+     "en": "Conventional tail with an extended dorsal fillet at the fin root."
+    }
+   },
+   "recognitionEn": [
+    "Split 'scissor' winglets pointing up and down — the MAX's instant tell.",
+    "LEAP-1B nacelles are bigger than the 737NG's, mounted further forward and higher, with chevron exhaust lips.",
+    "Same length as the 737-800, but with a longer, tapered tail cone; short gears keep the fuselage low.",
+    "Conventional tail with an extended dorsal fillet at the fin root."
+   ],
+   "recognitionZh": [
+    "翼尖是上下分叉的「剪刀」小翼（AT winglet），是 MAX 一望即認的標記。",
+    "LEAP-1B 引擎艙比 737NG 大，裝得更前更高，引擎艙尾緣有鋸齒（chevron）降噪。",
+    "機身同 737-800 一樣長，但尾錐（APU 排氣）拉長收尖；起落架較短令機身離地較低。",
+    "傳統尾翼，垂直尾翼根部有長延伸段（dorsal fillet 加長）。"
+   ],
+   "similarEn": "Versus the previous 737-800 (card AC-0006): split winglets, bigger chevroned engines and the long tail cone split them. Versus the A321neo (card AC-0073): the Airbus is 5 m longer with a single upturned Sharklet instead of the split tip.",
+   "similarZh": "同上一代 737-800 比（本網 AC-0006 有卡）：MAX 的分叉翼尖、大引擎連鋸齒尾緣同長尾錐是三分法；唔睇翼尖好易撈亂。同對手 A321neo 比（本網 AC-0073）：A321neo 機身長 5 米、翼尖單片向上，MAX 就分叉。",
+   "introEn": "The fourth generation of the 737: bigger LEAP-1B engines and split winglets make the MAX 8 one of the world's most common narrowbodies, flown into Hong Kong by several foreign carriers.",
+   "introZh": "737 家族的第四代：換上更大的 LEAP-1B 引擎同分叉翼尖，MAX 8 是全球最常見的窄體客機之一，多間外航用它飛來香港。",
+   "variantNoteEn": "The 737 MAX family spans the -7/-8/-9/-10; this card uses the best-selling MAX 8 (the photo is a Southwest Airlines aircraft rotating). A high-density MAX 8200 also exists.",
+   "variantNoteZh": "737 MAX 家族有 -7／-8／-9／-10 四個型號，本卡以產量最大的 MAX 8 為代表；家族另有高密度版 MAX 8200。相片是美國西南航空的 MAX 8 起飛。",
+   "history": {
+    "firstFlight": "2016-01-29",
+    "enteredService": "2017",
+    "statusZh": "服役中（2019–2020 年曾因兩宗事故全球停飛，完成設計修改同重新認證後分階段復飛，現為全球窄體機隊主力之一）。",
+    "statusEn": "In service (grounded worldwide in 2019–2020 after two accidents; returned in phases after design changes and recertification, and again a global narrowbody mainstay).",
+    "source": "https://en.wikipedia.org/wiki/Boeing_737_MAX"
+   },
+   "photo": {
+    "filePage": "https://commons.wikimedia.org/wiki/File:N8739L_-_Boeing_737_MAX-8_-_Southwest_Airlines.jpg",
+    "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/75/N8739L_-_Boeing_737_MAX-8_-_Southwest_Airlines.jpg/960px-N8739L_-_Boeing_737_MAX-8_-_Southwest_Airlines.jpg",
+    "author": "Colin Brown",
+    "licence": "CC BY 2.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by/2.0/",
+    "creditZh": "相片：Colin Brown／Flickr 經 Wikimedia Commons（CC BY 2.0）· 西南航空 737 MAX 8（N8739L）在亞特蘭大起飛（2021 年；Commons 已移除原浮水印版本）",
+    "creditEn": "Photo: Colin Brown / Flickr via Wikimedia Commons (CC BY 2.0) · Southwest Airlines 737 MAX 8 (N8739L) departing Atlanta (2021; Commons hosts the watermark-removed version)",
+    "captionZh": "拉起一刻：分叉翼尖、大 LEAP 引擎同長尾錐齊晒。",
+    "captionEn": "Rotation: split winglets, big LEAP engines and the long tail cone.",
+    "annotations": [
+     {
+      "part": "fuselage",
+      "x": 45,
+      "y": 42,
+      "zh": "機身與長尾錐",
+      "en": "Fuselage and long tail cone"
+     },
+     {
+      "part": "engines",
+      "x": 58,
+      "y": 55,
+      "zh": "LEAP-1B 引擎",
+      "en": "LEAP-1B engine"
+     },
+     {
+      "part": "wings",
+      "x": 50,
+      "y": 50,
+      "zh": "分叉翼尖主翼",
+      "en": "Wing with split winglet"
+     },
+     {
+      "part": "tail",
+      "x": 12,
+      "y": 35,
+      "zh": "垂直尾翼",
+      "en": "Vertical tail"
+     }
+    ]
+   },
+   "deepLinks": [
+    {
+     "type": "wikipedia-en",
+     "labelZh": "英文維基：Boeing 737 MAX",
+     "labelEn": "English Wikipedia: Boeing 737 MAX",
+     "url": "https://en.wikipedia.org/wiki/Boeing_737_MAX"
+    },
+    {
+     "type": "wikipedia-zh",
+     "labelZh": "中文維基：波音737 MAX",
+     "labelEn": "Chinese Wikipedia: Boeing 737 MAX",
+     "url": "https://zh.wikipedia.org/wiki/波音737_MAX"
+    },
+    {
+     "type": "manufacturer",
+     "labelZh": "Boeing 官方：737 MAX 機型頁",
+     "labelEn": "Boeing: 737 MAX page",
+     "url": "https://www.boeing.com/commercial/737max"
+    },
+    {
+     "type": "flightradar24",
+     "labelZh": "Flightradar24：B38M 機型頁",
+     "labelEn": "Flightradar24: B38M aircraft page",
+     "url": "https://www.flightradar24.com/data/aircraft/b38m"
+    },
+    {
+     "type": "commons",
+     "labelZh": "Wikimedia Commons：本卡相片頁",
+     "labelEn": "Wikimedia Commons: this photo",
+     "url": "https://commons.wikimedia.org/wiki/File:N8739L_-_Boeing_737_MAX-8_-_Southwest_Airlines.jpg"
+    }
+   ],
+   "sourcesToCheck": [
+    {
+     "type": "wikipedia-en",
+     "labelZh": "英文維基：Boeing 737 MAX",
+     "url": "https://en.wikipedia.org/wiki/Boeing_737_MAX",
+     "status": "done"
+    },
+    {
+     "type": "wikipedia-zh",
+     "labelZh": "中文維基：波音737 MAX",
+     "url": "https://zh.wikipedia.org/wiki/波音737_MAX",
+     "status": "done"
+    },
+    {
+     "type": "manufacturer",
+     "labelZh": "Boeing 官方：737 MAX 機型頁",
+     "url": "https://www.boeing.com/commercial/737max",
+     "status": "done"
+    },
+    {
+     "type": "flightradar24",
+     "labelZh": "Flightradar24：B38M 機型頁",
+     "url": "https://www.flightradar24.com/data/aircraft/b38m",
+     "status": "done"
+    },
+    {
+     "type": "commons",
+     "labelZh": "Wikimedia Commons：本卡相片頁",
+     "url": "https://commons.wikimedia.org/wiki/File:N8739L_-_Boeing_737_MAX-8_-_Southwest_Airlines.jpg",
+     "status": "done"
+    }
+   ],
+   "checklist": {
+    "identity": "done",
+    "history": "done",
+    "specs": "done",
+    "recognition": "done",
+    "photo": "done",
+    "links": "done",
+    "bilingual": "done",
+    "quiz": "done"
+   },
+   "scout": null
+  },
+  {
+   "seq": "AC-0075",
+   "nameZh": "波音 787-10 夢幻客機",
+   "nameEn": "Boeing 787-10 Dreamliner",
+   "manufacturer": "Boeing",
+   "icao": "B78X",
+   "icaoCandidate": "B78X",
+   "category": "airliner",
+   "categoryLabel": {
+    "zh": "民航客機",
+    "en": "Airliner"
+   },
+   "tags": [
+    "widebody",
+    "long-haul"
+   ],
+   "dataStatus": "verified",
+   "verifiedDate": "2026-11-09",
+   "specs": {
+    "length": {
+     "value": "68.30",
+     "unit": "m",
+     "noteZh": "全長（787 家族最長）",
+     "noteEn": "Overall length (longest Dreamliner)",
+     "source": "https://en.wikipedia.org/wiki/Boeing_787_Dreamliner",
+     "variant": "787-10",
+     "verified": "2026-11-09"
+    },
+    "wingspan": {
+     "value": "60.12",
+     "unit": "m",
+     "noteZh": "翼展，連後掠翼尖",
+     "noteEn": "Wingspan with raked wingtips",
+     "source": "https://en.wikipedia.org/wiki/Boeing_787_Dreamliner",
+     "variant": "787-10",
+     "verified": "2026-11-09"
+    },
+    "height": {
+     "value": "17.02",
+     "unit": "m",
+     "noteZh": "全高",
+     "noteEn": "Overall height",
+     "source": "https://en.wikipedia.org/wiki/Boeing_787_Dreamliner",
+     "variant": "787-10",
+     "verified": "2026-11-09"
+    },
+    "engines": {
+     "value": "2 × GEnx-1B 或 Rolls-Royce Trent 1000",
+     "unit": "",
+     "noteZh": "兩款渦輪扇引擎任選其一",
+     "noteEn": "Choice of two turbofan types",
+     "source": "https://en.wikipedia.org/wiki/Boeing_787_Dreamliner",
+     "variant": "787-10",
+     "verified": "2026-11-09"
+    },
+    "seats": {
+     "value": "330",
+     "unit": "座",
+     "noteZh": "兩級艙典型（最多 440）",
+     "noteEn": "Typical two-class (up to 440)",
+     "source": "https://en.wikipedia.org/wiki/Boeing_787_Dreamliner",
+     "variant": "787-10",
+     "verified": "2026-11-09"
+    },
+    "range": {
+     "value": "11,910",
+     "unit": "km",
+     "noteZh": "最大航程（6,430 海里；家族中最短，換取載客量）",
+     "noteEn": "Maximum range (6,430 nmi; shortest of the family, traded for seats)",
+     "source": "https://en.wikipedia.org/wiki/Boeing_787_Dreamliner",
+     "variant": "787-10",
+     "verified": "2026-11-09"
+    },
+    "cruise": {
+     "value": "Mach 0.85",
+     "unit": "",
+     "noteZh": "典型巡航",
+     "noteEn": "Typical cruise",
+     "source": "https://en.wikipedia.org/wiki/Boeing_787_Dreamliner",
+     "variant": "787-10",
+     "verified": "2026-11-09"
+    }
+   },
+   "weft": {
+    "wings": {
+     "zh": "主翼翼尖向後斜削（raked wingtip）而非小翼，是 787 家族的一致標記。",
+     "en": "Raked, swept-back wingtips instead of winglets — a family-wide Dreamliner mark."
+    },
+    "engines": {
+     "zh": "引擎艙尾緣有波浪鋸齒（chevron）降噪，艙體短而粗。",
+     "en": "Short, fat nacelles with chevron exhaust lips for noise reduction."
+    },
+    "fuselage": {
+     "zh": "機身特別長，窗戶比一般客機大而且可調光；機鼻線條圓滑下垂。",
+     "en": "Extra-long fuselage with oversized dimmable windows and a smooth, drooped nose."
+    },
+    "tail": {
+     "zh": "傳統尾翼，尾錐末端有 APU 排氣；垂直尾翼前緣弧線修長。",
+     "en": "Conventional tail with APU exhaust in the tail cone and a long curved fin leading edge."
+    }
+   },
+   "recognitionEn": [
+    "Raked, swept-back wingtips instead of winglets — a family-wide Dreamliner mark.",
+    "Short, fat nacelles with chevron exhaust lips for noise reduction.",
+    "Extra-long fuselage with oversized dimmable windows and a smooth, drooped nose.",
+    "Conventional tail with APU exhaust in the tail cone and a long curved fin leading edge."
+   ],
+   "recognitionZh": [
+    "主翼翼尖向後斜削（raked wingtip）而非小翼，是 787 家族的一致標記。",
+    "引擎艙尾緣有波浪鋸齒（chevron）降噪，艙體短而粗。",
+    "機身特別長，窗戶比一般客機大而且可調光；機鼻線條圓滑下垂。",
+    "傳統尾翼，尾錐末端有 APU 排氣；垂直尾翼前緣弧線修長。"
+   ],
+   "similarEn": "Versus the 787-9 (card AC-0004): 5.5 m longer, about 40 more seats, 2,200 km less range — judge by window-line length. Versus the A350-1000 (card AC-0072): curved winglets and a cockpit mask there; raked tips and no mask here.",
+   "similarZh": "同自家 787-9 比（本網 AC-0004 有卡）：-10 長 5.5 米、多載約 40 人但航程短約 2,200 公里，外觀要靠數窗長度分辨。同 A350-1000 比（本網 AC-0072）：A350 翼尖上彎、787 是斜削翼尖；A350 有駕駛艙黑面罩，787 沒有。",
+   "introEn": "The biggest Dreamliner: composite fuselage, huge windows and a quiet cabin; Singapore Airlines, EVA Air and others fly the 787-10 on medium- and long-haul routes, including to Hong Kong.",
+   "introZh": "夢幻客機家族的大哥：787-10 以複合材料機身、大窗同寧靜客艙見長，新加坡航空、長榮等用它飛中長途，在香港機場不難見到。",
+   "variantNoteEn": "The longest Dreamliner (about 5.5 m over the -9), trading range for seats; figures are for the -10. The photo is a Singapore Airlines 787-10 (9V-SCC) — SIA was the launch operator and flies the type to Hong Kong.",
+   "variantNoteZh": "787 家族最長的一員（比 -9 長約 5.5 米），用載客量換航程；本卡數字為 -10 型。相片是新加坡航空的 787-10（9V-SCC）——新航是全球首家營運商，亦有飛香港。",
+   "history": {
+    "firstFlight": "2017-03-31",
+    "enteredService": "2018",
+    "statusZh": "服役中（新加坡航空 2018 年首航；用戶包括全日空、長榮、聯合、英航等，主攻高需求中長途航線）。",
+    "statusEn": "In service (launched by Singapore Airlines in 2018; operators include ANA, EVA Air, United and British Airways on busy medium/long-haul routes).",
+    "source": "https://en.wikipedia.org/wiki/Boeing_787_Dreamliner"
+   },
+   "photo": {
+    "filePage": "https://commons.wikimedia.org/wiki/File:Singapore_Airlines_(9V-SCC)_Boeing_787-10_Dreamliner_landing_at_Sydney_Airport_(3).jpg",
+    "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e4/Singapore_Airlines_%289V-SCC%29_Boeing_787-10_Dreamliner_landing_at_Sydney_Airport_%283%29.jpg/960px-Singapore_Airlines_%289V-SCC%29_Boeing_787-10_Dreamliner_landing_at_Sydney_Airport_%283%29.jpg",
+    "author": "Bidgee",
+    "licence": "CC BY-SA 3.0 AU",
+    "licenceUrl": "https://creativecommons.org/licenses/by-sa/3.0/au/",
+    "creditZh": "相片：Bidgee／Wikimedia Commons（CC BY-SA 3.0 AU）· 新加坡航空 787-10（9V-SCC）降落悉尼機場（2020 年）",
+    "creditEn": "Photo: Bidgee / Wikimedia Commons (CC BY-SA 3.0 AU) · Singapore Airlines 787-10 (9V-SCC) landing at Sydney Airport (2020)",
+    "captionZh": "新航 787-10 降落：斜削翼尖、鋸齒引擎艙同特長機身。",
+    "captionEn": "An SIA 787-10 landing: raked tips, chevron nacelles and the long stretch.",
+    "annotations": [
+     {
+      "part": "fuselage",
+      "x": 60,
+      "y": 45,
+      "zh": "特長機身與大窗",
+      "en": "Long fuselage, big windows"
+     },
+     {
+      "part": "engines",
+      "x": 48,
+      "y": 58,
+      "zh": "鋸齒尾緣引擎艙",
+      "en": "Chevron-lipped nacelle"
+     },
+     {
+      "part": "wings",
+      "x": 42,
+      "y": 55,
+      "zh": "斜削翼尖主翼",
+      "en": "Wing with raked tip"
+     },
+     {
+      "part": "tail",
+      "x": 15,
+      "y": 38,
+      "zh": "垂直尾翼",
+      "en": "Vertical tail"
+     }
+    ]
+   },
+   "deepLinks": [
+    {
+     "type": "wikipedia-en",
+     "labelZh": "英文維基：Boeing 787 Dreamliner",
+     "labelEn": "English Wikipedia: Boeing 787 Dreamliner",
+     "url": "https://en.wikipedia.org/wiki/Boeing_787_Dreamliner"
+    },
+    {
+     "type": "wikipedia-zh",
+     "labelZh": "中文維基：波音787",
+     "labelEn": "Chinese Wikipedia: Boeing 787",
+     "url": "https://zh.wikipedia.org/wiki/波音787"
+    },
+    {
+     "type": "manufacturer",
+     "labelZh": "Boeing 官方：787 機型頁",
+     "labelEn": "Boeing: 787 page",
+     "url": "https://www.boeing.com/commercial/787"
+    },
+    {
+     "type": "flightradar24",
+     "labelZh": "Flightradar24：B78X 機型頁",
+     "labelEn": "Flightradar24: B78X aircraft page",
+     "url": "https://www.flightradar24.com/data/aircraft/b78x"
+    },
+    {
+     "type": "commons",
+     "labelZh": "Wikimedia Commons：本卡相片頁",
+     "labelEn": "Wikimedia Commons: this photo",
+     "url": "https://commons.wikimedia.org/wiki/File:Singapore_Airlines_(9V-SCC)_Boeing_787-10_Dreamliner_landing_at_Sydney_Airport_(3).jpg"
+    }
+   ],
+   "sourcesToCheck": [
+    {
+     "type": "wikipedia-en",
+     "labelZh": "英文維基：Boeing 787 Dreamliner",
+     "url": "https://en.wikipedia.org/wiki/Boeing_787_Dreamliner",
+     "status": "done"
+    },
+    {
+     "type": "wikipedia-zh",
+     "labelZh": "中文維基：波音787",
+     "url": "https://zh.wikipedia.org/wiki/波音787",
+     "status": "done"
+    },
+    {
+     "type": "manufacturer",
+     "labelZh": "Boeing 官方：787 機型頁",
+     "url": "https://www.boeing.com/commercial/787",
+     "status": "done"
+    },
+    {
+     "type": "flightradar24",
+     "labelZh": "Flightradar24：B78X 機型頁",
+     "url": "https://www.flightradar24.com/data/aircraft/b78x",
+     "status": "done"
+    },
+    {
+     "type": "commons",
+     "labelZh": "Wikimedia Commons：本卡相片頁",
+     "url": "https://commons.wikimedia.org/wiki/File:Singapore_Airlines_(9V-SCC)_Boeing_787-10_Dreamliner_landing_at_Sydney_Airport_(3).jpg",
+     "status": "done"
+    }
+   ],
+   "checklist": {
+    "identity": "done",
+    "history": "done",
+    "specs": "done",
+    "recognition": "done",
+    "photo": "done",
+    "links": "done",
+    "bilingual": "done",
+    "quiz": "done"
+   },
+   "scout": null
+  },
+  {
+   "seq": "AC-0076",
+   "nameZh": "空中巴士 A330-900",
+   "nameEn": "Airbus A330-900",
+   "manufacturer": "Airbus",
+   "icao": "A339",
+   "icaoCandidate": "A339",
+   "category": "airliner",
+   "categoryLabel": {
+    "zh": "民航客機",
+    "en": "Airliner"
+   },
+   "tags": [
+    "widebody"
+   ],
+   "dataStatus": "verified",
+   "verifiedDate": "2026-11-09",
+   "specs": {
+    "length": {
+     "value": "63.66",
+     "unit": "m",
+     "noteZh": "全長（沿用 A330-300 機身）",
+     "noteEn": "Overall length (A330-300 fuselage)",
+     "source": "https://en.wikipedia.org/wiki/Airbus_A330neo",
+     "variant": "A330-900",
+     "verified": "2026-11-09"
+    },
+    "wingspan": {
+     "value": "64.00",
+     "unit": "m",
+     "noteZh": "翼展，連新款大彎翼尖",
+     "noteEn": "Wingspan with new curved Sharklets",
+     "source": "https://en.wikipedia.org/wiki/Airbus_A330neo",
+     "variant": "A330-900",
+     "verified": "2026-11-09"
+    },
+    "height": {
+     "value": "16.79",
+     "unit": "m",
+     "noteZh": "全高",
+     "noteEn": "Overall height",
+     "source": "https://en.wikipedia.org/wiki/Airbus_A330neo",
+     "variant": "A330-900",
+     "verified": "2026-11-09"
+    },
+    "engines": {
+     "value": "2 × Rolls-Royce Trent 7000",
+     "unit": "",
+     "noteZh": "勞斯萊斯渦輪扇引擎（A330neo 專用）",
+     "noteEn": "Rolls-Royce turbofans (exclusive to the A330neo)",
+     "source": "https://en.wikipedia.org/wiki/Airbus_A330neo",
+     "variant": "A330-900",
+     "verified": "2026-11-09"
+    },
+    "seats": {
+     "value": "260–300",
+     "unit": "座",
+     "noteZh": "三級艙典型（最多 460）",
+     "noteEn": "Typical three-class (up to 460)",
+     "source": "https://en.wikipedia.org/wiki/Airbus_A330neo",
+     "variant": "A330-900",
+     "verified": "2026-11-09"
+    },
+    "range": {
+     "value": "13,334",
+     "unit": "km",
+     "noteZh": "最大航程（7,200 海里）",
+     "noteEn": "Maximum range (7,200 nmi)",
+     "source": "https://en.wikipedia.org/wiki/Airbus_A330neo",
+     "variant": "A330-900",
+     "verified": "2026-11-09"
+    },
+    "cruise": {
+     "value": "Mach 0.82",
+     "unit": "",
+     "noteZh": "典型巡航",
+     "noteEn": "Typical cruise",
+     "source": "https://en.wikipedia.org/wiki/Airbus_A330neo",
+     "variant": "A330-900",
+     "verified": "2026-11-09"
+    }
+   },
+   "weft": {
+    "wings": {
+     "zh": "主翼比舊 A330 長，翼尖是大弧度上彎的新鯊鰭，比舊款小翼高得多。",
+     "en": "Longer wing than the old A330 with tall, sweeping new Sharklets."
+    },
+    "engines": {
+     "zh": "Trent 7000 引擎艙比舊款 Trent 700 大一圈，風扇直徑約 2.85 米。",
+     "en": "Trent 7000 nacelles are a size up from the old Trent 700, with a fan of about 2.85 m."
+    },
+    "fuselage": {
+     "zh": "機身沿用 A330-300，但駕駛艙窗外加了黑色面罩描邊——同舊 A330 分辨最快的一招。",
+     "en": "The A330-300 fuselage, but with a black cockpit-window mask — the quickest split from the older A330."
+    },
+    "tail": {
+     "zh": "尾翼沿用 A330 設計，垂直尾翼形狀不變。",
+     "en": "Tail carried over from the A330, fin shape unchanged."
+    }
+   },
+   "recognitionEn": [
+    "Longer wing than the old A330 with tall, sweeping new Sharklets.",
+    "Trent 7000 nacelles are a size up from the old Trent 700, with a fan of about 2.85 m.",
+    "The A330-300 fuselage, but with a black cockpit-window mask — the quickest split from the older A330.",
+    "Tail carried over from the A330, fin shape unchanged."
+   ],
+   "recognitionZh": [
+    "主翼比舊 A330 長，翼尖是大弧度上彎的新鯊鰭，比舊款小翼高得多。",
+    "Trent 7000 引擎艙比舊款 Trent 700 大一圈，風扇直徑約 2.85 米。",
+    "機身沿用 A330-300，但駕駛艙窗外加了黑色面罩描邊——同舊 A330 分辨最快的一招。",
+    "尾翼沿用 A330 設計，垂直尾翼形狀不變。"
+   ],
+   "similarEn": "Versus the older A330-300 (card AC-0049): the neo adds the cockpit mask, tall curved Sharklets and bigger engines. Versus the A350-900 (card AC-0001): both wear masks, but the A330neo is shorter with a lower-set wing and different winglet curve.",
+   "similarZh": "同舊款 A330-300 比（本網 AC-0049 有卡）：neo 有黑面罩窗框、大彎翼尖同大一號引擎；舊款翼尖小翼矮而且窗框冇黑邊。同 A350-900 比（本網 AC-0001）：兩者都有黑面罩，但 A330neo 機身較短、翼尖弧度不同，而且主翼位置較低。",
+   "introEn": "The A330's efficiency makeover: new Trent 7000 engines and winglets make the A330-900 a low-cost long-hauler and one of the fastest-growing widebodies, occasionally seen in Hong Kong with foreign carriers.",
+   "introZh": "A330 的節能新裝版：換上 Trent 7000 大引擎同新翼尖，A330-900 以低成本飛長途，是全球增長最快的廣體機之一，偶爾亦有外航飛來香港。",
+   "variantNoteEn": "The A330neo family has -800 and -900 models; this card uses the mainline -900 (A330-941). The photo is an Air Senegal A330-941 (operated by Hi Fly Malta) departing on delivery.",
+   "variantNoteZh": "A330neo 家族有 -800 與 -900 兩型，本卡以主力的 -900（A330-941）為代表。相片是塞內加爾航空的 A330-941 交機起飛（由 Hi Fly Malta 營運）。",
+   "history": {
+    "firstFlight": "2017-10-19",
+    "enteredService": "2018",
+    "statusZh": "服役中並持續交付（首家用戶 TAP 葡萄牙航空 2018 年投產；用戶包括達美、ITA、印尼鷹航等）。",
+    "statusEn": "In service with deliveries continuing (launched by TAP Air Portugal in 2018; operators include Delta, ITA Airways and Garuda Indonesia).",
+    "source": "https://en.wikipedia.org/wiki/Airbus_A330neo"
+   },
+   "photo": {
+    "filePage": "https://commons.wikimedia.org/wiki/File:Air_Senegal,_9H-SZN,_Airbus_A330-941_(46715789445).jpg",
+    "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/82/Air_Senegal%2C_9H-SZN%2C_Airbus_A330-941_%2846715789445%29.jpg/960px-Air_Senegal%2C_9H-SZN%2C_Airbus_A330-941_%2846715789445%29.jpg",
+    "author": "Anna Zvereva",
+    "licence": "CC BY-SA 2.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+    "creditZh": "相片：Anna Zvereva／Flickr 經 Wikimedia Commons（CC BY-SA 2.0）· 塞內加爾航空 A330-941（9H-SZN）起飛（2019 年）",
+    "creditEn": "Photo: Anna Zvereva / Flickr via Wikimedia Commons (CC BY-SA 2.0) · Air Senegal A330-941 (9H-SZN) departing (2019)",
+    "captionZh": "A330-900 拉起：黑面罩窗框、新大彎翼尖同 Trent 7000 大引擎。",
+    "captionEn": "An A330-900 rotating: cockpit mask, tall Sharklets and big Trent 7000s.",
+    "annotations": [
+     {
+      "part": "fuselage",
+      "x": 48,
+      "y": 42,
+      "zh": "機身與黑面罩窗框",
+      "en": "Fuselage and cockpit mask"
+     },
+     {
+      "part": "engines",
+      "x": 58,
+      "y": 52,
+      "zh": "Trent 7000 引擎",
+      "en": "Trent 7000 engine"
+     },
+     {
+      "part": "wings",
+      "x": 62,
+      "y": 48,
+      "zh": "新款大彎翼尖",
+      "en": "New curved Sharklet wing"
+     },
+     {
+      "part": "tail",
+      "x": 12,
+      "y": 40,
+      "zh": "垂直尾翼",
+      "en": "Vertical tail"
+     }
+    ]
+   },
+   "deepLinks": [
+    {
+     "type": "wikipedia-en",
+     "labelZh": "英文維基：Airbus A330neo",
+     "labelEn": "English Wikipedia: Airbus A330neo",
+     "url": "https://en.wikipedia.org/wiki/Airbus_A330neo"
+    },
+    {
+     "type": "wikipedia-zh",
+     "labelZh": "中文維基：空中巴士A330neo",
+     "labelEn": "Chinese Wikipedia: Airbus A330neo",
+     "url": "https://zh.wikipedia.org/wiki/空中巴士A330neo"
+    },
+    {
+     "type": "manufacturer",
+     "labelZh": "Airbus 官方：A330neo 機型頁",
+     "labelEn": "Airbus: A330neo page",
+     "url": "https://www.airbus.com/en/products-services/commercial-aircraft/passenger-aircraft/a330-family/a330neo"
+    },
+    {
+     "type": "flightradar24",
+     "labelZh": "Flightradar24：A339 機型頁",
+     "labelEn": "Flightradar24: A339 aircraft page",
+     "url": "https://www.flightradar24.com/data/aircraft/a339"
+    },
+    {
+     "type": "commons",
+     "labelZh": "Wikimedia Commons：本卡相片頁",
+     "labelEn": "Wikimedia Commons: this photo",
+     "url": "https://commons.wikimedia.org/wiki/File:Air_Senegal,_9H-SZN,_Airbus_A330-941_(46715789445).jpg"
+    }
+   ],
+   "sourcesToCheck": [
+    {
+     "type": "wikipedia-en",
+     "labelZh": "英文維基：Airbus A330neo",
+     "url": "https://en.wikipedia.org/wiki/Airbus_A330neo",
+     "status": "done"
+    },
+    {
+     "type": "wikipedia-zh",
+     "labelZh": "中文維基：空中巴士A330neo",
+     "url": "https://zh.wikipedia.org/wiki/空中巴士A330neo",
+     "status": "done"
+    },
+    {
+     "type": "manufacturer",
+     "labelZh": "Airbus 官方：A330neo 機型頁",
+     "url": "https://www.airbus.com/en/products-services/commercial-aircraft/passenger-aircraft/a330-family/a330neo",
+     "status": "done"
+    },
+    {
+     "type": "flightradar24",
+     "labelZh": "Flightradar24：A339 機型頁",
+     "url": "https://www.flightradar24.com/data/aircraft/a339",
+     "status": "done"
+    },
+    {
+     "type": "commons",
+     "labelZh": "Wikimedia Commons：本卡相片頁",
+     "url": "https://commons.wikimedia.org/wiki/File:Air_Senegal,_9H-SZN,_Airbus_A330-941_(46715789445).jpg",
+     "status": "done"
+    }
+   ],
+   "checklist": {
+    "identity": "done",
+    "history": "done",
+    "specs": "done",
+    "recognition": "done",
+    "photo": "done",
+    "links": "done",
+    "bilingual": "done",
+    "quiz": "done"
+   },
+   "scout": null
+  },
+  {
+   "seq": "AC-0077",
+   "nameZh": "空中巴士 A220-300",
+   "nameEn": "Airbus A220-300",
+   "manufacturer": "Airbus",
+   "icao": "BCS3",
+   "icaoCandidate": "BCS3",
+   "category": "airliner",
+   "categoryLabel": {
+    "zh": "民航客機",
+    "en": "Airliner"
+   },
+   "tags": [
+    "narrowbody"
+   ],
+   "dataStatus": "verified",
+   "verifiedDate": "2026-11-09",
+   "specs": {
+    "length": {
+     "value": "38.71",
+     "unit": "m",
+     "noteZh": "全長",
+     "noteEn": "Overall length",
+     "source": "https://en.wikipedia.org/wiki/Airbus_A220",
+     "variant": "A220-300",
+     "verified": "2026-11-09"
+    },
+    "wingspan": {
+     "value": "35.10",
+     "unit": "m",
+     "noteZh": "翼展，連上彎小翼",
+     "noteEn": "Wingspan with winglets",
+     "source": "https://en.wikipedia.org/wiki/Airbus_A220",
+     "variant": "A220-300",
+     "verified": "2026-11-09"
+    },
+    "height": {
+     "value": "11.50",
+     "unit": "m",
+     "noteZh": "全高",
+     "noteEn": "Overall height",
+     "source": "https://en.wikipedia.org/wiki/Airbus_A220",
+     "variant": "A220-300",
+     "verified": "2026-11-09"
+    },
+    "engines": {
+     "value": "2 × P&W PW1500G",
+     "unit": "",
+     "noteZh": "普惠齒輪渦輪扇引擎",
+     "noteEn": "Pratt & Whitney geared turbofans",
+     "source": "https://en.wikipedia.org/wiki/Airbus_A220",
+     "variant": "A220-300",
+     "verified": "2026-11-09"
+    },
+    "seats": {
+     "value": "130–160",
+     "unit": "座",
+     "noteZh": "2-3 佈局；典型 130–145 座",
+     "noteEn": "2-3 layout; typically 130–145 seats",
+     "source": "https://en.wikipedia.org/wiki/Airbus_A220",
+     "variant": "A220-300",
+     "verified": "2026-11-09"
+    },
+    "range": {
+     "value": "6,112",
+     "unit": "km",
+     "noteZh": "航程（ICAO Doc 8643 約 3,300 海里；後期高重量版更遠）",
+     "noteEn": "Range (about 3,300 nmi per ICAO Doc 8643; later high-weight versions go further)",
+     "source": "https://en.wikipedia.org/wiki/Airbus_A220",
+     "variant": "A220-300",
+     "verified": "2026-11-09"
+    },
+    "cruise": {
+     "value": "Mach 0.82",
+     "unit": "",
+     "noteZh": "最高巡航（典型 Mach 0.78）",
+     "noteEn": "Maximum cruise (Mach 0.78 typical)",
+     "source": "https://en.wikipedia.org/wiki/Airbus_A220",
+     "variant": "A220-300",
+     "verified": "2026-11-09"
+    }
+   },
+   "weft": {
+    "wings": {
+     "zh": "主翼修長，翼尖小翼向上微彎；翼下引擎位置偏前。",
+     "en": "Slender wing with small upturned winglets; engines sit well forward."
+    },
+    "engines": {
+     "zh": "PW1500G 齒輪扇引擎艙短粗，風扇直徑約 1.85 米，在這尺寸的客機中算大。",
+     "en": "Short, fat PW1500G geared-fan nacelles — big fans for this size of jet."
+    },
+    "fuselage": {
+     "zh": "機身比 A320 窄，駕駛艙窗是弧形大窗，最後一塊窗呈淚滴形收尾，是 A220 的小標記。",
+     "en": "Narrower than an A320, with curved cockpit windows ending in a teardrop pane — an A220 signature."
+    },
+    "tail": {
+     "zh": "傳統尾翼，垂直尾翼後掠角度明顯，尾錐裝 APU 排氣。",
+     "en": "Conventional, noticeably swept tail with APU exhaust in the cone."
+    }
+   },
+   "recognitionEn": [
+    "Slender wing with small upturned winglets; engines sit well forward.",
+    "Short, fat PW1500G geared-fan nacelles — big fans for this size of jet.",
+    "Narrower than an A320, with curved cockpit windows ending in a teardrop pane — an A220 signature.",
+    "Conventional, noticeably swept tail with APU exhaust in the cone."
+   ],
+   "recognitionZh": [
+    "主翼修長，翼尖小翼向上微彎；翼下引擎位置偏前。",
+    "PW1500G 齒輪扇引擎艙短粗，風扇直徑約 1.85 米，在這尺寸的客機中算大。",
+    "機身比 A320 窄，駕駛艙窗是弧形大窗，最後一塊窗呈淚滴形收尾，是 A220 的小標記。",
+    "傳統尾翼，垂直尾翼後掠角度明顯，尾錐裝 APU 排氣。"
+   ],
+   "similarEn": "Versus the E195-E2 (card AC-0079): near-identical size — split them by the A220's bigger windows and teardrop cockpit pane. Versus the A320neo (card AC-0003): the A220 is a size smaller with similar range.",
+   "similarZh": "同對手 E195-E2 比（本網 AC-0079 有卡）：兩者尺寸接近，A220 的窗更大、機身直徑略闊（2-3 佈局一樣），靠駕駛艙淚滴窗同翼形分辨。同自家 A320neo 比（本網 AC-0003）：A220 細一級、載客少約 30 人，但航程相近。",
+   "introEn": "A clean-sheet design for the 100–160 seat market: big windows, wide seats in a 2-3 layout with only one middle seat per row, and frugal geared fans — the A220-300 is the fastest-growing small mainline jet.",
+   "introZh": "為 100–160 座市場全新設計的窄體機：大窗、闊座位（2-3 佈局冇「中間位」之苦）同慳油齒輪扇引擎，A220-300 是近年全球增長最快的小型幹線客機。",
+   "variantNoteEn": "Born as Canada's Bombardier CS300 (BD-500) and renamed when Airbus took over in 2018; this card uses the larger -300 (a shorter -100 exists). The photo is a QantasLink A220-300 landing at Canberra.",
+   "variantNoteZh": "前身是加拿大龐巴迪 CS300（BD-500），2018 年由空中巴士接手改名 A220；本卡以較大的 -300 型為代表（家族另有 -100 型）。相片是澳洲航空旗下 QantasLink 的 A220-300 降落坎培拉。",
+   "history": {
+    "firstFlight": "2015-02-27",
+    "enteredService": "2016",
+    "statusZh": "服役中並持續交付（2016 年以 CS300 之名由 airBaltic 首航；用戶包括達美、法航、JetBlue 等，訂單持續增加）。",
+    "statusEn": "In service with deliveries continuing (entered service as the CS300 with airBaltic in 2016; operators include Delta, Air France and JetBlue).",
+    "source": "https://en.wikipedia.org/wiki/Airbus_A220"
+   },
+   "photo": {
+    "filePage": "https://commons.wikimedia.org/wiki/File:QantasLink,_operated_by_National_Jet_Systems,_(VH-X4B)_Airbus_A220-300_landing_at_Canberra_Airport.jpg",
+    "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1c/QantasLink%2C_operated_by_National_Jet_Systems%2C_%28VH-X4B%29_Airbus_A220-300_landing_at_Canberra_Airport.jpg/960px-QantasLink%2C_operated_by_National_Jet_Systems%2C_%28VH-X4B%29_Airbus_A220-300_landing_at_Canberra_Airport.jpg",
+    "author": "Bidgee",
+    "licence": "CC BY-SA 3.0 AU",
+    "licenceUrl": "https://creativecommons.org/licenses/by-sa/3.0/au/",
+    "creditZh": "相片：Bidgee／Wikimedia Commons（CC BY-SA 3.0 AU）· QantasLink A220-300（VH-X4B）降落坎培拉機場（2024 年）",
+    "creditEn": "Photo: Bidgee / Wikimedia Commons (CC BY-SA 3.0 AU) · QantasLink A220-300 (VH-X4B) landing at Canberra Airport (2024)",
+    "captionZh": "QantasLink 的 A220-300 降落：淚滴形尾窗、大窗排同短粗引擎艙。",
+    "captionEn": "A QantasLink A220-300 landing: teardrop cockpit pane, big windows, stubby nacelles.",
+    "annotations": [
+     {
+      "part": "fuselage",
+      "x": 45,
+      "y": 42,
+      "zh": "機身與大窗排",
+      "en": "Fuselage and big windows"
+     },
+     {
+      "part": "engines",
+      "x": 42,
+      "y": 58,
+      "zh": "PW1500G 齒輪扇引擎",
+      "en": "PW1500G geared fan"
+     },
+     {
+      "part": "wings",
+      "x": 55,
+      "y": 55,
+      "zh": "修長主翼",
+      "en": "Slender wing"
+     },
+     {
+      "part": "tail",
+      "x": 85,
+      "y": 35,
+      "zh": "垂直尾翼",
+      "en": "Vertical tail"
+     }
+    ]
+   },
+   "deepLinks": [
+    {
+     "type": "wikipedia-en",
+     "labelZh": "英文維基：Airbus A220",
+     "labelEn": "English Wikipedia: Airbus A220",
+     "url": "https://en.wikipedia.org/wiki/Airbus_A220"
+    },
+    {
+     "type": "wikipedia-zh",
+     "labelZh": "中文維基：空中巴士A220",
+     "labelEn": "Chinese Wikipedia: Airbus A220",
+     "url": "https://zh.wikipedia.org/wiki/空中巴士A220"
+    },
+    {
+     "type": "manufacturer",
+     "labelZh": "Airbus 官方：A220 機型頁",
+     "labelEn": "Airbus: A220 page",
+     "url": "https://www.airbus.com/en/products-services/commercial-aircraft/passenger-aircraft/a220-family"
+    },
+    {
+     "type": "flightradar24",
+     "labelZh": "Flightradar24：BCS3 機型頁",
+     "labelEn": "Flightradar24: BCS3 aircraft page",
+     "url": "https://www.flightradar24.com/data/aircraft/bcs3"
+    },
+    {
+     "type": "commons",
+     "labelZh": "Wikimedia Commons：本卡相片頁",
+     "labelEn": "Wikimedia Commons: this photo",
+     "url": "https://commons.wikimedia.org/wiki/File:QantasLink,_operated_by_National_Jet_Systems,_(VH-X4B)_Airbus_A220-300_landing_at_Canberra_Airport.jpg"
+    }
+   ],
+   "sourcesToCheck": [
+    {
+     "type": "wikipedia-en",
+     "labelZh": "英文維基：Airbus A220",
+     "url": "https://en.wikipedia.org/wiki/Airbus_A220",
+     "status": "done"
+    },
+    {
+     "type": "wikipedia-zh",
+     "labelZh": "中文維基：空中巴士A220",
+     "url": "https://zh.wikipedia.org/wiki/空中巴士A220",
+     "status": "done"
+    },
+    {
+     "type": "manufacturer",
+     "labelZh": "Airbus 官方：A220 機型頁",
+     "url": "https://www.airbus.com/en/products-services/commercial-aircraft/passenger-aircraft/a220-family",
+     "status": "done"
+    },
+    {
+     "type": "flightradar24",
+     "labelZh": "Flightradar24：BCS3 機型頁",
+     "url": "https://www.flightradar24.com/data/aircraft/bcs3",
+     "status": "done"
+    },
+    {
+     "type": "commons",
+     "labelZh": "Wikimedia Commons：本卡相片頁",
+     "url": "https://commons.wikimedia.org/wiki/File:QantasLink,_operated_by_National_Jet_Systems,_(VH-X4B)_Airbus_A220-300_landing_at_Canberra_Airport.jpg",
+     "status": "done"
+    }
+   ],
+   "checklist": {
+    "identity": "done",
+    "history": "done",
+    "specs": "done",
+    "recognition": "done",
+    "photo": "done",
+    "links": "done",
+    "bilingual": "done",
+    "quiz": "done"
+   },
+   "scout": null
+  },
+  {
+   "seq": "AC-0078",
+   "nameZh": "中國商飛 C919",
+   "nameEn": "COMAC C919",
+   "manufacturer": "COMAC 中國商飛",
+   "icao": "C919",
+   "icaoCandidate": "C919",
+   "category": "airliner",
+   "categoryLabel": {
+    "zh": "民航客機",
+    "en": "Airliner"
+   },
+   "tags": [
+    "narrowbody"
+   ],
+   "dataStatus": "verified",
+   "verifiedDate": "2026-11-09",
+   "specs": {
+    "length": {
+     "value": "38.90",
+     "unit": "m",
+     "noteZh": "全長",
+     "noteEn": "Overall length",
+     "source": "https://en.wikipedia.org/wiki/Comac_C919",
+     "variant": "C919",
+     "verified": "2026-11-09"
+    },
+    "wingspan": {
+     "value": "35.80",
+     "unit": "m",
+     "noteZh": "翼展，連上翹翼尖",
+     "noteEn": "Wingspan with upturned winglets",
+     "source": "https://en.wikipedia.org/wiki/Comac_C919",
+     "variant": "C919",
+     "verified": "2026-11-09"
+    },
+    "height": {
+     "value": "11.95",
+     "unit": "m",
+     "noteZh": "全高",
+     "noteEn": "Overall height",
+     "source": "https://en.wikipedia.org/wiki/Comac_C919",
+     "variant": "C919",
+     "verified": "2026-11-09"
+    },
+    "engines": {
+     "value": "2 × CFM LEAP-1C",
+     "unit": "",
+     "noteZh": "CFM International 渦輪扇引擎（與 A320neo／737 MAX 同家族）",
+     "noteEn": "CFM International turbofans (same family as the A320neo/737 MAX engines)",
+     "source": "https://en.wikipedia.org/wiki/Comac_C919",
+     "variant": "C919",
+     "verified": "2026-11-09"
+    },
+    "seats": {
+     "value": "158–192",
+     "unit": "座",
+     "noteZh": "視佈局（東航兩級艙 164 座）",
+     "noteEn": "Depending on layout (China Eastern two-class: 164)",
+     "source": "https://en.wikipedia.org/wiki/Comac_C919",
+     "variant": "C919",
+     "verified": "2026-11-09"
+    },
+    "range": {
+     "value": "4,075",
+     "unit": "km",
+     "noteZh": "基本型航程；增程型 ER 約 5,555 公里",
+     "noteEn": "Baseline range; the ER version reaches about 5,555 km",
+     "source": "https://en.wikipedia.org/wiki/Comac_C919",
+     "variant": "C919",
+     "verified": "2026-11-09"
+    },
+    "cruise": {
+     "value": "Mach 0.785",
+     "unit": "",
+     "noteZh": "典型巡航",
+     "noteEn": "Typical cruise",
+     "source": "https://en.wikipedia.org/wiki/Comac_C919",
+     "variant": "C919",
+     "verified": "2026-11-09"
+    }
+   },
+   "weft": {
+    "wings": {
+     "zh": "主翼翼尖向上翹起的小翼，形狀介乎 A320neo 鯊鰭同 737 MAX 分叉之間，要配合其他特徵分辨。",
+     "en": "Upturned winglets somewhere between the A320neo's Sharklet and the MAX's split tip — use other cues too."
+    },
+    "engines": {
+     "zh": "LEAP-1C 引擎艙與 A320neo 的 LEAP-1A 幾乎同款（同家族），單靠引擎分唔到，要睇機身。",
+     "en": "LEAP-1C nacelles are near-identical to the A320neo's LEAP-1A (same family) — engines alone won't split them."
+    },
+    "fuselage": {
+     "zh": "駕駛艙用四片式風擋（側窗弧線特別圓），機鼻線條比 A320 圓潤；機身直徑與 A320 相近。",
+     "en": "Four-piece cockpit glazing with a distinctly curved side pane and a rounder nose than the A320; similar fuselage width."
+    },
+    "tail": {
+     "zh": "傳統尾翼，垂直尾翼根部延伸段較短，尾錐收尾與 A320neo 唔同角度。",
+     "en": "Conventional tail with a shorter fin-root fillet and a differently angled tail cone from the A320neo."
+    }
+   },
+   "recognitionEn": [
+    "Upturned winglets somewhere between the A320neo's Sharklet and the MAX's split tip — use other cues too.",
+    "LEAP-1C nacelles are near-identical to the A320neo's LEAP-1A (same family) — engines alone won't split them.",
+    "Four-piece cockpit glazing with a distinctly curved side pane and a rounder nose than the A320; similar fuselage width.",
+    "Conventional tail with a shorter fin-root fillet and a differently angled tail cone from the A320neo."
+   ],
+   "recognitionZh": [
+    "主翼翼尖向上翹起的小翼，形狀介乎 A320neo 鯊鰭同 737 MAX 分叉之間，要配合其他特徵分辨。",
+    "LEAP-1C 引擎艙與 A320neo 的 LEAP-1A 幾乎同款（同家族），單靠引擎分唔到，要睇機身。",
+    "駕駛艙用四片式風擋（側窗弧線特別圓），機鼻線條比 A320 圓潤；機身直徑與 A320 相近。",
+    "傳統尾翼，垂直尾翼根部延伸段較短，尾錐收尾與 A320neo 唔同角度。"
+   ],
+   "similarEn": "Versus the A320neo (card AC-0003): near-identical size and engines — the curved four-piece cockpit glazing and rounder nose are the reliable tells, and the C919's winglets are shorter. Versus the 737 MAX 8 (card AC-0074): the MAX has split winglets and sits lower.",
+   "similarZh": "同 A320neo 比（本網 AC-0003 有卡）：兩者大小、引擎幾乎一樣，最可靠是睇駕駛艙四片風擋的弧形側窗同機鼻弧度；C919 的翼尖小翼亦較短。同 737 MAX 8 比（本網 AC-0074）：MAX 翼尖分叉、機身較矮，C919 兩樣都唔同。",
+   "introEn": "One with a special Hong Kong connection: the C919's first trip outside the mainland in December 2023 was to Hong Kong, including a low flypast over Victoria Harbour; since 2025 China Eastern has flown it on scheduled Shanghai–Hong Kong services.",
+   "introZh": "香港讀者特別有共鳴的一款：C919 在 2023 年 12 月首次飛出內地就係嚟香港，仲在維港上空低飛展示；2025 年起東航更用它執飛上海虹橋—香港定期航班，在香港機場已經見得到真身。",
+   "variantNoteEn": "China's first mainline narrowbody built to international standards; figures are for the baseline aircraft (an ER version exists). The photo is China Eastern's first C919 (B-919A) landing at Beijing Capital.",
+   "variantNoteZh": "中國第一款按國際標準研製的幹線窄體客機；本卡數字為基本型（另有增程型 ER）。相片是中國東方航空首架 C919（B-919A）在北京首都機場降落。",
+   "history": {
+    "firstFlight": "2017-05-05",
+    "enteredService": "2023-05-28",
+    "statusZh": "服役中並持續交付（中國東方航空 2023 年首航；國航、南航等陸續接收，主要飛中國國內幹線，東航以 C919 飛上海—香港定期航班）。",
+    "statusEn": "In service with deliveries continuing (China Eastern launched it in May 2023; Air China and China Southern followed; mainly Chinese trunk routes, plus China Eastern's scheduled C919 service between Shanghai and Hong Kong).",
+    "source": "https://en.wikipedia.org/wiki/Comac_C919"
+   },
+   "photo": {
+    "filePage": "https://commons.wikimedia.org/wiki/File:B-919A@PEK_(20221226151718).jpg",
+    "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/30/B-919A%40PEK_%2820221226151718%29.jpg/960px-B-919A%40PEK_%2820221226151718%29.jpg",
+    "author": "N509FZ",
+    "licence": "CC BY-SA 4.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "creditZh": "相片：N509FZ／Wikimedia Commons（CC BY-SA 4.0）· 中國東方航空 C919（B-919A）降落北京首都機場（2022 年驗證飛行）",
+    "creditEn": "Photo: N509FZ / Wikimedia Commons (CC BY-SA 4.0) · China Eastern C919 (B-919A) landing at Beijing Capital (2022 validation flight)",
+    "captionZh": "首架量產 C919 落地：四片式風擋同圓潤機鼻是認佢的關鍵。",
+    "captionEn": "The first production C919 landing: four-piece glazing and the rounded nose are the keys.",
+    "annotations": [
+     {
+      "part": "fuselage",
+      "x": 42,
+      "y": 48,
+      "zh": "機身與四片式風擋",
+      "en": "Fuselage and four-piece glazing"
+     },
+     {
+      "part": "engines",
+      "x": 48,
+      "y": 58,
+      "zh": "LEAP-1C 引擎",
+      "en": "LEAP-1C engine"
+     },
+     {
+      "part": "wings",
+      "x": 62,
+      "y": 45,
+      "zh": "上翹翼尖主翼",
+      "en": "Wing with upturned winglet"
+     },
+     {
+      "part": "tail",
+      "x": 88,
+      "y": 40,
+      "zh": "垂直尾翼",
+      "en": "Vertical tail"
+     }
+    ]
+   },
+   "deepLinks": [
+    {
+     "type": "wikipedia-en",
+     "labelZh": "英文維基：Comac C919",
+     "labelEn": "English Wikipedia: Comac C919",
+     "url": "https://en.wikipedia.org/wiki/Comac_C919"
+    },
+    {
+     "type": "wikipedia-zh",
+     "labelZh": "中文維基：中國商飛C919",
+     "labelEn": "Chinese Wikipedia: COMAC C919",
+     "url": "https://zh.wikipedia.org/wiki/中國商飛C919"
+    },
+    {
+     "type": "manufacturer",
+     "labelZh": "中國商飛官方：C919 機型頁",
+     "labelEn": "COMAC: C919 page",
+     "url": "https://www.comac.cc/cpyzr/c919/"
+    },
+    {
+     "type": "flightradar24",
+     "labelZh": "Flightradar24：C919 機型頁",
+     "labelEn": "Flightradar24: C919 aircraft page",
+     "url": "https://www.flightradar24.com/data/aircraft/c919"
+    },
+    {
+     "type": "commons",
+     "labelZh": "Wikimedia Commons：本卡相片頁",
+     "labelEn": "Wikimedia Commons: this photo",
+     "url": "https://commons.wikimedia.org/wiki/File:B-919A@PEK_(20221226151718).jpg"
+    }
+   ],
+   "sourcesToCheck": [
+    {
+     "type": "wikipedia-en",
+     "labelZh": "英文維基：Comac C919",
+     "url": "https://en.wikipedia.org/wiki/Comac_C919",
+     "status": "done"
+    },
+    {
+     "type": "wikipedia-zh",
+     "labelZh": "中文維基：中國商飛C919",
+     "url": "https://zh.wikipedia.org/wiki/中國商飛C919",
+     "status": "done"
+    },
+    {
+     "type": "manufacturer",
+     "labelZh": "中國商飛官方：C919 機型頁",
+     "url": "https://www.comac.cc/cpyzr/c919/",
+     "status": "done"
+    },
+    {
+     "type": "flightradar24",
+     "labelZh": "Flightradar24：C919 機型頁",
+     "url": "https://www.flightradar24.com/data/aircraft/c919",
+     "status": "done"
+    },
+    {
+     "type": "commons",
+     "labelZh": "Wikimedia Commons：本卡相片頁",
+     "url": "https://commons.wikimedia.org/wiki/File:B-919A@PEK_(20221226151718).jpg",
+     "status": "done"
+    }
+   ],
+   "checklist": {
+    "identity": "done",
+    "history": "done",
+    "specs": "done",
+    "recognition": "done",
+    "photo": "done",
+    "links": "done",
+    "bilingual": "done",
+    "quiz": "done"
+   },
+   "scout": null
+  },
+  {
+   "seq": "AC-0079",
+   "nameZh": "巴西航空工業 E195-E2",
+   "nameEn": "Embraer E195-E2",
+   "manufacturer": "Embraer",
+   "icao": "E295",
+   "icaoCandidate": "E295",
+   "category": "regional-light",
+   "categoryLabel": {
+    "zh": "支線及輕型飛機",
+    "en": "Regional & Light"
+   },
+   "tags": [
+    "regional-jet"
+   ],
+   "dataStatus": "verified",
+   "verifiedDate": "2026-11-09",
+   "specs": {
+    "length": {
+     "value": "41.50",
+     "unit": "m",
+     "noteZh": "全長（E2 家族最長）",
+     "noteEn": "Overall length (longest E2)",
+     "source": "https://en.wikipedia.org/wiki/Embraer_E-Jet_E2_family",
+     "variant": "E195-E2",
+     "verified": "2026-11-09"
+    },
+    "wingspan": {
+     "value": "35.10",
+     "unit": "m",
+     "noteZh": "翼展，連後掠翼尖",
+     "noteEn": "Wingspan with raked wingtips",
+     "source": "https://en.wikipedia.org/wiki/Embraer_E-Jet_E2_family",
+     "variant": "E195-E2",
+     "verified": "2026-11-09"
+    },
+    "height": {
+     "value": "10.90",
+     "unit": "m",
+     "noteZh": "全高",
+     "noteEn": "Overall height",
+     "source": "https://en.wikipedia.org/wiki/Embraer_E-Jet_E2_family",
+     "variant": "E195-E2",
+     "verified": "2026-11-09"
+    },
+    "engines": {
+     "value": "2 × P&W PW1900G",
+     "unit": "",
+     "noteZh": "普惠齒輪渦輪扇引擎",
+     "noteEn": "Pratt & Whitney geared turbofans",
+     "source": "https://en.wikipedia.org/wiki/Embraer_E-Jet_E2_family",
+     "variant": "E195-E2",
+     "verified": "2026-11-09"
+    },
+    "seats": {
+     "value": "120–146",
+     "unit": "座",
+     "noteZh": "視佈局（典型 132 座）",
+     "noteEn": "Depending on layout (typically 132)",
+     "source": "https://en.wikipedia.org/wiki/Embraer_E-Jet_E2_family",
+     "variant": "E195-E2",
+     "verified": "2026-11-09"
+    },
+    "range": {
+     "value": "4,815",
+     "unit": "km",
+     "noteZh": "最大航程（2,600 海里，廠方與 ICAO Doc 8643 數字）",
+     "noteEn": "Maximum range (2,600 nmi, manufacturer/ICAO Doc 8643 figure)",
+     "source": "https://en.wikipedia.org/wiki/Embraer_E-Jet_E2_family",
+     "variant": "E195-E2",
+     "verified": "2026-11-09"
+    },
+    "cruise": {
+     "value": "Mach 0.82",
+     "unit": "",
+     "noteZh": "最高巡航",
+     "noteEn": "Maximum cruise",
+     "source": "https://en.wikipedia.org/wiki/Embraer_E-Jet_E2_family",
+     "variant": "E195-E2",
+     "verified": "2026-11-09"
+    }
+   },
+   "weft": {
+    "wings": {
+     "zh": "全新主翼比上一代長，翼尖向後斜削（raked），沒有大彎小翼。",
+     "en": "A new, longer wing with raked tips and no tall winglet."
+    },
+    "engines": {
+     "zh": "PW1900G 齒輪扇引擎艙比 E190 的 CF34 大一圈，艙體短粗。",
+     "en": "PW1900G nacelles are a size up from the E190's CF34s — short and fat."
+    },
+    "fuselage": {
+     "zh": "機身是 E-Jet 家族最長的，窗排密而長；2-2 座位佈局冇中間位。",
+     "en": "The longest E-Jet fuselage with a dense, long window line; 2-2 seating means no middle seats."
+    },
+    "tail": {
+     "zh": "傳統尾翼，尾錐比 E190 修長。",
+     "en": "Conventional tail with a slimmer tail cone than the E190's."
+    }
+   },
+   "recognitionEn": [
+    "A new, longer wing with raked tips and no tall winglet.",
+    "PW1900G nacelles are a size up from the E190's CF34s — short and fat.",
+    "The longest E-Jet fuselage with a dense, long window line; 2-2 seating means no middle seats.",
+    "Conventional tail with a slimmer tail cone than the E190's."
+   ],
+   "recognitionZh": [
+    "全新主翼比上一代長，翼尖向後斜削（raked），沒有大彎小翼。",
+    "PW1900G 齒輪扇引擎艙比 E190 的 CF34 大一圈，艙體短粗。",
+    "機身是 E-Jet 家族最長的，窗排密而長；2-2 座位佈局冇中間位。",
+    "傳統尾翼，尾錐比 E190 修長。"
+   ],
+   "similarEn": "Versus the E190 (card AC-0013): about 5 m longer, over 6 m more span, visibly bigger engines and raked tips. Versus the A220-300 (card AC-0077): similar size — the A220 has bigger windows and the teardrop cockpit pane; the E2's windows are smaller and denser.",
+   "similarZh": "同上一代 E190 比（本網 AC-0013 有卡）：E195-E2 長約 5 米、翼展大 6 米有多、引擎明顯大一號，翼尖斜削而非小翼。同對手 A220-300 比（本網 AC-0077）：大小接近，A220 窗更大、駕駛艙尾窗呈淚滴形，E195-E2 的窗較細密。",
+   "introEn": "Embraer's second-generation E-Jet: a new wing and geared fans give the E195-E2 mainline efficiency at 130-seat size — a new mainstay of European and South American regional networks.",
+   "introZh": "巴西航空工業的第二代 E-Jet：新翼、新齒輪扇引擎，E195-E2 以 130 座級的尺寸飛出幹線機的效率，是歐洲同南美支線網絡的新主力。",
+   "variantNoteEn": "The largest E-Jet E2 (ERJ 190-400); the family also has the E190-E2 and E175-E2. Figures are for the E195-E2. The photo is a KLM Cityhopper aircraft landing at Berlin.",
+   "variantNoteZh": "E-Jet E2 家族最大的一員（ERJ 190-400）；家族另有 E190-E2 與 E175-E2。本卡數字為 E195-E2。相片是荷蘭皇家城市短途航空（KLM Cityhopper）的 E195-E2 降落柏林。",
+   "history": {
+    "firstFlight": "2017-03-29",
+    "enteredService": "2019",
+    "statusZh": "服役中並持續交付（巴西 Azul 航空 2019 年首航；用戶包括 KLM Cityhopper、Porter、Helvetic 等）。",
+    "statusEn": "In service with deliveries continuing (launched by Brazil's Azul in 2019; operators include KLM Cityhopper, Porter and Helvetic).",
+    "source": "https://en.wikipedia.org/wiki/Embraer_E-Jet_E2_family"
+   },
+   "photo": {
+    "filePage": "https://commons.wikimedia.org/wiki/File:Berlin_Brandenburg_Airport_KLM_Cityhopper_Embraer_E195-E2_PH-NXC_(DSC02878).jpg",
+    "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c6/Berlin_Brandenburg_Airport_KLM_Cityhopper_Embraer_E195-E2_PH-NXC_%28DSC02878%29.jpg/960px-Berlin_Brandenburg_Airport_KLM_Cityhopper_Embraer_E195-E2_PH-NXC_%28DSC02878%29.jpg",
+    "author": "MarcelX42",
+    "licence": "CC BY-SA 4.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "creditZh": "相片：MarcelX42／Wikimedia Commons（CC BY-SA 4.0）· KLM Cityhopper E195-E2（PH-NXC）降落柏林布蘭登堡機場（2022 年）",
+    "creditEn": "Photo: MarcelX42 / Wikimedia Commons (CC BY-SA 4.0) · KLM Cityhopper E195-E2 (PH-NXC) landing at Berlin Brandenburg (2022)",
+    "captionZh": "KLM 的 E195-E2 進場：斜削翼尖、大齒輪扇引擎同密窗排。",
+    "captionEn": "A KLM E195-E2 on approach: raked wingtips and big geared fans.",
+    "annotations": [
+     {
+      "part": "fuselage",
+      "x": 45,
+      "y": 48,
+      "zh": "家族最長機身",
+      "en": "Longest E-Jet fuselage"
+     },
+     {
+      "part": "engines",
+      "x": 38,
+      "y": 62,
+      "zh": "PW1900G 齒輪扇引擎",
+      "en": "PW1900G geared fan"
+     },
+     {
+      "part": "wings",
+      "x": 55,
+      "y": 52,
+      "zh": "斜削翼尖主翼",
+      "en": "Wing with raked tip"
+     },
+     {
+      "part": "tail",
+      "x": 90,
+      "y": 42,
+      "zh": "垂直尾翼",
+      "en": "Vertical tail"
+     }
+    ]
+   },
+   "deepLinks": [
+    {
+     "type": "wikipedia-en",
+     "labelZh": "英文維基：Embraer E-Jet E2 family",
+     "labelEn": "English Wikipedia: Embraer E-Jet E2 family",
+     "url": "https://en.wikipedia.org/wiki/Embraer_E-Jet_E2_family"
+    },
+    {
+     "type": "manufacturer",
+     "labelZh": "Embraer 官方：E195-E2 機型頁",
+     "labelEn": "Embraer: E195-E2 page",
+     "url": "https://www.embraer.com/commercial-aviation/e195-e2"
+    },
+    {
+     "type": "flightradar24",
+     "labelZh": "Flightradar24：E295 機型頁",
+     "labelEn": "Flightradar24: E295 aircraft page",
+     "url": "https://www.flightradar24.com/data/aircraft/e295"
+    },
+    {
+     "type": "commons",
+     "labelZh": "Wikimedia Commons：本卡相片頁",
+     "labelEn": "Wikimedia Commons: this photo",
+     "url": "https://commons.wikimedia.org/wiki/File:Berlin_Brandenburg_Airport_KLM_Cityhopper_Embraer_E195-E2_PH-NXC_(DSC02878).jpg"
+    }
+   ],
+   "sourcesToCheck": [
+    {
+     "type": "wikipedia-en",
+     "labelZh": "英文維基：Embraer E-Jet E2 family",
+     "url": "https://en.wikipedia.org/wiki/Embraer_E-Jet_E2_family",
+     "status": "done"
+    },
+    {
+     "type": "manufacturer",
+     "labelZh": "Embraer 官方：E195-E2 機型頁",
+     "url": "https://www.embraer.com/commercial-aviation/e195-e2",
+     "status": "done"
+    },
+    {
+     "type": "flightradar24",
+     "labelZh": "Flightradar24：E295 機型頁",
+     "url": "https://www.flightradar24.com/data/aircraft/e295",
+     "status": "done"
+    },
+    {
+     "type": "commons",
+     "labelZh": "Wikimedia Commons：本卡相片頁",
+     "url": "https://commons.wikimedia.org/wiki/File:Berlin_Brandenburg_Airport_KLM_Cityhopper_Embraer_E195-E2_PH-NXC_(DSC02878).jpg",
+     "status": "done"
+    }
+   ],
+   "checklist": {
+    "identity": "done",
+    "history": "done",
+    "specs": "done",
+    "recognition": "done",
+    "photo": "done",
+    "links": "done",
+    "bilingual": "done",
+    "quiz": "done"
+   },
+   "scout": null
+  },
+  {
+   "seq": "AC-0080",
+   "nameZh": "空中巴士直升機 H125",
+   "nameEn": "Airbus Helicopters H125",
+   "manufacturer": "Airbus Helicopters",
+   "icao": "AS50",
+   "icaoCandidate": "AS50",
+   "category": "helicopter",
+   "categoryLabel": {
+    "zh": "直升機",
+    "en": "Helicopter"
+   },
+   "tags": [
+    "light-helicopter"
+   ],
+   "dataStatus": "verified",
+   "verifiedDate": "2026-11-09",
+   "specs": {
+    "length": {
+     "value": "12.94",
+     "unit": "m",
+     "noteZh": "旋翼轉動時全長（機身 10.93 米）",
+     "noteEn": "Overall length, rotors turning (fuselage 10.93 m)",
+     "source": "https://en.wikipedia.org/wiki/Eurocopter_AS350_%C3%89cureuil",
+     "variant": "H125",
+     "verified": "2026-11-09"
+    },
+    "rotorDiameter": {
+     "value": "10.69",
+     "unit": "m",
+     "noteZh": "主旋翼直徑（三葉 Starflex 旋翼頭）",
+     "noteEn": "Main rotor diameter (three-blade Starflex head)",
+     "source": "https://en.wikipedia.org/wiki/Eurocopter_AS350_%C3%89cureuil",
+     "variant": "H125",
+     "verified": "2026-11-09"
+    },
+    "height": {
+     "value": "3.14",
+     "unit": "m",
+     "noteZh": "全高",
+     "noteEn": "Overall height",
+     "source": "https://en.wikipedia.org/wiki/Eurocopter_AS350_%C3%89cureuil",
+     "variant": "H125",
+     "verified": "2026-11-09"
+    },
+    "engines": {
+     "value": "1 × Safran Arriel 2D",
+     "unit": "",
+     "noteZh": "單台渦輪軸引擎（B3e 型）",
+     "noteEn": "Single turboshaft (B3e version)",
+     "source": "https://en.wikipedia.org/wiki/Eurocopter_AS350_%C3%89cureuil",
+     "variant": "H125",
+     "verified": "2026-11-09"
+    },
+    "seats": {
+     "value": "6",
+     "unit": "座",
+     "noteZh": "機師 1 名＋乘客最多 5 名",
+     "noteEn": "One pilot plus up to five passengers",
+     "source": "https://en.wikipedia.org/wiki/Eurocopter_AS350_%C3%89cureuil",
+     "variant": "H125",
+     "verified": "2026-11-09"
+    },
+    "range": {
+     "value": "630",
+     "unit": "km",
+     "noteZh": "最大航程（無後備燃油）",
+     "noteEn": "Maximum range (no reserves)",
+     "source": "https://en.wikipedia.org/wiki/Eurocopter_AS350_%C3%89cureuil",
+     "variant": "H125",
+     "verified": "2026-11-09"
+    },
+    "cruise": {
+     "value": "246",
+     "unit": "km/h",
+     "noteZh": "巡航速度（約 133 節）",
+     "noteEn": "Cruise speed (about 133 kt)",
+     "source": "https://en.wikipedia.org/wiki/Eurocopter_AS350_%C3%89cureuil",
+     "variant": "H125",
+     "verified": "2026-11-09"
+    }
+   },
+   "weft": {
+    "wings": {
+     "zh": "三葉主旋翼，旋翼頭是星形柔性 Starflex 設計，沒有傳統鉸鏈外露。",
+     "en": "Three-blade main rotor on a Starflex head with no exposed hinges."
+    },
+    "engines": {
+     "zh": "單台 Arriel 引擎裝在座艙後上方，排氣口在機身上方側面；只有一台引擎是同 H145 等雙引擎機的最大分別。",
+     "en": "One Arriel on top behind the cabin — a single engine is the big split from twins like the H145."
+    },
+    "fuselage": {
+     "zh": "機身短圓，大面積弧形風擋；固定滑橇起落架，是輕型通用直升機的經典樣。",
+     "en": "Short, round fuselage with a big curved windscreen and fixed skids — the classic light utility shape."
+    },
+    "tail": {
+     "zh": "尾槳是傳統兩葉開放式，裝在垂直尾翼右側；尾翼下方有水平安定面。",
+     "en": "Conventional two-blade open tail rotor on the fin, with a tailplane below."
+    }
+   },
+   "recognitionEn": [
+    "Three-blade main rotor on a Starflex head with no exposed hinges.",
+    "One Arriel on top behind the cabin — a single engine is the big split from twins like the H145.",
+    "Short, round fuselage with a big curved windscreen and fixed skids — the classic light utility shape.",
+    "Conventional two-blade open tail rotor on the fin, with a tailplane below."
+   ],
+   "recognitionZh": [
+    "三葉主旋翼，旋翼頭是星形柔性 Starflex 設計，沒有傳統鉸鏈外露。",
+    "單台 Arriel 引擎裝在座艙後上方，排氣口在機身上方側面；只有一台引擎是同 H145 等雙引擎機的最大分別。",
+    "機身短圓，大面積弧形風擋；固定滑橇起落架，是輕型通用直升機的經典樣。",
+    "尾槳是傳統兩葉開放式，裝在垂直尾翼右側；尾翼下方有水平安定面。"
+   ],
+   "similarEn": "Versus the H135 (card AC-0019): twin engines and a fenestron there; one engine and an open tail rotor here — check the tail. Versus the Bell 407 (card AC-0018): four blades and a sleeker body there; three blades and rounder here.",
+   "similarZh": "同自家 H135 比（本網 AC-0019 有卡）：H135 是雙引擎加涵道尾槳（fenestron），H125 單引擎加開放尾槳，一睇尾部就分到。同 Bell 407 比（本網 AC-0018）：407 是四葉旋翼、機身較修長；H125 三葉旋翼、機身較圓。",
+   "introEn": "One of the world's best-selling light helicopters: the single-engine, skid-geared H125 (AS350 Squirrel) even landed on the summit of Everest in 2005 — it does everything from mountain rescue to lifting work over Hong Kong.",
+   "introZh": "全球賣得最好的輕型直升機之一：H125（AS350 松鼠）單引擎、滑橇起落架，2005 年更創下在珠穆朗瑪峰頂降落的世界紀錄——由山區救援到香港上空的觀光吊運都見到佢。",
+   "variantNoteEn": "Born as the 1970s Aérospatiale AS350 Écureuil ('Squirrel') and renamed H125 in 2015; this card uses today's H125 (AS350 B3e). Hong Kong helicopter operators also fly the AS350/H125 family. The photo is an LAPD aircraft.",
+   "variantNoteZh": "前身是 1970 年代的 Aérospatiale AS350 松鼠（Écureuil），2015 年改名 H125；本卡以現行 H125（AS350 B3e）為代表。香港的直升機營運商亦有 AS350／H125 系列在飛。相片是洛杉磯警局的 H125。",
+   "history": {
+    "firstFlight": "1974-06-27",
+    "enteredService": "1975",
+    "statusZh": "服役中並持續生產（AS350 家族累計交付逾 7,000 架，遍布警務、救援、吊運同觀光；2015 年起以 H125 之名銷售）。",
+    "statusEn": "In production and worldwide service (over 7,000 of the AS350 family delivered for police, rescue, lifting and touring work; sold as the H125 since 2015).",
+    "source": "https://en.wikipedia.org/wiki/Eurocopter_AS350_%C3%89cureuil"
+   },
+   "photo": {
+    "filePage": "https://commons.wikimedia.org/wiki/File:Airbus_H125_-_Los_Angeles_Police_Department_Air_Support_(cropped).jpg",
+    "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a8/Airbus_H125_-_Los_Angeles_Police_Department_Air_Support_%28cropped%29.jpg/960px-Airbus_H125_-_Los_Angeles_Police_Department_Air_Support_%28cropped%29.jpg",
+    "author": "Colin Sheridan (U.S. Navy)",
+    "licence": "Public domain",
+    "licenceUrl": "https://en.wikipedia.org/wiki/Public_domain",
+    "creditZh": "相片：Colin Sheridan／美國海軍經 Wikimedia Commons（公共領域）· 洛杉磯警局 H125 空中支援機（2022 年）",
+    "creditEn": "Photo: Colin Sheridan / U.S. Navy via Wikimedia Commons (public domain) · LAPD Air Support H125 (2022)",
+    "captionZh": "警用 H125 飛行中：三葉旋翼、滑橇同單引擎短圓機身。",
+    "captionEn": "A police H125 airborne: three-blade rotor, skids and a single engine.",
+    "annotations": [
+     {
+      "part": "wings",
+      "x": 50,
+      "y": 15,
+      "zh": "三葉主旋翼",
+      "en": "Three-blade main rotor"
+     },
+     {
+      "part": "engines",
+      "x": 62,
+      "y": 42,
+      "zh": "Arriel 引擎（座艙後上方）",
+      "en": "Arriel engine (behind cabin)"
+     },
+     {
+      "part": "fuselage",
+      "x": 45,
+      "y": 50,
+      "zh": "短圓機身與滑橇",
+      "en": "Round fuselage and skids"
+     },
+     {
+      "part": "tail",
+      "x": 88,
+      "y": 55,
+      "zh": "開放式尾槳",
+      "en": "Open tail rotor"
+     }
+    ]
+   },
+   "deepLinks": [
+    {
+     "type": "wikipedia-en",
+     "labelZh": "英文維基：Eurocopter AS350 Écureuil",
+     "labelEn": "English Wikipedia: AS350 Écureuil",
+     "url": "https://en.wikipedia.org/wiki/Eurocopter_AS350_%C3%89cureuil"
+    },
+    {
+     "type": "manufacturer",
+     "labelZh": "Airbus 官方：H125 機型頁",
+     "labelEn": "Airbus: H125 page",
+     "url": "https://www.airbus.com/en/products-services/helicopters/civil-helicopters/h125"
+    },
+    {
+     "type": "icao",
+     "labelZh": "ICAO Doc 8643 經 doc8643.com：AS50 代碼頁",
+     "labelEn": "ICAO Doc 8643 via doc8643.com: AS50",
+     "url": "https://doc8643.com/aircraft/AS50"
+    },
+    {
+     "type": "commons",
+     "labelZh": "Wikimedia Commons：本卡相片頁",
+     "labelEn": "Wikimedia Commons: this photo",
+     "url": "https://commons.wikimedia.org/wiki/File:Airbus_H125_-_Los_Angeles_Police_Department_Air_Support_(cropped).jpg"
+    }
+   ],
+   "sourcesToCheck": [
+    {
+     "type": "wikipedia-en",
+     "labelZh": "英文維基：Eurocopter AS350 Écureuil",
+     "url": "https://en.wikipedia.org/wiki/Eurocopter_AS350_%C3%89cureuil",
+     "status": "done"
+    },
+    {
+     "type": "manufacturer",
+     "labelZh": "Airbus 官方：H125 機型頁",
+     "url": "https://www.airbus.com/en/products-services/helicopters/civil-helicopters/h125",
+     "status": "done"
+    },
+    {
+     "type": "icao",
+     "labelZh": "ICAO Doc 8643 經 doc8643.com：AS50 代碼頁",
+     "url": "https://doc8643.com/aircraft/AS50",
+     "status": "done"
+    },
+    {
+     "type": "commons",
+     "labelZh": "Wikimedia Commons：本卡相片頁",
+     "url": "https://commons.wikimedia.org/wiki/File:Airbus_H125_-_Los_Angeles_Police_Department_Air_Support_(cropped).jpg",
+     "status": "done"
+    }
+   ],
+   "checklist": {
+    "identity": "done",
+    "history": "done",
+    "specs": "done",
+    "recognition": "done",
+    "photo": "done",
+    "links": "done",
+    "bilingual": "done",
+    "quiz": "done"
+   },
+   "scout": null
+  },
+  {
+   "seq": "AC-0081",
+   "nameZh": "空中巴士直升機 H145",
+   "nameEn": "Airbus Helicopters H145",
+   "manufacturer": "Airbus Helicopters",
+   "icao": "EC45",
+   "icaoCandidate": "EC45",
+   "category": "helicopter",
+   "categoryLabel": {
+    "zh": "直升機",
+    "en": "Helicopter"
+   },
+   "tags": [
+    "light-helicopter"
+   ],
+   "dataStatus": "verified",
+   "verifiedDate": "2026-11-09",
+   "specs": {
+    "length": {
+     "value": "13.03",
+     "unit": "m",
+     "noteZh": "旋翼轉動時全長",
+     "noteEn": "Overall length, rotors turning",
+     "source": "https://en.wikipedia.org/wiki/Eurocopter_EC145",
+     "variant": "H145",
+     "verified": "2026-11-09"
+    },
+    "rotorDiameter": {
+     "value": "11.00",
+     "unit": "m",
+     "noteZh": "主旋翼直徑（D-2 四葉；D-3 五葉）",
+     "noteEn": "Main rotor diameter (four blades on D-2; five on D-3)",
+     "source": "https://en.wikipedia.org/wiki/Eurocopter_EC145",
+     "variant": "H145",
+     "verified": "2026-11-09"
+    },
+    "height": {
+     "value": "3.45",
+     "unit": "m",
+     "noteZh": "全高",
+     "noteEn": "Overall height",
+     "source": "https://en.wikipedia.org/wiki/Eurocopter_EC145",
+     "variant": "H145",
+     "verified": "2026-11-09"
+    },
+    "engines": {
+     "value": "2 × Safran Arriel 2E",
+     "unit": "",
+     "noteZh": "兩台渦輪軸引擎（EC145 早期型為 Arriel 1E2）",
+     "noteEn": "Two turboshafts (early EC145s had Arriel 1E2)",
+     "source": "https://en.wikipedia.org/wiki/Eurocopter_EC145",
+     "variant": "H145",
+     "verified": "2026-11-09"
+    },
+    "seats": {
+     "value": "9",
+     "unit": "座",
+     "noteZh": "乘客最多 9 名（加機師 1–2 名）；救護佈局載擔架 2–4 張",
+     "noteEn": "Up to nine passengers plus one or two pilots; air-ambulance layouts carry two to four stretchers",
+     "source": "https://en.wikipedia.org/wiki/Eurocopter_EC145",
+     "variant": "H145",
+     "verified": "2026-11-09"
+    },
+    "range": {
+     "value": "680",
+     "unit": "km",
+     "noteZh": "最大航程",
+     "noteEn": "Maximum range",
+     "source": "https://en.wikipedia.org/wiki/Eurocopter_EC145",
+     "variant": "H145",
+     "verified": "2026-11-09"
+    },
+    "cruise": {
+     "value": "248",
+     "unit": "km/h",
+     "noteZh": "最高巡航速度",
+     "noteEn": "Maximum cruise speed",
+     "source": "https://en.wikipedia.org/wiki/Eurocopter_EC145",
+     "variant": "H145",
+     "verified": "2026-11-09"
+    }
+   },
+   "weft": {
+    "wings": {
+     "zh": "主旋翼四葉（新款 D-3 五葉），旋翼頭低矮貼近機頂。",
+     "en": "Four-blade main rotor (five on the new D-3) on a low mast."
+    },
+    "engines": {
+     "zh": "兩台引擎並排裝在座艙上方，排氣口向後；機頂有明顯的引擎整流罩隆起。",
+     "en": "Two engines side by side above the cabin with a pronounced top fairing."
+    },
+    "fuselage": {
+     "zh": "座艙方正寬闊，側面大趟門，機尾有左右對開艙門方便抬擔架入艙——救護型的招牌。",
+     "en": "Boxy, wide cabin with big sliding doors and rear clamshell doors for stretchers — the ambulance signature."
+    },
+    "tail": {
+     "zh": "H145 改用涵道尾槳（fenestron）：尾翼入面一個圓形風扇；舊款 EC145 則是開放尾槳，是兩代最快分辨法。",
+     "en": "The H145 switched to a fenestron — a fan inside the fin; the older EC145 has an open tail rotor, the quickest generational tell."
+    }
+   },
+   "recognitionEn": [
+    "Four-blade main rotor (five on the new D-3) on a low mast.",
+    "Two engines side by side above the cabin with a pronounced top fairing.",
+    "Boxy, wide cabin with big sliding doors and rear clamshell doors for stretchers — the ambulance signature.",
+    "The H145 switched to a fenestron — a fan inside the fin; the older EC145 has an open tail rotor, the quickest generational tell."
+   ],
+   "recognitionZh": [
+    "主旋翼四葉（新款 D-3 五葉），旋翼頭低矮貼近機頂。",
+    "兩台引擎並排裝在座艙上方，排氣口向後；機頂有明顯的引擎整流罩隆起。",
+    "座艙方正寬闊，側面大趟門，機尾有左右對開艙門方便抬擔架入艙——救護型的招牌。",
+    "H145 改用涵道尾槳（fenestron）：尾翼入面一個圓形風扇；舊款 EC145 則是開放尾槳，是兩代最快分辨法。"
+   ],
+   "similarEn": "Versus the H135 (card AC-0019): both have fenestrons, but the H145 is a class bigger (nine seats vs six) with rear clamshell doors. Versus its EC145 parent: open tail rotor there, fenestron here.",
+   "similarZh": "同自家 H135 比（本網 AC-0019 有卡）：兩者都有涵道尾槳，但 H145 大一級（9 座對 6 座）、機尾有對開艙門。同前身 EC145 比：EC145 是開放式尾槳，H145 是涵道尾槳加新航電，外觀睇尾翼即分到。",
+   "introEn": "The world's air-ambulance and rescue workhorse twin: a big cabin, rear clamshell doors and a fenestron — H145s fly ambulance services across Britain, Germany and France, and its UH-72 military version serves throughout the US Army.",
+   "introZh": "全球空中救護同搜救的主力雙引擎直升機：H145 以大座艙、後艙門同涵道尾槳見長，英國、德國、法國的救護直升機好多都是佢，軍用版 UH-72 更用遍美軍。",
+   "variantNoteEn": "Developed from the Eurocopter EC145 (BK117 C-2), renamed H145 in 2015 with a fenestron and Helionix avionics; this card uses the H145 (BK117 D-2), and the latest D-3 has a five-blade rotor. The photo is a Yorkshire Air Ambulance aircraft.",
+   "variantNoteZh": "前身是 Eurocopter EC145（BK117 C-2），2015 年改名 H145 並換上涵道尾槳同 Helionix 航電；本卡以 H145（BK117 D-2）為代表，最新 D-3 型改用五葉旋翼。相片是英國約克郡空中救護的 H145。",
+   "history": {
+    "firstFlight": "1999-06-12",
+    "enteredService": "2002",
+    "statusZh": "服役中並持續生產（EC145 2002 年投產，H145 2014 年起交付；全球機隊逾千架，最新五葉 D-3 型持續交付）。",
+    "statusEn": "In production and worldwide service (EC145 from 2002, H145 deliveries from 2014; a fleet of over a thousand, with the five-blade D-3 now delivering).",
+    "source": "https://en.wikipedia.org/wiki/Eurocopter_EC145"
+   },
+   "photo": {
+    "filePage": "https://commons.wikimedia.org/wiki/File:G-YOAA_Airbus_Helicopters_H-145_(Yorkshire_Air_Ambulance).jpg",
+    "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1b/G-YOAA_Airbus_Helicopters_H-145_%28Yorkshire_Air_Ambulance%29.jpg/960px-G-YOAA_Airbus_Helicopters_H-145_%28Yorkshire_Air_Ambulance%29.jpg",
+    "author": "James",
+    "licence": "CC BY-SA 2.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+    "creditZh": "相片：James／Flickr 經 Wikimedia Commons（CC BY-SA 2.0）· 約克郡空中救護 H145（G-YOAA）飛行中（2020 年）",
+    "creditEn": "Photo: James / Flickr via Wikimedia Commons (CC BY-SA 2.0) · Yorkshire Air Ambulance H145 (G-YOAA) in flight (2020)",
+    "captionZh": "救護黃的 H145：涵道尾槳、方正大座艙同滑橇一覽無遺。",
+    "captionEn": "An ambulance-yellow H145: fenestron, boxy cabin and skids.",
+    "annotations": [
+     {
+      "part": "wings",
+      "x": 55,
+      "y": 25,
+      "zh": "主旋翼",
+      "en": "Main rotor"
+     },
+     {
+      "part": "engines",
+      "x": 68,
+      "y": 42,
+      "zh": "雙引擎整流罩",
+      "en": "Twin-engine fairing"
+     },
+     {
+      "part": "fuselage",
+      "x": 65,
+      "y": 55,
+      "zh": "方正救護座艙",
+      "en": "Boxy ambulance cabin"
+     },
+     {
+      "part": "tail",
+      "x": 18,
+      "y": 58,
+      "zh": "涵道尾槳",
+      "en": "Fenestron tail"
+     }
+    ]
+   },
+   "deepLinks": [
+    {
+     "type": "wikipedia-en",
+     "labelZh": "英文維基：Eurocopter EC145（H145）",
+     "labelEn": "English Wikipedia: EC145 / H145",
+     "url": "https://en.wikipedia.org/wiki/Eurocopter_EC145"
+    },
+    {
+     "type": "manufacturer",
+     "labelZh": "Airbus 官方：H145 機型頁",
+     "labelEn": "Airbus: H145 page",
+     "url": "https://www.airbus.com/en/products-services/helicopters/civil-helicopters/h145"
+    },
+    {
+     "type": "icao",
+     "labelZh": "ICAO Doc 8643 經 doc8643.com：EC45 代碼頁",
+     "labelEn": "ICAO Doc 8643 via doc8643.com: EC45",
+     "url": "https://doc8643.com/aircraft/EC45"
+    },
+    {
+     "type": "commons",
+     "labelZh": "Wikimedia Commons：本卡相片頁",
+     "labelEn": "Wikimedia Commons: this photo",
+     "url": "https://commons.wikimedia.org/wiki/File:G-YOAA_Airbus_Helicopters_H-145_(Yorkshire_Air_Ambulance).jpg"
+    }
+   ],
+   "sourcesToCheck": [
+    {
+     "type": "wikipedia-en",
+     "labelZh": "英文維基：Eurocopter EC145（H145）",
+     "url": "https://en.wikipedia.org/wiki/Eurocopter_EC145",
+     "status": "done"
+    },
+    {
+     "type": "manufacturer",
+     "labelZh": "Airbus 官方：H145 機型頁",
+     "url": "https://www.airbus.com/en/products-services/helicopters/civil-helicopters/h145",
+     "status": "done"
+    },
+    {
+     "type": "icao",
+     "labelZh": "ICAO Doc 8643 經 doc8643.com：EC45 代碼頁",
+     "url": "https://doc8643.com/aircraft/EC45",
+     "status": "done"
+    },
+    {
+     "type": "commons",
+     "labelZh": "Wikimedia Commons：本卡相片頁",
+     "url": "https://commons.wikimedia.org/wiki/File:G-YOAA_Airbus_Helicopters_H-145_(Yorkshire_Air_Ambulance).jpg",
+     "status": "done"
+    }
+   ],
+   "checklist": {
+    "identity": "done",
+    "history": "done",
+    "specs": "done",
+    "recognition": "done",
+    "photo": "done",
+    "links": "done",
+    "bilingual": "done",
+    "quiz": "done"
+   },
+   "scout": null
+  },
+  {
+   "seq": "AC-0082",
+   "nameZh": "灣流 G650",
+   "nameEn": "Gulfstream G650",
+   "manufacturer": "Gulfstream Aerospace",
+   "icao": "GLF6",
+   "icaoCandidate": "GLF6",
+   "category": "regional-light",
+   "categoryLabel": {
+    "zh": "支線及輕型飛機",
+    "en": "Regional & Light"
+   },
+   "tags": [
+    "business-jet"
+   ],
+   "dataStatus": "verified",
+   "verifiedDate": "2026-11-09",
+   "specs": {
+    "length": {
+     "value": "30.41",
+     "unit": "m",
+     "noteZh": "全長",
+     "noteEn": "Overall length",
+     "source": "https://en.wikipedia.org/wiki/Gulfstream_G650",
+     "variant": "G650ER",
+     "verified": "2026-11-09"
+    },
+    "wingspan": {
+     "value": "30.35",
+     "unit": "m",
+     "noteZh": "翼展，連翼尖小翼",
+     "noteEn": "Wingspan with winglets",
+     "source": "https://en.wikipedia.org/wiki/Gulfstream_G650",
+     "variant": "G650ER",
+     "verified": "2026-11-09"
+    },
+    "height": {
+     "value": "7.82",
+     "unit": "m",
+     "noteZh": "全高",
+     "noteEn": "Overall height",
+     "source": "https://en.wikipedia.org/wiki/Gulfstream_G650",
+     "variant": "G650ER",
+     "verified": "2026-11-09"
+    },
+    "engines": {
+     "value": "2 × Rolls-Royce BR725",
+     "unit": "",
+     "noteZh": "勞斯萊斯渦輪扇引擎，後置機身兩側",
+     "noteEn": "Rolls-Royce turbofans on the rear fuselage",
+     "source": "https://en.wikipedia.org/wiki/Gulfstream_G650",
+     "variant": "G650ER",
+     "verified": "2026-11-09"
+    },
+    "seats": {
+     "value": "11–18",
+     "unit": "座",
+     "noteZh": "典型商務佈局（最多 19）",
+     "noteEn": "Typical layouts (up to 19)",
+     "source": "https://en.wikipedia.org/wiki/Gulfstream_G650",
+     "variant": "G650ER",
+     "verified": "2026-11-09"
+    },
+    "range": {
+     "value": "12,960",
+     "unit": "km",
+     "noteZh": "G650 基本型（7,000 海里）；G650ER 達 13,890 公里（7,500 海里）",
+     "noteEn": "Baseline G650 (7,000 nmi); the G650ER reaches 13,890 km (7,500 nmi)",
+     "source": "https://en.wikipedia.org/wiki/Gulfstream_G650",
+     "variant": "G650ER",
+     "verified": "2026-11-09"
+    },
+    "cruise": {
+     "value": "Mach 0.90",
+     "unit": "",
+     "noteZh": "高速巡航（極速 Mach 0.925）",
+     "noteEn": "High-speed cruise (maximum Mach 0.925)",
+     "source": "https://en.wikipedia.org/wiki/Gulfstream_G650",
+     "variant": "G650ER",
+     "verified": "2026-11-09"
+    }
+   },
+   "weft": {
+    "wings": {
+     "zh": "低翼，後掠角大，翼尖有小翼；機翼裝在機身後半段，令機鼻顯得特別長。",
+     "en": "Low, strongly swept wing set well back, giving a long nose; small winglets."
+    },
+    "engines": {
+     "zh": "兩台 BR725 裝在機尾兩側（後置引擎），進氣口圓大，是商務機的標準佈局。",
+     "en": "Two BR725s flank the rear fuselage — the classic business-jet layout, with big round intakes."
+    },
+    "fuselage": {
+     "zh": "機身修長，窗戶是灣流招牌的大橢圓窗，一排約 8 隻；機鼻尖長下垂。",
+     "en": "Slim fuselage with Gulfstream's signature large oval windows (about eight a side) and a long pointed nose."
+    },
+    "tail": {
+     "zh": "T 形尾翼：水平尾翼裝在垂直尾翼頂端。",
+     "en": "T-tail with the tailplane on top of the fin."
+    }
+   },
+   "recognitionEn": [
+    "Low, strongly swept wing set well back, giving a long nose; small winglets.",
+    "Two BR725s flank the rear fuselage — the classic business-jet layout, with big round intakes.",
+    "Slim fuselage with Gulfstream's signature large oval windows (about eight a side) and a long pointed nose.",
+    "T-tail with the tailplane on top of the fin."
+   ],
+   "recognitionZh": [
+    "低翼，後掠角大，翼尖有小翼；機翼裝在機身後半段，令機鼻顯得特別長。",
+    "兩台 BR725 裝在機尾兩側（後置引擎），進氣口圓大，是商務機的標準佈局。",
+    "機身修長，窗戶是灣流招牌的大橢圓窗，一排約 8 隻；機鼻尖長下垂。",
+    "T 形尾翼：水平尾翼裝在垂直尾翼頂端。"
+   ],
+   "similarEn": "Versus the G550 (card AC-0066): bigger, more oval windows and a longer, faster airframe here. Versus the Global 7500 (card AC-0083): the Bombardier is longer with squarer windows; both are rear-engined T-tails, so window shape and nacelle shape decide it.",
+   "similarZh": "同自家 G550 比（本網 AC-0066 有卡）：G650 的窗更大更橢圓、機身更長更快；G550 窗較細隻而且數量多。同對手 Global 7500 比（本網 AC-0083）：Global 機身更長、窗較方大；兩者都係後置引擎 T 尾，要數窗形同睇機尾引擎艙形狀。",
+   "introEn": "The business-jet benchmark for speed and range: cruising at Mach 0.90 with over 12,900 km of range for Hong Kong–New York-class legs, and unmistakable on any business apron for its huge oval windows.",
+   "introZh": "商務機界的速度與航程標竿：G650 以 Mach 0.90 高速巡航、逾 12,900 公里航程直飛香港—紐約級別的航線，招牌大橢圓窗在商務機坪一眼就認到。",
+   "variantNoteEn": "The family pairs the baseline G650 with the longer-range G650ER (about 930 km more), identical in shape; the photo is a Royal Netherlands Air Force G650ER (V-117) government aircraft. G650s are frequent visitors to Hong Kong's business-aviation apron.",
+   "variantNoteZh": "家族有基本型 G650 與長程型 G650ER（航程多約 930 公里），外形相同；本卡規格以兩型並記，相片是荷蘭皇家空軍的 G650ER（V-117）政府專機。香港國際機場的商務機坪亦常見 G650 系。",
+   "history": {
+    "firstFlight": "2009-11-25",
+    "enteredService": "2012",
+    "statusZh": "服役中（2012 年投產，後由 G700／G800 家族接棒新交付；全球機隊龐大，包括多國政府專機）。",
+    "statusEn": "In service (entered service in 2012; new deliveries have passed to the G700/G800 family, but the G650 fleet remains large, including several government fleets).",
+    "source": "https://en.wikipedia.org/wiki/Gulfstream_G650"
+   },
+   "photo": {
+    "filePage": "https://commons.wikimedia.org/wiki/File:Gulfstream_G650ER_V-117.jpg",
+    "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/98/Gulfstream_G650ER_V-117.jpg/960px-Gulfstream_G650ER_V-117.jpg",
+    "author": "Ministerie van Defensie（荷蘭國防部）",
+    "licence": "CC BY-SA 4.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "creditZh": "相片：荷蘭國防部／Wikimedia Commons（CC BY-SA 4.0）· 荷蘭皇家空軍 G650ER（V-117）政府專機（2023 年）",
+    "creditEn": "Photo: Dutch Ministry of Defence / Wikimedia Commons (CC BY-SA 4.0) · Royal Netherlands Air Force G650ER (V-117) government aircraft (2023)",
+    "captionZh": "政府專機版 G650ER：招牌大橢圓窗、後置引擎同 T 尾齊晒。",
+    "captionEn": "A government G650ER: signature oval windows, rear engines and T-tail.",
+    "annotations": [
+     {
+      "part": "fuselage",
+      "x": 45,
+      "y": 52,
+      "zh": "修長機身與大橢圓窗",
+      "en": "Slim fuselage, oval windows"
+     },
+     {
+      "part": "engines",
+      "x": 72,
+      "y": 52,
+      "zh": "後置 BR725 引擎",
+      "en": "Rear-mounted BR725"
+     },
+     {
+      "part": "wings",
+      "x": 55,
+      "y": 62,
+      "zh": "後掠主翼",
+      "en": "Swept wing"
+     },
+     {
+      "part": "tail",
+      "x": 82,
+      "y": 35,
+      "zh": "T 形尾翼",
+      "en": "T-tail"
+     }
+    ]
+   },
+   "deepLinks": [
+    {
+     "type": "wikipedia-en",
+     "labelZh": "英文維基：Gulfstream G650",
+     "labelEn": "English Wikipedia: Gulfstream G650",
+     "url": "https://en.wikipedia.org/wiki/Gulfstream_G650"
+    },
+    {
+     "type": "manufacturer",
+     "labelZh": "Gulfstream 官方：G650 機型頁",
+     "labelEn": "Gulfstream: G650 page",
+     "url": "https://www.gulfstream.com/en/aircraft/gulfstream-g650/"
+    },
+    {
+     "type": "icao",
+     "labelZh": "ICAO Doc 8643 經 doc8643.com：GLF6 代碼頁",
+     "labelEn": "ICAO Doc 8643 via doc8643.com: GLF6",
+     "url": "https://doc8643.com/aircraft/GLF6"
+    },
+    {
+     "type": "commons",
+     "labelZh": "Wikimedia Commons：本卡相片頁",
+     "labelEn": "Wikimedia Commons: this photo",
+     "url": "https://commons.wikimedia.org/wiki/File:Gulfstream_G650ER_V-117.jpg"
+    }
+   ],
+   "sourcesToCheck": [
+    {
+     "type": "wikipedia-en",
+     "labelZh": "英文維基：Gulfstream G650",
+     "url": "https://en.wikipedia.org/wiki/Gulfstream_G650",
+     "status": "done"
+    },
+    {
+     "type": "manufacturer",
+     "labelZh": "Gulfstream 官方：G650 機型頁",
+     "url": "https://www.gulfstream.com/en/aircraft/gulfstream-g650/",
+     "status": "done"
+    },
+    {
+     "type": "icao",
+     "labelZh": "ICAO Doc 8643 經 doc8643.com：GLF6 代碼頁",
+     "url": "https://doc8643.com/aircraft/GLF6",
+     "status": "done"
+    },
+    {
+     "type": "commons",
+     "labelZh": "Wikimedia Commons：本卡相片頁",
+     "url": "https://commons.wikimedia.org/wiki/File:Gulfstream_G650ER_V-117.jpg",
+     "status": "done"
+    }
+   ],
+   "checklist": {
+    "identity": "done",
+    "history": "done",
+    "specs": "done",
+    "recognition": "done",
+    "photo": "done",
+    "links": "done",
+    "bilingual": "done",
+    "quiz": "done"
+   },
+   "scout": null
+  },
+  {
+   "seq": "AC-0083",
+   "nameZh": "龐巴迪 環球 7500",
+   "nameEn": "Bombardier Global 7500",
+   "manufacturer": "Bombardier",
+   "icao": "GL7T",
+   "icaoCandidate": "GL7T",
+   "category": "regional-light",
+   "categoryLabel": {
+    "zh": "支線及輕型飛機",
+    "en": "Regional & Light"
+   },
+   "tags": [
+    "business-jet"
+   ],
+   "dataStatus": "verified",
+   "verifiedDate": "2026-11-09",
+   "specs": {
+    "length": {
+     "value": "33.71",
+     "unit": "m",
+     "noteZh": "全長（現役商務機中最長之一）",
+     "noteEn": "Overall length (among the longest business jets)",
+     "source": "https://en.wikipedia.org/wiki/Bombardier_Global_7500",
+     "variant": "Global 7500",
+     "verified": "2026-11-09"
+    },
+    "wingspan": {
+     "value": "31.79",
+     "unit": "m",
+     "noteZh": "翼展，連翼尖小翼",
+     "noteEn": "Wingspan with winglets",
+     "source": "https://en.wikipedia.org/wiki/Bombardier_Global_7500",
+     "variant": "Global 7500",
+     "verified": "2026-11-09"
+    },
+    "height": {
+     "value": "8.14",
+     "unit": "m",
+     "noteZh": "全高",
+     "noteEn": "Overall height",
+     "source": "https://en.wikipedia.org/wiki/Bombardier_Global_7500",
+     "variant": "Global 7500",
+     "verified": "2026-11-09"
+    },
+    "engines": {
+     "value": "2 × GE Passport",
+     "unit": "",
+     "noteZh": "通用電氣渦輪扇引擎，後置機身兩側",
+     "noteEn": "GE turbofans on the rear fuselage",
+     "source": "https://en.wikipedia.org/wiki/Bombardier_Global_7500",
+     "variant": "Global 7500",
+     "verified": "2026-11-09"
+    },
+    "seats": {
+     "value": "14",
+     "unit": "座",
+     "noteZh": "典型佈局（最多 19）",
+     "noteEn": "Typical layout (up to 19)",
+     "source": "https://en.wikipedia.org/wiki/Bombardier_Global_7500",
+     "variant": "Global 7500",
+     "verified": "2026-11-09"
+    },
+    "range": {
+     "value": "14,260",
+     "unit": "km",
+     "noteZh": "最大航程（7,700 海里）",
+     "noteEn": "Maximum range (7,700 nmi)",
+     "source": "https://en.wikipedia.org/wiki/Bombardier_Global_7500",
+     "variant": "Global 7500",
+     "verified": "2026-11-09"
+    },
+    "cruise": {
+     "value": "Mach 0.85",
+     "unit": "",
+     "noteZh": "典型巡航（高速巡航 Mach 0.90、極速 0.925）",
+     "noteEn": "Typical cruise (Mach 0.90 high-speed, 0.925 maximum)",
+     "source": "https://en.wikipedia.org/wiki/Bombardier_Global_7500",
+     "variant": "Global 7500",
+     "verified": "2026-11-09"
+    }
+   },
+   "weft": {
+    "wings": {
+     "zh": "全新跨音速主翼，後掠大、翼尖有小翼，翼面比舊款 Global 更修長。",
+     "en": "New transonic wing — more sweep and span than the older Globals, with winglets."
+    },
+    "engines": {
+     "zh": "兩台 GE Passport 裝在機尾兩側，引擎艙比 Global 6000 更修長，排氣錐明顯。",
+     "en": "Two GE Passports flank the tail, in slimmer nacelles than the Global 6000's with visible exhaust cones."
+    },
+    "fuselage": {
+     "zh": "機身非常長，窗戶大而方，數量多（每邊約 14 隻）；機鼻圓滑，駕駛艙窗呈彎月形。",
+     "en": "Very long fuselage with many large, squarish windows (about fourteen a side) and a smooth nose with crescent cockpit panes."
+    },
+    "tail": {
+     "zh": "T 形尾翼，垂直尾翼後掠，尾錐裝 APU 排氣。",
+     "en": "T-tail with a swept fin and APU exhaust in the tail cone."
+    }
+   },
+   "recognitionEn": [
+    "New transonic wing — more sweep and span than the older Globals, with winglets.",
+    "Two GE Passports flank the tail, in slimmer nacelles than the Global 6000's with visible exhaust cones.",
+    "Very long fuselage with many large, squarish windows (about fourteen a side) and a smooth nose with crescent cockpit panes.",
+    "T-tail with a swept fin and APU exhaust in the tail cone."
+   ],
+   "recognitionZh": [
+    "全新跨音速主翼，後掠大、翼尖有小翼，翼面比舊款 Global 更修長。",
+    "兩台 GE Passport 裝在機尾兩側，引擎艙比 Global 6000 更修長，排氣錐明顯。",
+    "機身非常長，窗戶大而方，數量多（每邊約 14 隻）；機鼻圓滑，駕駛艙窗呈彎月形。",
+    "T 形尾翼，垂直尾翼後掠，尾錐裝 APU 排氣。"
+   ],
+   "similarEn": "Versus the Global Express XRS (card AC-0055): about 3 m longer with nearly 3,000 km more range and more, bigger windows. Versus the G650 (card AC-0082): oval windows there, squarish ones here, and a longer fuselage.",
+   "similarZh": "同自家 Global Express XRS 比（本網 AC-0055 有卡）：7500 長約 3 米、航程多近 3,000 公里，窗更多更大。同對手 G650 比（本網 AC-0082）：G650 窗是橢圓形、Global 是方形大窗；Global 機身亦較長。",
+   "introEn": "Among the largest and longest-legged business jets in service: 14,260 km of range and Mach 0.90 cruise put Hong Kong–US East Coast within reach — a head-turning regular at Hong Kong's business apron.",
+   "introZh": "現役最大、最長程的商務機之一：Global 7500 以 14,260 公里航程同 Mach 0.90 高速巡航直飛香港—北美東岸級別航線，是香港商務機坪的矚目常客。",
+   "variantNoteEn": "Launched as the Global 7000 and renamed when range grew to 7,700 nmi; the faster Global 8000 followed. Figures are for the 7500. The photo is a Swiss Air Force Global 7500 (T-787) VIP aircraft landing at Berlin.",
+   "variantNoteZh": "原名 Global 7000，因航程增至 7,700 海里改名 7500；家族後續有更快的 Global 8000。本卡數字為 7500。相片是瑞士空軍的 Global 7500（T-787）政要專機降落柏林。",
+   "history": {
+    "firstFlight": "2016-11-04",
+    "enteredService": "2018-12-20",
+    "statusZh": "服役中並持續交付（2018 年底投產；用戶以企業、租賃同政府專機為主，機隊持續增長）。",
+    "statusEn": "In service with deliveries continuing (entered service in late 2018; corporate, charter and government operators, with a growing fleet).",
+    "source": "https://en.wikipedia.org/wiki/Bombardier_Global_7500"
+   },
+   "photo": {
+    "filePage": "https://commons.wikimedia.org/wiki/File:Bombardier_BD-700-2A12_Global_7500_(c-n_70208,_T-787)_2025-03-24_Andre_Gerwing_Collection_ID_023167.jpg",
+    "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/51/Bombardier_BD-700-2A12_Global_7500_%28c-n_70208%2C_T-787%29_2025-03-24_Andre_Gerwing_Collection_ID_023167.jpg/960px-Bombardier_BD-700-2A12_Global_7500_%28c-n_70208%2C_T-787%29_2025-03-24_Andre_Gerwing_Collection_ID_023167.jpg",
+    "author": "André Gerwing",
+    "licence": "CC BY-SA 4.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "creditZh": "相片：André Gerwing／Wikimedia Commons（CC BY-SA 4.0）· 瑞士空軍 Global 7500（T-787）降落柏林（2025 年）",
+    "creditEn": "Photo: André Gerwing / Wikimedia Commons (CC BY-SA 4.0) · Swiss Air Force Global 7500 (T-787) landing at Berlin (2025)",
+    "captionZh": "瑞士空軍的 Global 7500 進場：特長機身、方形大窗同後置引擎。",
+    "captionEn": "A Swiss Air Force Global 7500 on finals: long fuselage, square windows, rear engines.",
+    "annotations": [
+     {
+      "part": "fuselage",
+      "x": 55,
+      "y": 48,
+      "zh": "特長機身與大窗",
+      "en": "Long fuselage, big windows"
+     },
+     {
+      "part": "engines",
+      "x": 28,
+      "y": 55,
+      "zh": "後置 GE Passport 引擎",
+      "en": "Rear-mounted GE Passport"
+     },
+     {
+      "part": "wings",
+      "x": 45,
+      "y": 50,
+      "zh": "跨音速主翼",
+      "en": "Transonic wing"
+     },
+     {
+      "part": "tail",
+      "x": 15,
+      "y": 38,
+      "zh": "T 形尾翼",
+      "en": "T-tail"
+     }
+    ]
+   },
+   "deepLinks": [
+    {
+     "type": "wikipedia-en",
+     "labelZh": "英文維基：Bombardier Global 7500",
+     "labelEn": "English Wikipedia: Bombardier Global 7500",
+     "url": "https://en.wikipedia.org/wiki/Bombardier_Global_7500"
+    },
+    {
+     "type": "manufacturer",
+     "labelZh": "Bombardier 官方：Global 7500 機型頁",
+     "labelEn": "Bombardier: Global 7500 page",
+     "url": "https://bombardier.com/en/aircraft/global-7500"
+    },
+    {
+     "type": "icao",
+     "labelZh": "ICAO Doc 8643 經 doc8643.com：GL7T 代碼頁",
+     "labelEn": "ICAO Doc 8643 via doc8643.com: GL7T",
+     "url": "https://doc8643.com/aircraft/GL7T"
+    },
+    {
+     "type": "commons",
+     "labelZh": "Wikimedia Commons：本卡相片頁",
+     "labelEn": "Wikimedia Commons: this photo",
+     "url": "https://commons.wikimedia.org/wiki/File:Bombardier_BD-700-2A12_Global_7500_(c-n_70208,_T-787)_2025-03-24_Andre_Gerwing_Collection_ID_023167.jpg"
+    }
+   ],
+   "sourcesToCheck": [
+    {
+     "type": "wikipedia-en",
+     "labelZh": "英文維基：Bombardier Global 7500",
+     "url": "https://en.wikipedia.org/wiki/Bombardier_Global_7500",
+     "status": "done"
+    },
+    {
+     "type": "manufacturer",
+     "labelZh": "Bombardier 官方：Global 7500 機型頁",
+     "url": "https://bombardier.com/en/aircraft/global-7500",
+     "status": "done"
+    },
+    {
+     "type": "icao",
+     "labelZh": "ICAO Doc 8643 經 doc8643.com：GL7T 代碼頁",
+     "url": "https://doc8643.com/aircraft/GL7T",
+     "status": "done"
+    },
+    {
+     "type": "commons",
+     "labelZh": "Wikimedia Commons：本卡相片頁",
+     "url": "https://commons.wikimedia.org/wiki/File:Bombardier_BD-700-2A12_Global_7500_(c-n_70208,_T-787)_2025-03-24_Andre_Gerwing_Collection_ID_023167.jpg",
+     "status": "done"
+    }
+   ],
+   "checklist": {
+    "identity": "done",
+    "history": "done",
+    "specs": "done",
+    "recognition": "done",
+    "photo": "done",
+    "links": "done",
+    "bilingual": "done",
+    "quiz": "done"
+   },
+   "scout": null
   }
  ]
 }

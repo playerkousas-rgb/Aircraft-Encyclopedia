@@ -6,8 +6,8 @@ const data = JSON.parse(readFileSync(new URL("../web/data/aircraft-inventory.jso
 const CATS = ["airliner", "freighter", "regional-light", "helicopter", "military", "historic-special"];
 const CHECKS = ["identity", "history", "specs", "recognition", "photo", "links", "bilingual", "quiz"];
 
-test("清單有 71 款，序號唯一永不重用", () => {
-  assert.equal(data.aircraft.length, 71);
+test("清單有 83 款，序號唯一永不重用", () => {
+  assert.equal(data.aircraft.length, 83);
   assert.equal(new Set(data.aircraft.map((a) => a.seq)).size, data.aircraft.length);
   assert.equal(new Set(data.aircraft.map((a) => a.nameEn)).size, data.aircraft.length);
 });

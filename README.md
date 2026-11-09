@@ -4,7 +4,7 @@
 > 類型：輕量靜態 App（無帳號、無後台）· 技術棧：純靜態多檔（HTML/CSS/原生 JS＋JSON）· 授權：MIT
 > 原始需求 brief 保留喺根目錄 `README` 檔；本檔係 5 分鐘入口。
 
-更新日期：2026-11-09 · 版本：v0.7 · 負責：playerkousas-rgb
+更新日期：2026-11-09 · 版本：v0.8 · 負責：playerkousas-rgb
 
 ---
 
@@ -23,6 +23,7 @@
 
 ## 呢個 repo 而家係邊個階段？
 
+**v0.8**：第五批新增 12 款今日常見／香港常見機型（A350-1000、A321neo、737 MAX 8、787-10、A330-900、A220-300、C919、E195-E2、H125、H145、G650、Global 7500），總數 83 款全數完成八項核實並出圖卡。
 **v0.7**：按用戶定案「先收大清單、逐款核實晒先出圖卡」——71 款機型已全數完成八項核實並出圖卡（初級／中級／高級航空活動章各 18 款 ＋ 其餘 17 款），
 每張卡有授權相片連標註、WEFT 辨認特徵、逐項附來源的規格（貨機／軍用運輸機加「載重」欄）同特徵標籤（定翼／旋翼、引擎數、廣窄體等）；
 比較、小測驗同考試模式覆蓋全部圖卡。本站轉入維護期，只作修訂同圖片維護。
@@ -65,4 +66,4 @@ skills/            repo-setup / design-review 等（見 skills/CATALOG.md）
 
 ---
 
-© SCOUT SYSTEM · COPYRIGHT SCOUT SYSTEM · Aircraft-Encyclopedia v0.7
+© SCOUT SYSTEM · COPYRIGHT SCOUT SYSTEM · Aircraft-Encyclopedia v0.8

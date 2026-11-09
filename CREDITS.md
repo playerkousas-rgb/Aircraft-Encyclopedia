@@ -89,8 +89,21 @@
 | AC-0036 空中巴士 BelugaXL 大白鯨 | https://commons.wikimedia.org/wiki/File:%22Beluga_XL%22_A330-743L_(cropped).jpg | Julien Jeany | CC BY-SA 4.0 | 圖下 credit 行＋本表 |
 | AC-0071 西安轟-6K（解放軍空軍） | https://commons.wikimedia.org/wiki/File:Xian_H-6K.jpg | Andrei Shmatko | CC BY-SA 4.0 | 圖下 credit 行＋本表 |
 
+| AC-0072 空中巴士 A350-1000 | https://commons.wikimedia.org/wiki/File:Cathay_Pacific_A350-1041_(B-LXM)_at_HKG.jpg | Aeroprints.com | CC BY-SA 4.0 | 圖下 credit 行＋本表 |
+| AC-0073 空中巴士 A321neo | https://commons.wikimedia.org/wiki/File:JetBlue_Airbus_A321_NEO_N4058J_JFK_Aerial.jpg | Jake Lundberg | CC BY 4.0 | 圖下 credit 行＋本表 |
+| AC-0074 波音 737 MAX 8 | https://commons.wikimedia.org/wiki/File:Southwest_Airlines_Boeing_737_MAX_8_N931AZ_LAX_November_2022_02.jpg | Tim Wu | CC BY-SA 4.0 | 圖下 credit 行＋本表 |
+| AC-0075 波音 787-10 夢幻客機 | https://commons.wikimedia.org/wiki/File:Singapore_Airlines_Boeing_787-10_9V-SCA_-_2.jpg | Tinkk_999 | CC BY 3.0 | 圖下 credit 行＋本表 |
+| AC-0076 空中巴士 A330-900 | https://commons.wikimedia.org/wiki/File:9H-SZN_A330-941_Air_Senegal_(47748483772).jpg | Alex Filippopoulos | CC BY 2.0 | 圖下 credit 行＋本表 |
+| AC-0077 空中巴士 A220-300 | https://commons.wikimedia.org/wiki/File:YL-AAR_(4609266406).jpg | Anna Zvereva | CC BY-SA 2.0 | 圖下 credit 行＋本表 |
+| AC-0078 中國商飛 C919 | https://commons.wikimedia.org/wiki/File:B-919A@HGH_(20231103155323).jpg | N509FZ | CC BY-SA 4.0 | 圖下 credit 行＋本表 |
+| AC-0079 巴西航空工業 E195-E2 | https://commons.wikimedia.org/wiki/File:KLM_Cityhopper,_PH-NXC,_Embraer_195-E2.jpg | Stephan Reber | CC BY-SA 4.0 | 圖下 credit 行＋本表 |
+| AC-0080 空中巴士直升機 H125 | https://commons.wikimedia.org/wiki/File:Airbus_H125_-_Los_Angeles_Police_Department_Air_Support_(cropped).jpg | Colin Sheridan (U.S. Navy) | Public domain | 圖下 credit 行＋本表 |
+| AC-0081 空中巴士直升機 H145 | https://commons.wikimedia.org/wiki/File:G-YOAA_Airbus_Helicopters_H-145_(Yorkshire_Air_Ambulance).jpg | James | CC BY-SA 2.0 | 圖下 credit 行＋本表 |
+| AC-0082 灣流 G650 | https://commons.wikimedia.org/wiki/File:Gulfstream_G650ER_V-117.jpg | 荷蘭國防部 | CC BY-SA 4.0 | 圖下 credit 行＋本表 |
+| AC-0083 龐巴迪 環球 7500 | https://commons.wikimedia.org/wiki/File:Bombardier_BD-700-2A12_Global_7500_(c-n_70208,_T-787)_2025-03-24_Andre_Gerwing_Collection_ID_023167.jpg | André Gerwing | CC BY-SA 4.0 | 圖下 credit 行＋本表 |
+
 規格來源逐項記喺 `data/aircraft-inventory.json` 每格的 `source` 連結；
 來源優先次序見 `docs/04-data-schema-and-verification.md`。參考網站只作體驗研究（見 docs/01），無搬用其文字或圖片。
 
 ---
-© SCOUT SYSTEM · COPYRIGHT SCOUT SYSTEM · Aircraft-Encyclopedia v0.7
+© SCOUT SYSTEM · COPYRIGHT SCOUT SYSTEM · Aircraft-Encyclopedia v0.8
