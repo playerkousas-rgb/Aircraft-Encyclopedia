@@ -102,8 +102,21 @@
 | AC-0082 灣流 G650 | https://commons.wikimedia.org/wiki/File:Gulfstream_G650ER_V-117.jpg | 荷蘭國防部 | CC BY-SA 4.0 | 圖下 credit 行＋本表 |
 | AC-0083 龐巴迪 環球 7500 | https://commons.wikimedia.org/wiki/File:Bombardier_BD-700-2A12_Global_7500_(c-n_70208,_T-787)_2025-03-24_Andre_Gerwing_Collection_ID_023167.jpg | André Gerwing | CC BY-SA 4.0 | 圖下 credit 行＋本表 |
 
+| AC-0084 空中巴士 A320-200 | https://commons.wikimedia.org/wiki/File:Lufthansa.a320-200.d-aipa.arp.jpg | Adrian Pingstone | Public domain | 圖下 credit 行＋本表 |
+| AC-0085 波音 777-200ER | https://commons.wikimedia.org/wiki/File:American_Airlines_Boeing_777-200ER_(2-1_crop).jpg | Mitchell R Hope | CC BY-SA 2.0 | 圖下 credit 行＋本表 |
+| AC-0086 波音 757-200 | https://commons.wikimedia.org/wiki/File:Icelandair_Boeing_757-200_in_snow_1200.jpg | Brorsson | CC BY-SA 3.0 | 圖下 credit 行＋本表 |
+| AC-0087 巴西航空工業 E175 | https://commons.wikimedia.org/wiki/File:American_Eagle_(operated_by_Republic_Airways)_Embraer_175.jpg | SkyHigh757 | CC BY-SA 4.0 | 圖下 credit 行＋本表 |
+| AC-0088 德哈維蘭加拿大 Dash 8 Q400 | https://commons.wikimedia.org/wiki/File:Porter_Airlines,_Bombardier_Dash-8_Q400,_C-GLQN_(18512982883).jpg | BriYYZ | CC BY-SA 2.0 | 圖下 credit 行＋本表 |
+| AC-0089 麥克唐納-道格拉斯 MD-11F | https://commons.wikimedia.org/wiki/File:FedEx_(N582FE)_McDonnell_Douglas_MD-11F_landing_at_Sydney_Airport_(4).jpg | Bidgee | CC BY-SA 3.0 au | 圖下 credit 行＋本表 |
+| AC-0090 比奇 King Air 350 | https://commons.wikimedia.org/wiki/File:Beechcraft_B300_King_Air_350_N68RF_of_NOAA_13May2015.jpg | NOAA | Public domain | 圖下 credit 行＋本表 |
+| AC-0091 皮拉圖斯 PC-12 | https://commons.wikimedia.org/wiki/File:Pilatus.pc12.landing.arp.jpg | Adrian Pingstone | Public domain | 圖下 credit 行＋本表 |
+| AC-0092 貝爾 206 JetRanger | https://commons.wikimedia.org/wiki/File:New_York_Helicopter_Charter_Inc,_N405MR,_Bell_206L-4_LongRanger_(16456584695).jpg | Anna Zvereva | CC BY-SA 2.0 | 圖下 credit 行＋本表 |
+| AC-0093 空中巴士直升機 H130 | https://commons.wikimedia.org/wiki/File:Microflite_(VH-WVV)_Airbus_Helicopters_EC130_T2_at_Wagga_Wagga_Airport_1.jpg | Bidgee | CC BY-SA 3.0 au | 圖下 credit 行＋本表 |
+| AC-0094 麥克唐納-道格拉斯 F-15 鷹式 | https://commons.wikimedia.org/wiki/File:F-15_eagle_USAF.jpg | U.S. Air Force / MSgt. Thomas Meneguin | Public domain | 圖下 credit 行＋本表 |
+| AC-0095 空中巴士 A400M Atlas | https://commons.wikimedia.org/wiki/File:Airbus_A400M_Atlas_of_the_Spanish_Air_Force_(code_EC-400)_arrives_RIAT_Fairford_18July2019_arp.jpg | Adrian Pingstone | Public domain | 圖下 credit 行＋本表 |
+
 規格來源逐項記喺 `data/aircraft-inventory.json` 每格的 `source` 連結；
 來源優先次序見 `docs/04-data-schema-and-verification.md`。參考網站只作體驗研究（見 docs/01），無搬用其文字或圖片。
 
 ---
-© SCOUT SYSTEM · COPYRIGHT SCOUT SYSTEM · Aircraft-Encyclopedia v0.8
+© SCOUT SYSTEM · COPYRIGHT SCOUT SYSTEM · Aircraft-Encyclopedia v0.9
