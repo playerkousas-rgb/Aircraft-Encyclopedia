@@ -101,8 +101,9 @@ dialog::backdrop{background:rgba(10,42,74,.55)}
 .variant-note{background:#fff8e2;border:1px solid #e8c96a;border-radius:10px;padding:.7rem .9rem;line-height:1.65;font-size:.92rem}
 .detail-photo{position:relative;border-radius:12px;overflow:hidden;background:#dcebf4;margin:.7rem 0 .3rem}
 .detail-photo img{width:100%;aspect-ratio:16/9.5;object-fit:cover;display:block}
-.dot{position:absolute;width:30px;height:30px;margin:-15px 0 0 -15px;border-radius:50%;border:2px solid #fff;background:var(--amber);color:var(--navy);font-weight:900;cursor:pointer;box-shadow:0 1px 5px rgba(0,0,0,.35);line-height:1}
-.dot[aria-pressed="true"]{background:var(--navy);color:#fff}
+.dot{position:absolute;width:30px;height:30px;margin:-15px 0 0 -15px;border-radius:50%;border:2px solid #fff;background:var(--amber);color:var(--navy);font-weight:900;cursor:pointer;box-shadow:0 1px 5px rgba(0,0,0,.35);line-height:1;transition:background .18s ease,color .18s ease,border-color .18s ease,box-shadow .18s ease}
+.dot[aria-pressed="true"]{background:transparent;color:transparent;border-color:rgba(255,255,255,.92);box-shadow:0 0 0 1.5px rgba(11,31,51,.4)}
+.dot:focus-visible{outline:3px solid var(--amber);outline-offset:1px}
 .credit{font-size:.76rem;color:var(--muted);line-height:1.55;margin:.2rem 0 .4rem}
 .credit a{color:var(--sky)}
 .caption{font-size:.92rem;line-height:1.65;color:var(--ink);margin:.2rem 0 .6rem}
