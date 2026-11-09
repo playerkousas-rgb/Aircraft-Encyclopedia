@@ -145,9 +145,29 @@
 | AC-0123 達梭 獵鷹 2000 | https://commons.wikimedia.org/wiki/File:Dassault_Falcon_2000EX_%E2%80%98CS-DFG%E2%80%99_%2824881173002%29.jpg | Alan Wilson | CC BY-SA 2.0 | 圖下 credit 行＋本表 |
 | AC-0124 西銳 SR22 | https://commons.wikimedia.org/wiki/File:VH-IBC_Cirrus_SR22-G2_%289171866070%29.jpg | Robert Frola | GFDL | 圖下 credit 行＋本表 |
 | AC-0125 鑽石 DA40 星鑽 | https://commons.wikimedia.org/wiki/File:LN-FTO_Diamond_DA40_NG_Diamond_Star.jpg | Marius Vassnes | CC BY-SA 4.0 | 圖下 credit 行＋本表 |
+| AC-0126 西安 MA60 新舟支線客機 | https://commons.wikimedia.org/wiki/File:Lao_Airlines_Xian_MA60_at_Xieng_Khouang_Airport.jpg | Motohiro Sunouchi | CC BY 2.0 | 圖下 credit 行＋本表 |
+| AC-0127 哈爾濱 運-12 通用飛機 | https://commons.wikimedia.org/wiki/File:Air_Kiribati_Harbin_Y-12_(7331069244).jpg | Steve Bolton | CC BY 2.0 | 圖下 credit 行＋本表 |
+| AC-0128 中航 AG600 鯤龍水陸兩棲飛機 | https://commons.wikimedia.org/wiki/File:AG-600_at_Airshow_China_2016_(cropped).jpg | Alert5 | CC BY-SA 4.0 | 圖下 credit 行＋本表 |
+| AC-0129 西安 運-20 鯤鵬重型運輸機 | https://commons.wikimedia.org/wiki/File:China_-_Air_Force_-_Xian_Y-20.jpg | L.G.Liao | CC BY-SA 3.0 | 圖下 credit 行＋本表 |
+| AC-0130 陝西 運-9 中型運輸機 | https://commons.wikimedia.org/wiki/File:Shaanxi_Y-9_at_2014_Zhuhai_Air_Show.jpg | Danny Yu | CC BY-SA 4.0 | 圖下 credit 行＋本表 |
+| AC-0131 陝西 空警-500 預警機 | https://commons.wikimedia.org/wiki/File:KJ-500.jpg | Alert5 | CC BY-SA 4.0 | 圖下 credit 行＋本表 |
+| AC-0132 瀋陽 殲-11 重型戰鬥機 | https://commons.wikimedia.org/wiki/File:J-11B_at_China%27s_Air_Force_Aviation_Open_Day_20250921.jpg | 颐园居 | CC BY-SA 4.0 | 圖下 credit 行＋本表 |
+| AC-0133 瀋陽 殲-15 飛鯊艦載戰鬥機 | https://commons.wikimedia.org/wiki/File:PLAN_Shenyang_J-15_carrier-based_fighter_aircraft_20211221_-_3.jpg | 日本防衛省・統合幕僚監部 | CC BY 4.0 | 圖下 credit 行＋本表 |
+| AC-0134 瀋陽 殲-16 多用途戰鬥機 | https://commons.wikimedia.org/wiki/File:J-16_%D0%90%D0%B2%D0%B8%D0%B0%D0%B4%D0%B0%D1%80%D1%82%D1%812021.jpg | Ministry of Defence of the Russian Federation | CC BY 4.0 | 圖下 credit 行＋本表 |
+| AC-0135 成都 JF-17 梟龍戰鬥機 | https://commons.wikimedia.org/wiki/File:Pakistan_JF-17_(modified).jpg | Shimin Gu | CC BY-SA 4.0 | 圖下 credit 行＋本表 |
+| AC-0136 西安 殲轟-7 飛豹戰鬥轟炸機 | https://commons.wikimedia.org/wiki/File:PLAAF_Xian_JH-7A_at_Chelyabinsk_Shagol_Air_Base.jpg | Dmitriy Pichugin | GFDL 1.2 | 圖下 credit 行＋本表 |
+| AC-0137 成都 殲-7 戰鬥機 | https://commons.wikimedia.org/wiki/File:J-7I_fighter_at_the_Beijing_Military_Museum_from_above.jpg | Max Smith | Public domain | 圖下 credit 行＋本表 |
+| AC-0138 瀋陽 殲-35 隱身戰鬥機 | https://commons.wikimedia.org/wiki/File:J-35%27s_belly.jpg | Z3144228 | CC0 | 圖下 credit 行＋本表 |
+| AC-0139 昌河 直-10 武裝直升機 | https://commons.wikimedia.org/wiki/File:Changhe_WZ-10.jpg | Peng Chen | CC BY-SA 2.0 | 圖下 credit 行＋本表 |
+| AC-0140 哈爾濱 直-19 偵察攻擊直升機 | https://commons.wikimedia.org/wiki/File:Harbin_Z-19_helicopter_(cropped).jpg | Alert5 | CC BY-SA 4.0 | 圖下 credit 行＋本表 |
+| AC-0141 哈爾濱 直-20 通用直升機 | https://commons.wikimedia.org/wiki/File:Z-20_Airshow_China_2022_fly.jpg | China News Service | CC BY 4.0 | 圖下 credit 行＋本表 |
+| AC-0142 洪都 L-15／教-10 獵鷹高級教練機 | https://commons.wikimedia.org/wiki/File:Hongdu_JL-10_in_Zhuhai_airshow_2024.jpg | Z3144228 | CC0 | 圖下 credit 行＋本表 |
+| AC-0143 洪都 K-8 喀喇崑崙教練機 | https://commons.wikimedia.org/wiki/File:19332_-_Hongdu_K-8W_Karakorum_-_Bangladesh_-_Air_Force_-_VGHS.jpg | Md Shaifuzzaman Ayon | CC BY-SA 4.0 | 圖下 credit 行＋本表 |
+| AC-0144 南昌 初教-6 初級教練機 | https://commons.wikimedia.org/wiki/File:Nanchang_CJ-6_N22591_FDK_MD1.jpg | Acroterion | CC BY-SA 4.0 | 圖下 credit 行＋本表 |
+| AC-0145 成都 翼龍 II 無人攻擊機 | https://commons.wikimedia.org/wiki/File:Wing_Loong_II_side_view.jpg | Mztourist | CC BY-SA 4.0 | 圖下 credit 行＋本表 |
 
 規格來源逐項記喺 `data/aircraft-inventory.json` 每格的 `source` 連結；
 來源優先次序見 `docs/04-data-schema-and-verification.md`。參考網站只作體驗研究（見 docs/01），無搬用其文字或圖片。
 
 ---
-© SCOUT SYSTEM · COPYRIGHT SCOUT SYSTEM · Aircraft-Encyclopedia v0.10
+© SCOUT SYSTEM · COPYRIGHT SCOUT SYSTEM · Aircraft-Encyclopedia v0.11
