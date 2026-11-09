@@ -1,6 +1,6 @@
 "use strict";
-/* Aircraft-Encyclopedia v0.7 · © SCOUT SYSTEM · APP_VERSION 0.7.0 */
-const APP_VERSION = "0.7.0";
+/* Aircraft-Encyclopedia v0.7 · © SCOUT SYSTEM · APP_VERSION 0.7.1 */
+const APP_VERSION = "0.7.1";
 const LANG_KEY = "aircraft-encyclopedia.lang";
 
 const STR = {
@@ -260,9 +260,13 @@ function openDetail(seq) {
       <h3 class="block">${t().historyHead}</h3>
       <p class="history-line">${t().firstFlight}：${esc(h.firstFlight || "—")} · ${t().enteredService}：${esc(h.enteredService || "—")}<br>${t().statusWord}：${esc(lang === "en" ? h.statusEn : h.statusZh)}<br><span class="credit">${t().sourceWord}：<a href="${esc(h.source || "#")}" target="_blank" rel="noopener">${esc((h.source || "").replace(/^https?:\/\//, "").split("/")[0])}</a> · ${t().verifiedOn}：${esc(a.verifiedDate)}</span></p>
       <h3 class="block">${t().linksHead}</h3><div class="links-hub">${links}</div>`;
+    let activeDot = -1;
     const setActive = (i) => {
-      document.querySelectorAll("[data-dot]").forEach((b) => b.setAttribute("aria-pressed", String(Number(b.getAttribute("data-dot")) === i)));
+      const off = i === activeDot;
+      activeDot = off ? -1 : i;
+      document.querySelectorAll("[data-dot]").forEach((b) => b.setAttribute("aria-pressed", String(Number(b.getAttribute("data-dot")) === activeDot)));
       document.querySelectorAll("[data-weft]").forEach((el) => el.classList.remove("active"));
+      if (off) return;
       const part = (ann[i] || {}).part;
       const card = document.querySelector(`[data-weft="${part}"]`);
       if (card) { card.classList.add("active"); card.scrollIntoView({ block: "nearest", behavior: "smooth" }); }
