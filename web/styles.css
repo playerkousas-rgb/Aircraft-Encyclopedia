@@ -58,6 +58,9 @@ main{max-width:1180px;margin:0 auto;padding:1rem}
 .tag{font-size:.74rem;background:var(--sky-soft);color:var(--sky);border-radius:999px;padding:.28rem .55rem;font-weight:700}
 .tag.scout{background:#fdeec9;color:var(--amber-dark)}
 .tag.facet{background:#fff;border:1px solid var(--amber);color:var(--amber-dark)}
+.tag.coll-hk{background:#dcf2e4;color:#0c5a37}
+.tag.coll-world{background:#e6e2f7;color:#3d348b}
+.tag.coll-china{background:#fbe3e0;color:#8f2318}
 .facet-select{min-height:44px;border:1.5px solid var(--line);border-radius:9px;padding:.5rem .7rem;background:#fff;font-size:1rem;max-width:100%}
 .card p.progress-line{margin:0;color:var(--muted);font-size:.85rem}
 .card .cta{margin-top:auto;justify-self:start;border:0;border-radius:9px;background:var(--navy);color:#fff;padding:.65rem 1rem;font-weight:800;cursor:pointer;min-height:44px}

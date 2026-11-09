@@ -62,6 +62,14 @@ test("已核實機型必須有齊圖卡內容（WEFT、相片授權、標註、�
   }
 });
 
+test("探索系列標籤只用白名單，且三個系列各有成員（v0.12）", () => {
+  const KEYS = ["hk", "world", "china"];
+  for (const a of data.aircraft) for (const c of (a.collections || [])) assert.ok(KEYS.includes(c), a.seq + " " + c);
+  for (const k of KEYS) assert.ok(data.aircraft.some((a) => (a.collections || []).includes(k)), k);
+  assert.deepEqual([...data.aircraft.find((a) => a.seq === "AC-0078").collections].sort(), ["china", "hk"]);
+  assert.ok(data.aircraft.find((a) => a.seq === "AC-0039").collections.includes("hk"), "H175 政府飛行服務隊");
+});
+
 const blueprints = JSON.parse(readFileSync(new URL("../web/data/exam-blueprints.json", import.meta.url), "utf8"));
 test("考卷藍本覆蓋三級航空活動章＋空勤員，且結構上冇答案", () => {
   assert.deepEqual(blueprints.papers.map((x) => x.level), ["BAAB", "IAAB", "AAAB", "AIRCREW"]);

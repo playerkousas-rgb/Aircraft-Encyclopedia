@@ -1,6 +1,6 @@
 "use strict";
 /* Aircraft-Encyclopedia v0.7 · © SCOUT SYSTEM · APP_VERSION 0.9.0 */
-const APP_VERSION = "0.11.0";
+const APP_VERSION = "0.12.0";
 const LANG_KEY = "aircraft-encyclopedia.lang";
 
 const STR = {
@@ -9,7 +9,7 @@ const STR = {
     heroTitle: "一眼見到飛機，用一張圖認識飛機",
     heroText: "第一批跟童軍初級航空活動章清單（18 款）逐款核實：有齊相片、WEFT 辨認特徵同有來源的規格，先會出圖卡。",
     batch1Label: "第一批（初級航空活動章）進度",
-    searchLabel: "搜尋", searchPh: "名稱、代碼、製造商…", catLabel: "類別", scoutLabel: "章級別", statusLabel: "狀態", facetLabel: "特徵", allFeatures: "全部特徵",
+    searchLabel: "搜尋", searchPh: "名稱、代碼、製造商…", catLabel: "類別", scoutLabel: "章級別", colLabel: "探索系列", statusLabel: "狀態", facetLabel: "特徵", allFeatures: "全部特徵",
     loadErrorTitle: "資料載入失敗", loadErrorText: "請檢查網絡後重新整理；如果用檔案方式打開，請改用靜態伺服器開本站。",
     noResults: "搵唔到符合嘅飛機，試下改搜尋字或清除分類。",
     compareTitle: "比較兩款飛機", quizTitle: "小測驗：睇相認飛機",
@@ -42,7 +42,7 @@ const STR = {
     heroTitle: "See a plane. Learn a plane.",
     heroText: "Batch 1 follows the Scout Basic Air Activity list (18 types), verified one by one: a card is published only with a licensed photo, WEFT recognition notes and sourced specs.",
     batch1Label: "Batch 1 (Basic Air Activity) progress",
-    searchLabel: "Search", searchPh: "Name, code, manufacturer…", catLabel: "Category", scoutLabel: "Badge level", statusLabel: "Status", facetLabel: "Features", allFeatures: "All features",
+    searchLabel: "Search", searchPh: "Name, code, manufacturer…", catLabel: "Category", scoutLabel: "Badge level", colLabel: "Collections", statusLabel: "Status", facetLabel: "Features", allFeatures: "All features",
     loadErrorTitle: "Could not load data", loadErrorText: "Check your connection and reload. If you opened this as a file, serve the folder with a static server instead.",
     noResults: "No aircraft match. Try another search or clear the filters.",
     compareTitle: "Compare two aircraft", quizTitle: "Quiz: name that plane",
@@ -74,9 +74,11 @@ const STR = {
 
 let lang = "zh";
 try { const v = localStorage.getItem(LANG_KEY); if (v === "en" || v === "zh") lang = v; } catch (e) { /* private mode */ }
-let DATA = null, category = "all", query = "", scout = "all", statusFilter = "all", facet = "all";
+let DATA = null, category = "all", query = "", scout = "all", statusFilter = "all", facet = "all", collection = "all";
 let cmpA = null, cmpB = null, quiz = null;
 const SCOUT_LABEL = { BAAB: ["初級航空活動章", "Basic Air Activity"], IAAB: ["中級航空活動章", "Intermediate Air Activity"], AAAB: ["高級航空活動章", "Advanced Air Activity"] };
+const COLLECTION_LABEL = { hk: ["香港常見", "Hong Kong regulars"], world: ["世界常見", "Worldwide common"], china: ["中國自產", "China-built"] };
+function collTags(a) { return (a.collections || []).filter((c) => COLLECTION_LABEL[c]).map((c) => `<span class="tag coll coll-${c}">${esc(lang === "en" ? COLLECTION_LABEL[c][1] : COLLECTION_LABEL[c][0])}</span>`).join(""); }
 /* Facet tags: derived only from data already in the inventory (category, tags, verified specs). Nothing is invented for pending aircraft. */
 const TAG_LABEL = {
   widebody: ["廣體", "Widebody"], narrowbody: ["窄體", "Narrowbody"], "double-deck": ["雙層客艙", "Double-deck"],
@@ -163,6 +165,11 @@ function render() {
     `<button type="button" class="chip" data-scout="${k}" aria-pressed="${scout === k}">${esc(label)}</button>`).join("");
   document.querySelectorAll("[data-scout]").forEach((b) => b.addEventListener("click", () => { scout = b.getAttribute("data-scout"); render(); }));
 
+  const colChips = [["all", t().all]].concat(Object.entries(COLLECTION_LABEL).map(([k, v]) => [k, lang === "en" ? v[1] : v[0]]));
+  $("collectionChips").innerHTML = colChips.map(([k, label]) =>
+    `<button type="button" class="chip" data-coll="${k}" aria-pressed="${collection === k}">${esc(label)}</button>`).join("");
+  document.querySelectorAll("[data-coll]").forEach((b) => b.addEventListener("click", () => { collection = b.getAttribute("data-coll"); render(); }));
+
   const statusChips = [["all", t().all], ["verified", t().verifiedOnly], ["pending", t().pendingOnly]];
   $("statusChips").innerHTML = statusChips.map(([k, label]) =>
     `<button type="button" class="chip" data-status="${k}" aria-pressed="${statusFilter === k}">${esc(label)}</button>`).join("");
@@ -177,6 +184,7 @@ function render() {
   const shown = list.filter((a) => {
     if (category !== "all" && a.category !== category) return false;
     if (scout !== "all" && !(a.scout && a.scout.level === scout)) return false;
+    if (collection !== "all" && !(a.collections || []).includes(collection)) return false;
     if (statusFilter === "verified" && a.dataStatus !== "verified") return false;
     if (statusFilter === "pending" && a.dataStatus === "verified") return false;
     if (facet !== "all" && !facetsOf(a).some((f) => f.key === facet)) return false;
@@ -197,7 +205,7 @@ function render() {
         <div class="card-top"><span class="seq">${a.seq} · ${esc(codeOf(a))}</span><span class="pill${isV ? " done" : ""}">${isV ? t().verified : t().pending}</span></div>
         <h3>${esc(nameOf(a))}</h3><p class="sub">${esc(a.manufacturer)} · ${esc(lang === "en" ? a.nameEn : a.nameZh)}</p>
         ${intro}
-        <div class="meta"><span class="tag">${esc(lang === "en" ? a.categoryLabel.en : a.categoryLabel.zh)}</span>${a.scout ? `<span class="tag scout">${esc(lang === "en" ? SCOUT_LABEL[a.scout.level][1] : SCOUT_LABEL[a.scout.level][0])}</span>` : ""}</div>
+        <div class="meta"><span class="tag">${esc(lang === "en" ? a.categoryLabel.en : a.categoryLabel.zh)}</span>${a.scout ? `<span class="tag scout">${esc(lang === "en" ? SCOUT_LABEL[a.scout.level][1] : SCOUT_LABEL[a.scout.level][0])}</span>` : ""}${collTags(a)}</div>
         <div class="meta facets">${facetsOf(a).slice(0, 6).map((f) => `<span class="tag facet">${esc(f.label)}</span>`).join("")}</div>
         <div class="progress" aria-label="${t().progress} ${n}/${total}"><i style="width:${Math.round(n / total * 100)}%"></i></div>
         <p class="progress-line">${t().progress} ${n}/${total}</p>
@@ -247,7 +255,7 @@ function openDetail(seq) {
       `<a href="${esc(l.url)}" target="_blank" rel="noopener">${esc(lang === "en" ? l.labelEn : l.labelZh)} ↗</a>`).join("");
     const h = a.history || {};
     $("detailBody").innerHTML = `
-      <div class="detail-badges"><span class="tag">${esc(lang === "en" ? a.categoryLabel.en : a.categoryLabel.zh)}</span>${a.scout ? `<span class="tag scout">${esc(lang === "en" ? SCOUT_LABEL[a.scout.level][1] : SCOUT_LABEL[a.scout.level][0])}</span>` : ""}<span class="tag">${esc(a.manufacturer)} · ${esc(a.icao)}</span>${facetsOf(a).map((f) => `<span class="tag facet">${esc(f.label)}</span>`).join("")}</div>
+      <div class="detail-badges"><span class="tag">${esc(lang === "en" ? a.categoryLabel.en : a.categoryLabel.zh)}</span>${a.scout ? `<span class="tag scout">${esc(lang === "en" ? SCOUT_LABEL[a.scout.level][1] : SCOUT_LABEL[a.scout.level][0])}</span>` : ""}<span class="tag">${esc(a.manufacturer)} · ${esc(a.icao)}</span>${collTags(a)}${facetsOf(a).map((f) => `<span class="tag facet">${esc(f.label)}</span>`).join("")}</div>
       <div class="variant-note">${esc(lang === "en" ? a.variantNoteEn : a.variantNoteZh)}</div>
       <div class="detail-photo">${photoImg(a)}${dots}</div>
       <p class="caption">${esc(lang === "en" ? a.photo.captionEn : a.photo.captionZh)}</p>
