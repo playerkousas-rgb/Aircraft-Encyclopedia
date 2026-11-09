@@ -1,0 +1,49 @@
+{
+  "version": "0.1.0",
+  "updated": "2026-11-09",
+  "note": "出卷藍本：只有藍圖，冇題目、冇答案。題目只可由 dataStatus=verified 的機型即時產生；未核實唔出卷。",
+  "papers": [
+    {
+      "paperIdPrefix": "AE-BAAB",
+      "level": "BAAB",
+      "titleZh": "初級航空活動章 航機辨認卷",
+      "titleEn": "Basic Air Activity - Aircraft Recognition Paper",
+      "sections": [
+        { "id": "photo-id", "type": "photo-identification", "poolLevel": "BAAB", "requiresVerified": ["photo", "recognition"], "defaultCount": 12 },
+        { "id": "parts-label", "type": "parts-labelling", "poolLevel": "BAAB", "requiresVerified": ["photo", "recognition"], "defaultCount": 6 },
+        { "id": "weft-short", "type": "weft-short-answer", "poolLevel": "BAAB", "requiresVerified": ["recognition"], "defaultCount": 4 }
+      ]
+    },
+    {
+      "paperIdPrefix": "AE-IAAB",
+      "level": "IAAB",
+      "titleZh": "中級航空活動章 航機辨認卷",
+      "titleEn": "Intermediate Air Activity - Aircraft Recognition Paper",
+      "sections": [
+        { "id": "photo-id", "type": "photo-identification", "poolLevel": "IAAB", "requiresVerified": ["photo", "recognition"], "defaultCount": 12 },
+        { "id": "airline-match", "type": "airline-matching", "poolLevel": "airlines", "requiresVerified": ["links"], "defaultCount": 10 },
+        { "id": "knowledge-short", "type": "knowledge-short-answer", "poolLevel": "IAAB", "requiresVerified": ["recognition"], "defaultCount": 4 }
+      ]
+    },
+    {
+      "paperIdPrefix": "AE-AAAB",
+      "level": "AAAB",
+      "titleZh": "高級航空活動章 航機辨認卷",
+      "titleEn": "Advanced Air Activity - Aircraft Recognition Paper",
+      "sections": [
+        { "id": "photo-id", "type": "photo-identification", "poolLevel": "AAAB", "requiresVerified": ["photo", "recognition"], "defaultCount": 12 },
+        { "id": "lookalike", "type": "lookalike-differentiation", "poolLevel": "AAAB", "requiresVerified": ["recognition"], "defaultCount": 4 },
+        { "id": "teach-back", "type": "teach-back", "poolLevel": "AAAB", "requiresVerified": ["recognition"], "defaultCount": 2 }
+      ]
+    },
+    {
+      "paperIdPrefix": "AE-AIRCREW",
+      "level": "AIRCREW",
+      "titleZh": "空勤員應用卷：機場航班辨認",
+      "titleEn": "Aircrew Applied Paper - Airport Flight Identification",
+      "sections": [
+        { "id": "airport-spotting", "type": "airport-spotting", "poolLevel": "BAAB", "requiresVerified": ["photo", "recognition", "links"], "defaultCount": 8 }
+      ]
+    }
+  ]
+}
