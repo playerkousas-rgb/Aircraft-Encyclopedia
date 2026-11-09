@@ -115,8 +115,39 @@
 | AC-0094 麥克唐納-道格拉斯 F-15 鷹式 | https://commons.wikimedia.org/wiki/File:F-15_eagle_USAF.jpg | U.S. Air Force / MSgt. Thomas Meneguin | Public domain | 圖下 credit 行＋本表 |
 | AC-0095 空中巴士 A400M Atlas | https://commons.wikimedia.org/wiki/File:Airbus_A400M_Atlas_of_the_Spanish_Air_Force_(code_EC-400)_arrives_RIAT_Fairford_18July2019_arp.jpg | Adrian Pingstone | Public domain | 圖下 credit 行＋本表 |
 
+| AC-0096 空中巴士 A319-100 | https://commons.wikimedia.org/wiki/File:Airbus_A319_-_EC-MTF_from_Volotea_during_landing_at_LFBT_airport.jpg | Hugo LUC | CC BY-SA 4.0 | 圖下 credit 行＋本表 |
+| AC-0097 空中巴士 A321-200 | https://commons.wikimedia.org/wiki/File:Airbus_A321-200_Lufthansa_%28DLH%29_D-AISI_-_MSN_3339_-_Named_Bergheim_%283517348169%29.jpg | Laurent Errera | CC BY-SA 2.0 | 圖下 credit 行＋本表 |
+| AC-0098 波音 737-700 | https://commons.wikimedia.org/wiki/File:Southwest_Airlines_Boeing_737-700_N231WN.jpg | Dylan Ashe | CC BY-SA 2.0 | 圖下 credit 行＋本表 |
+| AC-0099 波音 767-300ER | https://commons.wikimedia.org/wiki/File:Boeing_767-324%28ER%29%2C_Delta_Air_Lines_JP342558.jpg | Dale Coleman | GFDL 1.2 | 圖下 credit 行＋本表 |
+| AC-0100 空中巴士 A220-100 | https://commons.wikimedia.org/wiki/File:Delta_Air_Lines_Airbus_A220-100_N108DQ_approaching_LaGuardia_Airport.jpg | Adam Moreira | CC BY-SA 4.0 | 圖下 credit 行＋本表 |
+| AC-0101 巴西航空工業 ERJ 145 | https://commons.wikimedia.org/wiki/File:American_Eagle_Embraer_ERJ-145.JPG | Sla2931 | CC BY-SA 3.0 | 圖下 credit 行＋本表 |
+| AC-0102 龐巴迪 CRJ700 | https://commons.wikimedia.org/wiki/File:American_Eagle_CRJ-700_N709PS_at_Charlotte%2C_2022.jpg | Colin Brown Photo | CC BY 2.0 | 圖下 credit 行＋本表 |
+| AC-0103 ATR 42-600 | https://commons.wikimedia.org/wiki/File:Olympic_Air_ATR_42-600_%28SX-OAW%29_%40_ATH%2C_Sept_2016.jpg | Fabrizio Gandolfo | CC BY-SA 4.0 | 圖下 credit 行＋本表 |
+| AC-0104 波音 747-400F | https://commons.wikimedia.org/wiki/File:Cargolux%2C_Boeing_747-400F%2C_LX-ICV_%2816699506758%29.jpg | BriYYZ | CC BY-SA 2.0 | 圖下 credit 行＋本表 |
+| AC-0105 波音 737-800BCF | https://commons.wikimedia.org/wiki/File:World_Cargo_Airlines_Boeing_737-800BCF_9M-WCA_%2851907653489%29.jpg | Melvin Loi | CC BY-SA 2.0 | 圖下 credit 行＋本表 |
+| AC-0106 西科斯基 S-76 | https://commons.wikimedia.org/wiki/File:G-XXEB_Sikorsky_S-76C-2_The_Queens_Helicopter_Flight_%288596392766%29.jpg | Aeroprints.com | CC BY-SA 3.0 | 圖下 credit 行＋本表 |
+| AC-0107 李奧納多 AW109 | https://commons.wikimedia.org/wiki/File:AW109_GrandNew.jpg | Zalasem1 | CC BY-SA 4.0 | 圖下 credit 行＋本表 |
+| AC-0108 貝爾 412 | https://commons.wikimedia.org/wiki/File:Niigata_Police_JA01NP_Bell-412EP_KIJ.jpg | Cp9asngf | CC BY-SA 3.0 | 圖下 credit 行＋本表 |
+| AC-0109 貝爾 429 GlobalRanger | https://commons.wikimedia.org/wiki/File:N10984_Bell_429_GlobalRanger_%287089850735%29.jpg | Robert Frola | GFDL | 圖下 credit 行＋本表 |
+| AC-0110 西科斯基 S-92 | https://commons.wikimedia.org/wiki/File:Sikorsky_S-92A_Helibus.jpg | Halley Pacheco de Oliveira | CC BY-SA 3.0 | 圖下 credit 行＋本表 |
+| AC-0111 米爾 Mi-8/17 | https://commons.wikimedia.org/wiki/File:Afghan_National_Air_Force_Mi-17_Helicopter_Over_Camp_Bastion_MOD_45151876.jpg | Sgt Deanne Hurla / MOD | OGL v1.0 | 圖下 credit 行＋本表 |
+| AC-0112 達梭 飆風戰鬥機 | https://commons.wikimedia.org/wiki/File:Dassault_Rafale_M_%2738%27_%2814584001237%29.jpg | Alan Wilson | CC BY-SA 2.0 | 圖下 credit 行＋本表 |
+| AC-0113 紳寶 JAS 39 獅鷲戰鬥機 | https://commons.wikimedia.org/wiki/File:3_x_Saab_JAS-39_Gripen_of_the_Czech_Air_Force_in_flight.jpg | Milan Nykodym | CC BY-SA 2.0 | 圖下 credit 行＋本表 |
+| AC-0114 米高揚 MiG-29 支點戰鬥機 | https://commons.wikimedia.org/wiki/File:Peruvian_Air_Force_MiG-29_SDLP.jpg | Sergio de la Puente | GFDL 1.2 | 圖下 credit 行＋本表 |
+| AC-0115 成都 殲-10 猛龍戰鬥機 | https://commons.wikimedia.org/wiki/File:August_1st_Chengdu_J-10_at_Zhuhai_Airshow_20181107.jpg | 乘号同学 | CC0 | 圖下 credit 行＋本表 |
+| AC-0116 費爾柴德 A-10 雷霆二式攻擊機 | https://commons.wikimedia.org/wiki/File:A-10_Thunderbolt_II_In-flight-2.jpg | Greg L. Davis, USAF | Public domain | 圖下 credit 行＋本表 |
+| AC-0117 波音 B-52 同溫層堡壘轟炸機 | https://commons.wikimedia.org/wiki/File:USAF_Boeing_B-52_Stratofortress_flying_overhead_with_open_bomb_bay_door.jpg | Pseudopanax | Public domain | 圖下 credit 行＋本表 |
+| AC-0118 波音 P-8 海神式海上巡邏機 | https://commons.wikimedia.org/wiki/File:P-8A_Poseidon_of_VP-16_dropping_torpedo_in_2013.JPG | U.S. Navy | Public domain | 圖下 credit 行＋本表 |
+| AC-0119 巴西航空工業 KC-390 千禧年運輸機 | https://commons.wikimedia.org/wiki/File:FAB2857_Embraer_KC-390_Millenium_Brazilian_Air_Force.jpg | Colin Cooke | CC BY-SA 2.0 | 圖下 credit 行＋本表 |
+| AC-0120 巴西航空工業 Phenom 300 | https://commons.wikimedia.org/wiki/File:N300QS_Embraer_Emb.505_Phenom_300_Netjets_%288738784428%29.jpg | Aeroprints.com | CC BY-SA 3.0 | 圖下 credit 行＋本表 |
+| AC-0121 龐巴迪 挑戰者 350 | https://commons.wikimedia.org/wiki/File:Bombardier_BD-100-1A10_Challenger_350_%28N595FX%2C_cn_20825%29_%282-13-2024%29.jpg | ZLEA | CC BY-SA 4.0 | 圖下 credit 行＋本表 |
+| AC-0122 賽斯納 獎狀緯度 Citation Latitude | https://commons.wikimedia.org/wiki/File:CS-DQA_Cessna_680_Citation_Latitude_C68A_c_n_680A0132_-_NJE_%2843222540530%29.jpg | Markus Eigenheer | CC BY-SA 2.0 | 圖下 credit 行＋本表 |
+| AC-0123 達梭 獵鷹 2000 | https://commons.wikimedia.org/wiki/File:Dassault_Falcon_2000EX_%E2%80%98CS-DFG%E2%80%99_%2824881173002%29.jpg | Alan Wilson | CC BY-SA 2.0 | 圖下 credit 行＋本表 |
+| AC-0124 西銳 SR22 | https://commons.wikimedia.org/wiki/File:VH-IBC_Cirrus_SR22-G2_%289171866070%29.jpg | Robert Frola | GFDL | 圖下 credit 行＋本表 |
+| AC-0125 鑽石 DA40 星鑽 | https://commons.wikimedia.org/wiki/File:LN-FTO_Diamond_DA40_NG_Diamond_Star.jpg | Marius Vassnes | CC BY-SA 4.0 | 圖下 credit 行＋本表 |
+
 規格來源逐項記喺 `data/aircraft-inventory.json` 每格的 `source` 連結；
 來源優先次序見 `docs/04-data-schema-and-verification.md`。參考網站只作體驗研究（見 docs/01），無搬用其文字或圖片。
 
 ---
-© SCOUT SYSTEM · COPYRIGHT SCOUT SYSTEM · Aircraft-Encyclopedia v0.9
+© SCOUT SYSTEM · COPYRIGHT SCOUT SYSTEM · Aircraft-Encyclopedia v0.10

@@ -1,6 +1,6 @@
 "use strict";
 /* Aircraft-Encyclopedia v0.7 · © SCOUT SYSTEM · APP_VERSION 0.9.0 */
-const APP_VERSION = "0.9.0";
+const APP_VERSION = "0.10.0";
 const LANG_KEY = "aircraft-encyclopedia.lang";
 
 const STR = {
