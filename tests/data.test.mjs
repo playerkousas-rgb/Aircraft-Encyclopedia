@@ -63,11 +63,19 @@ test("已核實機型必須有齊圖卡內容（WEFT、相片授權、標註、�
 });
 
 test("探索系列標籤只用白名單，且三個系列各有成員（v0.12）", () => {
-  const KEYS = ["hk", "world", "china"];
+  const KEYS = ["hk", "world", "china", "classic"];
   for (const a of data.aircraft) for (const c of (a.collections || [])) assert.ok(KEYS.includes(c), a.seq + " " + c);
   for (const k of KEYS) assert.ok(data.aircraft.some((a) => (a.collections || []).includes(k)), k);
   assert.deepEqual([...data.aircraft.find((a) => a.seq === "AC-0078").collections].sort(), ["china", "hk"]);
   assert.ok(data.aircraft.find((a) => a.seq === "AC-0039").collections.includes("hk"), "H175 政府飛行服務隊");
+  assert.ok(data.aircraft.find((a) => a.seq === "AC-0030").collections.includes("classic"), "協和號 歷史名機");
+});
+
+test("每款首飛年份可解析，支撐首飛年代分類（v0.13）", () => {
+  for (const a of data.aircraft) {
+    const y = parseInt(((a.history || {}).firstFlight || "").slice(0, 4), 10);
+    assert.ok(y >= 1903 && y <= 2026, a.seq + " firstFlight");
+  }
 });
 
 const blueprints = JSON.parse(readFileSync(new URL("../web/data/exam-blueprints.json", import.meta.url), "utf8"));
