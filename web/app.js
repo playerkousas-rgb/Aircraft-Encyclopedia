@@ -1,6 +1,6 @@
 "use strict";
 /* Aircraft-Encyclopedia v0.7 · © SCOUT SYSTEM · APP_VERSION 0.9.0 */
-const APP_VERSION = "0.16.0";
+const APP_VERSION = "0.17.0";
 const LANG_KEY = "aircraft-encyclopedia.lang";
 const QUIZ_BEST_KEY = "aircraft-encyclopedia.quiz-best";
 function loadQuizBest() { try { const v = JSON.parse(localStorage.getItem(QUIZ_BEST_KEY) || "{}"); return v && typeof v === "object" ? v : {}; } catch (e) { return {}; } }
@@ -38,6 +38,10 @@ const STR = {
     quizIntro: "題目只用已核實的圖卡：睇相揀啱機型名。答錯會即刻講返點認，唔使死背。",
     quizStart: "開始測驗", quizNext: "下一題", quizAgain: "再玩一次", quizQ: "呢架係邊款飛機？",
     quizPickLevel: "按章級數分開操：揀你考緊嗰級，只出嗰級的機型。", quizFree: "自由練習（唔分級）", quizBest: "最佳", quizNone: "未開始", quizBack: "返去揀級數",
+    examIntro: "揀一級即刻出卷：題目只用已核實圖卡隨機產生，每次唔同；領袖版附答案同出處，方便批改。", examGen: "出卷", examRegen: "重新出卷", examBack: "返去揀卷",
+    examPrintPaper: "列印學員試卷", examPrintKey: "列印領袖答案", examShowKey: "顯示答案", examHideKey: "隱藏答案", examName: "姓名", examUnit: "支部／旅", examDate: "日期", examTotal: "總分", examMarksUnit: "分",
+    secPhotoId: "認相", secParts: "標示部件", secWeft: "WEFT 簡答", secAirline: "航空公司配對", secKnowledge: "航空知識簡答", secLookalike: "相似機型分辨", secTeach: "教返人認機", secSpotting: "機場認機",
+    examNote: "本卷由已核實圖卡即時隨機產生；相片版權屬原作者，依圖卡標示的授權使用。", examKey: "答案", examTypes: "款可用題池",
     correct: "啱咗！", wrong: "唔啱，正確答案係：", score: "完成！你啱咗",
     checks: { identity: "身份：中英名、製造商、ICAO 代碼", history: "歷史：首飛與現況", specs: "規格：尺寸、引擎、座位/載重、航程", recognition: "辨認：肉眼特徵與相似機型分別", photo: "相片：授權與標註座標", links: "深度連結：官方、維基、FR24、圖庫", bilingual: "英文：名稱與辨認特徵", quiz: "測驗：題目與答案核對" }
   },
@@ -72,6 +76,10 @@ const STR = {
     quizIntro: "Questions use verified cards only: look at the photo and pick the right type. Wrong answers explain how to tell, so you learn instead of memorising.",
     quizStart: "Start quiz", quizNext: "Next question", quizAgain: "Play again", quizQ: "Which aircraft is this?",
     quizPickLevel: "Drill by badge level: pick your level to face only its aircraft.", quizFree: "Free practice (any level)", quizBest: "Best", quizNone: "Not started", quizBack: "Back to levels",
+    examIntro: "Pick a level to generate a paper instantly: questions are drawn at random from verified cards only, different every time; the leader version carries answers with sources for marking.", examGen: "Generate paper", examRegen: "Regenerate", examBack: "Back to papers",
+    examPrintPaper: "Print student paper", examPrintKey: "Print leader key", examShowKey: "Show answers", examHideKey: "Hide answers", examName: "Name", examUnit: "Unit / Troop", examDate: "Date", examTotal: "Total", examMarksUnit: "marks",
+    secPhotoId: "Photo identification", secParts: "Label the parts", secWeft: "WEFT short answers", secAirline: "Airline matching", secKnowledge: "Aviation knowledge", secLookalike: "Tell look-alikes apart", secTeach: "Teach it back", secSpotting: "Airport spotting",
+    examNote: "This paper was generated at random from verified cards; photos remain under their credited licences.", examKey: "Key", examTypes: "types in pool",
     correct: "Correct!", wrong: "Not quite — the answer is: ", score: "Done! You scored",
     checks: { identity: "Identity: names, manufacturer, ICAO code", history: "History: first flight and status", specs: "Specs: dimensions, engines, seats/payload, range", recognition: "Recognition: visible features and look-alikes", photo: "Photo: licence and annotation points", links: "Deep links: official, Wikipedia, FR24, gallery", bilingual: "English: names and recognition notes", quiz: "Quiz: questions and answers checked" }
   }
@@ -81,6 +89,7 @@ let lang = "zh";
 try { const v = localStorage.getItem(LANG_KEY); if (v === "en" || v === "zh") lang = v; } catch (e) { /* private mode */ }
 let DATA = null, category = "all", query = "", scout = "all", statusFilter = "all", facet = "all", collection = "all", era = "all", origin = "all", quizScope = "all";
 let cmpA = null, cmpB = null, quiz = null;
+let BLUEPRINTS = null, examModel = null, examKeyShown = false;
 const SCOUT_LABEL = { BAAB: ["初級航空活動章", "Basic Air Activity"], IAAB: ["中級航空活動章", "Intermediate Air Activity"], AAAB: ["高級航空活動章", "Advanced Air Activity"] };
 const COLLECTION_LABEL = { hk: ["香港常見", "Hong Kong regulars"], world: ["世界常見", "Worldwide common"], china: ["中國自產", "China-built"], classic: ["歷史名機", "Historic icons"] };
 function collTags(a) { return (a.collections || []).filter((c) => COLLECTION_LABEL[c]).map((c) => `<span class="tag coll coll-${c}">${esc(lang === "en" ? COLLECTION_LABEL[c][1] : COLLECTION_LABEL[c][0])}</span>`).join(""); }
@@ -241,6 +250,8 @@ function render() {
   document.querySelectorAll("[data-seq]").forEach((b) => b.addEventListener("click", () => openDetail(b.getAttribute("data-seq"))));
   renderCompare();
   renderQuizIntro();
+  renderExamIntro();
+  renderExamPaper();
 }
 
 function specRows(a) {
@@ -421,10 +432,262 @@ function answerQuiz(btn, a) {
   });
 }
 
-$("langToggle").addEventListener("click", () => { lang = lang === "en" ? "zh" : "en"; quiz = null; applyLang(); });
+
+// ---------- exam papers (generated from blueprints; answers never stored) ----------
+const shuffle = (arr) => [...arr].sort(() => Math.random() - 0.5);
+const sample = (arr, n) => shuffle(arr).slice(0, Math.min(n, arr.length));
+const scoutPool = (lv) => verifiedList().filter((a) => a.scout && a.scout.level === lv);
+const bySeqMap = () => new Map((DATA ? DATA.aircraft : []).map((a) => [a.seq, a]));
+const SEC_TITLE = { "photo-identification": "secPhotoId", "parts-labelling": "secParts", "weft-short-answer": "secWeft", "airline-matching": "secAirline", "knowledge-short-answer": "secKnowledge", "lookalike-differentiation": "secLookalike", "teach-back": "secTeach", "airport-spotting": "secSpotting" };
+const SEC_INSTR = {
+  "photo-identification": ["睇相，在四個選項中揀出正確機型名，圈出英文字母。", "Look at the photo and circle the letter of the correct aircraft name."],
+  "airport-spotting": ["模擬在機場見到真機：睇相揀出正確機型名，圈出英文字母。", "As if you spotted it at the airport: circle the letter of the correct aircraft name."],
+  "parts-labelling": ["寫出相中每個編號位置的部件或特徵名稱。", "Write the name of the part or feature at each numbered position."],
+  "weft-short-answer": ["用一句說話，寫出指定部位的辨認特徵。", "In one sentence, write the recognition feature of the named part."],
+  "airline-matching": ["將左邊機型同右邊航空公司／營運者配對，在括號內寫上英文字母（以圖卡資料為準）。", "Match each aircraft on the left with an airline / operator on the right; write the letter in the brackets (as stated on the aircraft cards)."],
+  "knowledge-short-answer": ["簡短回答以下問題。", "Answer each question briefly."],
+  "lookalike-differentiation": ["寫出一個可以分辨兩者的外形分別。", "Write one visible feature that tells the two apart."],
+  "teach-back": ["用自己的說話，教一位初級組員點樣認出這款飛機。", "In your own words, teach a junior member how to recognise this aircraft."]
+};
+const AIRLINES = [
+  { zh: "國泰航空", en: "Cathay Pacific", a: ["國泰航空", "國泰", "Cathay Pacific", "Cathay"] },
+  { zh: "香港快運", en: "HK Express", a: ["香港快運", "HK Express"] },
+  { zh: "香港航空", en: "Hong Kong Airlines", a: ["香港航空", "Hong Kong Airlines"] },
+  { zh: "大灣區航空", en: "Greater Bay Airlines", a: ["大灣區航空", "Greater Bay Airlines"] },
+  { zh: "卡塔爾航空", en: "Qatar Airways", a: ["卡塔爾航空", "卡塔爾", "Qatar Airways"] },
+  { zh: "阿聯酋航空", en: "Emirates", a: ["阿聯酋航空", "Emirates"] },
+  { zh: "新加坡航空", en: "Singapore Airlines", a: ["新加坡航空", "Singapore Airlines"] },
+  { zh: "全日空", en: "All Nippon Airways (ANA)", a: ["全日空", "All Nippon", "ANA"] },
+  { zh: "日本航空", en: "Japan Airlines", a: ["日本航空", "Japan Airlines"] },
+  { zh: "大韓航空", en: "Korean Air", a: ["大韓航空", "Korean Air"] },
+  { zh: "中國國際航空", en: "Air China", a: ["中國國際航空", "國航", "Air China"] },
+  { zh: "中國南方航空", en: "China Southern Airlines", a: ["中國南方航空", "南航", "China Southern"] },
+  { zh: "中國東方航空", en: "China Eastern Airlines", a: ["中國東方航空", "中國東方", "東航", "China Eastern"] },
+  { zh: "漢莎航空", en: "Lufthansa", a: ["漢莎航空", "漢莎", "Lufthansa"] },
+  { zh: "英國航空", en: "British Airways", a: ["英國航空", "英航", "British Airways"] },
+  { zh: "法國航空", en: "Air France", a: ["法國航空", "法航", "Air France"] },
+  { zh: "荷蘭皇家航空", en: "KLM Royal Dutch Airlines", a: ["荷蘭皇家航空", "KLM"] },
+  { zh: "澳洲航空", en: "Qantas", a: ["澳洲航空", "澳航", "Qantas"] },
+  { zh: "聯合航空", en: "United Airlines", a: ["聯合航空", "United Airlines"] },
+  { zh: "達美航空", en: "Delta Air Lines", a: ["達美航空", "達美", "Delta Air Lines"] },
+  { zh: "美國航空", en: "American Airlines", a: ["美國航空", "美航", "American Airlines"] },
+  { zh: "泛美航空", en: "Pan American World Airways", a: ["泛美航空", "泛美", "Pan Am", "Pan American"] },
+  { zh: "西南航空", en: "Southwest Airlines", a: ["西南航空", "Southwest Airlines", "Southwest"] },
+  { zh: "土耳其航空", en: "Turkish Airlines", a: ["土耳其航空", "Turkish Airlines"] },
+  { zh: "泰國國際航空", en: "Thai Airways", a: ["泰國國際航空", "泰航", "Thai Airways"] },
+  { zh: "馬來西亞航空", en: "Malaysia Airlines", a: ["馬來西亞航空", "馬航", "Malaysia Airlines"] },
+  { zh: "越南航空", en: "Vietnam Airlines", a: ["越南航空", "Vietnam Airlines"] },
+  { zh: "菲律賓航空", en: "Philippine Airlines", a: ["菲律賓航空", "Philippine Airlines"] },
+  { zh: "長榮航空", en: "EVA Air", a: ["長榮航空", "長榮", "EVA Air"] },
+  { zh: "中華航空", en: "China Airlines", a: ["中華航空", "華航", "China Airlines"] },
+  { zh: "印度航空", en: "Air India", a: ["印度航空", "Air India"] },
+  { zh: "芬蘭航空", en: "Finnair", a: ["芬蘭航空", "Finnair"] },
+  { zh: "瑞士國際航空", en: "SWISS", a: ["瑞士國際航空", "瑞士航空", "SWISS"] },
+  { zh: "北歐航空", en: "SAS Scandinavian Airlines", a: ["北歐航空", "SAS"] },
+  { zh: "紐西蘭航空", en: "Air New Zealand", a: ["紐西蘭航空", "Air New Zealand"] },
+  { zh: "加拿大航空", en: "Air Canada", a: ["加拿大航空", "加航", "Air Canada"] },
+  { zh: "俄羅斯航空", en: "Aeroflot", a: ["俄羅斯航空", "Aeroflot"] },
+  { zh: "UPS 聯合包裹", en: "UPS Airlines", a: ["UPS"] },
+  { zh: "聯邦快遞", en: "FedEx Express", a: ["聯邦快遞", "FedEx"] },
+  { zh: "DHL", en: "DHL Aviation", a: ["DHL"] },
+  { zh: "盧森堡貨運航空", en: "Cargolux", a: ["盧森堡貨運", "Cargolux"] }
+];
+function airlineMatchOf(a) {
+  const find = (fields) => {
+    for (let f = 0; f < fields.length; f++) {
+      const text = fields[f]; if (!text) continue;
+      let best = null;
+      AIRLINES.forEach((al, ai) => al.a.forEach((alias) => {
+        const pos = text.indexOf(alias);
+        if (pos >= 0 && (!best || alias.length > best.len)) best = { ai, len: alias.length, alias };
+      }));
+      if (best) {
+        const clause = text.split(/(?<=[。；！？.!?;])\s*/).find((c) => c.includes(best.alias)) || text;
+        return { ai: best.ai, field: f, snippet: clause.trim().slice(0, 110) };
+      }
+    }
+    return null;
+  };
+  const zh = find([a.history && a.history.statusZh, a.introZh, a.photo && a.photo.captionZh]);
+  const en = find([a.history && a.history.statusEn, a.introEn, a.photo && a.photo.captionEn]);
+  if (!zh && !en) return null;
+  return { ai: (zh || en).ai, prio: Math.min(zh ? zh.field : 9, en ? en.field : 9), snippetZh: zh ? zh.snippet : "", snippetEn: en ? en.snippet : "" };
+}
+function buildAirlinePairs(count) {
+  const byAirline = new Map();
+  verifiedList().forEach((a) => {
+    const m = airlineMatchOf(a); if (!m) return;
+    const cur = byAirline.get(m.ai);
+    if (!cur || m.prio < cur.prio || (m.prio === cur.prio && a.seq < cur.seq)) byAirline.set(m.ai, { seq: a.seq, ...m });
+  });
+  return sample([...byAirline.values()], count);
+}
+function lookalikeOpp(a) {
+  const mEn = (a.similarEn || "").match(/^Versus (?:the )?(.+?)(?: \(|,|:)/);
+  const mZh = (a.similarZh || "").match(/^同(.+?)比[：:]/);
+  return { en: mEn ? mEn[1].trim() : "", zh: mZh ? mZh[1].trim() : "" };
+}
+function genExamModel(paper) {
+  const d = new Date();
+  const ymd = `${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, "0")}${String(d.getDate()).padStart(2, "0")}`;
+  const sections = paper.sections.map((sec) => {
+    const pool = sec.poolLevel === "airlines" ? verifiedList() : scoutPool(sec.poolLevel);
+    let items = [];
+    if (sec.type === "photo-identification" || sec.type === "airport-spotting") {
+      items = sample(pool, sec.defaultCount).map((a) => ({ seq: a.seq, options: shuffle([a.seq, ...sample(pool.filter((x) => x.seq !== a.seq), 3).map((x) => x.seq)]) }));
+    } else if (sec.type === "parts-labelling") {
+      items = sample(pool.filter((a) => (a.photo.annotations || []).length >= 2), sec.defaultCount)
+        .map((a) => ({ seq: a.seq, ann: sample(a.photo.annotations.map((x, i) => i), Math.min(3, a.photo.annotations.length)) }));
+    } else if (sec.type === "weft-short-answer") {
+      const keys = ["wings", "engines", "fuselage", "tail"];
+      items = sample(pool, sec.defaultCount).map((a) => ({ seq: a.seq, part: keys[Math.floor(Math.random() * keys.length)] }));
+    } else if (sec.type === "airline-matching") {
+      const pairs = buildAirlinePairs(sec.defaultCount);
+      items = pairs.map((p) => ({ seq: p.seq, ai: p.ai, snippetZh: p.snippetZh, snippetEn: p.snippetEn }));
+      return { def: sec, items, right: shuffle(pairs.map((p) => p.ai)) };
+    } else if (sec.type === "knowledge-short-answer") {
+      const kinds = ["ff", "icao", "maker", "engine"];
+      items = sample(pool, sec.defaultCount).map((a, i) => ({ seq: a.seq, kind: kinds[i % kinds.length] }));
+    } else if (sec.type === "lookalike-differentiation" || sec.type === "teach-back") {
+      items = sample(pool, sec.defaultCount).map((a) => ({ seq: a.seq }));
+    }
+    return { def: sec, items };
+  });
+  return { paper, paperId: `${paper.paperIdPrefix}-${ymd}-${100 + Math.floor(Math.random() * 900)}`, sections };
+}
+function examPhotoHtml(a, dotsHtml) {
+  return `<div class="exam-photo">${photoImg(a)}${dotsHtml || ""}</div><p class="exam-credit">${esc(lang === "en" ? a.photo.creditEn : a.photo.creditZh)} · ${esc(a.photo.licence)}</p>`;
+}
+function examKeyHtml(inner) { return `<div class="exam-key"><b>${t().examKey}：</b>${inner}</div>`; }
+function examLines(n) { return `<div class="exam-lines">${Array.from({ length: n }, () => `<p class="exam-line"></p>`).join("")}</div>`; }
+function renderExamSection(s, si, bySeq) {
+  const letter = String.fromCharCode(65 + si);
+  const title = t()[SEC_TITLE[s.def.type]] || s.def.type;
+  const instr = SEC_INSTR[s.def.type] ? SEC_INSTR[s.def.type][lang === "en" ? 1 : 0] : "";
+  let marks = 0, body = "";
+  const q = (n, inner) => `<div class="exam-q"><p class="exam-qn">${n}.</p><div class="exam-qbody">${inner}</div></div>`;
+  if (s.def.type === "photo-identification" || s.def.type === "airport-spotting") {
+    marks = s.items.length;
+    body = s.items.map((it, i) => {
+      const a = bySeq.get(it.seq);
+      const opts = it.options.map((sq, oi) => `<li class="${sq === it.seq ? "is-answer" : ""}">${String.fromCharCode(65 + oi)}. ${esc(nameOf(bySeq.get(sq)))}</li>`).join("");
+      return q(i + 1, `${examPhotoHtml(a)}<ol class="exam-opts">${opts}</ol>`);
+    }).join("");
+  } else if (s.def.type === "parts-labelling") {
+    body = s.items.map((it, i) => {
+      const a = bySeq.get(it.seq);
+      marks += it.ann.length;
+      const dots = it.ann.map((ai, n) => { const dd = a.photo.annotations[ai]; return `<span class="dot static" style="left:${dd.x}%;top:${dd.y}%">${n + 1}</span>`; }).join("");
+      const lines = it.ann.map((ai, n) => `<p class="exam-line"><span>${n + 1}.</span></p>`).join("");
+      const key = it.ann.map((ai, n) => `${n + 1}. ${esc(lang === "en" ? a.photo.annotations[ai].en : a.photo.annotations[ai].zh)}`).join("；");
+      return q(i + 1, `${examPhotoHtml(a, dots)}<div class="exam-lines">${lines}</div>${examKeyHtml(`${esc(nameOf(a))} — ${key}`)}`);
+    }).join("");
+  } else if (s.def.type === "weft-short-answer") {
+    marks = s.items.length * 2;
+    body = s.items.map((it, i) => {
+      const a = bySeq.get(it.seq);
+      const wn = (a.category === "helicopter" ? t().weftNamesHeli : t().weftNames)[it.part].split("· ")[1];
+      const prompt = lang === "en" ? `Write one recognition feature of the ${esc(wn)} of the ${esc(a.nameEn)}.` : `寫出「${esc(a.nameZh)}」${esc(wn)}的一個辨認特徵。`;
+      return q(i + 1, `<p class="exam-prompt">${prompt}</p>${examLines(2)}${examKeyHtml(esc(lang === "en" ? a.weft[it.part].en : a.weft[it.part].zh))}`);
+    }).join("");
+  } else if (s.def.type === "airline-matching") {
+    marks = s.items.length;
+    const left = s.items.map((it, i) => `<li>${esc(nameOf(bySeq.get(it.seq)))}（　）</li>`).join("");
+    const right = s.right.map((ai, i) => `<li>${String.fromCharCode(65 + i)}. ${esc(lang === "en" ? AIRLINES[ai].en : AIRLINES[ai].zh)}</li>`).join("");
+    const key = s.items.map((it, i) => {
+      const li = s.right.indexOf(it.ai);
+      const snip = lang === "en" ? (it.snippetEn || it.snippetZh) : (it.snippetZh || it.snippetEn);
+      return `${i + 1}. ${esc(nameOf(bySeq.get(it.seq)))} → ${String.fromCharCode(65 + li)} ${esc(lang === "en" ? AIRLINES[it.ai].en : AIRLINES[it.ai].zh)}（${esc(snip)}）`;
+    }).join("<br>");
+    body = `<div class="exam-match"><ol class="match-left">${left}</ol><ol class="match-right">${right}</ol></div>${examKeyHtml(key)}`;
+  } else if (s.def.type === "knowledge-short-answer") {
+    marks = s.items.length * 2;
+    body = s.items.map((it, i) => {
+      const a = bySeq.get(it.seq);
+      let prompt, ans;
+      if (it.kind === "ff") { const ff = (a.history && a.history.firstFlight) || ""; prompt = lang === "en" ? `In which year did the ${esc(a.nameEn)} first fly?` : `「${esc(a.nameZh)}」邊一年首飛？`; ans = `${ff.slice(0, 4)}（${ff}）`; }
+      else if (it.kind === "icao") { prompt = lang === "en" ? `What is the ICAO type designator of the ${esc(a.nameEn)}?` : `「${esc(a.nameZh)}」的 ICAO 機型代碼係咩？`; ans = a.icao; }
+      else if (it.kind === "maker") { prompt = lang === "en" ? `Which company makes the ${esc(a.nameEn)}?` : `「${esc(a.nameZh)}」由邊間公司製造？`; ans = a.manufacturer; }
+      else { prompt = lang === "en" ? `Which engines power the ${esc(a.nameEn)}?` : `「${esc(a.nameZh)}」用咩引擎？`; ans = a.specs.engines; }
+      return q(i + 1, `<p class="exam-prompt">${prompt}</p>${examLines(1)}${examKeyHtml(esc(ans))}`);
+    }).join("");
+  } else if (s.def.type === "lookalike-differentiation") {
+    marks = s.items.length * 2;
+    body = s.items.map((it, i) => {
+      const a = bySeq.get(it.seq);
+      const opp = lookalikeOpp(a);
+      const o = lang === "en" ? opp.en : opp.zh;
+      const prompt = o
+        ? (lang === "en" ? `The aircraft in the photo is the ${esc(a.nameEn)}, easily confused with the ${esc(o)}.` : `相中係「${esc(a.nameZh)}」，最易同${esc(o)}混淆。`)
+        : (lang === "en" ? `Name the type the ${esc(a.nameEn)} is most easily confused with, and one difference.` : `寫出「${esc(a.nameZh)}」最易混淆的機型，同一個分別。`);
+      return q(i + 1, `${examPhotoHtml(a)}<p class="exam-prompt">${prompt}</p>${examLines(2)}${examKeyHtml(esc(lang === "en" ? a.similarEn : a.similarZh))}`);
+    }).join("");
+  } else if (s.def.type === "teach-back") {
+    marks = s.items.length * 5;
+    body = s.items.map((it, i) => {
+      const a = bySeq.get(it.seq);
+      const key = ["wings", "engines", "fuselage", "tail"].map((k) => esc(lang === "en" ? a.weft[k].en : a.weft[k].zh)).join("<br>");
+      return q(i + 1, `${examPhotoHtml(a)}<p class="exam-prompt">${esc(nameOf(a))}</p>${examLines(5)}${examKeyHtml(key)}`);
+    }).join("");
+  }
+  return { marks, html: `<div class="exam-sec"><h4>${letter}. ${esc(title)}（${marks} ${t().examMarksUnit}）</h4><p class="exam-instr">${esc(instr)}</p>${body}</div>` };
+}
+function renderExamIntro() {
+  const body = $("examBody"); if (!body) return;
+  if (examModel) { body.innerHTML = ""; return; }
+  if (!DATA || !BLUEPRINTS) { body.innerHTML = `<p class="locked-note">${t().examLocked}</p>`; return; }
+  const cards = BLUEPRINTS.papers.map((p) => {
+    const poolLv = p.sections[0].poolLevel;
+    const n = poolLv === "airlines" ? verifiedList().length : scoutPool(poolLv).length;
+    const secs = p.sections.map((s) => `${esc(t()[SEC_TITLE[s.type]] || s.type)} ×${s.defaultCount}`).join(" · ");
+    const ok = n >= 4;
+    return `<div class="quiz-level"><h3>${esc(lang === "en" ? p.titleEn : p.titleZh)}</h3><p>${secs}</p><p>${n} ${t().examTypes}</p><button type="button" class="quiz-start" data-paper="${p.level}"${ok ? "" : " disabled"}>${t().examGen}</button></div>`;
+  }).join("");
+  body.innerHTML = `<p class="locked-note">${t().examIntro}</p><div class="quiz-levels exam-cards">${cards}</div>`;
+  body.querySelectorAll("[data-paper]").forEach((b) => b.addEventListener("click", () => {
+    const paper = BLUEPRINTS.papers.find((p) => p.level === b.getAttribute("data-paper"));
+    if (!paper) return;
+    examModel = genExamModel(paper); examKeyShown = false;
+    renderExamIntro(); renderExamPaper();
+    const sec = $("examSection"); if (sec) sec.scrollIntoView({ behavior: "smooth", block: "start" });
+  }));
+}
+function renderExamPaper() {
+  const el = $("examPaper"); if (!el) return;
+  if (!examModel) { el.innerHTML = ""; return; }
+  const bySeq = bySeqMap();
+  let total = 0;
+  const secs = examModel.sections.map((s, si) => { const r = renderExamSection(s, si, bySeq); total += r.marks; return r.html; }).join("");
+  const p = examModel.paper;
+  el.innerHTML = `<div class="exam-controls">
+      <button type="button" class="quiz-start" id="exRegen">${t().examRegen}</button>
+      <button type="button" class="quiz-start alt" id="exKey">${examKeyShown ? t().examHideKey : t().examShowKey}</button>
+      <button type="button" class="quiz-start" id="exPrintPaper">${t().examPrintPaper}</button>
+      <button type="button" class="quiz-start" id="exPrintKey">${t().examPrintKey}</button>
+      <button type="button" class="quiz-start alt" id="exBack">${t().examBack}</button>
+    </div>
+    <article class="exam-sheet${examKeyShown ? " show-key" : ""}">
+      <header class="exam-head">
+        <p class="exam-id">${esc(examModel.paperId)}</p>
+        <h3>${esc(lang === "en" ? p.titleEn : p.titleZh)}</h3>
+        <div class="exam-info"><span>${t().examName}：<i class="exam-blank"></i></span><span>${t().examUnit}：<i class="exam-blank"></i></span><span>${t().examDate}：<i class="exam-blank s"></i></span><span class="exam-totalbox">${t().examTotal}：______ / ${total} ${t().examMarksUnit}</span></div>
+      </header>
+      ${secs}
+      <p class="exam-foot">${t().examNote}</p>
+    </article>`;
+  const sheet = el.querySelector(".exam-sheet");
+  const syncKey = () => { sheet.classList.toggle("show-key", examKeyShown); $("exKey").textContent = examKeyShown ? t().examHideKey : t().examShowKey; };
+  $("exRegen").addEventListener("click", () => { examModel = genExamModel(examModel.paper); examKeyShown = false; renderExamPaper(); });
+  $("exKey").addEventListener("click", () => { examKeyShown = !examKeyShown; syncKey(); });
+  $("exPrintPaper").addEventListener("click", () => { examKeyShown = false; syncKey(); window.print(); });
+  $("exPrintKey").addEventListener("click", () => { examKeyShown = true; syncKey(); window.print(); });
+  $("exBack").addEventListener("click", () => { examModel = null; examKeyShown = false; renderExamIntro(); renderExamPaper(); });
+}
+
+$("langToggle").addEventListener("click", () => { lang = lang === "en" ? "zh" : "en"; quiz = null; examModel = null; examKeyShown = false; applyLang(); });
 $("searchInput").addEventListener("input", (e) => { query = e.target.value; render(); });
 $("detailClose").addEventListener("click", () => { const d = $("detailDialog"); if (d.close) d.close(); else d.removeAttribute("open"); });
 
 fetch("data/aircraft-inventory.json").then((r) => { if (!r.ok) throw new Error("load"); return r.json(); })
-  .then((d) => { DATA = d; applyLang(); })
+  .then((d) => { DATA = d; applyLang(); fetch("data/exam-blueprints.json").then((r) => { if (!r.ok) throw new Error("bp"); return r.json(); }).then((b) => { BLUEPRINTS = b; renderExamIntro(); }).catch(() => {}); })
   .catch(() => { $("loadError").hidden = false; applyLang(); });

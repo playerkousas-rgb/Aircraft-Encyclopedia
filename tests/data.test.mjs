@@ -93,3 +93,22 @@ test("考卷藍本覆蓋三級航空活動章＋空勤員，且結構上冇答�
   assert.ok(!JSON.stringify(blueprints).includes('"answer"'), "藍本唔准含答案欄");
   for (const paper of blueprints.papers) assert.ok(paper.sections.length >= 1, paper.paperIdPrefix);
 });
+
+test("出卷題池足夠：每節所需核實機型／標註／辨認資料齊備", () => {
+  const byLevel = (lv) => data.aircraft.filter((a) => a.dataStatus === "verified" && a.scout && a.scout.level === lv);
+  for (const paper of blueprints.papers) {
+    for (const sec of paper.sections) {
+      if (sec.poolLevel === "airlines") continue;
+      const pool = byLevel(sec.poolLevel);
+      assert.ok(pool.length >= sec.defaultCount, `${paper.level}/${sec.id} 題池 ${pool.length} < ${sec.defaultCount}`);
+      if (sec.type === "parts-labelling")
+        assert.ok(pool.filter((a) => a.photo.annotations.length >= 3).length >= sec.defaultCount, `${paper.level}/${sec.id} 標註不足`);
+      if (sec.type === "weft-short-answer" || sec.type === "teach-back")
+        assert.ok(pool.filter((a) => a.weft && a.weft.wings && a.weft.fuselage).length >= sec.defaultCount, `${paper.level}/${sec.id} WEFT 不足`);
+      if (sec.type === "lookalike-differentiation")
+        assert.ok(pool.filter((a) => a.similarZh && a.similarEn).length >= sec.defaultCount, `${paper.level}/${sec.id} 相似說明不足`);
+      if (sec.type === "knowledge-short-answer")
+        assert.ok(pool.filter((a) => a.history.firstFlight && a.icao && a.manufacturer && a.specs.engines).length >= sec.defaultCount, `${paper.level}/${sec.id} 知識題材不足`);
+    }
+  }
+});
