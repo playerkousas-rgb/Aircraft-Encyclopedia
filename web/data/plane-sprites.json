@@ -1,0 +1,294 @@
+{
+ "version": "0.32.0",
+ "updated": "2026-11-09",
+ "note": "空防戰目標 = 用圖鑑相片去背後嘅飛機剪影（background removed cutouts），逐張驗證形狀同機頭方向先入庫；剪影同圖鑑卡相片同一來源（同一授權/署名，唔另加水印）。相片做唔到乾淨去背嘅機型 fail-closed 唔入空防戰 pool（圖鑑卡不受影響）。",
+ "sprites": {
+  "AC-0001": {
+   "file": "assets/planes/AC-0001.png",
+   "nose": "right",
+   "author": "km30192002",
+   "licence": "CC BY 2.0",
+   "source": "https://commons.wikimedia.org/wiki/File:B-LRA_Cathay_Pacific_Airbus_A350-900_(34095482335).jpg"
+  },
+  "AC-0002": {
+   "file": "assets/planes/AC-0002.png",
+   "nose": "right",
+   "author": "BriYYZ",
+   "licence": "CC BY-SA 2.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Emirates_Airbus_A380-800_A6-EEY_(23103165064).jpg"
+  },
+  "AC-0003": {
+   "file": "assets/planes/AC-0003.png",
+   "nose": "left",
+   "author": "Howard Pulling",
+   "licence": "CC BY-SA 2.0",
+   "source": "https://commons.wikimedia.org/wiki/File:HK_Express_Airways_A320neo_B-LCL.jpg"
+  },
+  "AC-0005": {
+   "file": "assets/planes/AC-0005.png",
+   "nose": "right",
+   "author": "John Taggart",
+   "licence": "CC BY-SA 2.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Cathay_Pacific,_Boeing_777-300ER,_B-KQY_-_LHR_(19227749535).jpg"
+  },
+  "AC-0006": {
+   "file": "assets/planes/AC-0006.png",
+   "nose": "right",
+   "author": "Adrian Pingstone",
+   "licence": "Public domain",
+   "source": "https://commons.wikimedia.org/wiki/File:Transaero_Boeing_737-800_(EI-UNJ)_arrives_London_Heathrow_Airport_21September2014_arp.jpg"
+  },
+  "AC-0008": {
+   "file": "assets/planes/AC-0008.png",
+   "nose": "left",
+   "author": "Mark Harkin",
+   "licence": "CC BY 2.0",
+   "source": "https://commons.wikimedia.org/wiki/File:LX-VCM_Boeing_747-8F_Cargolux_%22Cutaway%22_(22262143611).jpg"
+  },
+  "AC-0010": {
+   "file": "assets/planes/AC-0010.png",
+   "nose": "left",
+   "author": "Felix Goetting",
+   "licence": "GFDL 1.2 only",
+   "source": "https://commons.wikimedia.org/wiki/File:Antonov_An-124-100_Ruslan,_Volga-Dnepr_Airlines_(HeavyLift_-_Volga-Dnepr)_AN1131884.jpg"
+  },
+  "AC-0015": {
+   "file": "assets/planes/AC-0015.png",
+   "nose": "left",
+   "author": "Peter Bakema",
+   "licence": "GFDL 1.2 only",
+   "source": "https://commons.wikimedia.org/wiki/File:Cessna_172S_Skyhawk_SP,_Private_JP6817606.jpg"
+  },
+  "AC-0017": {
+   "file": "assets/planes/AC-0017.png",
+   "nose": "right",
+   "author": "Alain Rioux",
+   "licence": "GFDL 1.2 only",
+   "source": "https://commons.wikimedia.org/wiki/File:De_Havilland_Canada_DHC-6-300_Twin_Otter,_Ontario_Ministry_of_Natural_Resources_AN1406891.jpg"
+  },
+  "AC-0021": {
+   "file": "assets/planes/AC-0021.png",
+   "nose": "left",
+   "author": "Adrian Pingstone (Arpingstone)",
+   "licence": "Public domain",
+   "source": "https://commons.wikimedia.org/wiki/File:Robinson.r44.astro.g-pfml.arp.jpg"
+  },
+  "AC-0022": {
+   "file": "assets/planes/AC-0022.png",
+   "nose": "left",
+   "author": "Cpl. Jeraco Jenkins, U.S. Marine Corps",
+   "licence": "Public domain",
+   "source": "https://commons.wikimedia.org/wiki/File:CH-47_Chinook_(Spanish_Army)_197.jpg"
+  },
+  "AC-0023": {
+   "file": "assets/planes/AC-0023.png",
+   "nose": "right",
+   "author": "Staff Sgt. Cherie A. Thurlby, U.S. Air Force",
+   "licence": "Public domain",
+   "source": "https://commons.wikimedia.org/wiki/File:F-16_Fighting_Falcon.jpg"
+  },
+  "AC-0024": {
+   "file": "assets/planes/AC-0024.png",
+   "nose": "right",
+   "author": "MSgt. Donald R. Allen, U.S. Air Force",
+   "licence": "Public domain",
+   "source": "https://commons.wikimedia.org/wiki/File:F-35A_flight_(cropped).jpg"
+  },
+  "AC-0025": {
+   "file": "assets/planes/AC-0025.png",
+   "nose": "right",
+   "author": "U.S. Air Force",
+   "licence": "Public domain",
+   "source": "https://commons.wikimedia.org/wiki/File:C-17_test_sortie.jpg"
+  },
+  "AC-0026": {
+   "file": "assets/planes/AC-0026.png",
+   "nose": "left",
+   "author": "Tech. Sgt. Zach Vaughn / U.S. Air Force",
+   "licence": "Public domain",
+   "source": "https://commons.wikimedia.org/wiki/File:Philippine_Air_Force_Lockheed_C-130H_Hercules_5125_at_Joint_Base_Pearl_Harbor-Hickam.jpg"
+  },
+  "AC-0028": {
+   "file": "assets/planes/AC-0028.png",
+   "nose": "left",
+   "author": "Chris Lofting",
+   "licence": "GFDL 1.2 only",
+   "source": "https://commons.wikimedia.org/wiki/File:RAF_Eurofighter_EF-2000_Typhoon_F2_Lofting-1.jpg"
+  },
+  "AC-0034": {
+   "file": "assets/planes/AC-0034.png",
+   "nose": "left",
+   "author": "Dmitry Avdeev",
+   "licence": "CC BY-SA 3.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Antonov_An-225_Mriya,_Antonov_Design_Bureau_AN0189658.jpg"
+  },
+  "AC-0037": {
+   "file": "assets/planes/AC-0037.png",
+   "nose": "right",
+   "author": "Alan Wilson",
+   "licence": "CC BY-SA 2.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Boeing_787-8_%E2%80%98JA807A%E2%80%99_ANA_All_Nippon_Airways_(48466406511).jpg"
+  },
+  "AC-0040": {
+   "file": "assets/planes/AC-0040.png",
+   "nose": "left",
+   "author": "James (Flickr: Aircaft @ Gloucestershire Airport By James)",
+   "licence": "CC BY-SA 2.0",
+   "source": "https://commons.wikimedia.org/wiki/File:M-LIZI_Eurocopter_EC155_Helicopter_(25116261325).jpg"
+  },
+  "AC-0042": {
+   "file": "assets/planes/AC-0042.png",
+   "nose": "left",
+   "author": "James (Flickr: Aircaft @ Gloucestershire Airport By James)",
+   "licence": "CC BY-SA 2.0",
+   "source": "https://commons.wikimedia.org/wiki/File:G-OJAN_Robinson_R22_Helicopter_(26308250440).jpg"
+  },
+  "AC-0045": {
+   "file": "assets/planes/AC-0045.png",
+   "nose": "left",
+   "author": "Alan Wilson",
+   "licence": "CC BY-SA 2.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Dassault_Falcon_7X_OY-VIK_(7416828394).jpg"
+  },
+  "AC-0047": {
+   "file": "assets/planes/AC-0047.png",
+   "nose": "left",
+   "author": "Konstantin von Wedelstaedt",
+   "licence": "GFDL 1.2 only",
+   "source": "https://commons.wikimedia.org/wiki/File:Ilyushin_Il-76,_GST_Aero_AN0751327.jpg"
+  },
+  "AC-0049": {
+   "file": "assets/planes/AC-0049.png",
+   "nose": "left",
+   "author": "Aero Icarus",
+   "licence": "CC BY-SA 2.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Cathay_Pacific_Airbus_A330-300;_B-HLM@HKG;31.07.2011_614go_(6052597115).jpg"
+  },
+  "AC-0050": {
+   "file": "assets/planes/AC-0050.png",
+   "nose": "right",
+   "author": "BriYYZ",
+   "licence": "CC BY-SA 2.0",
+   "source": "https://commons.wikimedia.org/wiki/File:LAN_Cargo_Boeing_767-300F_MIA.jpg"
+  },
+  "AC-0051": {
+   "file": "assets/planes/AC-0051.png",
+   "nose": "right",
+   "author": "Danny Yu",
+   "licence": "CC BY-SA 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Chengdu_Airlines_COMAC_ARJ21-700_Xiangfeng.jpg"
+  },
+  "AC-0052": {
+   "file": "assets/planes/AC-0052.png",
+   "nose": "left",
+   "author": "Rob Schleiffert",
+   "licence": "CC BY-SA 2.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Z8J_Chinese_Navy_(16203585038).jpg"
+  },
+  "AC-0053": {
+   "file": "assets/planes/AC-0053.png",
+   "nose": "left",
+   "author": "Collectorofinsignia",
+   "licence": "CC BY-SA 3.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Belgium_Police_520N_(cropped).jpg"
+  },
+  "AC-0055": {
+   "file": "assets/planes/AC-0055.png",
+   "nose": "right",
+   "author": "Aktug Ates",
+   "licence": "GFDL 1.2 only",
+   "source": "https://commons.wikimedia.org/wiki/File:Bombardier_BD-700-1A10_Global_Express_XRS,_Art_Aviation_Flugbetriebs_GmbH_JP7587922.jpg"
+  },
+  "AC-0056": {
+   "file": "assets/planes/AC-0056.png",
+   "nose": "right",
+   "author": "Tech. Sgt. Mike Ammons, U.S. Air Force",
+   "licence": "Public domain",
+   "source": "https://commons.wikimedia.org/wiki/File:F-22_4018.jpg"
+  },
+  "AC-0057": {
+   "file": "assets/planes/AC-0057.png",
+   "nose": "right",
+   "author": "emperornie",
+   "licence": "CC BY-SA 2.0",
+   "source": "https://commons.wikimedia.org/wiki/File:J-20_formation_(cropped).jpg"
+  },
+  "AC-0058": {
+   "file": "assets/planes/AC-0058.png",
+   "nose": "right",
+   "author": "Aldo Bidini",
+   "licence": "GFDL 1.2 only",
+   "source": "https://commons.wikimedia.org/wiki/File:Northrop_Grumman_RQ-4A_Global_Hawk,_United_States_-_US_Air_Force_(USAF)_JP6772820.jpg"
+  },
+  "AC-0059": {
+   "file": "assets/planes/AC-0059.png",
+   "nose": "right",
+   "author": "Jeroen Stroes Aviation Photography",
+   "licence": "CC BY 2.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Airbus_A300-600ST_Beluga_F-GSTB_(41346659120).jpg"
+  },
+  "AC-0060": {
+   "file": "assets/planes/AC-0060.png",
+   "nose": "left",
+   "author": "Adrian Pingstone",
+   "licence": "Public domain",
+   "source": "https://commons.wikimedia.org/wiki/File:Etihad.a340-300.a6-eyc.arp.jpg"
+  },
+  "AC-0061": {
+   "file": "assets/planes/AC-0061.png",
+   "nose": "right",
+   "author": "Eric Salard",
+   "licence": "CC BY-SA 2.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Boeing_747-409(LCF)_Dreamlifter,_N780BA_-_PAE_(22717086801).jpg"
+  },
+  "AC-0062": {
+   "file": "assets/planes/AC-0062.png",
+   "nose": "left",
+   "author": "Pedro Aragão",
+   "licence": "CC BY-SA 3.0",
+   "source": "https://commons.wikimedia.org/wiki/File:McDonnell_Douglas_MD-500E_(369E),_Heli_Portugal_AN1001911.jpg"
+  },
+  "AC-0063": {
+   "file": "assets/planes/AC-0063.png",
+   "nose": "left",
+   "author": "Elisabeth Klimesch",
+   "licence": "GFDL 1.2 only",
+   "source": "https://commons.wikimedia.org/wiki/File:MD_Helicopters_MD-902_Explorer_AN1079617.jpg"
+  },
+  "AC-0064": {
+   "file": "assets/planes/AC-0064.png",
+   "nose": "right",
+   "author": "Md Shaifuzzaman Ayon",
+   "licence": "CC BY-SA 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:S2-AIN,_Robinson_R66_Helicopter.jpg"
+  },
+  "AC-0066": {
+   "file": "assets/planes/AC-0066.png",
+   "nose": "right",
+   "author": "Adrian Pingstone",
+   "licence": "Public domain",
+   "source": "https://commons.wikimedia.org/wiki/File:Gulfstream.g550.cs-dkf.climb.arp.jpg"
+  },
+  "AC-0069": {
+   "file": "assets/planes/AC-0069.png",
+   "nose": "left",
+   "author": "Konstantin von Wedelstaedt",
+   "licence": "GFDL 1.2 only",
+   "source": "https://commons.wikimedia.org/wiki/File:Cessna_208B_Grand_Caravan,_SkyDive_Dubai_AN2239587.jpg"
+  },
+  "AC-0070": {
+   "file": "assets/planes/AC-0070.png",
+   "nose": "right",
+   "author": "Sergey Krivchikov",
+   "licence": "GFDL 1.2 only",
+   "source": "https://commons.wikimedia.org/wiki/File:Sukhoi_Su-30_inflight.jpg"
+  },
+  "AC-0071": {
+   "file": "assets/planes/AC-0071.png",
+   "nose": "right",
+   "author": "Andrei Shmatko",
+   "licence": "CC BY-SA 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Xian_H-6K.jpg"
+  }
+ }
+}
