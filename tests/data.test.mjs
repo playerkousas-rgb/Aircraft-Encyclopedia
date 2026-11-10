@@ -114,16 +114,22 @@ test("出卷題池足夠：每節所需核實機型／標註／辨認資料齊�
 });
 
 const airportsDoc = JSON.parse(readFileSync(new URL("../web/data/airports.json", import.meta.url), "utf8"));
-test("機場資料：52 個國際機場，代碼唯一、座標合法、雙語齊全", () => {
+test("機場資料：160 個國際機場（151 個香港直航），代碼唯一、座標合法、雙語齊全", () => {
   const aps = airportsDoc.airports;
-  assert.equal(aps.length, 52);
+  assert.equal(aps.length, 160);
   assert.equal(new Set(aps.map((p) => p.iata)).size, aps.length, "IATA 唔可以重複");
+  const REGIONS = new Set(["home", "china", "taiwan", "eastasia", "seasia", "sasia", "centralasia", "meast", "europe", "africa", "namerica", "samerica", "oceania"]);
   for (const p of aps) {
     assert.match(p.iata, /^[A-Z]{3}$/, p.iata);
     assert.ok(p.lat >= -90 && p.lat <= 90 && p.lng >= -180 && p.lng <= 180, p.iata + " 座標");
     for (const k of ["nameEn", "nameZh", "cityEn", "cityZh", "countryEn", "countryZh", "source"]) assert.ok(p[k], `${p.iata} 缺 ${k}`);
     assert.ok(p.source.startsWith("https://en.wikipedia.org/wiki/"), p.iata + " source");
+    assert.equal(typeof p.hkDirect, "boolean", p.iata + " 缺 hkDirect");
+    assert.ok(REGIONS.has(p.region), p.iata + " region 唔識：" + p.region);
   }
+  assert.equal(aps.filter((p) => p.hkDirect).length, 151, "香港直航航點數");
   const hkg = aps.find((p) => p.iata === "HKG");
   assert.ok(hkg && Math.abs(hkg.lat - 22.308) < 0.1 && Math.abs(hkg.lng - 113.91) < 0.1, "HKG 座標合理");
+  assert.equal(hkg.region, "home");
+  assert.equal(hkg.hkDirect, false, "HKG 係主場，唔計直航航點");
 });
