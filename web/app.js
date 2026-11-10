@@ -1,6 +1,6 @@
 "use strict";
 /* Aircraft-Encyclopedia v0.7 · © SCOUT SYSTEM · APP_VERSION 0.9.0 */
-const APP_VERSION = "0.17.0";
+const APP_VERSION = "0.18.0";
 const LANG_KEY = "aircraft-encyclopedia.lang";
 const QUIZ_BEST_KEY = "aircraft-encyclopedia.quiz-best";
 function loadQuizBest() { try { const v = JSON.parse(localStorage.getItem(QUIZ_BEST_KEY) || "{}"); return v && typeof v === "object" ? v : {}; } catch (e) { return {}; } }
@@ -35,7 +35,9 @@ const STR = {
     comparePick: "揀兩款已核實飛機並排比較：先睇相，再對規格。",
     cmpA: "第一款", cmpB: "第二款",
     quizLocked: "要等至少四款飛機連相片完成核實先開放測驗，而家題目池未夠。",
-    quizIntro: "題目只用已核實的圖卡：睇相揀啱機型名。答錯會即刻講返點認，唔使死背。",
+    quizIntro: "題目只用已核實圖卡，按章級混合認相、標示部件、WEFT 特徵、知識同相似分辨題。答錯會即刻講返點認，唔使死背。",
+    qTypePhoto: "認相", qTypeParts: "標示部件", qTypeWeft: "WEFT 特徵", qTypeKnow: "航空知識", qTypeLook: "相似分辨", qTypeReverse: "以名認相",
+    qParts: "相中「？」位置係邊個部件？", qWeft: "以下特徵描述緊邊款飛機？", qLook: "相中機型最易同邊款混淆？", qReversePre: "邊張相先係",
     quizStart: "開始測驗", quizNext: "下一題", quizAgain: "再玩一次", quizQ: "呢架係邊款飛機？",
     quizPickLevel: "按章級數分開操：揀你考緊嗰級，只出嗰級的機型。", quizFree: "自由練習（唔分級）", quizBest: "最佳", quizNone: "未開始", quizBack: "返去揀級數",
     examIntro: "揀一級即刻出卷：題目只用已核實圖卡隨機產生，每次唔同；領袖版附答案同出處，方便批改。", examGen: "出卷", examRegen: "重新出卷", examBack: "返去揀卷",
@@ -73,7 +75,9 @@ const STR = {
     comparePick: "Pick two verified aircraft to compare side by side: photos first, then specs.",
     cmpA: "First aircraft", cmpB: "Second aircraft",
     quizLocked: "The quiz opens after at least four aircraft with photos are fully verified.",
-    quizIntro: "Questions use verified cards only: look at the photo and pick the right type. Wrong answers explain how to tell, so you learn instead of memorising.",
+    quizIntro: "Questions use verified cards only, mixing photo ID, part labelling, WEFT features, knowledge and look-alike questions by badge level. Wrong answers explain how to tell, so you learn instead of memorising.",
+    qTypePhoto: "Photo ID", qTypeParts: "Label the part", qTypeWeft: "WEFT feature", qTypeKnow: "Knowledge", qTypeLook: "Look-alikes", qTypeReverse: "Name to photo",
+    qParts: "Which part is marked “?” in the photo?", qWeft: "Which aircraft does this feature describe?", qLook: "Which type is it most easily confused with?", qReversePre: "Which photo shows the",
     quizStart: "Start quiz", quizNext: "Next question", quizAgain: "Play again", quizQ: "Which aircraft is this?",
     quizPickLevel: "Drill by badge level: pick your level to face only its aircraft.", quizFree: "Free practice (any level)", quizBest: "Best", quizNone: "Not started", quizBack: "Back to levels",
     examIntro: "Pick a level to generate a paper instantly: questions are drawn at random from verified cards only, different every time; the leader version carries answers with sources for marking.", examGen: "Generate paper", examRegen: "Regenerate", examBack: "Back to papers",
@@ -371,50 +375,145 @@ function renderQuizIntro() {
   $("quizStart").addEventListener("click", startQuiz);
 }
 
+// ---------- quiz question generators (v0.18: mixed types by level) ----------
+const PART_LABEL = { nose: ["機鼻／駕駛艙", "Nose / cockpit"], engines: ["引擎", "Engine"], wings: ["機翼", "Wing"], fuselage: ["機身", "Fuselage"], tail: ["機尾", "Tail"] };
+const partKeyOf = (p) => ({ engine: "engines", wing: "wings" }[p] || p);
+function partLabel(a, key) {
+  if (key === "wings" && a.category === "helicopter") return lang === "en" ? "Main rotor" : "主旋翼";
+  const v = PART_LABEL[key]; return v ? v[lang === "en" ? 1 : 0] : key;
+}
+function nameOpts(a, pool) {
+  const inScope = shuffle(pool.filter((x) => x.seq !== a.seq));
+  const extra = shuffle(verifiedList().filter((x) => x.seq !== a.seq && !inScope.some((s) => s.seq === x.seq)));
+  return shuffle([a.seq, ...[...inScope, ...extra].slice(0, 3).map((x) => x.seq)]);
+}
+const mkPhoto = (a, pool) => ({ kind: "photo", seq: a.seq, options: nameOpts(a, pool), answer: a.seq });
+const mkReverse = (a, pool) => ({ kind: "reverse", seq: a.seq, options: nameOpts(a, pool), answer: a.seq });
+function mkParts(a) {
+  const ann = Math.floor(Math.random() * a.photo.annotations.length);
+  const key = partKeyOf(a.photo.annotations[ann].part);
+  const options = shuffle([key, ...sample(["nose", "engines", "wings", "fuselage", "tail"].filter((k) => k !== key), 3)]);
+  return { kind: "parts", seq: a.seq, ann, options, answer: key };
+}
+function mkWeft(a, pool) {
+  const keys = ["wings", "engines", "fuselage", "tail"];
+  return { kind: "weft", seq: a.seq, part: keys[Math.floor(Math.random() * keys.length)], options: nameOpts(a, pool), answer: a.seq };
+}
+function mkKnow(a, pool) {
+  const makers = [...new Set(pool.map((x) => x.manufacturer))];
+  const roll = Math.random();
+  if (roll < 0.34) {
+    const y = parseInt((a.history.firstFlight || "").slice(0, 4), 10);
+    const offs = sample([-7, -5, -3, -2, -1, 1, 2, 3, 4, 6], 3).map((o) => String(y + o));
+    return { kind: "know", seq: a.seq, qk: "ff", options: shuffle([String(y), ...offs]), answer: String(y) };
+  }
+  if (roll < 0.67 && makers.length >= 4) {
+    return { kind: "know", seq: a.seq, qk: "maker", options: shuffle([a.manufacturer, ...sample(makers.filter((m) => m !== a.manufacturer), 3)]), answer: a.manufacturer };
+  }
+  const codes = [...new Set(pool.filter((x) => x.seq !== a.seq).map((x) => x.icao))].filter((c) => c !== a.icao);
+  return { kind: "know", seq: a.seq, qk: "icao", options: shuffle([a.icao, ...sample(codes, 3)]), answer: a.icao };
+}
+function mkLook(a, pool) {
+  const opp = lookalikeOpp(a);
+  const answer = (lang === "en" ? opp.en : opp.zh) || opp.en || opp.zh;
+  const distract = sample(pool.filter((x) => x.seq !== a.seq), 3).map((x) => nameOf(x));
+  return { kind: "lookalike", seq: a.seq, options: shuffle([answer, ...distract]), answer };
+}
+function mkItem(kind, a, pool) {
+  if (kind === "parts") return mkParts(a);
+  if (kind === "reverse") return mkReverse(a, pool);
+  if (kind === "weft") return mkWeft(a, pool);
+  if (kind === "know") return mkKnow(a, pool);
+  if (kind === "lookalike") return mkLook(a, pool);
+  return mkPhoto(a, pool);
+}
+const QUIZ_MIX = {
+  BAAB: [["photo", 6], ["parts", 3], ["reverse", 3]],
+  IAAB: [["photo", 5], ["weft", 3], ["know", 2], ["parts", 2]],
+  AAAB: [["photo", 4], ["lookalike", 3], ["weft", 3], ["reverse", 2]]
+};
+function genLevelItems(level, pool) {
+  const deck = shuffle(pool);
+  let cur = 0;
+  const items = [];
+  for (const [kind, n] of QUIZ_MIX[level] || [["photo", 12]]) {
+    let made = 0;
+    while (made < n && cur < deck.length) {
+      const a = deck[cur++];
+      if (kind === "lookalike") { const o = lookalikeOpp(a); if (!o.en && !o.zh) continue; }
+      if (kind === "parts" && !(a.photo.annotations || []).length) continue;
+      items.push(mkItem(kind, a, pool)); made++;
+    }
+  }
+  while (items.length < 12 && cur < deck.length) items.push(mkPhoto(deck[cur++], pool));
+  return shuffle(items);
+}
+
 function startQuiz() {
   const scopePool = quizPool();
   const pool = scopePool.length ? scopePool : verifiedList();
-  const shuffled = [...pool].sort(() => Math.random() - 0.5);
-  quiz = { items: shuffled.slice(0, Math.min(5, shuffled.length)), idx: 0, score: 0, answered: false, level: null, pool };
+  const picked = shuffle(pool).slice(0, Math.min(5, pool.length));
+  quiz = { items: picked.map((a) => mkPhoto(a, pool)), idx: 0, score: 0, answered: false, level: null, pool };
   showQuestion();
 }
 
 function startLevelQuiz(level) {
   const pool = verifiedList().filter((a) => a.scout && a.scout.level === level);
   if (pool.length < 4) return;
-  const shuffled = [...pool].sort(() => Math.random() - 0.5);
-  quiz = { items: shuffled.slice(0, Math.min(12, shuffled.length)), idx: 0, score: 0, answered: false, level, pool };
+  quiz = { items: genLevelItems(level, pool), idx: 0, score: 0, answered: false, level, pool };
   showQuestion();
 }
 
 function showQuestion() {
   const body = $("quizBody");
-  const a = quiz.items[quiz.idx];
-  const inScope = quiz.pool.filter((x) => x.seq !== a.seq).sort(() => Math.random() - 0.5);
-  const extra = verifiedList().filter((x) => x.seq !== a.seq && !inScope.some((s) => s.seq === x.seq)).sort(() => Math.random() - 0.5);
-  const others = [...inScope, ...extra].slice(0, 3);
-  const options = [...others, a].sort(() => Math.random() - 0.5);
-  quiz.answer = a.seq; quiz.answered = false;
-  body.innerHTML = `<p class="quiz-q">${t().quizQ} (${quiz.idx + 1}/${quiz.items.length})</p>
-    <div class="quiz-photo">${photoImg(a)}</div>
-    <div class="quiz-opts">${options.map((o) => `<button type="button" class="quiz-opt" data-opt="${o.seq}">${esc(nameOf(o))} · ${esc(o.icao)}</button>`).join("")}</div>
-    <div id="quizFb"></div>`;
-  document.querySelectorAll("[data-opt]").forEach((b) => b.addEventListener("click", () => answerQuiz(b, a)));
+  const it = quiz.items[quiz.idx];
+  const bySeq = bySeqMap();
+  const a = bySeq.get(it.seq);
+  quiz.answer = it.answer; quiz.answered = false;
+  const head = (label, prompt) => `<p class="quiz-q">${prompt} (${quiz.idx + 1}/${quiz.items.length}) <span class="quiz-type">${esc(label)}</span></p>`;
+  const nameBtns = (cls) => it.options.map((sq) => { const o = bySeq.get(sq); return `<button type="button" class="quiz-opt${cls || ""}" data-opt="${sq}">${esc(nameOf(o))} · ${esc(o.icao)}</button>`; }).join("");
+  let inner = "";
+  if (it.kind === "reverse") {
+    inner = `${head(t().qTypeReverse, `${t().qReversePre}「${esc(nameOf(a))}」？`)}<div class="quiz-opts photos">${it.options.map((sq) => `<button type="button" class="quiz-opt photo" data-opt="${sq}">${photoImg(bySeq.get(sq))}</button>`).join("")}</div><div id="quizFb"></div>`;
+  } else if (it.kind === "parts") {
+    const d = a.photo.annotations[it.ann];
+    inner = `${head(t().qTypeParts, t().qParts)}<div class="quiz-photo natural">${photoImg(a)}<span class="dot static qmark" style="left:${d.x}%;top:${d.y}%">?</span></div><div class="quiz-opts">${it.options.map((k) => `<button type="button" class="quiz-opt" data-opt="${k}">${esc(partLabel(a, k))}</button>`).join("")}</div><div id="quizFb"></div>`;
+  } else if (it.kind === "weft") {
+    inner = `${head(t().qTypeWeft, t().qWeft)}<blockquote class="quiz-quote">${esc(lang === "en" ? a.weft[it.part].en : a.weft[it.part].zh)}</blockquote><div class="quiz-opts">${nameBtns()}</div><div id="quizFb"></div>`;
+  } else if (it.kind === "know") {
+    let prompt;
+    if (it.qk === "ff") prompt = lang === "en" ? `In which year did the ${esc(a.nameEn)} first fly?` : `「${esc(a.nameZh)}」邊一年首飛？`;
+    else if (it.qk === "icao") prompt = lang === "en" ? `What is the ICAO type designator of the ${esc(a.nameEn)}?` : `「${esc(a.nameZh)}」的 ICAO 機型代碼係咩？`;
+    else prompt = lang === "en" ? `Which company makes the ${esc(a.nameEn)}?` : `「${esc(a.nameZh)}」由邊間公司製造？`;
+    inner = `${head(t().qTypeKnow, prompt)}<div class="quiz-opts">${it.options.map((s) => `<button type="button" class="quiz-opt" data-opt="${esc(s)}">${esc(s)}</button>`).join("")}</div><div id="quizFb"></div>`;
+  } else if (it.kind === "lookalike") {
+    inner = `${head(t().qTypeLook, t().qLook)}<div class="quiz-photo">${photoImg(a)}</div><div class="quiz-opts">${it.options.map((s) => `<button type="button" class="quiz-opt" data-opt="${esc(s)}">${esc(s)}</button>`).join("")}</div><div id="quizFb"></div>`;
+  } else {
+    inner = `${head(t().qTypePhoto, t().quizQ)}<div class="quiz-photo">${photoImg(a)}</div><div class="quiz-opts">${nameBtns()}</div><div id="quizFb"></div>`;
+  }
+  body.innerHTML = inner;
+  document.querySelectorAll("[data-opt]").forEach((b) => b.addEventListener("click", () => answerQuiz(b)));
 }
 
-function answerQuiz(btn, a) {
+function answerQuiz(btn) {
   if (quiz.answered) return;
   quiz.answered = true;
-  const right = btn.getAttribute("data-opt") === a.seq;
+  const it = quiz.items[quiz.idx];
+  const a = bySeqMap().get(it.seq);
+  const right = btn.getAttribute("data-opt") === quiz.answer;
   if (right) quiz.score += 1;
   document.querySelectorAll("[data-opt]").forEach((b) => {
     b.disabled = true;
-    if (b.getAttribute("data-opt") === a.seq) b.classList.add("right");
+    if (b.getAttribute("data-opt") === quiz.answer) b.classList.add("right");
     else if (b === btn) b.classList.add("wrong");
   });
-  const tip = lang === "en" ? a.weft.fuselage.en : a.weft.fuselage.zh;
+  let tip, answerShown = nameOf(a);
+  if (it.kind === "parts") { const d = a.photo.annotations[it.ann]; tip = lang === "en" ? d.en : d.zh; answerShown = partLabel(a, it.answer); }
+  else if (it.kind === "lookalike") { tip = lang === "en" ? a.similarEn : a.similarZh; answerShown = it.answer; }
+  else if (it.kind === "know") { tip = it.qk === "ff" ? a.history.firstFlight : it.qk === "icao" ? `${a.manufacturer} · ${a.icao}` : a.specs.engines; answerShown = it.answer; }
+  else tip = lang === "en" ? a.weft.fuselage.en : a.weft.fuselage.zh;
   const last = quiz.idx + 1 >= quiz.items.length;
-  $("quizFb").innerHTML = `<p class="quiz-feedback"><b>${right ? t().correct : t().wrong + esc(nameOf(a))}</b><br>${esc(tip)}</p>
+  $("quizFb").innerHTML = `<p class="quiz-feedback"><b>${right ? t().correct : t().wrong + esc(answerShown)}</b><br>${esc(tip)}</p>
     <p><button type="button" class="quiz-next" id="quizNext">${last ? (lang === "en" ? "See result" : "睇結果") : t().quizNext}</button></p>`;
   $("quizNext").addEventListener("click", () => {
     quiz.idx += 1;
