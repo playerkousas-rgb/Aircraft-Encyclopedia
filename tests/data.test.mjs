@@ -114,9 +114,9 @@ test("出卷題池足夠：每節所需核實機型／標註／辨認資料齊�
 });
 
 const airportsDoc = JSON.parse(readFileSync(new URL("../web/data/airports.json", import.meta.url), "utf8"));
-test("機場資料：160 個國際機場（151 個香港直航），代碼唯一、座標合法、雙語齊全", () => {
+test("機場資料：203 個國際機場（151 個香港直航），代碼唯一、座標合法、雙語齊全", () => {
   const aps = airportsDoc.airports;
-  assert.equal(aps.length, 160);
+  assert.equal(aps.length, 203);
   assert.equal(new Set(aps.map((p) => p.iata)).size, aps.length, "IATA 唔可以重複");
   const REGIONS = new Set(["home", "china", "taiwan", "eastasia", "seasia", "sasia", "centralasia", "meast", "europe", "africa", "namerica", "samerica", "oceania"]);
   for (const p of aps) {
