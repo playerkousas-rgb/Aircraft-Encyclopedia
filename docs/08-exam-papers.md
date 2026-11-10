@@ -53,3 +53,13 @@
 
 ---
 © SCOUT SYSTEM · COPYRIGHT SCOUT SYSTEM · Aircraft-Encyclopedia v0.1
+
+---
+
+## 8. v0.31 增補：航點卷、航空公司卷、隱形水印
+
+- **航空公司卷**（卷號 `AE-AL-yyyymmdd-xxx`）：池＝`airlines.json` 28 間；題型 runtime 隨機——名稱→IATA、名稱→ICAO、IATA→名稱、樞紐（冇 hub 嘅唔會抽中）、標誌→公司名；10 題×2 分。藍本資料檔零答案欄。
+- **航點卷**（卷號 `AE-AP-yyyymmdd-xxx`）：池＝香港直航已核實機場＋HKG；題型——機場→IATA、機場→ICAO、IATA→機場、ICAO→機場、機場→城市；10 題×2 分。
+- **隱形水印**（用戶第7點）：每張試卷 `.exam-wm` 重複「© SCOUT SYSTEM · 航空圖鑑 · 卷號」，opacity≈5%、旋轉 -24° 平鋪，`print-color-adjust:exact` 令列印保留；對齊真理倉 W1（頁面/頁尾/檔頭注釋三處 ©）同 docs/09 Type B 精神——但**唔做 DCT 影像 codec**（試卷相片為第三方 hotlink，無 CORS 污染 canvas；W8 明文禁止對第三方資產加本站水印）。
+- **列印**：`@media print` 改為只顯示「當前類別 · 試卷」區（分頁結構下舊 `main>section:not(#examSection)` 選擇器失效）。
+- **睇圖辨認卷來源行**：只印署名＋授權（描述尾段會寫出機型名＝泄答案）。
