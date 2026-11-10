@@ -262,6 +262,10 @@ table.specs a{color:var(--sky)}
 .lg-plate img{max-height:84px}
 .lg-opt img{max-width:85%;max-height:46px;object-fit:contain}
 .lg-review-img{height:22px;max-width:110px;object-fit:contain;background:#fff;border:1px solid var(--line);border-radius:4px;vertical-align:middle;padding:1px 4px}
+.spot-photo{margin-bottom:.5rem}
+.spot-img{width:100%;display:block;border-radius:10px}
+.spot-credit{font-size:.72rem;color:var(--muted)}
+.spot-review-img{height:56px;border-radius:6px;vertical-align:middle;margin-right:.4rem}
 @media print{
   .topbar,footer,.hero,.controls,main>section:not(#examSection),#examBody,.exam-controls,dialog{display:none!important}
   main{padding:0}
