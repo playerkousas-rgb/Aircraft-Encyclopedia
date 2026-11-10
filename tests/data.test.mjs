@@ -117,10 +117,12 @@ const airportsDoc = JSON.parse(readFileSync(new URL("../web/data/airports.json",
 test("機場資料：203 個國際機場（151 個香港直航），代碼唯一、座標合法、雙語齊全", () => {
   const aps = airportsDoc.airports;
   assert.equal(aps.length, 203);
-  assert.equal(new Set(aps.map((p) => p.iata)).size, aps.length, "IATA 唔可以重複");
+  assert.equal(new Set(aps.map((p) => p.iata)).size, aps.length, "IATA 唯一");
+  assert.equal(new Set(aps.map((p) => p.icao)).size, aps.length, "ICAO 唯一");
   const REGIONS = new Set(["home", "china", "taiwan", "eastasia", "seasia", "sasia", "centralasia", "meast", "europe", "africa", "namerica", "samerica", "oceania"]);
   for (const p of aps) {
     assert.match(p.iata, /^[A-Z]{3}$/, p.iata);
+    assert.match(p.icao, /^[A-Z]{4}$/, p.iata + " ICAO");
     assert.ok(p.lat >= -90 && p.lat <= 90 && p.lng >= -180 && p.lng <= 180, p.iata + " 座標");
     for (const k of ["nameEn", "nameZh", "cityEn", "cityZh", "countryEn", "countryZh", "source"]) assert.ok(p[k], `${p.iata} 缺 ${k}`);
     assert.ok(p.source.startsWith("https://en.wikipedia.org/wiki/"), p.iata + " source");
@@ -133,6 +135,7 @@ test("機場資料：203 個國際機場（151 個香港直航），代碼唯一
   assert.ok(aps.length >= 4 && directPool.length >= 4, "代碼遊戲題池夠出四選一");
   const hkg = aps.find((p) => p.iata === "HKG");
   assert.ok(hkg && Math.abs(hkg.lat - 22.308) < 0.1 && Math.abs(hkg.lng - 113.91) < 0.1, "HKG 座標合理");
+  assert.equal(hkg.icao, "VHHH", "HKG ICAO 核實值");
   assert.equal(hkg.region, "home");
   assert.equal(hkg.hkDirect, false, "HKG 係主場，唔計直航航點");
 });

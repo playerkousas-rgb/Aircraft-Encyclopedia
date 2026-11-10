@@ -133,6 +133,7 @@ table.compare img{width:100%;max-width:300px;aspect-ratio:16/10;object-fit:cover
 .ap-card{display:flex;flex-direction:column;align-items:flex-start;gap:.15rem;border:1.5px solid var(--line);background:var(--card);border-radius:12px;padding:.6rem .75rem;cursor:pointer;text-align:left;min-height:44px}
 .ap-card:hover{border-color:var(--sky);background:var(--sky-soft)}
 .ap-code{font-weight:900;font-size:1.15rem;color:var(--navy);letter-spacing:.06em}
+.ap-code i{font-style:normal;font-weight:600;font-size:.7rem;color:var(--muted);margin-left:.45rem;letter-spacing:.08em}
 .ap-name{font-weight:700;line-height:1.35}
 .ap-city{color:var(--muted);font-size:.85rem}
 .ap-pin-wrap{background:transparent;border:none}
