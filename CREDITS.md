@@ -165,6 +165,18 @@
 | AC-0143 洪都 K-8 喀喇崑崙教練機 | https://commons.wikimedia.org/wiki/File:19332_-_Hongdu_K-8W_Karakorum_-_Bangladesh_-_Air_Force_-_VGHS.jpg | Md Shaifuzzaman Ayon | CC BY-SA 4.0 | 圖下 credit 行＋本表 |
 | AC-0144 南昌 初教-6 初級教練機 | https://commons.wikimedia.org/wiki/File:Nanchang_CJ-6_N22591_FDK_MD1.jpg | Acroterion | CC BY-SA 4.0 | 圖下 credit 行＋本表 |
 | AC-0145 成都 翼龍 II 無人攻擊機 | https://commons.wikimedia.org/wiki/File:Wing_Loong_II_side_view.jpg | Mztourist | CC BY-SA 4.0 | 圖下 credit 行＋本表 |
+| AC-0146 德哈維蘭 彗星 | https://commons.wikimedia.org/wiki/File:BEA_de_Havilland_DH-106_Comet_4B_Berlin.jpg | Ralf Manteufel | GFDL 1.2 only | 圖下 credit 行＋本表 |
+| AC-0147 波音 707 | https://commons.wikimedia.org/wiki/File:Boeing_707-321B,_Pan_American_World_Airways_-_Pan_Am_AN0938388.jpg | Michel Gilliand | GFDL 1.2 only | 圖下 credit 行＋本表 |
+| AC-0148 超級馬林 噴火 | https://commons.wikimedia.org/wiki/File:Temora_Aviation_Museum_(VH-XVI)_Supermarine_Spitfire_Mk_XVI_taking_off_at_the_2019_Australian_International_Airshow.jpg | Bidgee | CC BY-SA 3.0 au | 圖下 credit 行＋本表 |
+| AC-0149 北美 P-51 野馬 | https://commons.wikimedia.org/wiki/File:P-51-361.jpg | USAAF / 361st FG Association | Public domain | 圖下 credit 行＋本表 |
+| AC-0150 波音 B-29 超級堡壘 | https://commons.wikimedia.org/wiki/File:Olive-drab_painted_B-29_superfortress.jpg | U.S. Army Air Corps | Public domain | 圖下 credit 行＋本表 |
+| AC-0151 三菱 A6M 零式 | https://commons.wikimedia.org/wiki/File:A6M3_Zero_N712Z_1.jpg | Kogo | GFDL | 圖下 credit 行＋本表 |
+| AC-0152 麥道 F-4 幽靈 II | https://commons.wikimedia.org/wiki/File:F-4_Phantom_in_flight_Apr_1982.jpg | Garfield F. Jones, U.S. Air Force | Public domain | 圖下 credit 行＋本表 |
+| AC-0153 貝爾 UH-1 易洛魁「休伊」 | https://commons.wikimedia.org/wiki/File:Iraqi_air_force_UH-1H_II_Huey_helicopter.JPG | Michael B. Keller, U.S. Air Force | Public domain | 圖下 credit 行＋本表 |
+| AC-0154 格魯曼 F-14 雄貓 | https://commons.wikimedia.org/wiki/File:F-14A_Tomcat_over_Iraq_during_Southern_Watch.jpg | Cdr. David Baranek, U.S. Navy | Public domain | 圖下 credit 行＋本表 |
+| AC-0155 波音 AH-64 阿帕契 | https://commons.wikimedia.org/wiki/File:AH-64D_Apache_Longbow.jpg | Tech. Sgt. Andy Dunaway, U.S. Army | Public domain | 圖下 credit 行＋本表 |
+| AC-0156 諾斯洛普·格魯曼 B-2 幽靈 | https://commons.wikimedia.org/wiki/File:B-2_Spirit_takes_off_in_Guam.jpg | Airman Miranda U. Moorer, U.S. Air Force | Public domain | 圖下 credit 行＋本表 |
+| AC-0157 通用原子 MQ-9 收割者 | https://commons.wikimedia.org/wiki/File:62d_Expeditionary_Reconnaissance_Squadron_-_MQ-9_Reaper.jpg | Staff Sgt. James L. Harper Jr., U.S. Air Force | Public domain | 圖下 credit 行＋本表 |
 
 規格來源逐項記喺 `data/aircraft-inventory.json` 每格的 `source` 連結；
 來源優先次序見 `docs/04-data-schema-and-verification.md`。參考網站只作體驗研究（見 docs/01），無搬用其文字或圖片。

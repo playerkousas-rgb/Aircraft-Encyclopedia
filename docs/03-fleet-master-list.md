@@ -171,6 +171,18 @@
 | AC-0143 | 洪都 K-8 喀喇崑崙教練機 | Hongdu K-8 Karakorum | K8 | 軍用飛機 | 已核實（v0.11） |
 | AC-0144 | 南昌 初教-6 初級教練機 | Nanchang CJ-6 | CJ6 | 軍用飛機 | 已核實（v0.11） |
 | AC-0145 | 成都 翼龍 II 無人攻擊機 | CAIG Wing Loong II | — | 軍用飛機 | 已核實（v0.11） |
+| AC-0146 | 德哈維蘭 彗星 | de Havilland Comet | COMT | 歷史及特殊用途 | 已核實（v0.15） |
+| AC-0147 | 波音 707 | Boeing 707 | B703 | 民航客機 | 已核實（v0.15） |
+| AC-0148 | 超級馬林 噴火 | Supermarine Spitfire | SPIT | 歷史及特殊用途 | 已核實（v0.15） |
+| AC-0149 | 北美 P-51 野馬 | North American P-51 Mustang | P51 | 歷史及特殊用途 | 已核實（v0.15） |
+| AC-0150 | 波音 B-29 超級堡壘 | Boeing B-29 Superfortress | B29 | 歷史及特殊用途 | 已核實（v0.15） |
+| AC-0151 | 三菱 A6M 零式 | Mitsubishi A6M Zero | ZERO | 歷史及特殊用途 | 已核實（v0.15） |
+| AC-0152 | 麥道 F-4 幽靈 II | McDonnell Douglas F-4 Phantom II | F4 | 軍用飛機 | 已核實（v0.15） |
+| AC-0153 | 貝爾 UH-1 易洛魁「休伊」 | Bell UH-1 Iroquois | UH1 | 直升機 | 已核實（v0.15） |
+| AC-0154 | 格魯曼 F-14 雄貓 | Grumman F-14 Tomcat | F14 | 軍用飛機 | 已核實（v0.15） |
+| AC-0155 | 波音 AH-64 阿帕契 | Boeing AH-64 Apache | H64 | 直升機 | 已核實（v0.15） |
+| AC-0156 | 諾斯洛普·格魯曼 B-2 幽靈 | Northrop Grumman B-2 Spirit | B2 | 軍用飛機 | 已核實（v0.15） |
+| AC-0157 | 通用原子 MQ-9 收割者 | General Atomics MQ-9 Reaper | Q9 | 軍用飛機 | 已核實（v0.15） |
 
 註：章規多項寫「系列」，出圖卡時要揀定代表子型號並寫明分別（docs/04）。清單版本衝突見 docs/05 第 6 項。
 
