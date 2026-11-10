@@ -136,3 +136,39 @@ test("機場資料：203 個國際機場（151 個香港直航），代碼唯一
   assert.equal(hkg.region, "home");
   assert.equal(hkg.hkDirect, false, "HKG 係主場，唔計直航航點");
 });
+
+const airlinesDoc = JSON.parse(readFileSync(new URL("../web/data/airlines.json", import.meta.url), "utf8"));
+test("航空公司標誌庫：28 間（港4/亞太16/國際8），代碼齊全，標誌只准 PD Commons 檔（v0.25）", () => {
+  const als = airlinesDoc.airlines;
+  assert.equal(als.length, 28);
+  assert.equal(new Set(als.map((e) => e.iata)).size, als.length, "IATA 唔可以重複");
+  assert.equal(als.filter((e) => e.group === "hk").length, 4);
+  assert.equal(als.filter((e) => e.group === "apac").length, 16);
+  assert.equal(als.filter((e) => e.group === "world").length, 8);
+  const airportCodes = new Set(airportsDoc.airports.map((x) => x.iata));
+  let logos = 0;
+  for (const e of als) {
+    assert.match(e.iata, /^[A-Z0-9]{2}$/, e.iata);
+    assert.match(e.icao, /^[A-Z]{3}$/, e.iata + " ICAO");
+    assert.ok(e.nameEn && e.nameZh, e.iata + " 雙語名");
+    assert.ok(["hk", "apac", "world"].includes(e.group), e.iata + " group");
+    assert.equal(e.hkRegistered, e.group === "hk", e.iata + " hkRegistered 只限香港組");
+    assert.ok(e.source && e.source.startsWith("https://en.wikipedia.org/wiki/"), e.iata + " source");
+    assert.ok(e.verified, e.iata + " verified");
+    if (e.hubIata) assert.ok(airportCodes.has(e.hubIata), e.iata + " hubIata 要喺機場庫：" + e.hubIata);
+    if (e.logo) {
+      logos++;
+      assert.ok(e.logo.img.startsWith("https://upload.wikimedia.org/wikipedia/commons/thumb/"), e.iata + " logo img");
+      assert.ok(e.logo.page.startsWith("https://commons.wikimedia.org/wiki/File:"), e.iata + " logo page");
+      assert.equal(e.logo.license, "Public domain", e.iata + " 只准 PD");
+      assert.ok(e.logo.credit, e.iata + " logo credit");
+    }
+  }
+  assert.equal(logos, 23, "已核實 PD 標誌數（認標誌挑戰題池）");
+  assert.deepEqual(als.filter((e) => !e.logo).map((e) => e.iata).sort(), ["HB", "HX", "MU", "UA", "UO"], "冇自由標誌嗰 5 間用文字牌");
+  const cx = als.find((e) => e.iata === "CX");
+  assert.equal(cx.icao, "CPA");
+  assert.equal(cx.hubIata, "HKG");
+  assert.ok(logoPoolSize(als) >= 4, "認標誌挑戰夠出四選一");
+  function logoPoolSize(list) { return list.filter((e) => e.logo).length; }
+});

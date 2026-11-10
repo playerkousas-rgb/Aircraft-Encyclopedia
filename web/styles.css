@@ -243,6 +243,25 @@ table.specs a{color:var(--sky)}
 .exam-sheet.show-key .exam-opts .is-answer::after{content:" ✓";color:var(--ok)}
 .exam-foot{margin-top:1.2rem;color:var(--muted);font-size:.78rem}
 .dot.static{cursor:default}
+.al-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:.6rem}
+.al-card{border:1.5px solid var(--line);background:var(--card);border-radius:12px;padding:.6rem .75rem}
+.al-plate{background:#fff;border:1px solid var(--line);border-radius:8px;min-height:92px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.2rem;padding:.5rem}
+.al-plate img{max-width:88%;max-height:64px;object-fit:contain}
+.al-texttile{color:#12365e}
+.al-tile-iata{font-size:1.7rem;font-weight:900;letter-spacing:.06em}
+.al-tile-name{font-weight:700}
+.al-name{margin:.55rem 0 .1rem;font-size:1.02rem}
+.al-sub{margin:0;color:var(--muted);font-size:.82rem}
+.al-codes{display:flex;gap:.35rem;flex-wrap:wrap;margin:.45rem 0}
+.al-code{border:1.5px solid var(--line);border-radius:99px;padding:.12rem .55rem;font-weight:800;font-size:.78rem}
+.al-code.hk{background:var(--navy);color:#fff;border-color:var(--navy)}
+.al-hub,.al-types{margin:.25rem 0;font-size:.85rem}
+.al-credit{font-size:.68rem;color:var(--muted);margin:.35rem 0 0}
+.lg-subtitle{margin:1.2rem 0 .4rem}
+.lg-plate{min-height:120px;margin-bottom:.5rem}
+.lg-plate img{max-height:84px}
+.lg-opt img{max-width:85%;max-height:46px;object-fit:contain}
+.lg-review-img{height:22px;max-width:110px;object-fit:contain;background:#fff;border:1px solid var(--line);border-radius:4px;vertical-align:middle;padding:1px 4px}
 @media print{
   .topbar,footer,.hero,.controls,main>section:not(#examSection),#examBody,.exam-controls,dialog{display:none!important}
   main{padding:0}

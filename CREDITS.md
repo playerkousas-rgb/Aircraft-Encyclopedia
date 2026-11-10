@@ -183,3 +183,33 @@
 
 ---
 © SCOUT SYSTEM · COPYRIGHT SCOUT SYSTEM · Aircraft-Encyclopedia v0.11
+
+## 航空公司標誌（v0.25）
+
+標誌圖全部外連 Wikimedia Commons 縮圖（唔入 Git），逐檔以 Commons imageinfo 核實存在、現行版本同授權（2026-11-10），只用 Public domain 檔案。注意：Public domain 只指圖檔本身版權；標誌嘅商標權仍屬各航空公司，本站只作教學辨認用途。5 間未有可自由使用現行標誌嘅航空公司（香港快運只有 2013 年舊版、香港航空、大灣區航空、中國東方航空、聯合航空只有歷史標誌）唔用圖，以文字牌顯示。
+
+| 航空公司 | Commons 檔案頁 | 作者 | 授權 | 標示方式 |
+|---|---|---|---|---|
+| 國泰航空 CX | https://commons.wikimedia.org/wiki/File:Cathay_Pacific_Ltd._logo.svg | Cathay Pacific | Public domain | 圖下 credit 行＋本表 |
+| 新加坡航空 SQ | https://commons.wikimedia.org/wiki/File:Singapore_Airlines_Logo.svg | EEIM / Sushant savla | Public domain | 圖下 credit 行＋本表 |
+| 全日空 NH | https://commons.wikimedia.org/wiki/File:All_Nippon_Airways_Logo.svg | All Nippon Airways Co., Ltd. | Public domain | 圖下 credit 行＋本表 |
+| 日本航空 JL | https://commons.wikimedia.org/wiki/File:Japan_Airlines_Wordmark_(2011).svg | Japan Airlines | Public domain | 圖下 credit 行＋本表 |
+| 大韓航空 KE | https://commons.wikimedia.org/wiki/File:Korean_Air_2025.svg | Korean Air (designed by Lippincott) | Public domain | 圖下 credit 行＋本表 |
+| 韓亞航空 OZ | https://commons.wikimedia.org/wiki/File:Asiana_Airlines_(2024).svg | Asiana Airlines | Public domain | 圖下 credit 行＋本表 |
+| 長榮航空 BR | https://commons.wikimedia.org/wiki/File:Logo_EVA_Air.svg | EVA Air | Public domain | 圖下 credit 行＋本表 |
+| 中華航空 CI | https://commons.wikimedia.org/wiki/File:China_Airlines_wordmark.svg | China Airlines | Public domain | 圖下 credit 行＋本表 |
+| 中國國際航空 CA | https://commons.wikimedia.org/wiki/File:Air_China_wordmark.svg | Air China Limited | Public domain | 圖下 credit 行＋本表 |
+| 中國南方航空 CZ | https://commons.wikimedia.org/wiki/File:China_Southern_Airlines_wordmark_logo.svg | China Southern Air Holding | Public domain | 圖下 credit 行＋本表 |
+| 亞洲航空 AK | https://commons.wikimedia.org/wiki/File:AirAsia_New_Logo.svg | AirAsia | Public domain | 圖下 credit 行＋本表 |
+| 泰國國際航空 TG | https://commons.wikimedia.org/wiki/File:Thai_Airways_logo.svg | Thai Airways | Public domain | 圖下 credit 行＋本表 |
+| 越南航空 VN | https://commons.wikimedia.org/wiki/File:Vietnam_Airlines_2015_wordmark.svg | Vietnam Airlines JSC | Public domain | 圖下 credit 行＋本表 |
+| 澳洲航空 QF | https://commons.wikimedia.org/wiki/File:Qantas_wordmark_2016.svg | Qantas Airways Limited | Public domain | 圖下 credit 行＋本表 |
+| 新西蘭航空 NZ | https://commons.wikimedia.org/wiki/File:Air_New_Zealand_logo.svg | Air New Zealand | Public domain | 圖下 credit 行＋本表 |
+| 宿霧太平洋航空 5J | https://commons.wikimedia.org/wiki/File:Cebu_Pacific_wordmark.svg | Cebu Air, Inc. | Public domain | 圖下 credit 行＋本表 |
+| 英國航空 BA | https://commons.wikimedia.org/wiki/File:BRITISH_AIRWAYS_logo.svg | British Airways Plc. | Public domain | 圖下 credit 行＋本表 |
+| 漢莎航空 LH | https://commons.wikimedia.org/wiki/File:Lufthansa_Logo_2018.svg | Lufthansa Group | Public domain | 圖下 credit 行＋本表 |
+| 阿聯酋航空 EK | https://commons.wikimedia.org/wiki/File:Emirates_Logo.svg | The Emirates Group | Public domain | 圖下 credit 行＋本表 |
+| 卡塔爾航空 QR | https://commons.wikimedia.org/wiki/File:Qatar_Airways_logo.svg | Qatar Airways | Public domain | 圖下 credit 行＋本表 |
+| 土耳其航空 TK | https://commons.wikimedia.org/wiki/File:Turkish_Airlines_logo_2019_compact.svg | Turkish Airlines | Public domain | 圖下 credit 行＋本表 |
+| 聯邦快遞航空 FX | https://commons.wikimedia.org/wiki/File:FedEx_Express.svg | FedEx Express | Public domain | 圖下 credit 行＋本表 |
+| 達美航空 DL | https://commons.wikimedia.org/wiki/File:Delta_logo.svg | Delta Air Lines | Public domain | 圖下 credit 行＋本表 |
