@@ -1,6 +1,6 @@
 "use strict";
 /* Aircraft-Encyclopedia v0.7 · © SCOUT SYSTEM · APP_VERSION 0.9.0 */
-const APP_VERSION = "0.18.0";
+const APP_VERSION = "0.19.0";
 const LANG_KEY = "aircraft-encyclopedia.lang";
 const QUIZ_BEST_KEY = "aircraft-encyclopedia.quiz-best";
 function loadQuizBest() { try { const v = JSON.parse(localStorage.getItem(QUIZ_BEST_KEY) || "{}"); return v && typeof v === "object" ? v : {}; } catch (e) { return {}; } }
@@ -17,7 +17,10 @@ const STR = {
     noResults: "搵唔到符合嘅飛機，試下改搜尋字或清除分類。",
     compareTitle: "比較兩款飛機", quizTitle: "小測驗：睇相認飛機",
     examTitle: "考卷（領袖出卷）", examLocked: "按章級別出試卷連領袖答案紙，要等嗰一級核實的機型夠數先開放，確保每條題目答案正確。",
-    gamesTitle: "未來小遊戲", gamesLocked: "航空公司配對同機場名稱遊戲會喺資料核實後推出，對應航空活動章同空勤員章的辨認要求。",
+    gamesTitle: "小遊戲：限時認機大挑戰",
+    gameIntro: "60 秒內認得幾多款？答啱 +10 分，每連對 5 題額外 +25 分；答錯扣 3 秒、連對歸零。按章級揀題池，或者全部機型一齊玩。",
+    gameStart: "開始挑戰", gameAll: "全部機型", gameTime: "時間", gameScore: "分數", gameStreak: "連對", gameBest: "最佳", gameNone: "未開始",
+    gameOver: "時間到！", gameRight: "答啱", gameQuestions: "題", gameMaxStreak: "最長連對", gameAgain: "再玩一次", gameQuit: "放棄", gameBack: "返去揀模式", gameBonus: "連對獎分 +25！",
     footerNote: "相片未核實前唔會上載；規格要有來源先會顯示。第三方相片依原授權標示，不加本站水印。",
     all: "全部", pending: "資料待核實", verifiedOnly: "已核實", pendingOnly: "待核實", codePending: "代碼待核實", verified: "已核實",
     viewCard: "睇圖卡", checkBtn: "查看核實清單", progress: "核實進度", total: "總清單", done: "已完成核實", types: "類別", batch1: "第一批已出卡",
@@ -57,7 +60,10 @@ const STR = {
     noResults: "No aircraft match. Try another search or clear the filters.",
     compareTitle: "Compare two aircraft", quizTitle: "Quiz: name that plane",
     examTitle: "Exam papers (for leaders)", examLocked: "Papers by badge level with a separate leader answer key open once enough types at that level are verified.",
-    gamesTitle: "Coming mini-games", gamesLocked: "Airline matching and airport-name games will arrive after their data is verified, matching Air Activity and Aircrew badge requirements.",
+    gamesTitle: "Game: timed spotting challenge",
+    gameIntro: "How many can you spot in 60 seconds? +10 per correct answer, +25 bonus every 5 in a row; a miss costs 3 seconds and resets your streak. Pick a badge-level pool, or play with every type.",
+    gameStart: "Start challenge", gameAll: "All types", gameTime: "Time", gameScore: "Score", gameStreak: "Streak", gameBest: "Best", gameNone: "Not played",
+    gameOver: "Time up!", gameRight: "Correct", gameQuestions: "questions", gameMaxStreak: "Best streak", gameAgain: "Play again", gameQuit: "Quit", gameBack: "Back to modes", gameBonus: "Streak bonus +25!",
     footerNote: "No photo is published before its licence is verified; no spec is shown without a source. Third-party photos keep their own credit, never our watermark.",
     all: "All", pending: "Data pending", verifiedOnly: "Verified", pendingOnly: "Pending", codePending: "Code to verify", verified: "Verified",
     viewCard: "View card", checkBtn: "View checklist", progress: "Verification", total: "In list", done: "Verified", types: "Categories", batch1: "Batch 1 cards out",
@@ -256,6 +262,7 @@ function render() {
   renderQuizIntro();
   renderExamIntro();
   renderExamPaper();
+  renderGameIntro();
 }
 
 function specRows(a) {
@@ -783,7 +790,106 @@ function renderExamPaper() {
   $("exBack").addEventListener("click", () => { examModel = null; examKeyShown = false; renderExamIntro(); renderExamPaper(); });
 }
 
-$("langToggle").addEventListener("click", () => { lang = lang === "en" ? "zh" : "en"; quiz = null; examModel = null; examKeyShown = false; applyLang(); });
+
+// ---------- timed spotting game (v0.19; uses verified cards only, no new data) ----------
+const GAME_BEST_KEY = "aircraft-encyclopedia.game-best";
+let game = null, gameTimer = null;
+function loadGameBest() { try { const v = JSON.parse(localStorage.getItem(GAME_BEST_KEY) || "{}"); return v && typeof v === "object" ? v : {}; } catch (e) { return {}; } }
+function stopGameTimer() { if (gameTimer) { clearInterval(gameTimer); gameTimer = null; } }
+function gamePoolOf(key) { return key === "all" ? verifiedList() : scoutPool(key); }
+function renderGameIntro() {
+  const body = $("gameBody"); if (!body || game) return;
+  const best = loadGameBest();
+  const card = (key, label) => {
+    const n = gamePoolOf(key).length;
+    const b = best[key];
+    const bestTxt = b ? `${t().gameBest} ${b.score}` : t().gameNone;
+    return `<div class="quiz-level"><h3>${esc(label)}</h3><p>${n} ${lang === "en" ? "types" : "款"} · ${esc(bestTxt)}</p><button type="button" class="quiz-start" data-game="${key}">${t().gameStart}</button></div>`;
+  };
+  const cards = Object.entries(SCOUT_LABEL).map(([k, v]) => card(k, lang === "en" ? v[1] : v[0])).join("") + card("all", t().gameAll);
+  body.innerHTML = `<p class="locked-note">${t().gameIntro}</p><div class="quiz-levels exam-cards">${cards}</div>`;
+  body.querySelectorAll("[data-game]").forEach((b) => b.addEventListener("click", () => startGame(b.getAttribute("data-game"))));
+}
+function startGame(key) {
+  const pool = gamePoolOf(key);
+  if (pool.length < 4) return;
+  stopGameTimer();
+  game = { key, pool, score: 0, streak: 0, maxStreak: 0, correct: 0, total: 0, lastSeq: null, locked: false, endAt: Date.now() + 60000 };
+  nextGameQ();
+  gameTimer = setInterval(tickGame, 100);
+  tickGame();
+}
+function nextGameQ() {
+  if (!game) return;
+  const bySeq = bySeqMap();
+  let a = game.pool[Math.floor(Math.random() * game.pool.length)];
+  if (game.pool.length > 1) while (a.seq === game.lastSeq) a = game.pool[Math.floor(Math.random() * game.pool.length)];
+  game.lastSeq = a.seq; game.locked = false; game.total += 1;
+  const item = mkPhoto(a, game.pool);
+  game.answer = item.answer;
+  const remain = Math.max(0, game.endAt - Date.now());
+  $("gameBody").innerHTML = `<div class="game-hud">
+      <span class="game-stat">${t().gameScore} <b id="gameScore">${game.score}</b></span>
+      <span class="game-stat">${t().gameStreak} <b id="gameStreak">x${game.streak}</b></span>
+      <span class="game-timebar"><i id="gameBar" style="width:${(remain / 600).toFixed(1)}%"></i></span>
+      <b class="game-clock" id="gameClock">${Math.ceil(remain / 1000)}s</b>
+      <button type="button" class="quiz-start alt game-quit" id="gameQuit">${t().gameQuit}</button>
+    </div>
+    <div class="quiz-photo">${photoImg(a)}</div>
+    <div class="quiz-opts">${item.options.map((sq) => { const o = bySeq.get(sq); return `<button type="button" class="quiz-opt" data-gopt="${sq}">${esc(nameOf(o))} · ${esc(o.icao)}</button>`; }).join("")}</div>
+    <div id="gameFb"></div>`;
+  document.querySelectorAll("[data-gopt]").forEach((b) => b.addEventListener("click", () => answerGame(b)));
+  $("gameQuit").addEventListener("click", () => { stopGameTimer(); game = null; renderGameIntro(); });
+}
+function answerGame(btn) {
+  if (!game || game.locked) return;
+  game.locked = true;
+  const right = btn.getAttribute("data-gopt") === game.answer;
+  document.querySelectorAll("[data-gopt]").forEach((b) => {
+    b.disabled = true;
+    if (b.getAttribute("data-gopt") === game.answer) b.classList.add("right");
+    else if (b === btn) b.classList.add("wrong");
+  });
+  let note = "";
+  if (right) {
+    game.correct += 1; game.streak += 1; game.maxStreak = Math.max(game.maxStreak, game.streak);
+    game.score += 10;
+    if (game.streak % 5 === 0) { game.score += 25; note = t().gameBonus; }
+  } else {
+    game.streak = 0; game.endAt -= 3000;
+    const a = bySeqMap().get(game.answer);
+    note = `${t().wrong}${esc(nameOf(a))}`;
+  }
+  const sc = $("gameScore"); if (sc) sc.textContent = game.score;
+  const st = $("gameStreak"); if (st) st.textContent = `x${game.streak}`;
+  const fb = $("gameFb"); if (fb && note) fb.innerHTML = `<p class="quiz-feedback">${esc(note)}</p>`;
+  setTimeout(() => { if (game) { if (Date.now() >= game.endAt) finishGame(); else nextGameQ(); } }, right ? 320 : 800);
+}
+function tickGame() {
+  if (!game) { stopGameTimer(); return; }
+  const remain = game.endAt - Date.now();
+  const bar = $("gameBar"), clock = $("gameClock");
+  if (bar) { bar.style.width = `${Math.max(0, remain / 600)}%`; bar.classList.toggle("low", remain < 10000); }
+  if (clock) clock.textContent = `${Math.max(0, Math.ceil(remain / 1000))}s`;
+  if (remain <= 0) finishGame();
+}
+function finishGame() {
+  if (!game) return;
+  stopGameTimer();
+  const g = game; game = null;
+  try {
+    const b = loadGameBest();
+    if (!b[g.key] || g.score > b[g.key].score) { b[g.key] = { score: g.score, correct: g.correct, streak: g.maxStreak }; localStorage.setItem(GAME_BEST_KEY, JSON.stringify(b)); }
+  } catch (e) { /* ignore */ }
+  const label = g.key === "all" ? t().gameAll : (lang === "en" ? SCOUT_LABEL[g.key][1] : SCOUT_LABEL[g.key][0]);
+  $("gameBody").innerHTML = `<p class="quiz-score">${t().gameOver} ${esc(label)}</p>
+    <p class="game-result">${t().gameScore} <b>${g.score}</b> · ${t().gameRight} ${g.correct}/${g.total} ${t().gameQuestions} · ${t().gameMaxStreak} x${g.maxStreak}</p>
+    <p><button type="button" class="quiz-start" id="gameAgain">${t().gameAgain}</button> <button type="button" class="quiz-start alt" id="gameBack">${t().gameBack}</button></p>`;
+  $("gameAgain").addEventListener("click", () => startGame(g.key));
+  $("gameBack").addEventListener("click", () => renderGameIntro());
+}
+
+$("langToggle").addEventListener("click", () => { lang = lang === "en" ? "zh" : "en"; quiz = null; examModel = null; examKeyShown = false; stopGameTimer(); game = null; applyLang(); });
 $("searchInput").addEventListener("input", (e) => { query = e.target.value; render(); });
 $("detailClose").addEventListener("click", () => { const d = $("detailDialog"); if (d.close) d.close(); else d.removeAttribute("open"); });
 
