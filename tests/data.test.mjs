@@ -78,6 +78,15 @@ test("每款首飛年份可解析，支撐首飛年代分類（v0.13）", () => 
   }
 });
 
+test("已核實卡唔再帶待查清單等三欄（v0.14 瘦身，類別名由頂層推導）", () => {
+  for (const a of data.aircraft.filter((x) => x.dataStatus === "verified")) {
+    assert.ok(!("sourcesToCheck" in a), a.seq + " sourcesToCheck");
+    assert.ok(!("categoryLabel" in a), a.seq + " categoryLabel");
+    assert.ok(!("icaoCandidate" in a), a.seq + " icaoCandidate");
+    assert.ok(data.categories[a.category], a.seq + " category");
+  }
+});
+
 const blueprints = JSON.parse(readFileSync(new URL("../web/data/exam-blueprints.json", import.meta.url), "utf8"));
 test("考卷藍本覆蓋三級航空活動章＋空勤員，且結構上冇答案", () => {
   assert.deepEqual(blueprints.papers.map((x) => x.level), ["BAAB", "IAAB", "AAAB", "AIRCREW"]);

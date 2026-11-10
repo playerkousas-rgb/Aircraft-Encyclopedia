@@ -1,6 +1,6 @@
 "use strict";
 /* Aircraft-Encyclopedia v0.7 · © SCOUT SYSTEM · APP_VERSION 0.9.0 */
-const APP_VERSION = "0.13.0";
+const APP_VERSION = "0.14.0";
 const LANG_KEY = "aircraft-encyclopedia.lang";
 
 const STR = {
@@ -9,7 +9,7 @@ const STR = {
     heroTitle: "一眼見到飛機，用一張圖認識飛機",
     heroText: "第一批跟童軍初級航空活動章清單（18 款）逐款核實：有齊相片、WEFT 辨認特徵同有來源的規格，先會出圖卡。",
     batch1Label: "第一批（初級航空活動章）進度",
-    searchLabel: "搜尋", searchPh: "名稱、代碼、製造商…", catLabel: "類別", scoutLabel: "章級別", colLabel: "探索系列", eraLabel: "首飛年代", statusLabel: "狀態", facetLabel: "特徵", allFeatures: "全部特徵",
+    searchLabel: "搜尋", searchPh: "名稱、代碼、製造商…", catLabel: "類別", scoutLabel: "章級別", colLabel: "探索系列", eraLabel: "首飛年代", originLabel: "製造國", quizScopeLabel: "出題範圍", quizAll: "全部（已核實）", statusLabel: "狀態", facetLabel: "特徵", allFeatures: "全部特徵",
     loadErrorTitle: "資料載入失敗", loadErrorText: "請檢查網絡後重新整理；如果用檔案方式打開，請改用靜態伺服器開本站。",
     noResults: "搵唔到符合嘅飛機，試下改搜尋字或清除分類。",
     compareTitle: "比較兩款飛機", quizTitle: "小測驗：睇相認飛機",
@@ -42,7 +42,7 @@ const STR = {
     heroTitle: "See a plane. Learn a plane.",
     heroText: "Batch 1 follows the Scout Basic Air Activity list (18 types), verified one by one: a card is published only with a licensed photo, WEFT recognition notes and sourced specs.",
     batch1Label: "Batch 1 (Basic Air Activity) progress",
-    searchLabel: "Search", searchPh: "Name, code, manufacturer…", catLabel: "Category", scoutLabel: "Badge level", colLabel: "Collections", eraLabel: "First-flight era", statusLabel: "Status", facetLabel: "Features", allFeatures: "All features",
+    searchLabel: "Search", searchPh: "Name, code, manufacturer…", catLabel: "Category", scoutLabel: "Badge level", colLabel: "Collections", eraLabel: "First-flight era", originLabel: "Made in", quizScopeLabel: "Quiz scope", quizAll: "All (verified)", statusLabel: "Status", facetLabel: "Features", allFeatures: "All features",
     loadErrorTitle: "Could not load data", loadErrorText: "Check your connection and reload. If you opened this as a file, serve the folder with a static server instead.",
     noResults: "No aircraft match. Try another search or clear the filters.",
     compareTitle: "Compare two aircraft", quizTitle: "Quiz: name that plane",
@@ -74,13 +74,18 @@ const STR = {
 
 let lang = "zh";
 try { const v = localStorage.getItem(LANG_KEY); if (v === "en" || v === "zh") lang = v; } catch (e) { /* private mode */ }
-let DATA = null, category = "all", query = "", scout = "all", statusFilter = "all", facet = "all", collection = "all", era = "all";
+let DATA = null, category = "all", query = "", scout = "all", statusFilter = "all", facet = "all", collection = "all", era = "all", origin = "all", quizScope = "all";
 let cmpA = null, cmpB = null, quiz = null;
 const SCOUT_LABEL = { BAAB: ["初級航空活動章", "Basic Air Activity"], IAAB: ["中級航空活動章", "Intermediate Air Activity"], AAAB: ["高級航空活動章", "Advanced Air Activity"] };
 const COLLECTION_LABEL = { hk: ["香港常見", "Hong Kong regulars"], world: ["世界常見", "Worldwide common"], china: ["中國自產", "China-built"], classic: ["歷史名機", "Historic icons"] };
 function collTags(a) { return (a.collections || []).filter((c) => COLLECTION_LABEL[c]).map((c) => `<span class="tag coll coll-${c}">${esc(lang === "en" ? COLLECTION_LABEL[c][1] : COLLECTION_LABEL[c][0])}</span>`).join(""); }
 const ERA_BANDS = [["pioneer", 0, 1945, "先驅時代", "Pioneer era", "–1945"], ["jetage", 1946, 1969, "噴射時代", "Jet age", "1946–69"], ["widebody", 1970, 1989, "廣體時代", "Widebody era", "1970–89"], ["glass", 1990, 1999, "數碼座艙時代", "Glass-cockpit era", "1990–99"], ["newgen", 2000, 2009, "新世代", "New generation", "2000–09"], ["modern", 2010, 9999, "當代", "Modern era", "2010–"]];
 function eraOf(a) { const y = parseInt(((a.history || {}).firstFlight || "").slice(0, 4), 10); if (!y) return null; const b = ERA_BANDS.find((x) => y >= x[1] && y <= x[2]); return b ? b[0] : null; }
+const ORIGIN_LABEL = { usa: ["美國", "USA"], europe: ["歐洲", "Europe"], china: ["中國", "China"], canada: ["加拿大", "Canada"], brazil: ["巴西", "Brazil"], russia: ["俄羅斯", "Russia"], austria: ["奧地利", "Austria"], france: ["法國", "France"], italy: ["意大利", "Italy"], ukraine: ["烏克蘭", "Ukraine"], switzerland: ["瑞士", "Switzerland"], sweden: ["瑞典", "Sweden"] };
+const ORIGIN_BY_MANUFACTURER = {"Beechcraft": "usa", "Bell": "usa", "Boeing": "usa", "Cessna": "usa", "Cirrus Design": "usa", "Douglas": "usa", "Fairchild Republic": "usa", "Gulfstream": "usa", "Gulfstream Aerospace": "usa", "Lockheed": "usa", "Lockheed Martin": "usa", "MD Helicopters": "usa", "McDonnell Douglas": "usa", "McDonnell Douglas / Boeing": "usa", "Northrop Grumman": "usa", "Piper": "usa", "Robinson": "usa", "Sikorsky": "usa", "Van's Aircraft": "usa", "Wright brothers": "usa", "Airbus": "europe", "Airbus Defence and Space": "europe", "Airbus Helicopters": "europe", "ATR": "europe", "Aérospatiale / BAC": "europe", "Eurocopter / Airbus Helicopters": "europe", "Eurofighter": "europe", "AVIC / CAIGA": "china", "COMAC": "china", "COMAC 中國商飛": "china", "Changhe Aircraft": "china", "Chengdu": "china", "Chengdu (AVIC)": "china", "Chengdu / PAC": "china", "Chengdu Aircraft": "china", "Harbin Aircraft Industry Group": "china", "Harbin Aircraft Manufacturing": "china", "Hongdu (Nanchang)": "china", "Hongdu Aviation": "china", "Shaanxi Aircraft Corporation": "china", "Shenyang Aircraft Corporation": "china", "Xian Aircraft": "china", "Xian Aircraft (AVIC)": "china", "Antonov": "ukraine", "Ilyushin": "russia", "Kamov": "russia", "Mikoyan": "russia", "Mil": "russia", "Sukhoi": "russia", "Bombardier": "canada", "De Havilland Canada": "canada", "de Havilland Canada": "canada", "Embraer": "brazil", "Dassault": "france", "Leonardo": "italy", "Leonardo Helicopters": "italy", "Saab": "sweden", "Pilatus": "switzerland", "Diamond Aircraft": "austria"};
+function originOf(a) { return ORIGIN_BY_MANUFACTURER[a.manufacturer] || null; }
+function catLabel(a) { const c = (DATA && DATA.categories || {})[a.category] || {}; return lang === "en" ? (c.en || a.category) : (c.zh || a.category); }
+function quizPool() { const pool = verifiedList(); if (quizScope === "all") return pool; const parts = quizScope.split(":"); const kind = parts[0], key = parts[1]; if (kind === "scout") return pool.filter((a) => a.scout && a.scout.level === key); if (kind === "coll") return pool.filter((a) => (a.collections || []).includes(key)); if (kind === "era") return pool.filter((a) => eraOf(a) === key); return pool; }
 /* Facet tags: derived only from data already in the inventory (category, tags, verified specs). Nothing is invented for pending aircraft. */
 const TAG_LABEL = {
   widebody: ["廣體", "Widebody"], narrowbody: ["窄體", "Narrowbody"], "double-deck": ["雙層客艙", "Double-deck"],
@@ -177,6 +182,12 @@ function render() {
     `<button type="button" class="chip" data-era="${k}" aria-pressed="${era === k}">${esc(label)}</button>`).join("");
   document.querySelectorAll("[data-era]").forEach((b) => b.addEventListener("click", () => { era = b.getAttribute("data-era"); render(); }));
 
+  const originCounts = {}; for (const a of list) { const o = originOf(a); if (o) originCounts[o] = (originCounts[o] || 0) + 1; }
+  const originChips = [["all", t().all]].concat(Object.keys(ORIGIN_LABEL).filter((k) => originCounts[k]).sort((x, y) => originCounts[y] - originCounts[x]).map((k) => [k, lang === "en" ? ORIGIN_LABEL[k][1] : ORIGIN_LABEL[k][0]]));
+  $("originChips").innerHTML = originChips.map(([k, label]) =>
+    `<button type="button" class="chip" data-origin="${k}" aria-pressed="${origin === k}">${esc(label)}</button>`).join("");
+  document.querySelectorAll("[data-origin]").forEach((b) => b.addEventListener("click", () => { origin = b.getAttribute("data-origin"); render(); }));
+
   const statusChips = [["all", t().all], ["verified", t().verifiedOnly], ["pending", t().pendingOnly]];
   $("statusChips").innerHTML = statusChips.map(([k, label]) =>
     `<button type="button" class="chip" data-status="${k}" aria-pressed="${statusFilter === k}">${esc(label)}</button>`).join("");
@@ -193,6 +204,7 @@ function render() {
     if (scout !== "all" && !(a.scout && a.scout.level === scout)) return false;
     if (collection !== "all" && !(a.collections || []).includes(collection)) return false;
     if (era !== "all" && eraOf(a) !== era) return false;
+    if (origin !== "all" && originOf(a) !== origin) return false;
     if (statusFilter === "verified" && a.dataStatus !== "verified") return false;
     if (statusFilter === "pending" && a.dataStatus === "verified") return false;
     if (facet !== "all" && !facetsOf(a).some((f) => f.key === facet)) return false;
@@ -213,7 +225,7 @@ function render() {
         <div class="card-top"><span class="seq">${a.seq} · ${esc(codeOf(a))}</span><span class="pill${isV ? " done" : ""}">${isV ? t().verified : t().pending}</span></div>
         <h3>${esc(nameOf(a))}</h3><p class="sub">${esc(a.manufacturer)} · ${esc(lang === "en" ? a.nameEn : a.nameZh)}</p>
         ${intro}
-        <div class="meta"><span class="tag">${esc(lang === "en" ? a.categoryLabel.en : a.categoryLabel.zh)}</span>${a.scout ? `<span class="tag scout">${esc(lang === "en" ? SCOUT_LABEL[a.scout.level][1] : SCOUT_LABEL[a.scout.level][0])}</span>` : ""}${collTags(a)}</div>
+        <div class="meta"><span class="tag">${esc(catLabel(a))}</span>${a.scout ? `<span class="tag scout">${esc(lang === "en" ? SCOUT_LABEL[a.scout.level][1] : SCOUT_LABEL[a.scout.level][0])}</span>` : ""}${collTags(a)}</div>
         <div class="meta facets">${facetsOf(a).slice(0, 6).map((f) => `<span class="tag facet">${esc(f.label)}</span>`).join("")}</div>
         <div class="progress" aria-label="${t().progress} ${n}/${total}"><i style="width:${Math.round(n / total * 100)}%"></i></div>
         <p class="progress-line">${t().progress} ${n}/${total}</p>
@@ -263,7 +275,7 @@ function openDetail(seq) {
       `<a href="${esc(l.url)}" target="_blank" rel="noopener">${esc(lang === "en" ? l.labelEn : l.labelZh)} ↗</a>`).join("");
     const h = a.history || {};
     $("detailBody").innerHTML = `
-      <div class="detail-badges"><span class="tag">${esc(lang === "en" ? a.categoryLabel.en : a.categoryLabel.zh)}</span>${a.scout ? `<span class="tag scout">${esc(lang === "en" ? SCOUT_LABEL[a.scout.level][1] : SCOUT_LABEL[a.scout.level][0])}</span>` : ""}<span class="tag">${esc(a.manufacturer)} · ${esc(a.icao)}</span>${collTags(a)}${facetsOf(a).map((f) => `<span class="tag facet">${esc(f.label)}</span>`).join("")}</div>
+      <div class="detail-badges"><span class="tag">${esc(catLabel(a))}</span>${a.scout ? `<span class="tag scout">${esc(lang === "en" ? SCOUT_LABEL[a.scout.level][1] : SCOUT_LABEL[a.scout.level][0])}</span>` : ""}<span class="tag">${esc(a.manufacturer)} · ${esc(a.icao)}</span>${collTags(a)}${facetsOf(a).map((f) => `<span class="tag facet">${esc(f.label)}</span>`).join("")}</div>
       <div class="variant-note">${esc(lang === "en" ? a.variantNoteEn : a.variantNoteZh)}</div>
       <div class="detail-photo">${photoImg(a)}${dots}</div>
       <p class="caption">${esc(lang === "en" ? a.photo.captionEn : a.photo.captionZh)}</p>
@@ -328,12 +340,16 @@ function renderQuizIntro() {
   const body = $("quizBody"); if (!body || quiz) return;
   const pool = verifiedList();
   if (pool.length < 4) { body.innerHTML = `<p class="locked-note">${t().quizLocked} (${pool.length}/4)</p>`; return; }
-  body.innerHTML = `<p class="locked-note">${t().quizIntro}</p><button type="button" class="quiz-start" id="quizStart">${t().quizStart}</button>`;
+  const opt = (v, label) => `<option value="${v}"${quizScope === v ? " selected" : ""}>${esc(label)}</option>`;
+  const scopeSel = `<label class="quiz-scope">${t().quizScopeLabel}<select id="quizScopeSel">${opt("all", t().quizAll)}<optgroup label="${esc(t().scoutLabel)}">${Object.entries(SCOUT_LABEL).map(([k, v]) => opt("scout:" + k, lang === "en" ? v[1] : v[0])).join("")}</optgroup><optgroup label="${esc(t().colLabel)}">${Object.entries(COLLECTION_LABEL).map(([k, v]) => opt("coll:" + k, lang === "en" ? v[1] : v[0])).join("")}</optgroup><optgroup label="${esc(t().eraLabel)}">${ERA_BANDS.map((b) => opt("era:" + b[0], (lang === "en" ? b[4] : b[3]) + " " + b[5])).join("")}</optgroup></select></label>`;
+  body.innerHTML = `<p class="locked-note">${t().quizIntro}</p>${scopeSel}<button type="button" class="quiz-start" id="quizStart">${t().quizStart}</button>`;
+  $("quizScopeSel").addEventListener("change", (e) => { quizScope = e.target.value; });
   $("quizStart").addEventListener("click", startQuiz);
 }
 
 function startQuiz() {
-  const pool = verifiedList();
+  const scopePool = quizPool();
+  const pool = scopePool.length ? scopePool : verifiedList();
   const shuffled = [...pool].sort(() => Math.random() - 0.5);
   quiz = { items: shuffled.slice(0, Math.min(5, shuffled.length)), idx: 0, score: 0, answered: false };
   showQuestion();
@@ -342,7 +358,9 @@ function startQuiz() {
 function showQuestion() {
   const body = $("quizBody");
   const a = quiz.items[quiz.idx];
-  const others = verifiedList().filter((x) => x.seq !== a.seq).sort(() => Math.random() - 0.5).slice(0, 3);
+  const inScope = quizPool().filter((x) => x.seq !== a.seq).sort(() => Math.random() - 0.5);
+  const extra = verifiedList().filter((x) => x.seq !== a.seq && !inScope.some((s) => s.seq === x.seq)).sort(() => Math.random() - 0.5);
+  const others = [...inScope, ...extra].slice(0, 3);
   const options = [...others, a].sort(() => Math.random() - 0.5);
   quiz.answer = a.seq; quiz.answered = false;
   body.innerHTML = `<p class="quiz-q">${t().quizQ} (${quiz.idx + 1}/${quiz.items.length})</p>

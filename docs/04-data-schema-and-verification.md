@@ -14,7 +14,7 @@
 
 數字有條件（座位/航程因配置而異）時，畫面要寫明代表甚麼（例：「典型三級艙佈局」），唔好齋出一個數。
 
-`collections`（探索系列，v0.12 起）：`hk` 香港常見／`world` 世界常見／`china` 中國自產，可多選、可缺省。屬編輯分類而非可追溯事實，唔入八項核實清單；準則與取捨記入 docs/05 第 32–34 項，會隨機隊變化維護。網站以此欄驅動「探索系列」篩選與卡面徽章，同 `tags`（辨認特徵）分工：tags 答「點認」，collections 答「喺邊度見到、點解要學」。另設「首飛年代」篩選（v0.13）：唔另存欄位，由 app 按每卡 `history.firstFlight` 年份即時分六個時代，分段見 docs/05 第 36 項。
+`collections`（探索系列，v0.12 起）：`hk` 香港常見／`world` 世界常見／`china` 中國自產，可多選、可缺省。屬編輯分類而非可追溯事實，唔入八項核實清單；準則與取捨記入 docs/05 第 32–34 項，會隨機隊變化維護。網站以此欄驅動「探索系列」篩選與卡面徽章，同 `tags`（辨認特徵）分工：tags 答「點認」，collections 答「喺邊度見到、點解要學」。另設「首飛年代」篩選（v0.13）：唔另存欄位，由 app 按每卡 `history.firstFlight` 年份即時分六個時代，分段見 docs/05 第 36 項。「製造國」篩選與測驗出題範圍（v0.14）：製造商→國家對照存於 `web/app.js` 的 `ORIGIN_BY_MANUFACTURER`（59 個製造商字串全覆蓋，口徑見 docs/05 第 38 項），唔入資料檔；測驗可按章級別／探索系列／首飛年代限定題池（docs/05 第 39 項）。已核實卡唔再存 `sourcesToCheck`、`categoryLabel`、`icaoCandidate` 三欄（docs/05 第 37 項）；待核實機型入庫時先用返：`icaoCandidate` 帶 `*` 表示代碼待核實、`sourcesToCheck` 供詳情頁列待查來源、`categoryLabel` 可省（app 由頂層 `categories` 推導）。
 
 ## 2. 八項核實清單（checklist）
 
