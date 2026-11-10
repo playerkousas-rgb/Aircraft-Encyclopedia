@@ -1,7 +1,10 @@
 "use strict";
 /* Aircraft-Encyclopedia v0.7 · © SCOUT SYSTEM · APP_VERSION 0.9.0 */
-const APP_VERSION = "0.11.0";
+const APP_VERSION = "0.30.0";
 const LANG_KEY = "aircraft-encyclopedia.lang";
+const QUIZ_BEST_KEY = "aircraft-encyclopedia.quiz-best";
+function loadQuizBest() { try { const v = JSON.parse(localStorage.getItem(QUIZ_BEST_KEY) || "{}"); return v && typeof v === "object" ? v : {}; } catch (e) { return {}; } }
+function saveQuizBest(level, score) { try { const b = loadQuizBest(); if (b[level] == null || score > b[level]) { b[level] = score; localStorage.setItem(QUIZ_BEST_KEY, JSON.stringify(b)); } } catch (e) { /* ignore */ } }
 
 const STR = {
   zh: {
@@ -9,12 +12,19 @@ const STR = {
     heroTitle: "一眼見到飛機，用一張圖認識飛機",
     heroText: "第一批跟童軍初級航空活動章清單（18 款）逐款核實：有齊相片、WEFT 辨認特徵同有來源的規格，先會出圖卡。",
     batch1Label: "第一批（初級航空活動章）進度",
-    searchLabel: "搜尋", searchPh: "名稱、代碼、製造商…", catLabel: "類別", scoutLabel: "章級別", statusLabel: "狀態", facetLabel: "特徵", allFeatures: "全部特徵",
+    searchLabel: "搜尋", searchPh: "名稱、代碼、製造商…", catLabel: "類別", scoutLabel: "章級別", colLabel: "探索系列", eraLabel: "首飛年代", originLabel: "製造國", quizScopeLabel: "出題範圍", quizAll: "全部（已核實）", statusLabel: "狀態", facetLabel: "特徵", allFeatures: "全部特徵",
     loadErrorTitle: "資料載入失敗", loadErrorText: "請檢查網絡後重新整理；如果用檔案方式打開，請改用靜態伺服器開本站。",
     noResults: "搵唔到符合嘅飛機，試下改搜尋字或清除分類。",
     compareTitle: "比較兩款飛機", quizTitle: "小測驗：睇相認飛機",
     examTitle: "考卷（領袖出卷）", examLocked: "按章級別出試卷連領袖答案紙，要等嗰一級核實的機型夠數先開放，確保每條題目答案正確。",
-    gamesTitle: "未來小遊戲", gamesLocked: "航空公司配對同機場名稱遊戲會喺資料核實後推出，對應航空活動章同空勤員章的辨認要求。",
+    gamesTitle: "小遊戲：限時認機大挑戰",
+    gameIntro: "60 秒內認得幾多款？答啱 +10 分，每連對 5 題額外 +25 分；答錯扣 3 秒、連對歸零。按章級揀題池，或者全部機型一齊玩。",
+    gameStart: "開始挑戰", gameAll: "全部機型", gameTime: "時間", gameScore: "分數", gameStreak: "連對", gameBest: "最佳", gameNone: "未開始",
+    gameOver: "時間到！", gameRight: "答啱", gameQuestions: "題", gameMaxStreak: "最長連對", gameAgain: "再玩一次", gameQuit: "放棄", gameBack: "返去揀模式", gameBonus: "連對獎分 +25！",
+    airportTitle: "機場代碼與世界地圖", airportIntro: "203 個國際機場：151 個係香港有客運直航嘅航點（琥珀色代碼牌）、香港係金色主場牌、其餘係世界主要國際機場（深藍牌，香港暫無直航）；IATA／ICAO 代碼、座標同中文名逐個經維基百科核實。撳地圖上嘅代碼牌或者下面清單，即刻知嗰個機場喺邊；亦可只睇香港直航。", airportSearchPh: "搜尋 IATA／ICAO、機場、城市…", airportCount: "個機場", airportShowAll: "全部機場", airportDirectOnly: "只睇香港直航", airportDirectTag: "香港直航", airportHomeTag: "主場・香港", airportLegendHome: "香港（主場）", airportLegendDirect: "香港直航航點", airportLegendOther: "其他國際機場", apGameTitle: "小遊戲：機場代碼大挑戰", apGameIntro: "60 秒認碼挑戰：睇代碼估機場、睇機場估代碼、睇機場名估城市、睇 ICAO 碼估機場、睇地圖估碼，五種題型隨機出。啱 +10 分、連對 5 題 +25 獎分、答錯扣 3 秒兼記低錯題，完局即刻回顧學返。題目全部嚟自下面 203 個已核實機場。", apGameDirect: "香港直航線", apGameDirectDesc: "香港主場＋151 個直航航點；干擾選項環球亂抽，啱晒熱身", apGameWorld: "環球挑戰", apGameWorldDesc: "全部 203 個機場；干擾選項多數嚟自同一地區，認錯隔籬城市就輸", apGameMapHint: "地圖上「？」嗰個機場，佢嘅代碼係咩？", apGameQCity: "呢個機場喺邊個城市？", apGameReview: "錯題回顧", apGameNone: "今輪冇答錯，好嘢！", airportNoMap: "地圖底圖載入唔到（可能離線），下面清單仍然用得。", airportSrc: "底圖 © OpenStreetMap contributors（後備 Esri）；機場資料來源：Wikipedia（IATA／ICAO 代碼、座標與香港客運直航航點），2026-11 核實。", airlineTitle: "航空公司標誌圖鑑", airlineIntro: "28 間航空公司（香港 4 間、亞太 16 間、國際 8 間）：IATA／ICAO 代碼同主要樞紐逐間經維基百科核實；標誌圖只用 Wikimedia Commons 上面版權屬公有領域（Public domain）嘅檔案並逐檔核實授權——23 間有標誌圖，5 間未搵到可自由使用嘅現行標誌，用文字牌顯示。可以搜尋同按地區篩選，仲可以玩下面嘅認標誌挑戰。", airlineSearchPh: "搜尋航空公司、代碼、樞紐…", airlineCount: "間航空公司", airlineAll: "全部", airlineHK: "香港", airlineAPAC: "亞太", airlineWorld: "國際", airlineHKReg: "香港註冊", airlineHub: "樞紐", airlineTypes: "本站圖卡提及", airlineNoLogo: "暫時冇已核實可自由使用嘅現行標誌圖，以文字牌顯示", airlineCredit: "標誌圖：Public domain（Wikimedia Commons）", airlineTm: "註：所有標誌均屬各航空公司嘅商標；公有領域只指圖檔本身嘅版權狀態，本站只作教學辨認用途，逐檔標示來源。", airlineSrc: "資料來源：各航空公司英文維基百科條目（IATA／ICAO／樞紐）＋ Wikimedia Commons（標誌圖授權），2026-11-10 核實。", logoGameTitle: "小遊戲：認標誌挑戰", logoGameIntro: "60 秒認標誌：睇標誌估航空公司、估 IATA 代碼、估樞紐，或者睇公司名揀返個標誌，四種題型隨機出。啱 +10 分、連對 5 題 +25 獎分、答錯扣 3 秒兼記低錯題，完局即刻回顧學返。題目全部嚟自上面 23 間有已核實標誌嘅航空公司。", logoGameQName: "呢個標誌係邊間航空公司？", logoGameQIata: "呢間航空公司嘅 IATA 代碼係咩？", logoGameQHub: "呢間航空公司嘅主要樞紐喺邊？", matchTitle: "小遊戲：航空公司配對", matchIntro: "將航空公司名、IATA 兩字代碼同 ICAO 三字代碼配返埋一齊，逐級加難。60 秒，啱 +10 分、連對 5 題 +25 獎分、答錯扣 3 秒；答錯會即刻顯示正確配對同意記憶提示，完局有錯題回顧。題目全部嚟自上面已核實嘅 28 間航空公司。", matchL1: "第一級 · 認 IATA", matchL1Desc: "睇公司名揀 IATA 兩字碼、睇碼揀返公司名", matchL2: "第二級 · 認 ICAO", matchL2Desc: "睇公司名揀 ICAO 三字碼、睇碼揀返公司名", matchL3: "第三級 · 混合高手", matchL3Desc: "名、IATA、ICAO 互估，加埋睇標誌估代碼", matchQPickName: "呢個代碼係邊間航空公司？", matchQPickIcao: "呢間航空公司嘅 ICAO 代碼係咩？", matchQIata2Icao: "呢個 IATA 代碼對應嘅 ICAO 代碼係咩？", matchQIcao2Iata: "呢個 ICAO 代碼對應嘅 IATA 代碼係咩？", matchHint: "記憶提示", spotTitle: "小遊戲：睇相認公司＋機種", spotIntro: "好似喺機場觀景台認飛機咁：睇住已核實圖卡嘅相，先認航空公司、再認機種，一架飛機兩部分分開計分。60 秒，啱一題 +10 分、連對 5 題 +25 獎分、答錯扣 3 秒；答錯會顯示正確公司＋機種同相片出處，完局有錯題回顧。相中飛機嘅營運者以圖卡核實過嘅相片說明為準，唔靠估。", spotQAirline: "呢架飛機係邊間航空公司嘅？", spotQType: "呢架係邊款飛機？",
+    shTitle: "小遊戲：認機空防戰", shIntro: "飛機飛過防區：軍機要認啱機名先開火擊落，民航機就認啱影低佢。飛走三架就失守；每波越來越快。打完每架都會出特徵卡，教你點認——唔係齋鬥快。",
+    shStart: "出擊", shLives: "防線", shWave: "第", shPromptMil: "⚠ 軍機接近——認啱機名開火！", shPromptCiv: "民航機經過——認啱機名影低佢！",
+    shShot: "擊落！", shCaptured: "拍低咗！", shEscaped: "飛走咗…", shFeature: "認機特徵", shOver: "防線失守！", shDown: "擊落", shCaps: "拍低",
     footerNote: "相片未核實前唔會上載；規格要有來源先會顯示。第三方相片依原授權標示，不加本站水印。",
     all: "全部", pending: "資料待核實", verifiedOnly: "已核實", pendingOnly: "待核實", codePending: "代碼待核實", verified: "已核實",
     viewCard: "睇圖卡", checkBtn: "查看核實清單", progress: "核實進度", total: "總清單", done: "已完成核實", types: "類別", batch1: "第一批已出卡",
@@ -32,8 +42,15 @@ const STR = {
     comparePick: "揀兩款已核實飛機並排比較：先睇相，再對規格。",
     cmpA: "第一款", cmpB: "第二款",
     quizLocked: "要等至少四款飛機連相片完成核實先開放測驗，而家題目池未夠。",
-    quizIntro: "題目只用已核實的圖卡：睇相揀啱機型名。答錯會即刻講返點認，唔使死背。",
+    quizIntro: "題目只用已核實圖卡，按章級混合認相、標示部件、WEFT 特徵、知識同相似分辨題。答錯會即刻講返點認，唔使死背。",
+    qTypePhoto: "認相", qTypeParts: "標示部件", qTypeWeft: "WEFT 特徵", qTypeKnow: "航空知識", qTypeLook: "相似分辨", qTypeReverse: "以名認相",
+    qParts: "相中「？」位置係邊個部件？", qWeft: "以下特徵描述緊邊款飛機？", qLook: "相中機型最易同邊款混淆？", qReversePre: "邊張相先係",
     quizStart: "開始測驗", quizNext: "下一題", quizAgain: "再玩一次", quizQ: "呢架係邊款飛機？",
+    quizPickLevel: "按章級數分開操：揀你考緊嗰級，只出嗰級的機型。", quizFree: "自由練習（唔分級）", quizBest: "最佳", quizNone: "未開始", quizBack: "返去揀級數",
+    examIntro: "揀一級即刻出卷：題目只用已核實圖卡隨機產生，每次唔同；領袖版附答案同出處，方便批改。", examGen: "出卷", examRegen: "重新出卷", examBack: "返去揀卷",
+    examPrintPaper: "列印學員試卷", examPrintKey: "列印領袖答案", examShowKey: "顯示答案", examHideKey: "隱藏答案", examName: "姓名", examUnit: "支部／旅", examDate: "日期", examTotal: "總分", examMarksUnit: "分",
+    secPhotoId: "認相", secParts: "標示部件", secWeft: "WEFT 簡答", secAirline: "航空公司配對", secKnowledge: "航空知識簡答", secLookalike: "相似機型分辨", secTeach: "教返人認機", secSpotting: "機場認機",
+    examNote: "本卷由已核實圖卡即時隨機產生；相片版權屬原作者，依圖卡標示的授權使用。", examKey: "答案", examTypes: "款可用題池",
     correct: "啱咗！", wrong: "唔啱，正確答案係：", score: "完成！你啱咗",
     checks: { identity: "身份：中英名、製造商、ICAO 代碼", history: "歷史：首飛與現況", specs: "規格：尺寸、引擎、座位/載重、航程", recognition: "辨認：肉眼特徵與相似機型分別", photo: "相片：授權與標註座標", links: "深度連結：官方、維基、FR24、圖庫", bilingual: "英文：名稱與辨認特徵", quiz: "測驗：題目與答案核對" }
   },
@@ -42,12 +59,19 @@ const STR = {
     heroTitle: "See a plane. Learn a plane.",
     heroText: "Batch 1 follows the Scout Basic Air Activity list (18 types), verified one by one: a card is published only with a licensed photo, WEFT recognition notes and sourced specs.",
     batch1Label: "Batch 1 (Basic Air Activity) progress",
-    searchLabel: "Search", searchPh: "Name, code, manufacturer…", catLabel: "Category", scoutLabel: "Badge level", statusLabel: "Status", facetLabel: "Features", allFeatures: "All features",
+    searchLabel: "Search", searchPh: "Name, code, manufacturer…", catLabel: "Category", scoutLabel: "Badge level", colLabel: "Collections", eraLabel: "First-flight era", originLabel: "Made in", quizScopeLabel: "Quiz scope", quizAll: "All (verified)", statusLabel: "Status", facetLabel: "Features", allFeatures: "All features",
     loadErrorTitle: "Could not load data", loadErrorText: "Check your connection and reload. If you opened this as a file, serve the folder with a static server instead.",
     noResults: "No aircraft match. Try another search or clear the filters.",
     compareTitle: "Compare two aircraft", quizTitle: "Quiz: name that plane",
     examTitle: "Exam papers (for leaders)", examLocked: "Papers by badge level with a separate leader answer key open once enough types at that level are verified.",
-    gamesTitle: "Coming mini-games", gamesLocked: "Airline matching and airport-name games will arrive after their data is verified, matching Air Activity and Aircrew badge requirements.",
+    gamesTitle: "Game: timed spotting challenge",
+    gameIntro: "How many can you spot in 60 seconds? +10 per correct answer, +25 bonus every 5 in a row; a miss costs 3 seconds and resets your streak. Pick a badge-level pool, or play with every type.",
+    gameStart: "Start challenge", gameAll: "All types", gameTime: "Time", gameScore: "Score", gameStreak: "Streak", gameBest: "Best", gameNone: "Not played",
+    gameOver: "Time up!", gameRight: "Correct", gameQuestions: "questions", gameMaxStreak: "Best streak", gameAgain: "Play again", gameQuit: "Quit", gameBack: "Back to modes", gameBonus: "Streak bonus +25!",
+    airportTitle: "Airport codes & world map", airportIntro: "203 international airports: 151 with direct passenger flights from Hong Kong (amber badges), Hong Kong itself in gold, and the rest major world airports (dark-blue badges, no direct Hong Kong flights yet); every IATA/ICAO code, coordinate and Chinese name verified against Wikipedia. Tap a code badge on the map or an item below to fly there, or filter to Hong Kong direct destinations only.", airportSearchPh: "Search IATA/ICAO, airport, city…", airportCount: "airports", airportShowAll: "All airports", airportDirectOnly: "Hong Kong direct only", airportDirectTag: "Direct from HK", airportHomeTag: "Home base", airportLegendHome: "Hong Kong (home)", airportLegendDirect: "Direct from Hong Kong", airportLegendOther: "Other international airports", apGameTitle: "Mini-game: Airport Code Challenge", apGameIntro: "A 60-second code challenge: guess the airport from its code, the code from the airport, the city from the airport name, the airport from its ICAO code, or the code from the map — five question types in random order. +10 per correct answer, +25 bonus every 5 in a row; a wrong answer costs 3 seconds and is saved for review at the end. Every question is generated from the 203 verified airports below.", apGameDirect: "Hong Kong direct routes", apGameDirectDesc: "Home base plus the 151 direct destinations; distractors drawn from all over the world", apGameWorld: "World challenge", apGameWorldDesc: "All 203 airports; distractors mostly from the same region, so neighbouring cities are the trap", apGameMapHint: "Which airport is marked ? on the map? What is its code?", apGameQCity: "Which city is this airport in?", apGameReview: "Review your misses", apGameNone: "No misses this round — well done!", airportNoMap: "Map tiles could not load (possibly offline); the list below still works.", airportSrc: "Basemap © OpenStreetMap contributors (Esri fallback); airport data: Wikipedia (IATA/ICAO codes, coordinates and Hong Kong passenger destinations), verified 2026-11.", airlineTitle: "Airline logo library", airlineIntro: "28 airlines (4 Hong Kong, 16 Asia-Pacific, 8 international): every IATA/ICAO code and main hub verified against Wikipedia; logo images use only public-domain files from Wikimedia Commons, each checked individually — 23 airlines have a logo image, and 5 without a verified freely-usable current logo are shown as text tiles. Search or filter by region, then try the logo challenge below.", airlineSearchPh: "Search airline, code, hub…", airlineCount: "airlines", airlineAll: "All", airlineHK: "Hong Kong", airlineAPAC: "Asia-Pacific", airlineWorld: "International", airlineHKReg: "HK-registered", airlineHub: "Hub", airlineTypes: "On this site's cards", airlineNoLogo: "No verified freely-usable current logo yet — shown as a text tile", airlineCredit: "Logo image: Public domain (Wikimedia Commons)", airlineTm: "Note: all logos are trademarks of their airlines; public domain refers only to the copyright status of the image file, used here for educational recognition with per-file sources.", airlineSrc: "Sources: English Wikipedia airline articles (IATA/ICAO/hubs) and Wikimedia Commons (logo licences), verified 2026-11-10.", logoGameTitle: "Mini-game: Logo Challenge", logoGameIntro: "A 60-second logo challenge: name the airline from its logo, guess its IATA code, guess its hub, or pick the right logo for a named airline, in random order. +10 per correct answer, +25 bonus every 5 in a row; a wrong answer costs 3 seconds and is saved for review at the end. Every question comes from the 23 airlines above with verified logos.", logoGameQName: "Which airline does this logo belong to?", logoGameQIata: "What is this airline's IATA code?", logoGameQHub: "Where is this airline's main hub?", matchTitle: "Mini-game: Airline Matching", matchIntro: "Match airline names with their IATA two-letter and ICAO three-letter codes, level by level. 60 seconds: +10 per correct answer, +25 bonus every 5 in a row; a wrong answer costs 3 seconds and shows the correct pairing with a memory hint, saved for review at the end. Every question comes from the 28 verified airlines above.", matchL1: "Level 1 · IATA codes", matchL1Desc: "Pick the IATA code for a named airline, or the airline for a code", matchL2: "Level 2 · ICAO codes", matchL2Desc: "Pick the ICAO code for a named airline, or the airline for a code", matchL3: "Level 3 · Mixed master", matchL3Desc: "Names, IATA and ICAO codes in every direction, plus logo-to-code questions", matchQPickName: "Which airline uses this code?", matchQPickIcao: "What is this airline's ICAO code?", matchQIata2Icao: "Which ICAO code matches this IATA code?", matchQIcao2Iata: "Which IATA code matches this ICAO code?", matchHint: "Memory hint", spotTitle: "Mini-game: Spot the Airline & Type", spotIntro: "Just like spotting from the airport viewing deck: look at a verified card photo, name the airline first, then the aircraft type — each part scored separately. 60 seconds: +10 per correct answer, +25 bonus every 5 in a row; a wrong answer costs 3 seconds and shows the correct airline + type with the photo credit, saved for review at the end. The operator of each depicted aircraft follows the verified photo credit on its card — never guessed.", spotQAirline: "Which airline does this aircraft belong to?", spotQType: "Which aircraft type is this?",
+    shTitle: "Game: Sky Defence Spotter", shIntro: "Aircraft crossing your sector: name military types correctly to shoot them down; name civil types to photograph them. Three escapes and the line falls; every wave is faster. Each target ends with a feature card teaching the recognition points — not just speed.",
+    shStart: "Launch", shLives: "Line", shWave: "Wave", shPromptMil: "⚠ Military contact — name it to fire!", shPromptCiv: "Civil traffic — name it to photograph!",
+    shShot: "Shot down!", shCaptured: "Captured!", shEscaped: "It got away…", shFeature: "Recognition features", shOver: "The line has fallen!", shDown: "Downed", shCaps: "Snapped",
     footerNote: "No photo is published before its licence is verified; no spec is shown without a source. Third-party photos keep their own credit, never our watermark.",
     all: "All", pending: "Data pending", verifiedOnly: "Verified", pendingOnly: "Pending", codePending: "Code to verify", verified: "Verified",
     viewCard: "View card", checkBtn: "View checklist", progress: "Verification", total: "In list", done: "Verified", types: "Categories", batch1: "Batch 1 cards out",
@@ -65,8 +89,15 @@ const STR = {
     comparePick: "Pick two verified aircraft to compare side by side: photos first, then specs.",
     cmpA: "First aircraft", cmpB: "Second aircraft",
     quizLocked: "The quiz opens after at least four aircraft with photos are fully verified.",
-    quizIntro: "Questions use verified cards only: look at the photo and pick the right type. Wrong answers explain how to tell, so you learn instead of memorising.",
+    quizIntro: "Questions use verified cards only, mixing photo ID, part labelling, WEFT features, knowledge and look-alike questions by badge level. Wrong answers explain how to tell, so you learn instead of memorising.",
+    qTypePhoto: "Photo ID", qTypeParts: "Label the part", qTypeWeft: "WEFT feature", qTypeKnow: "Knowledge", qTypeLook: "Look-alikes", qTypeReverse: "Name to photo",
+    qParts: "Which part is marked “?” in the photo?", qWeft: "Which aircraft does this feature describe?", qLook: "Which type is it most easily confused with?", qReversePre: "Which photo shows the",
     quizStart: "Start quiz", quizNext: "Next question", quizAgain: "Play again", quizQ: "Which aircraft is this?",
+    quizPickLevel: "Drill by badge level: pick your level to face only its aircraft.", quizFree: "Free practice (any level)", quizBest: "Best", quizNone: "Not started", quizBack: "Back to levels",
+    examIntro: "Pick a level to generate a paper instantly: questions are drawn at random from verified cards only, different every time; the leader version carries answers with sources for marking.", examGen: "Generate paper", examRegen: "Regenerate", examBack: "Back to papers",
+    examPrintPaper: "Print student paper", examPrintKey: "Print leader key", examShowKey: "Show answers", examHideKey: "Hide answers", examName: "Name", examUnit: "Unit / Troop", examDate: "Date", examTotal: "Total", examMarksUnit: "marks",
+    secPhotoId: "Photo identification", secParts: "Label the parts", secWeft: "WEFT short answers", secAirline: "Airline matching", secKnowledge: "Aviation knowledge", secLookalike: "Tell look-alikes apart", secTeach: "Teach it back", secSpotting: "Airport spotting",
+    examNote: "This paper was generated at random from verified cards; photos remain under their credited licences.", examKey: "Key", examTypes: "types in pool",
     correct: "Correct!", wrong: "Not quite — the answer is: ", score: "Done! You scored",
     checks: { identity: "Identity: names, manufacturer, ICAO code", history: "History: first flight and status", specs: "Specs: dimensions, engines, seats/payload, range", recognition: "Recognition: visible features and look-alikes", photo: "Photo: licence and annotation points", links: "Deep links: official, Wikipedia, FR24, gallery", bilingual: "English: names and recognition notes", quiz: "Quiz: questions and answers checked" }
   }
@@ -74,9 +105,20 @@ const STR = {
 
 let lang = "zh";
 try { const v = localStorage.getItem(LANG_KEY); if (v === "en" || v === "zh") lang = v; } catch (e) { /* private mode */ }
-let DATA = null, category = "all", query = "", scout = "all", statusFilter = "all", facet = "all";
+let DATA = null, category = "all", query = "", scout = "all", statusFilter = "all", facet = "all", collection = "all", era = "all", origin = "all", quizScope = "all";
 let cmpA = null, cmpB = null, quiz = null;
+let BLUEPRINTS = null, examModel = null, examKeyShown = false;
+let AIRPORTS = null, airportMap = null, airportLayer = null, airportMarkers = {}, airportQuery = "", airportDirectOnly = false;
 const SCOUT_LABEL = { BAAB: ["初級航空活動章", "Basic Air Activity"], IAAB: ["中級航空活動章", "Intermediate Air Activity"], AAAB: ["高級航空活動章", "Advanced Air Activity"] };
+const COLLECTION_LABEL = { hk: ["香港常見", "Hong Kong regulars"], world: ["世界常見", "Worldwide common"], china: ["中國自產", "China-built"], classic: ["歷史名機", "Historic icons"] };
+function collTags(a) { return (a.collections || []).filter((c) => COLLECTION_LABEL[c]).map((c) => `<span class="tag coll coll-${c}">${esc(lang === "en" ? COLLECTION_LABEL[c][1] : COLLECTION_LABEL[c][0])}</span>`).join(""); }
+const ERA_BANDS = [["pioneer", 0, 1945, "先驅時代", "Pioneer era", "–1945"], ["jetage", 1946, 1969, "噴射時代", "Jet age", "1946–69"], ["widebody", 1970, 1989, "廣體時代", "Widebody era", "1970–89"], ["glass", 1990, 1999, "數碼座艙時代", "Glass-cockpit era", "1990–99"], ["newgen", 2000, 2009, "新世代", "New generation", "2000–09"], ["modern", 2010, 9999, "當代", "Modern era", "2010–"]];
+function eraOf(a) { const y = parseInt(((a.history || {}).firstFlight || "").slice(0, 4), 10); if (!y) return null; const b = ERA_BANDS.find((x) => y >= x[1] && y <= x[2]); return b ? b[0] : null; }
+const ORIGIN_LABEL = { usa: ["美國", "USA"], europe: ["歐洲", "Europe"], china: ["中國", "China"], canada: ["加拿大", "Canada"], brazil: ["巴西", "Brazil"], russia: ["俄羅斯", "Russia"], austria: ["奧地利", "Austria"], france: ["法國", "France"], italy: ["意大利", "Italy"], ukraine: ["烏克蘭", "Ukraine"], switzerland: ["瑞士", "Switzerland"], sweden: ["瑞典", "Sweden"], uk: ["英國", "UK"], japan: ["日本", "Japan"] };
+const ORIGIN_BY_MANUFACTURER = {"Beechcraft": "usa", "Bell": "usa", "Boeing": "usa", "Cessna": "usa", "Cirrus Design": "usa", "Douglas": "usa", "Fairchild Republic": "usa", "Gulfstream": "usa", "Gulfstream Aerospace": "usa", "Lockheed": "usa", "Lockheed Martin": "usa", "MD Helicopters": "usa", "McDonnell Douglas": "usa", "McDonnell Douglas / Boeing": "usa", "Northrop Grumman": "usa", "North American": "usa", "Grumman": "usa", "General Atomics": "usa", "Piper": "usa", "Robinson": "usa", "Sikorsky": "usa", "Van's Aircraft": "usa", "Wright brothers": "usa", "Airbus": "europe", "Airbus Defence and Space": "europe", "Airbus Helicopters": "europe", "ATR": "europe", "Aérospatiale / BAC": "europe", "Eurocopter / Airbus Helicopters": "europe", "Eurofighter": "europe", "AVIC / CAIGA": "china", "COMAC": "china", "COMAC 中國商飛": "china", "Changhe Aircraft": "china", "Chengdu": "china", "Chengdu (AVIC)": "china", "Chengdu / PAC": "china", "Chengdu Aircraft": "china", "Harbin Aircraft Industry Group": "china", "Harbin Aircraft Manufacturing": "china", "Hongdu (Nanchang)": "china", "Hongdu Aviation": "china", "Shaanxi Aircraft Corporation": "china", "Shenyang Aircraft Corporation": "china", "Xian Aircraft": "china", "Xian Aircraft (AVIC)": "china", "Antonov": "ukraine", "Ilyushin": "russia", "Kamov": "russia", "Mikoyan": "russia", "Mil": "russia", "Sukhoi": "russia", "Bombardier": "canada", "De Havilland Canada": "canada", "de Havilland Canada": "canada", "Embraer": "brazil", "Dassault": "france", "Leonardo": "italy", "Leonardo Helicopters": "italy", "Saab": "sweden", "Pilatus": "switzerland", "Diamond Aircraft": "austria", "de Havilland": "uk", "Supermarine": "uk", "Mitsubishi": "japan"};
+function originOf(a) { return ORIGIN_BY_MANUFACTURER[a.manufacturer] || null; }
+function catLabel(a) { const c = (DATA && DATA.categories || {})[a.category] || {}; return lang === "en" ? (c.en || a.category) : (c.zh || a.category); }
+function quizPool() { const pool = verifiedList(); if (quizScope === "all") return pool; const parts = quizScope.split(":"); const kind = parts[0], key = parts[1]; if (kind === "scout") return pool.filter((a) => a.scout && a.scout.level === key); if (kind === "coll") return pool.filter((a) => (a.collections || []).includes(key)); if (kind === "era") return pool.filter((a) => eraOf(a) === key); return pool; }
 /* Facet tags: derived only from data already in the inventory (category, tags, verified specs). Nothing is invented for pending aircraft. */
 const TAG_LABEL = {
   widebody: ["廣體", "Widebody"], narrowbody: ["窄體", "Narrowbody"], "double-deck": ["雙層客艙", "Double-deck"],
@@ -163,6 +205,22 @@ function render() {
     `<button type="button" class="chip" data-scout="${k}" aria-pressed="${scout === k}">${esc(label)}</button>`).join("");
   document.querySelectorAll("[data-scout]").forEach((b) => b.addEventListener("click", () => { scout = b.getAttribute("data-scout"); render(); }));
 
+  const colChips = [["all", t().all]].concat(Object.entries(COLLECTION_LABEL).map(([k, v]) => [k, lang === "en" ? v[1] : v[0]]));
+  $("collectionChips").innerHTML = colChips.map(([k, label]) =>
+    `<button type="button" class="chip" data-coll="${k}" aria-pressed="${collection === k}">${esc(label)}</button>`).join("");
+  document.querySelectorAll("[data-coll]").forEach((b) => b.addEventListener("click", () => { collection = b.getAttribute("data-coll"); render(); }));
+
+  const eraChips = [["all", t().all]].concat(ERA_BANDS.map((b) => [b[0], (lang === "en" ? b[4] : b[3]) + " " + b[5]]));
+  $("eraChips").innerHTML = eraChips.map(([k, label]) =>
+    `<button type="button" class="chip" data-era="${k}" aria-pressed="${era === k}">${esc(label)}</button>`).join("");
+  document.querySelectorAll("[data-era]").forEach((b) => b.addEventListener("click", () => { era = b.getAttribute("data-era"); render(); }));
+
+  const originCounts = {}; for (const a of list) { const o = originOf(a); if (o) originCounts[o] = (originCounts[o] || 0) + 1; }
+  const originChips = [["all", t().all]].concat(Object.keys(ORIGIN_LABEL).filter((k) => originCounts[k]).sort((x, y) => originCounts[y] - originCounts[x]).map((k) => [k, lang === "en" ? ORIGIN_LABEL[k][1] : ORIGIN_LABEL[k][0]]));
+  $("originChips").innerHTML = originChips.map(([k, label]) =>
+    `<button type="button" class="chip" data-origin="${k}" aria-pressed="${origin === k}">${esc(label)}</button>`).join("");
+  document.querySelectorAll("[data-origin]").forEach((b) => b.addEventListener("click", () => { origin = b.getAttribute("data-origin"); render(); }));
+
   const statusChips = [["all", t().all], ["verified", t().verifiedOnly], ["pending", t().pendingOnly]];
   $("statusChips").innerHTML = statusChips.map(([k, label]) =>
     `<button type="button" class="chip" data-status="${k}" aria-pressed="${statusFilter === k}">${esc(label)}</button>`).join("");
@@ -177,6 +235,9 @@ function render() {
   const shown = list.filter((a) => {
     if (category !== "all" && a.category !== category) return false;
     if (scout !== "all" && !(a.scout && a.scout.level === scout)) return false;
+    if (collection !== "all" && !(a.collections || []).includes(collection)) return false;
+    if (era !== "all" && eraOf(a) !== era) return false;
+    if (origin !== "all" && originOf(a) !== origin) return false;
     if (statusFilter === "verified" && a.dataStatus !== "verified") return false;
     if (statusFilter === "pending" && a.dataStatus === "verified") return false;
     if (facet !== "all" && !facetsOf(a).some((f) => f.key === facet)) return false;
@@ -197,7 +258,7 @@ function render() {
         <div class="card-top"><span class="seq">${a.seq} · ${esc(codeOf(a))}</span><span class="pill${isV ? " done" : ""}">${isV ? t().verified : t().pending}</span></div>
         <h3>${esc(nameOf(a))}</h3><p class="sub">${esc(a.manufacturer)} · ${esc(lang === "en" ? a.nameEn : a.nameZh)}</p>
         ${intro}
-        <div class="meta"><span class="tag">${esc(lang === "en" ? a.categoryLabel.en : a.categoryLabel.zh)}</span>${a.scout ? `<span class="tag scout">${esc(lang === "en" ? SCOUT_LABEL[a.scout.level][1] : SCOUT_LABEL[a.scout.level][0])}</span>` : ""}</div>
+        <div class="meta"><span class="tag">${esc(catLabel(a))}</span>${a.scout ? `<span class="tag scout">${esc(lang === "en" ? SCOUT_LABEL[a.scout.level][1] : SCOUT_LABEL[a.scout.level][0])}</span>` : ""}${collTags(a)}</div>
         <div class="meta facets">${facetsOf(a).slice(0, 6).map((f) => `<span class="tag facet">${esc(f.label)}</span>`).join("")}</div>
         <div class="progress" aria-label="${t().progress} ${n}/${total}"><i style="width:${Math.round(n / total * 100)}%"></i></div>
         <p class="progress-line">${t().progress} ${n}/${total}</p>
@@ -208,6 +269,12 @@ function render() {
   document.querySelectorAll("[data-seq]").forEach((b) => b.addEventListener("click", () => openDetail(b.getAttribute("data-seq"))));
   renderCompare();
   renderQuizIntro();
+  renderExamIntro();
+  renderExamPaper();
+  renderGameIntro();
+  renderShooterIntro();
+  renderAirports();
+  renderApGameIntro();
 }
 
 function specRows(a) {
@@ -247,7 +314,7 @@ function openDetail(seq) {
       `<a href="${esc(l.url)}" target="_blank" rel="noopener">${esc(lang === "en" ? l.labelEn : l.labelZh)} ↗</a>`).join("");
     const h = a.history || {};
     $("detailBody").innerHTML = `
-      <div class="detail-badges"><span class="tag">${esc(lang === "en" ? a.categoryLabel.en : a.categoryLabel.zh)}</span>${a.scout ? `<span class="tag scout">${esc(lang === "en" ? SCOUT_LABEL[a.scout.level][1] : SCOUT_LABEL[a.scout.level][0])}</span>` : ""}<span class="tag">${esc(a.manufacturer)} · ${esc(a.icao)}</span>${facetsOf(a).map((f) => `<span class="tag facet">${esc(f.label)}</span>`).join("")}</div>
+      <div class="detail-badges"><span class="tag">${esc(catLabel(a))}</span>${a.scout ? `<span class="tag scout">${esc(lang === "en" ? SCOUT_LABEL[a.scout.level][1] : SCOUT_LABEL[a.scout.level][0])}</span>` : ""}<span class="tag">${esc(a.manufacturer)} · ${esc(a.icao)}</span>${collTags(a)}${facetsOf(a).map((f) => `<span class="tag facet">${esc(f.label)}</span>`).join("")}</div>
       <div class="variant-note">${esc(lang === "en" ? a.variantNoteEn : a.variantNoteZh)}</div>
       <div class="detail-photo">${photoImg(a)}${dots}</div>
       <p class="caption">${esc(lang === "en" ? a.photo.captionEn : a.photo.captionZh)}</p>
@@ -312,58 +379,1426 @@ function renderQuizIntro() {
   const body = $("quizBody"); if (!body || quiz) return;
   const pool = verifiedList();
   if (pool.length < 4) { body.innerHTML = `<p class="locked-note">${t().quizLocked} (${pool.length}/4)</p>`; return; }
-  body.innerHTML = `<p class="locked-note">${t().quizIntro}</p><button type="button" class="quiz-start" id="quizStart">${t().quizStart}</button>`;
+  const best = loadQuizBest();
+  const levelCards = Object.entries(SCOUT_LABEL).map(([k, v]) => {
+    const n = pool.filter((a) => a.scout && a.scout.level === k).length;
+    const b = best[k];
+    const bestTxt = b == null ? t().quizNone : `${t().quizBest} ${b}/12`;
+    return `<div class="quiz-level"><h3>${esc(lang === "en" ? v[1] : v[0])}</h3><p>${n} ${lang === "en" ? "types" : "款"} · 12 ${lang === "en" ? "questions" : "題"} · ${esc(bestTxt)}</p><button type="button" class="quiz-start" data-level="${k}">${t().quizStart}</button></div>`;
+  }).join("");
+  const opt = (v, label) => `<option value="${v}"${quizScope === v ? " selected" : ""}>${esc(label)}</option>`;
+  const scopeSel = `<label class="quiz-scope">${t().quizScopeLabel}<select id="quizScopeSel">${opt("all", t().quizAll)}<optgroup label="${esc(t().colLabel)}">${Object.entries(COLLECTION_LABEL).map(([k, v]) => opt("coll:" + k, lang === "en" ? v[1] : v[0])).join("")}</optgroup><optgroup label="${esc(t().eraLabel)}">${ERA_BANDS.map((b) => opt("era:" + b[0], (lang === "en" ? b[4] : b[3]) + " " + b[5])).join("")}</optgroup></select></label>`;
+  body.innerHTML = `<p class="locked-note">${t().quizIntro}</p><p class="quiz-pick">${t().quizPickLevel}</p><div class="quiz-levels">${levelCards}</div><div class="quiz-free"><p class="quiz-pick">${t().quizFree}</p>${scopeSel}<button type="button" class="quiz-start" id="quizStart">${t().quizStart}</button></div>`;
+  body.querySelectorAll("[data-level]").forEach((b) => b.addEventListener("click", () => startLevelQuiz(b.getAttribute("data-level"))));
+  $("quizScopeSel").addEventListener("change", (e) => { quizScope = e.target.value; });
   $("quizStart").addEventListener("click", startQuiz);
 }
 
+// ---------- quiz question generators (v0.18: mixed types by level) ----------
+const PART_LABEL = { nose: ["機鼻／駕駛艙", "Nose / cockpit"], engines: ["引擎", "Engine"], wings: ["機翼", "Wing"], fuselage: ["機身", "Fuselage"], tail: ["機尾", "Tail"] };
+const partKeyOf = (p) => ({ engine: "engines", wing: "wings" }[p] || p);
+function partLabel(a, key) {
+  if (key === "wings" && a.category === "helicopter") return lang === "en" ? "Main rotor" : "主旋翼";
+  const v = PART_LABEL[key]; return v ? v[lang === "en" ? 1 : 0] : key;
+}
+function nameOpts(a, pool) {
+  const inScope = shuffle(pool.filter((x) => x.seq !== a.seq));
+  const extra = shuffle(verifiedList().filter((x) => x.seq !== a.seq && !inScope.some((s) => s.seq === x.seq)));
+  return shuffle([a.seq, ...[...inScope, ...extra].slice(0, 3).map((x) => x.seq)]);
+}
+const mkPhoto = (a, pool) => ({ kind: "photo", seq: a.seq, options: nameOpts(a, pool), answer: a.seq });
+const mkReverse = (a, pool) => ({ kind: "reverse", seq: a.seq, options: nameOpts(a, pool), answer: a.seq });
+function mkParts(a) {
+  const ann = Math.floor(Math.random() * a.photo.annotations.length);
+  const key = partKeyOf(a.photo.annotations[ann].part);
+  const options = shuffle([key, ...sample(["nose", "engines", "wings", "fuselage", "tail"].filter((k) => k !== key), 3)]);
+  return { kind: "parts", seq: a.seq, ann, options, answer: key };
+}
+function mkWeft(a, pool) {
+  const keys = ["wings", "engines", "fuselage", "tail"];
+  return { kind: "weft", seq: a.seq, part: keys[Math.floor(Math.random() * keys.length)], options: nameOpts(a, pool), answer: a.seq };
+}
+function mkKnow(a, pool) {
+  const makers = [...new Set(pool.map((x) => x.manufacturer))];
+  const roll = Math.random();
+  if (roll < 0.34) {
+    const y = parseInt((a.history.firstFlight || "").slice(0, 4), 10);
+    const offs = sample([-7, -5, -3, -2, -1, 1, 2, 3, 4, 6], 3).map((o) => String(y + o));
+    return { kind: "know", seq: a.seq, qk: "ff", options: shuffle([String(y), ...offs]), answer: String(y) };
+  }
+  if (roll < 0.67 && makers.length >= 4) {
+    return { kind: "know", seq: a.seq, qk: "maker", options: shuffle([a.manufacturer, ...sample(makers.filter((m) => m !== a.manufacturer), 3)]), answer: a.manufacturer };
+  }
+  const codes = [...new Set(pool.filter((x) => x.seq !== a.seq).map((x) => x.icao))].filter((c) => c !== a.icao);
+  return { kind: "know", seq: a.seq, qk: "icao", options: shuffle([a.icao, ...sample(codes, 3)]), answer: a.icao };
+}
+function mkLook(a, pool) {
+  const opp = lookalikeOpp(a);
+  const answer = (lang === "en" ? opp.en : opp.zh) || opp.en || opp.zh;
+  const distract = sample(pool.filter((x) => x.seq !== a.seq), 3).map((x) => nameOf(x));
+  return { kind: "lookalike", seq: a.seq, options: shuffle([answer, ...distract]), answer };
+}
+function mkItem(kind, a, pool) {
+  if (kind === "parts") return mkParts(a);
+  if (kind === "reverse") return mkReverse(a, pool);
+  if (kind === "weft") return mkWeft(a, pool);
+  if (kind === "know") return mkKnow(a, pool);
+  if (kind === "lookalike") return mkLook(a, pool);
+  return mkPhoto(a, pool);
+}
+const QUIZ_MIX = {
+  BAAB: [["photo", 6], ["parts", 3], ["reverse", 3]],
+  IAAB: [["photo", 5], ["weft", 3], ["know", 2], ["parts", 2]],
+  AAAB: [["photo", 4], ["lookalike", 3], ["weft", 3], ["reverse", 2]]
+};
+function genLevelItems(level, pool) {
+  const deck = shuffle(pool);
+  let cur = 0;
+  const items = [];
+  for (const [kind, n] of QUIZ_MIX[level] || [["photo", 12]]) {
+    let made = 0;
+    while (made < n && cur < deck.length) {
+      const a = deck[cur++];
+      if (kind === "lookalike") { const o = lookalikeOpp(a); if (!o.en && !o.zh) continue; }
+      if (kind === "parts" && !(a.photo.annotations || []).length) continue;
+      items.push(mkItem(kind, a, pool)); made++;
+    }
+  }
+  while (items.length < 12 && cur < deck.length) items.push(mkPhoto(deck[cur++], pool));
+  return shuffle(items);
+}
+
 function startQuiz() {
-  const pool = verifiedList();
-  const shuffled = [...pool].sort(() => Math.random() - 0.5);
-  quiz = { items: shuffled.slice(0, Math.min(5, shuffled.length)), idx: 0, score: 0, answered: false };
+  const scopePool = quizPool();
+  const pool = scopePool.length ? scopePool : verifiedList();
+  const picked = shuffle(pool).slice(0, Math.min(5, pool.length));
+  quiz = { items: picked.map((a) => mkPhoto(a, pool)), idx: 0, score: 0, answered: false, level: null, pool };
+  showQuestion();
+}
+
+function startLevelQuiz(level) {
+  const pool = verifiedList().filter((a) => a.scout && a.scout.level === level);
+  if (pool.length < 4) return;
+  quiz = { items: genLevelItems(level, pool), idx: 0, score: 0, answered: false, level, pool };
   showQuestion();
 }
 
 function showQuestion() {
   const body = $("quizBody");
-  const a = quiz.items[quiz.idx];
-  const others = verifiedList().filter((x) => x.seq !== a.seq).sort(() => Math.random() - 0.5).slice(0, 3);
-  const options = [...others, a].sort(() => Math.random() - 0.5);
-  quiz.answer = a.seq; quiz.answered = false;
-  body.innerHTML = `<p class="quiz-q">${t().quizQ} (${quiz.idx + 1}/${quiz.items.length})</p>
-    <div class="quiz-photo">${photoImg(a)}</div>
-    <div class="quiz-opts">${options.map((o) => `<button type="button" class="quiz-opt" data-opt="${o.seq}">${esc(nameOf(o))} · ${esc(o.icao)}</button>`).join("")}</div>
-    <div id="quizFb"></div>`;
-  document.querySelectorAll("[data-opt]").forEach((b) => b.addEventListener("click", () => answerQuiz(b, a)));
+  const it = quiz.items[quiz.idx];
+  const bySeq = bySeqMap();
+  const a = bySeq.get(it.seq);
+  quiz.answer = it.answer; quiz.answered = false;
+  const head = (label, prompt) => `<p class="quiz-q">${prompt} (${quiz.idx + 1}/${quiz.items.length}) <span class="quiz-type">${esc(label)}</span></p>`;
+  const nameBtns = (cls) => it.options.map((sq) => { const o = bySeq.get(sq); return `<button type="button" class="quiz-opt${cls || ""}" data-opt="${sq}">${esc(nameOf(o))} · ${esc(o.icao)}</button>`; }).join("");
+  let inner = "";
+  if (it.kind === "reverse") {
+    inner = `${head(t().qTypeReverse, `${t().qReversePre}「${esc(nameOf(a))}」？`)}<div class="quiz-opts photos">${it.options.map((sq) => `<button type="button" class="quiz-opt photo" data-opt="${sq}">${photoImg(bySeq.get(sq))}</button>`).join("")}</div><div id="quizFb"></div>`;
+  } else if (it.kind === "parts") {
+    const d = a.photo.annotations[it.ann];
+    inner = `${head(t().qTypeParts, t().qParts)}<div class="quiz-photo natural">${photoImg(a)}<span class="dot static qmark" style="left:${d.x}%;top:${d.y}%">?</span></div><div class="quiz-opts">${it.options.map((k) => `<button type="button" class="quiz-opt" data-opt="${k}">${esc(partLabel(a, k))}</button>`).join("")}</div><div id="quizFb"></div>`;
+  } else if (it.kind === "weft") {
+    inner = `${head(t().qTypeWeft, t().qWeft)}<blockquote class="quiz-quote">${esc(lang === "en" ? a.weft[it.part].en : a.weft[it.part].zh)}</blockquote><div class="quiz-opts">${nameBtns()}</div><div id="quizFb"></div>`;
+  } else if (it.kind === "know") {
+    let prompt;
+    if (it.qk === "ff") prompt = lang === "en" ? `In which year did the ${esc(a.nameEn)} first fly?` : `「${esc(a.nameZh)}」邊一年首飛？`;
+    else if (it.qk === "icao") prompt = lang === "en" ? `What is the ICAO type designator of the ${esc(a.nameEn)}?` : `「${esc(a.nameZh)}」的 ICAO 機型代碼係咩？`;
+    else prompt = lang === "en" ? `Which company makes the ${esc(a.nameEn)}?` : `「${esc(a.nameZh)}」由邊間公司製造？`;
+    inner = `${head(t().qTypeKnow, prompt)}<div class="quiz-opts">${it.options.map((s) => `<button type="button" class="quiz-opt" data-opt="${esc(s)}">${esc(s)}</button>`).join("")}</div><div id="quizFb"></div>`;
+  } else if (it.kind === "lookalike") {
+    inner = `${head(t().qTypeLook, t().qLook)}<div class="quiz-photo">${photoImg(a)}</div><div class="quiz-opts">${it.options.map((s) => `<button type="button" class="quiz-opt" data-opt="${esc(s)}">${esc(s)}</button>`).join("")}</div><div id="quizFb"></div>`;
+  } else {
+    inner = `${head(t().qTypePhoto, t().quizQ)}<div class="quiz-photo">${photoImg(a)}</div><div class="quiz-opts">${nameBtns()}</div><div id="quizFb"></div>`;
+  }
+  body.innerHTML = inner;
+  document.querySelectorAll("[data-opt]").forEach((b) => b.addEventListener("click", () => answerQuiz(b)));
 }
 
-function answerQuiz(btn, a) {
+function answerQuiz(btn) {
   if (quiz.answered) return;
   quiz.answered = true;
-  const right = btn.getAttribute("data-opt") === a.seq;
+  const it = quiz.items[quiz.idx];
+  const a = bySeqMap().get(it.seq);
+  const right = btn.getAttribute("data-opt") === quiz.answer;
   if (right) quiz.score += 1;
   document.querySelectorAll("[data-opt]").forEach((b) => {
     b.disabled = true;
-    if (b.getAttribute("data-opt") === a.seq) b.classList.add("right");
+    if (b.getAttribute("data-opt") === quiz.answer) b.classList.add("right");
     else if (b === btn) b.classList.add("wrong");
   });
-  const tip = lang === "en" ? a.weft.fuselage.en : a.weft.fuselage.zh;
+  let tip, answerShown = nameOf(a);
+  if (it.kind === "parts") { const d = a.photo.annotations[it.ann]; tip = lang === "en" ? d.en : d.zh; answerShown = partLabel(a, it.answer); }
+  else if (it.kind === "lookalike") { tip = lang === "en" ? a.similarEn : a.similarZh; answerShown = it.answer; }
+  else if (it.kind === "know") { tip = it.qk === "ff" ? a.history.firstFlight : it.qk === "icao" ? `${a.manufacturer} · ${a.icao}` : a.specs.engines; answerShown = it.answer; }
+  else tip = lang === "en" ? a.weft.fuselage.en : a.weft.fuselage.zh;
   const last = quiz.idx + 1 >= quiz.items.length;
-  $("quizFb").innerHTML = `<p class="quiz-feedback"><b>${right ? t().correct : t().wrong + esc(nameOf(a))}</b><br>${esc(tip)}</p>
+  $("quizFb").innerHTML = `<p class="quiz-feedback"><b>${right ? t().correct : t().wrong + esc(answerShown)}</b><br>${esc(tip)}</p>
     <p><button type="button" class="quiz-next" id="quizNext">${last ? (lang === "en" ? "See result" : "睇結果") : t().quizNext}</button></p>`;
   $("quizNext").addEventListener("click", () => {
     quiz.idx += 1;
     if (quiz.idx < quiz.items.length) { showQuestion(); return; }
-    const finalScore = quiz.score, totalQ = quiz.items.length;
+    const finalScore = quiz.score, totalQ = quiz.items.length, level = quiz.level;
+    if (level) saveQuizBest(level, finalScore);
     quiz = null;
-    $("quizBody").innerHTML = `<p class="quiz-score">${t().score} ${finalScore}/${totalQ}</p><p><button type="button" class="quiz-start" id="quizAgain">${t().quizAgain}</button></p>`;
-    $("quizAgain").addEventListener("click", startQuiz);
+    const head = level ? `${esc(lang === "en" ? SCOUT_LABEL[level][1] : SCOUT_LABEL[level][0])} — ` : "";
+    const again = level
+      ? `<button type="button" class="quiz-start" id="quizAgain">${t().quizAgain}</button> <button type="button" class="quiz-start alt" id="quizLevels">${t().quizBack}</button>`
+      : `<button type="button" class="quiz-start" id="quizAgain">${t().quizAgain}</button>`;
+    $("quizBody").innerHTML = `<p class="quiz-score">${head}${t().score} ${finalScore}/${totalQ}</p><p>${again}</p>`;
+    $("quizAgain").addEventListener("click", () => { if (level) startLevelQuiz(level); else startQuiz(); });
+    const lv = $("quizLevels"); if (lv) lv.addEventListener("click", () => { renderQuizIntro(); });
   });
 }
 
-$("langToggle").addEventListener("click", () => { lang = lang === "en" ? "zh" : "en"; quiz = null; applyLang(); });
+
+// ---------- exam papers (generated from blueprints; answers never stored) ----------
+const shuffle = (arr) => [...arr].sort(() => Math.random() - 0.5);
+const sample = (arr, n) => shuffle(arr).slice(0, Math.min(n, arr.length));
+const scoutPool = (lv) => verifiedList().filter((a) => a.scout && a.scout.level === lv);
+const bySeqMap = () => new Map((DATA ? DATA.aircraft : []).map((a) => [a.seq, a]));
+const SEC_TITLE = { "photo-identification": "secPhotoId", "parts-labelling": "secParts", "weft-short-answer": "secWeft", "airline-matching": "secAirline", "knowledge-short-answer": "secKnowledge", "lookalike-differentiation": "secLookalike", "teach-back": "secTeach", "airport-spotting": "secSpotting" };
+const SEC_INSTR = {
+  "photo-identification": ["睇相，在四個選項中揀出正確機型名，圈出英文字母。", "Look at the photo and circle the letter of the correct aircraft name."],
+  "airport-spotting": ["模擬在機場見到真機：睇相揀出正確機型名，圈出英文字母。", "As if you spotted it at the airport: circle the letter of the correct aircraft name."],
+  "parts-labelling": ["寫出相中每個編號位置的部件或特徵名稱。", "Write the name of the part or feature at each numbered position."],
+  "weft-short-answer": ["用一句說話，寫出指定部位的辨認特徵。", "In one sentence, write the recognition feature of the named part."],
+  "airline-matching": ["將左邊機型同右邊航空公司／營運者配對，在括號內寫上英文字母（以圖卡資料為準）。", "Match each aircraft on the left with an airline / operator on the right; write the letter in the brackets (as stated on the aircraft cards)."],
+  "knowledge-short-answer": ["簡短回答以下問題。", "Answer each question briefly."],
+  "lookalike-differentiation": ["寫出一個可以分辨兩者的外形分別。", "Write one visible feature that tells the two apart."],
+  "teach-back": ["用自己的說話，教一位初級組員點樣認出這款飛機。", "In your own words, teach a junior member how to recognise this aircraft."]
+};
+const AIRLINES = [
+  { zh: "國泰航空", en: "Cathay Pacific", a: ["國泰航空", "國泰", "Cathay Pacific", "Cathay"] },
+  { zh: "香港快運", en: "HK Express", a: ["香港快運", "HK Express"] },
+  { zh: "香港航空", en: "Hong Kong Airlines", a: ["香港航空", "Hong Kong Airlines"] },
+  { zh: "大灣區航空", en: "Greater Bay Airlines", a: ["大灣區航空", "Greater Bay Airlines"] },
+  { zh: "卡塔爾航空", en: "Qatar Airways", a: ["卡塔爾航空", "卡塔爾", "Qatar Airways"] },
+  { zh: "阿聯酋航空", en: "Emirates", a: ["阿聯酋航空", "Emirates"] },
+  { zh: "新加坡航空", en: "Singapore Airlines", a: ["新加坡航空", "Singapore Airlines"] },
+  { zh: "全日空", en: "All Nippon Airways (ANA)", a: ["全日空", "All Nippon", "ANA"] },
+  { zh: "日本航空", en: "Japan Airlines", a: ["日本航空", "Japan Airlines"] },
+  { zh: "大韓航空", en: "Korean Air", a: ["大韓航空", "Korean Air"] },
+  { zh: "中國國際航空", en: "Air China", a: ["中國國際航空", "國航", "Air China"] },
+  { zh: "中國南方航空", en: "China Southern Airlines", a: ["中國南方航空", "南航", "China Southern"] },
+  { zh: "中國東方航空", en: "China Eastern Airlines", a: ["中國東方航空", "中國東方", "東航", "China Eastern"] },
+  { zh: "漢莎航空", en: "Lufthansa", a: ["漢莎航空", "漢莎", "Lufthansa"] },
+  { zh: "英國航空", en: "British Airways", a: ["英國航空", "英航", "British Airways"] },
+  { zh: "法國航空", en: "Air France", a: ["法國航空", "法航", "Air France"] },
+  { zh: "荷蘭皇家航空", en: "KLM Royal Dutch Airlines", a: ["荷蘭皇家航空", "KLM"] },
+  { zh: "澳洲航空", en: "Qantas", a: ["澳洲航空", "澳航", "Qantas"] },
+  { zh: "聯合航空", en: "United Airlines", a: ["聯合航空", "United Airlines"] },
+  { zh: "達美航空", en: "Delta Air Lines", a: ["達美航空", "達美", "Delta Air Lines"] },
+  { zh: "美國航空", en: "American Airlines", a: ["美國航空", "美航", "American Airlines"] },
+  { zh: "泛美航空", en: "Pan American World Airways", a: ["泛美航空", "泛美", "Pan Am", "Pan American"] },
+  { zh: "西南航空", en: "Southwest Airlines", a: ["西南航空", "Southwest Airlines", "Southwest"] },
+  { zh: "土耳其航空", en: "Turkish Airlines", a: ["土耳其航空", "Turkish Airlines"] },
+  { zh: "泰國國際航空", en: "Thai Airways", a: ["泰國國際航空", "泰航", "Thai Airways"] },
+  { zh: "馬來西亞航空", en: "Malaysia Airlines", a: ["馬來西亞航空", "馬航", "Malaysia Airlines"] },
+  { zh: "越南航空", en: "Vietnam Airlines", a: ["越南航空", "Vietnam Airlines"] },
+  { zh: "菲律賓航空", en: "Philippine Airlines", a: ["菲律賓航空", "Philippine Airlines"] },
+  { zh: "長榮航空", en: "EVA Air", a: ["長榮航空", "長榮", "EVA Air"] },
+  { zh: "中華航空", en: "China Airlines", a: ["中華航空", "華航", "China Airlines"] },
+  { zh: "印度航空", en: "Air India", a: ["印度航空", "Air India"] },
+  { zh: "芬蘭航空", en: "Finnair", a: ["芬蘭航空", "Finnair"] },
+  { zh: "瑞士國際航空", en: "SWISS", a: ["瑞士國際航空", "瑞士航空", "SWISS"] },
+  { zh: "北歐航空", en: "SAS Scandinavian Airlines", a: ["北歐航空", "SAS"] },
+  { zh: "紐西蘭航空", en: "Air New Zealand", a: ["紐西蘭航空", "Air New Zealand"] },
+  { zh: "加拿大航空", en: "Air Canada", a: ["加拿大航空", "加航", "Air Canada"] },
+  { zh: "俄羅斯航空", en: "Aeroflot", a: ["俄羅斯航空", "Aeroflot"] },
+  { zh: "UPS 聯合包裹", en: "UPS Airlines", a: ["UPS"] },
+  { zh: "聯邦快遞", en: "FedEx Express", a: ["聯邦快遞", "FedEx"] },
+  { zh: "DHL", en: "DHL Aviation", a: ["DHL"] },
+  { zh: "盧森堡貨運航空", en: "Cargolux", a: ["盧森堡貨運", "Cargolux"] }
+];
+function airlineMatchOf(a) {
+  const find = (fields) => {
+    for (let f = 0; f < fields.length; f++) {
+      const text = fields[f]; if (!text) continue;
+      let best = null;
+      AIRLINES.forEach((al, ai) => al.a.forEach((alias) => {
+        const pos = text.indexOf(alias);
+        if (pos >= 0 && (!best || alias.length > best.len)) best = { ai, len: alias.length, alias };
+      }));
+      if (best) {
+        const clause = text.split(/(?<=[。；！？.!?;])\s*/).find((c) => c.includes(best.alias)) || text;
+        return { ai: best.ai, field: f, snippet: clause.trim().slice(0, 110) };
+      }
+    }
+    return null;
+  };
+  const zh = find([a.history && a.history.statusZh, a.introZh, a.photo && a.photo.captionZh]);
+  const en = find([a.history && a.history.statusEn, a.introEn, a.photo && a.photo.captionEn]);
+  if (!zh && !en) return null;
+  return { ai: (zh || en).ai, prio: Math.min(zh ? zh.field : 9, en ? en.field : 9), snippetZh: zh ? zh.snippet : "", snippetEn: en ? en.snippet : "" };
+}
+function buildAirlinePairs(count) {
+  const byAirline = new Map();
+  verifiedList().forEach((a) => {
+    const m = airlineMatchOf(a); if (!m) return;
+    const cur = byAirline.get(m.ai);
+    if (!cur || m.prio < cur.prio || (m.prio === cur.prio && a.seq < cur.seq)) byAirline.set(m.ai, { seq: a.seq, ...m });
+  });
+  return sample([...byAirline.values()], count);
+}
+function lookalikeOpp(a) {
+  const mEn = (a.similarEn || "").match(/^Versus (?:the )?(.+?)(?: \(|,|:)/);
+  const mZh = (a.similarZh || "").match(/^同(.+?)比[：:]/);
+  return { en: mEn ? mEn[1].trim() : "", zh: mZh ? mZh[1].trim() : "" };
+}
+function genExamModel(paper) {
+  const d = new Date();
+  const ymd = `${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, "0")}${String(d.getDate()).padStart(2, "0")}`;
+  const sections = paper.sections.map((sec) => {
+    const pool = sec.poolLevel === "airlines" ? verifiedList() : scoutPool(sec.poolLevel);
+    let items = [];
+    if (sec.type === "photo-identification" || sec.type === "airport-spotting") {
+      items = sample(pool, sec.defaultCount).map((a) => ({ seq: a.seq, options: shuffle([a.seq, ...sample(pool.filter((x) => x.seq !== a.seq), 3).map((x) => x.seq)]) }));
+    } else if (sec.type === "parts-labelling") {
+      items = sample(pool.filter((a) => (a.photo.annotations || []).length >= 2), sec.defaultCount)
+        .map((a) => ({ seq: a.seq, ann: sample(a.photo.annotations.map((x, i) => i), Math.min(3, a.photo.annotations.length)) }));
+    } else if (sec.type === "weft-short-answer") {
+      const keys = ["wings", "engines", "fuselage", "tail"];
+      items = sample(pool, sec.defaultCount).map((a) => ({ seq: a.seq, part: keys[Math.floor(Math.random() * keys.length)] }));
+    } else if (sec.type === "airline-matching") {
+      const pairs = buildAirlinePairs(sec.defaultCount);
+      items = pairs.map((p) => ({ seq: p.seq, ai: p.ai, snippetZh: p.snippetZh, snippetEn: p.snippetEn }));
+      return { def: sec, items, right: shuffle(pairs.map((p) => p.ai)) };
+    } else if (sec.type === "knowledge-short-answer") {
+      const kinds = ["ff", "icao", "maker", "engine"];
+      items = sample(pool, sec.defaultCount).map((a, i) => ({ seq: a.seq, kind: kinds[i % kinds.length] }));
+    } else if (sec.type === "lookalike-differentiation" || sec.type === "teach-back") {
+      items = sample(pool, sec.defaultCount).map((a) => ({ seq: a.seq }));
+    }
+    return { def: sec, items };
+  });
+  return { paper, paperId: `${paper.paperIdPrefix}-${ymd}-${100 + Math.floor(Math.random() * 900)}`, sections };
+}
+function examPhotoHtml(a, dotsHtml) {
+  return `<div class="exam-photo">${photoImg(a)}${dotsHtml || ""}</div><p class="exam-credit">${esc(lang === "en" ? a.photo.creditEn : a.photo.creditZh)} · ${esc(a.photo.licence)}</p>`;
+}
+function examKeyHtml(inner) { return `<div class="exam-key"><b>${t().examKey}：</b>${inner}</div>`; }
+function examLines(n) { return `<div class="exam-lines">${Array.from({ length: n }, () => `<p class="exam-line"></p>`).join("")}</div>`; }
+function renderExamSection(s, si, bySeq) {
+  const letter = String.fromCharCode(65 + si);
+  const title = t()[SEC_TITLE[s.def.type]] || s.def.type;
+  const instr = SEC_INSTR[s.def.type] ? SEC_INSTR[s.def.type][lang === "en" ? 1 : 0] : "";
+  let marks = 0, body = "";
+  const q = (n, inner) => `<div class="exam-q"><p class="exam-qn">${n}.</p><div class="exam-qbody">${inner}</div></div>`;
+  if (s.def.type === "photo-identification" || s.def.type === "airport-spotting") {
+    marks = s.items.length;
+    body = s.items.map((it, i) => {
+      const a = bySeq.get(it.seq);
+      const opts = it.options.map((sq, oi) => `<li class="${sq === it.seq ? "is-answer" : ""}">${String.fromCharCode(65 + oi)}. ${esc(nameOf(bySeq.get(sq)))}</li>`).join("");
+      return q(i + 1, `${examPhotoHtml(a)}<ol class="exam-opts">${opts}</ol>`);
+    }).join("");
+  } else if (s.def.type === "parts-labelling") {
+    body = s.items.map((it, i) => {
+      const a = bySeq.get(it.seq);
+      marks += it.ann.length;
+      const dots = it.ann.map((ai, n) => { const dd = a.photo.annotations[ai]; return `<span class="dot static" style="left:${dd.x}%;top:${dd.y}%">${n + 1}</span>`; }).join("");
+      const lines = it.ann.map((ai, n) => `<p class="exam-line"><span>${n + 1}.</span></p>`).join("");
+      const key = it.ann.map((ai, n) => `${n + 1}. ${esc(lang === "en" ? a.photo.annotations[ai].en : a.photo.annotations[ai].zh)}`).join("；");
+      return q(i + 1, `${examPhotoHtml(a, dots)}<div class="exam-lines">${lines}</div>${examKeyHtml(`${esc(nameOf(a))} — ${key}`)}`);
+    }).join("");
+  } else if (s.def.type === "weft-short-answer") {
+    marks = s.items.length * 2;
+    body = s.items.map((it, i) => {
+      const a = bySeq.get(it.seq);
+      const wn = (a.category === "helicopter" ? t().weftNamesHeli : t().weftNames)[it.part].split("· ")[1];
+      const prompt = lang === "en" ? `Write one recognition feature of the ${esc(wn)} of the ${esc(a.nameEn)}.` : `寫出「${esc(a.nameZh)}」${esc(wn)}的一個辨認特徵。`;
+      return q(i + 1, `<p class="exam-prompt">${prompt}</p>${examLines(2)}${examKeyHtml(esc(lang === "en" ? a.weft[it.part].en : a.weft[it.part].zh))}`);
+    }).join("");
+  } else if (s.def.type === "airline-matching") {
+    marks = s.items.length;
+    const left = s.items.map((it, i) => `<li>${esc(nameOf(bySeq.get(it.seq)))}（　）</li>`).join("");
+    // Logos from the verified PD library (airlines.json) sit beside the already-visible names —
+    // the pairing is the answer, so a decorative logo leaks nothing; logo-less airlines stay text-only.
+    const right = s.right.map((ai, i) => {
+      const e = spotEntryForAi(ai);
+      const logo = e && e.logo ? `<img class="exam-al-logo" src="${esc(e.logo.img)}" alt="">` : "";
+      return `<li>${String.fromCharCode(65 + i)}. ${logo}${esc(lang === "en" ? AIRLINES[ai].en : AIRLINES[ai].zh)}</li>`;
+    }).join("");
+    const key = s.items.map((it, i) => {
+      const li = s.right.indexOf(it.ai);
+      const snip = lang === "en" ? (it.snippetEn || it.snippetZh) : (it.snippetZh || it.snippetEn);
+      return `${i + 1}. ${esc(nameOf(bySeq.get(it.seq)))} → ${String.fromCharCode(65 + li)} ${esc(lang === "en" ? AIRLINES[it.ai].en : AIRLINES[it.ai].zh)}（${esc(snip)}）`;
+    }).join("<br>");
+    body = `<div class="exam-match"><ol class="match-left">${left}</ol><ol class="match-right">${right}</ol></div>${examKeyHtml(key)}`;
+  } else if (s.def.type === "knowledge-short-answer") {
+    marks = s.items.length * 2;
+    body = s.items.map((it, i) => {
+      const a = bySeq.get(it.seq);
+      let prompt, ans;
+      if (it.kind === "ff") { const ff = (a.history && a.history.firstFlight) || ""; prompt = lang === "en" ? `In which year did the ${esc(a.nameEn)} first fly?` : `「${esc(a.nameZh)}」邊一年首飛？`; ans = `${ff.slice(0, 4)}（${ff}）`; }
+      else if (it.kind === "icao") { prompt = lang === "en" ? `What is the ICAO type designator of the ${esc(a.nameEn)}?` : `「${esc(a.nameZh)}」的 ICAO 機型代碼係咩？`; ans = a.icao; }
+      else if (it.kind === "maker") { prompt = lang === "en" ? `Which company makes the ${esc(a.nameEn)}?` : `「${esc(a.nameZh)}」由邊間公司製造？`; ans = a.manufacturer; }
+      else { prompt = lang === "en" ? `Which engines power the ${esc(a.nameEn)}?` : `「${esc(a.nameZh)}」用咩引擎？`; ans = a.specs.engines; }
+      return q(i + 1, `<p class="exam-prompt">${prompt}</p>${examLines(1)}${examKeyHtml(esc(ans))}`);
+    }).join("");
+  } else if (s.def.type === "lookalike-differentiation") {
+    marks = s.items.length * 2;
+    body = s.items.map((it, i) => {
+      const a = bySeq.get(it.seq);
+      const opp = lookalikeOpp(a);
+      const o = lang === "en" ? opp.en : opp.zh;
+      const prompt = o
+        ? (lang === "en" ? `The aircraft in the photo is the ${esc(a.nameEn)}, easily confused with the ${esc(o)}.` : `相中係「${esc(a.nameZh)}」，最易同${esc(o)}混淆。`)
+        : (lang === "en" ? `Name the type the ${esc(a.nameEn)} is most easily confused with, and one difference.` : `寫出「${esc(a.nameZh)}」最易混淆的機型，同一個分別。`);
+      return q(i + 1, `${examPhotoHtml(a)}<p class="exam-prompt">${prompt}</p>${examLines(2)}${examKeyHtml(esc(lang === "en" ? a.similarEn : a.similarZh))}`);
+    }).join("");
+  } else if (s.def.type === "teach-back") {
+    marks = s.items.length * 5;
+    body = s.items.map((it, i) => {
+      const a = bySeq.get(it.seq);
+      const key = ["wings", "engines", "fuselage", "tail"].map((k) => esc(lang === "en" ? a.weft[k].en : a.weft[k].zh)).join("<br>");
+      return q(i + 1, `${examPhotoHtml(a)}<p class="exam-prompt">${esc(nameOf(a))}</p>${examLines(5)}${examKeyHtml(key)}`);
+    }).join("");
+  }
+  return { marks, html: `<div class="exam-sec"><h4>${letter}. ${esc(title)}（${marks} ${t().examMarksUnit}）</h4><p class="exam-instr">${esc(instr)}</p>${body}</div>` };
+}
+function renderExamIntro() {
+  const body = $("examBody"); if (!body) return;
+  if (examModel) { body.innerHTML = ""; return; }
+  if (!DATA || !BLUEPRINTS) { body.innerHTML = `<p class="locked-note">${t().examLocked}</p>`; return; }
+  const cards = BLUEPRINTS.papers.map((p) => {
+    const poolLv = p.sections[0].poolLevel;
+    const n = poolLv === "airlines" ? verifiedList().length : scoutPool(poolLv).length;
+    const secs = p.sections.map((s) => `${esc(t()[SEC_TITLE[s.type]] || s.type)} ×${s.defaultCount}`).join(" · ");
+    const ok = n >= 4;
+    return `<div class="quiz-level"><h3>${esc(lang === "en" ? p.titleEn : p.titleZh)}</h3><p>${secs}</p><p>${n} ${t().examTypes}</p><button type="button" class="quiz-start" data-paper="${p.level}"${ok ? "" : " disabled"}>${t().examGen}</button></div>`;
+  }).join("");
+  body.innerHTML = `<p class="locked-note">${t().examIntro}</p><div class="quiz-levels exam-cards">${cards}</div>`;
+  body.querySelectorAll("[data-paper]").forEach((b) => b.addEventListener("click", () => {
+    const paper = BLUEPRINTS.papers.find((p) => p.level === b.getAttribute("data-paper"));
+    if (!paper) return;
+    examModel = genExamModel(paper); examKeyShown = false;
+    renderExamIntro(); renderExamPaper();
+    const sec = $("examSection"); if (sec) sec.scrollIntoView({ behavior: "smooth", block: "start" });
+  }));
+}
+function renderExamPaper() {
+  const el = $("examPaper"); if (!el) return;
+  if (!examModel) { el.innerHTML = ""; return; }
+  const bySeq = bySeqMap();
+  let total = 0;
+  const secs = examModel.sections.map((s, si) => { const r = renderExamSection(s, si, bySeq); total += r.marks; return r.html; }).join("");
+  const p = examModel.paper;
+  el.innerHTML = `<div class="exam-controls">
+      <button type="button" class="quiz-start" id="exRegen">${t().examRegen}</button>
+      <button type="button" class="quiz-start alt" id="exKey">${examKeyShown ? t().examHideKey : t().examShowKey}</button>
+      <button type="button" class="quiz-start" id="exPrintPaper">${t().examPrintPaper}</button>
+      <button type="button" class="quiz-start" id="exPrintKey">${t().examPrintKey}</button>
+      <button type="button" class="quiz-start alt" id="exBack">${t().examBack}</button>
+    </div>
+    <article class="exam-sheet${examKeyShown ? " show-key" : ""}">
+      <header class="exam-head">
+        <p class="exam-id">${esc(examModel.paperId)}</p>
+        <h3>${esc(lang === "en" ? p.titleEn : p.titleZh)}</h3>
+        <div class="exam-info"><span>${t().examName}：<i class="exam-blank"></i></span><span>${t().examUnit}：<i class="exam-blank"></i></span><span>${t().examDate}：<i class="exam-blank s"></i></span><span class="exam-totalbox">${t().examTotal}：______ / ${total} ${t().examMarksUnit}</span></div>
+      </header>
+      ${secs}
+      <p class="exam-foot">${t().examNote}</p>
+    </article>`;
+  const sheet = el.querySelector(".exam-sheet");
+  const syncKey = () => { sheet.classList.toggle("show-key", examKeyShown); $("exKey").textContent = examKeyShown ? t().examHideKey : t().examShowKey; };
+  $("exRegen").addEventListener("click", () => { examModel = genExamModel(examModel.paper); examKeyShown = false; renderExamPaper(); });
+  $("exKey").addEventListener("click", () => { examKeyShown = !examKeyShown; syncKey(); });
+  $("exPrintPaper").addEventListener("click", () => { examKeyShown = false; syncKey(); window.print(); });
+  $("exPrintKey").addEventListener("click", () => { examKeyShown = true; syncKey(); window.print(); });
+  $("exBack").addEventListener("click", () => { examModel = null; examKeyShown = false; renderExamIntro(); renderExamPaper(); });
+}
+
+
+// ---------- timed spotting game (v0.19; uses verified cards only, no new data) ----------
+const GAME_BEST_KEY = "aircraft-encyclopedia.game-best";
+let game = null, gameTimer = null;
+function loadGameBest() { try { const v = JSON.parse(localStorage.getItem(GAME_BEST_KEY) || "{}"); return v && typeof v === "object" ? v : {}; } catch (e) { return {}; } }
+function stopGameTimer() { if (gameTimer) { clearInterval(gameTimer); gameTimer = null; } }
+function gamePoolOf(key) { return key === "all" ? verifiedList() : scoutPool(key); }
+function renderGameIntro() {
+  const body = $("gameBody"); if (!body || game) return;
+  const best = loadGameBest();
+  const card = (key, label) => {
+    const n = gamePoolOf(key).length;
+    const b = best[key];
+    const bestTxt = b ? `${t().gameBest} ${b.score}` : t().gameNone;
+    return `<div class="quiz-level"><h3>${esc(label)}</h3><p>${n} ${lang === "en" ? "types" : "款"} · ${esc(bestTxt)}</p><button type="button" class="quiz-start" data-game="${key}">${t().gameStart}</button></div>`;
+  };
+  const cards = Object.entries(SCOUT_LABEL).map(([k, v]) => card(k, lang === "en" ? v[1] : v[0])).join("") + card("all", t().gameAll);
+  body.innerHTML = `<p class="locked-note">${t().gameIntro}</p><div class="quiz-levels exam-cards">${cards}</div>`;
+  body.querySelectorAll("[data-game]").forEach((b) => b.addEventListener("click", () => startGame(b.getAttribute("data-game"))));
+}
+function startGame(key) {
+  const pool = gamePoolOf(key);
+  if (pool.length < 4) return;
+  stopGameTimer();
+  game = { key, pool, score: 0, streak: 0, maxStreak: 0, correct: 0, total: 0, lastSeq: null, locked: false, endAt: Date.now() + 60000 };
+  nextGameQ();
+  gameTimer = setInterval(tickGame, 100);
+  tickGame();
+}
+function nextGameQ() {
+  if (!game) return;
+  const bySeq = bySeqMap();
+  let a = game.pool[Math.floor(Math.random() * game.pool.length)];
+  if (game.pool.length > 1) while (a.seq === game.lastSeq) a = game.pool[Math.floor(Math.random() * game.pool.length)];
+  game.lastSeq = a.seq; game.locked = false; game.total += 1;
+  const item = mkPhoto(a, game.pool);
+  game.answer = item.answer;
+  const remain = Math.max(0, game.endAt - Date.now());
+  $("gameBody").innerHTML = `<div class="game-hud">
+      <span class="game-stat">${t().gameScore} <b id="gameScore">${game.score}</b></span>
+      <span class="game-stat">${t().gameStreak} <b id="gameStreak">x${game.streak}</b></span>
+      <span class="game-timebar"><i id="gameBar" style="width:${(remain / 600).toFixed(1)}%"></i></span>
+      <b class="game-clock" id="gameClock">${Math.ceil(remain / 1000)}s</b>
+      <button type="button" class="quiz-start alt game-quit" id="gameQuit">${t().gameQuit}</button>
+    </div>
+    <div class="quiz-photo">${photoImg(a)}</div>
+    <div class="quiz-opts">${item.options.map((sq) => { const o = bySeq.get(sq); return `<button type="button" class="quiz-opt" data-gopt="${sq}">${esc(nameOf(o))} · ${esc(o.icao)}</button>`; }).join("")}</div>
+    <div id="gameFb"></div>`;
+  document.querySelectorAll("[data-gopt]").forEach((b) => b.addEventListener("click", () => answerGame(b)));
+  $("gameQuit").addEventListener("click", () => { stopGameTimer(); game = null; renderGameIntro(); });
+}
+function answerGame(btn) {
+  if (!game || game.locked) return;
+  game.locked = true;
+  const right = btn.getAttribute("data-gopt") === game.answer;
+  document.querySelectorAll("[data-gopt]").forEach((b) => {
+    b.disabled = true;
+    if (b.getAttribute("data-gopt") === game.answer) b.classList.add("right");
+    else if (b === btn) b.classList.add("wrong");
+  });
+  let note = "";
+  if (right) {
+    game.correct += 1; game.streak += 1; game.maxStreak = Math.max(game.maxStreak, game.streak);
+    game.score += 10;
+    if (game.streak % 5 === 0) { game.score += 25; note = t().gameBonus; }
+  } else {
+    game.streak = 0; game.endAt -= 3000;
+    const a = bySeqMap().get(game.answer);
+    note = `${t().wrong}${esc(nameOf(a))}`;
+  }
+  const sc = $("gameScore"); if (sc) sc.textContent = game.score;
+  const st = $("gameStreak"); if (st) st.textContent = `x${game.streak}`;
+  const fb = $("gameFb"); if (fb && note) fb.innerHTML = `<p class="quiz-feedback">${esc(note)}</p>`;
+  setTimeout(() => { if (game) { if (Date.now() >= game.endAt) finishGame(); else nextGameQ(); } }, right ? 320 : 800);
+}
+function tickGame() {
+  if (!game) { stopGameTimer(); return; }
+  const remain = game.endAt - Date.now();
+  const bar = $("gameBar"), clock = $("gameClock");
+  if (bar) { bar.style.width = `${Math.max(0, remain / 600)}%`; bar.classList.toggle("low", remain < 10000); }
+  if (clock) clock.textContent = `${Math.max(0, Math.ceil(remain / 1000))}s`;
+  if (remain <= 0) finishGame();
+}
+function finishGame() {
+  if (!game) return;
+  stopGameTimer();
+  const g = game; game = null;
+  try {
+    const b = loadGameBest();
+    if (!b[g.key] || g.score > b[g.key].score) { b[g.key] = { score: g.score, correct: g.correct, streak: g.maxStreak }; localStorage.setItem(GAME_BEST_KEY, JSON.stringify(b)); }
+  } catch (e) { /* ignore */ }
+  const label = g.key === "all" ? t().gameAll : (lang === "en" ? SCOUT_LABEL[g.key][1] : SCOUT_LABEL[g.key][0]);
+  $("gameBody").innerHTML = `<p class="quiz-score">${t().gameOver} ${esc(label)}</p>
+    <p class="game-result">${t().gameScore} <b>${g.score}</b> · ${t().gameRight} ${g.correct}/${g.total} ${t().gameQuestions} · ${t().gameMaxStreak} x${g.maxStreak}</p>
+    <p><button type="button" class="quiz-start" id="gameAgain">${t().gameAgain}</button> <button type="button" class="quiz-start alt" id="gameBack">${t().gameBack}</button></p>`;
+  $("gameAgain").addEventListener("click", () => startGame(g.key));
+  $("gameBack").addEventListener("click", () => renderGameIntro());
+}
+
+
+// ---------- side-scrolling recognition shooter (v0.20) ----------
+const SHOOTER_BEST_KEY = "aircraft-encyclopedia.shooter-best";
+let shooter = null, shooterRaf = null, shooterTimeout = null;
+const isMil = (a) => a.category === "military";
+function loadShooterBest() { try { const v = JSON.parse(localStorage.getItem(SHOOTER_BEST_KEY) || "{}"); return v && typeof v === "object" ? v : {}; } catch (e) { return {}; } }
+function stopShooter() {
+  if (shooterRaf) { cancelAnimationFrame(shooterRaf); shooterRaf = null; }
+  if (shooterTimeout) { clearTimeout(shooterTimeout); shooterTimeout = null; }
+  shooter = null;
+}
+function renderShooterIntro() {
+  const body = $("shooterBody"); if (!body || shooter) return;
+  const best = loadShooterBest();
+  const card = (key, label) => {
+    const n = gamePoolOf(key).length;
+    const b = best[key];
+    const bestTxt = b ? `${t().gameBest} ${b.score}` : t().gameNone;
+    return `<div class="quiz-level"><h3>${esc(label)}</h3><p>${n} ${lang === "en" ? "types" : "款"} · ${esc(bestTxt)}</p><button type="button" class="quiz-start" data-shooter="${key}">${t().shStart}</button></div>`;
+  };
+  const cards = Object.entries(SCOUT_LABEL).map(([k, v]) => card(k, lang === "en" ? v[1] : v[0])).join("") + card("all", t().gameAll);
+  body.innerHTML = `<p class="locked-note">${t().shIntro}</p><div class="quiz-levels exam-cards">${cards}</div>`;
+  body.querySelectorAll("[data-shooter]").forEach((b) => b.addEventListener("click", () => startShooter(b.getAttribute("data-shooter"))));
+}
+function startShooter(key) {
+  const pool = gamePoolOf(key);
+  if (pool.length < 4) return;
+  stopShooter();
+  shooter = { key, pool, score: 0, streak: 0, lives: 3, wave: 1, hits: 0, downed: 0, snapped: 0, lastSeq: null, plane: null, phase: "fly" };
+  spawnPlane();
+}
+function spawnPlane() {
+  if (!shooter) return;
+  const pool = shooter.pool;
+  let a = pool[Math.floor(Math.random() * pool.length)];
+  if (pool.length > 1) while (a.seq === shooter.lastSeq) a = pool[Math.floor(Math.random() * pool.length)];
+  shooter.lastSeq = a.seq;
+  const dir = Math.random() < 0.5 ? 1 : -1;
+  const speed = (0.055 + shooter.wave * 0.006) * (0.9 + Math.random() * 0.25);
+  shooter.plane = { a, dir, lane: Math.floor(Math.random() * 3), speed, x: dir === 1 ? -340 : 0, startedAt: null };
+  shooter.phase = "fly";
+  const item = mkPhoto(a, pool);
+  shooter.answer = item.answer;
+  const bySeq = bySeqMap();
+  const mil = isMil(a);
+  $("shooterBody").innerHTML = `<div class="game-hud">
+      <span class="game-stat">${t().gameScore} <b>${shooter.score}</b></span>
+      <span class="game-stat">${t().gameStreak} <b>x${shooter.streak}</b></span>
+      <span class="game-stat">${t().shWave} ${shooter.wave}${lang === "en" ? "" : " 波"}</span>
+      <span class="game-stat">${t().shLives} <b class="sh-lives">${"♥".repeat(shooter.lives)}</b></span>
+      <button type="button" class="quiz-start alt game-quit" id="shQuit">${t().gameQuit}</button>
+    </div>
+    <div class="sky" id="shSky">
+      <div class="cloud c1"></div><div class="cloud c2"></div><div class="cloud c3"></div>
+      <div class="plane" id="shPlane"><img src="${esc(a.photo.imageUrl)}" alt="" style="${dir === -1 ? "transform:scaleX(-1);" : ""}"></div>
+      <div class="turret" aria-hidden="true"></div>
+    </div>
+    <p class="sh-prompt">${mil ? t().shPromptMil : t().shPromptCiv}</p>
+    <div class="quiz-opts">${item.options.map((sq) => { const o = bySeq.get(sq); return `<button type="button" class="quiz-opt" data-sopt="${sq}">${esc(nameOf(o))} · ${esc(o.icao)}</button>`; }).join("")}</div>
+    <div id="shFb"></div>`;
+  document.querySelectorAll("[data-sopt]").forEach((b) => b.addEventListener("click", () => answerShooter(b)));
+  $("shQuit").addEventListener("click", () => { stopShooter(); renderShooterIntro(); });
+  shooterRaf = requestAnimationFrame(shooterLoop);
+}
+function shooterLoop(ts) {
+  if (!shooter || shooter.phase !== "fly") return;
+  const sky = $("shSky"), planeEl = $("shPlane");
+  if (!sky || !planeEl) return;
+  const p = shooter.plane;
+  if (p.startedAt == null) { p.startedAt = ts; p.x = p.dir === 1 ? -340 : sky.clientWidth + 40; }
+  const elapsed = ts - p.startedAt;
+  const dist = p.speed * elapsed;
+  const x = p.dir === 1 ? -340 + dist : sky.clientWidth + 40 - dist;
+  planeEl.style.transform = `translateX(${x}px)`; planeEl.style.setProperty("--px", `${x}px`);
+  planeEl.style.top = `${8 + p.lane * 22}%`;
+  const exited = p.dir === 1 ? x > sky.clientWidth + 60 : x < -380;
+  if (exited) { escapePlane(); return; }
+  shooterRaf = requestAnimationFrame(shooterLoop);
+}
+function answerShooter(btn) {
+  if (!shooter || shooter.phase !== "fly") return;
+  const right = btn.getAttribute("data-sopt") === shooter.answer;
+  if (!right) {
+    shooter.streak = 0;
+    btn.disabled = true; btn.classList.add("wrong");
+    return;
+  }
+  shooter.phase = "hit";
+  if (shooterRaf) cancelAnimationFrame(shooterRaf);
+  const a = shooter.plane.a;
+  const mil = isMil(a);
+  shooter.hits += 1; shooter.streak += 1;
+  shooter.score += 100;
+  if (shooter.streak % 5 === 0) shooter.score += 50;
+  if (mil) shooter.downed += 1; else shooter.snapped += 1;
+  if (shooter.hits % 5 === 0) shooter.wave += 1;
+  document.querySelectorAll("[data-sopt]").forEach((b) => {
+    b.disabled = true;
+    if (b.getAttribute("data-sopt") === shooter.answer) b.classList.add("right");
+  });
+  const sky = $("shSky"), planeEl = $("shPlane");
+  if (sky && planeEl) {
+    if (mil) {
+      const boom = document.createElement("div");
+      boom.className = "boom"; boom.style.left = "38%"; boom.style.top = "18%";
+      planeEl.appendChild(boom); planeEl.classList.add("shot");
+    } else {
+      const fl = document.createElement("div"); fl.className = "skyflash"; sky.appendChild(fl);
+      const stamp = document.createElement("div"); stamp.className = "stamp"; stamp.textContent = t().shCaptured;
+      planeEl.appendChild(stamp);
+    }
+  }
+  const fb = $("shFb");
+  if (fb) fb.innerHTML = `<p class="quiz-feedback"><b>${mil ? t().shShot : t().shCaptured}</b> ${esc(nameOf(a))}</p>`;
+  shooterTimeout = setTimeout(() => showFeatureCard(a), 620);
+}
+function escapePlane() {
+  if (!shooter) return;
+  shooter.phase = "hit";
+  const a = shooter.plane.a;
+  shooter.lives -= 1; shooter.streak = 0;
+  const fb = $("shFb");
+  if (fb) fb.innerHTML = `<p class="quiz-feedback"><b>${t().shEscaped}</b> ${esc(nameOf(a))}</p>`;
+  document.querySelectorAll("[data-sopt]").forEach((b) => { b.disabled = true; if (b.getAttribute("data-sopt") === shooter.answer) b.classList.add("right"); });
+  if (shooter.lives <= 0) { shooterTimeout = setTimeout(finishShooter, 700); return; }
+  shooterTimeout = setTimeout(() => showFeatureCard(a), 700);
+}
+function showFeatureCard(a) {
+  if (!shooter) return;
+  const ann = a.photo.annotations || [];
+  const dots = ann.map((d, i) => `<span class="dot static" style="left:${d.x}%;top:${d.y}%">${i + 1}</span>`).join("");
+  const legend = ann.slice(0, 4).map((d, i) => `<li>${i + 1}. ${esc(lang === "en" ? d.en : d.zh)}</li>`).join("");
+  $("shooterBody").innerHTML = `<div class="sh-feature">
+      <p class="sh-prompt">${t().shFeature}：<b>${esc(nameOf(a))}</b> · ${esc(a.icao)}</p>
+      <div class="quiz-photo natural">${photoImg(a)}${dots}</div>
+      <ul class="sh-legend">${legend}</ul>
+      <p class="caption">${esc(lang === "en" ? a.weft.fuselage.en : a.weft.fuselage.zh)}</p>
+    </div>`;
+  shooterTimeout = setTimeout(spawnPlane, 2100);
+}
+function finishShooter() {
+  if (!shooter) return;
+  const g = shooter;
+  stopShooter();
+  try {
+    const b = loadShooterBest();
+    if (!b[g.key] || g.score > b[g.key].score) { b[g.key] = { score: g.score, hits: g.hits }; localStorage.setItem(SHOOTER_BEST_KEY, JSON.stringify(b)); }
+  } catch (e) { /* ignore */ }
+  const label = g.key === "all" ? t().gameAll : (lang === "en" ? SCOUT_LABEL[g.key][1] : SCOUT_LABEL[g.key][0]);
+  $("shooterBody").innerHTML = `<p class="quiz-score">${t().shOver} ${esc(label)}</p>
+    <p class="game-result">${t().gameScore} <b>${g.score}</b> · ${t().shDown} ${g.downed} · ${t().shCaps} ${g.snapped} · ${t().shWave} ${g.wave}${lang === "en" ? "" : " 波"}</p>
+    <p><button type="button" class="quiz-start" id="shAgain">${t().gameAgain}</button> <button type="button" class="quiz-start alt" id="shBack">${t().gameBack}</button></p>`;
+  $("shAgain").addEventListener("click", () => startShooter(g.key));
+  $("shBack").addEventListener("click", () => renderShooterIntro());
+}
+
+
+// ---------- airports & world map (v0.21; Leaflet/OSM pattern follows scoutworld repo) ----------
+const AP_REGION = { home: ["香港與大灣區", "Hong Kong & Greater Bay"], china: ["中國內地", "Mainland China"], taiwan: ["台灣", "Taiwan"], eastasia: ["東北亞", "Northeast Asia"], seasia: ["東南亞", "Southeast Asia"], sasia: ["南亞", "South Asia"], centralasia: ["中亞", "Central Asia"], meast: ["中東", "Middle East"], europe: ["歐洲", "Europe"], africa: ["非洲", "Africa"], namerica: ["北美洲", "North America"], samerica: ["南美洲", "South America"], oceania: ["大洋洲", "Oceania"] };
+const AP_REGION_ORDER = Object.keys(AP_REGION);
+const apName = (p) => lang === "en" ? p.nameEn : p.nameZh;
+const apCity = (p) => lang === "en" ? `${p.cityEn}, ${p.countryEn}` : `${p.cityZh}・${p.countryZh}`;
+let apTileErrors = 0, apBasemapIdx = 0;
+function apBasemap(idx) {
+  const cfgs = [
+    { url: "https://tile.openstreetmap.org/{z}/{x}/{y}.png", attribution: "&copy; <a href=\"https://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributors", maxZoom: 19 },
+    { url: "https://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}", attribution: "Tiles &copy; <a href=\"https://www.esri.com/\">Esri</a> — Esri, HERE, Garmin, &copy; OpenStreetMap contributors", maxZoom: 16 }
+  ];
+  const layer = L.tileLayer(cfgs[idx].url, { attribution: cfgs[idx].attribution, maxZoom: cfgs[idx].maxZoom });
+  layer.on("tileerror", () => { apTileErrors += 1; if (apTileErrors >= 4 && idx < cfgs.length - 1 && airportMap) { airportMap.removeLayer(layer); apBasemap(idx + 1); } });
+  return layer;
+}
+function initAirportMap() {
+  if (airportMap || !window.L || !$("airportMap")) return;
+  airportMap = L.map("airportMap", { minZoom: 2, maxZoom: 18 }).setView([22.3, 114.2], 3);
+  apBasemap(0).addTo(airportMap);
+  airportLayer = L.layerGroup().addTo(airportMap);
+  setTimeout(() => { if (airportMap) airportMap.invalidateSize(); }, 150);
+}
+const apPinClass = (p) => p.iata === "HKG" ? "ap-pin home" : p.hkDirect ? "ap-pin direct" : "ap-pin";
+const apTag = (p) => p.iata === "HKG" ? `<span class="ap-tag home">★ ${t().airportHomeTag}</span>` : p.hkDirect ? `<span class="ap-tag">✈ ${t().airportDirectTag}</span>` : "";
+function renderAirports() {
+  const body = $("airportBody"); if (!body) return;
+  if (!AIRPORTS) { body.innerHTML = `<p class="locked-note">${t().examLocked}</p>`; return; }
+  const list = [...AIRPORTS.airports].sort((a, b) => AP_REGION_ORDER.indexOf(a.region) - AP_REGION_ORDER.indexOf(b.region) || a.iata.localeCompare(b.iata));
+  const directTotal = list.filter((p) => p.hkDirect).length;
+  const q = airportQuery.trim().toLowerCase();
+  const shown = list.filter((p) => (!airportDirectOnly || p.hkDirect || p.iata === "HKG") && (!q || [p.iata, p.icao || "", p.nameEn, p.nameZh, p.cityEn, p.cityZh, p.countryEn, p.countryZh].join(" ").toLowerCase().includes(q)));
+  const cards = shown.map((p) => `<button type="button" class="ap-card" data-ap="${p.iata}"><span class="ap-code">${p.iata}<i>${p.icao || ""}</i></span><span class="ap-name">${esc(apName(p))}</span><span class="ap-city">${esc(apCity(p))}</span>${apTag(p)}</button>`).join("");
+  body.innerHTML = `<p class="locked-note">${t().airportIntro}</p>
+    <div id="airportMap" class="airport-map" role="application" aria-label="World airport map"></div>
+    <label class="search ap-search"><span>${t().searchLabel}</span><input id="airportSearch" type="search" placeholder="${t().airportSearchPh}" value="${esc(airportQuery)}"></label>
+    <div class="ap-filters" role="group"><button type="button" class="ap-chip${airportDirectOnly ? "" : " on"}" data-apf="all">${t().airportShowAll} (${list.length})</button><button type="button" class="ap-chip${airportDirectOnly ? " on" : ""}" data-apf="direct">${t().airportDirectOnly} (${directTotal})</button></div>
+    <p class="ap-legend"><span class="ap-pin home">HKG</span>${t().airportLegendHome}<span class="ap-pin direct">NRT</span>${t().airportLegendDirect}<span class="ap-pin">FRA</span>${t().airportLegendOther}</p>
+    <p class="ap-count">${shown.length} ${t().airportCount}</p>
+    <div class="ap-grid">${cards}</div>
+    <p class="ap-src">${t().airportSrc}</p>`;
+  $("airportSearch").addEventListener("input", (e) => { airportQuery = e.target.value; renderAirports(); const el = $("airportSearch"); el.focus(); el.setSelectionRange(el.value.length, el.value.length); });
+  body.querySelectorAll("[data-ap]").forEach((b) => b.addEventListener("click", () => focusAirport(b.getAttribute("data-ap"))));
+  body.querySelectorAll("[data-apf]").forEach((b) => b.addEventListener("click", () => { airportDirectOnly = b.getAttribute("data-apf") === "direct"; renderAirports(); }));
+  if (window.L) {
+    initAirportMap();
+    if (airportMap && airportLayer) {
+      airportLayer.clearLayers();
+      airportMarkers = {};
+      list.forEach((p) => {
+        const icon = L.divIcon({ className: "ap-pin-wrap", html: `<span class="${apPinClass(p)}">${p.iata}</span>`, iconSize: null });
+        const m = L.marker([p.lat, p.lng], { icon }).bindPopup(`<b class="ap-pop-code">${p.iata}</b>${p.icao ? ` / ${p.icao}` : ""}<br>${esc(apName(p))}<br>${esc(apCity(p))}${p.iata === "HKG" ? `<br>★ ${t().airportHomeTag}` : p.hkDirect ? `<br>✈ ${t().airportDirectTag}` : ""}`);
+        m.addTo(airportLayer);
+        airportMarkers[p.iata] = m;
+      });
+    }
+  } else {
+    $("airportMap").innerHTML = `<p class="locked-note">${t().airportNoMap}</p>`;
+  }
+}
+function focusAirport(iata) {
+  const p = AIRPORTS && AIRPORTS.airports.find((x) => x.iata === iata);
+  if (!p) return;
+  const sec = $("airportSection"); if (sec) sec.scrollIntoView({ behavior: "smooth", block: "start" });
+  if (airportMap && airportMarkers[iata]) {
+    airportMap.flyTo([p.lat, p.lng], Math.max(airportMap.getZoom(), 5), { duration: 1.1 });
+    setTimeout(() => { if (airportMarkers[iata]) airportMarkers[iata].openPopup(); }, 1150);
+  }
+}
+
+
+// ---------- airport code game (v0.23; questions generated from verified airports.json only) ----------
+const APGAME_BEST_KEY = "aircraft-encyclopedia.apgame-best";
+let apgame = null, apgameTimer = null, apgMap = null, apgMarker = null;
+function loadApGameBest() { try { const v = JSON.parse(localStorage.getItem(APGAME_BEST_KEY) || "{}"); return v && typeof v === "object" ? v : {}; } catch (e) { return {}; } }
+function stopApGameTimer() { if (apgameTimer) { clearInterval(apgameTimer); apgameTimer = null; } }
+function apGamePoolOf(key) {
+  if (!AIRPORTS) return [];
+  return key === "direct" ? AIRPORTS.airports.filter((p) => p.hkDirect || p.iata === "HKG") : AIRPORTS.airports;
+}
+function renderApGameIntro() {
+  const body = $("apGameBody"); if (!body || apgame) return;
+  if (!AIRPORTS) { body.innerHTML = `<p class="locked-note">${t().examLocked}</p>`; return; }
+  const best = loadApGameBest();
+  const card = (key, label, desc) => {
+    const n = apGamePoolOf(key).length;
+    const b = best[key];
+    const bestTxt = b ? `${t().gameBest} ${b.score}` : t().gameNone;
+    return `<div class="quiz-level"><h3>${esc(label)}</h3><p>${n} ${lang === "en" ? "airports" : "個機場"} · ${esc(bestTxt)}</p><p>${esc(desc)}</p><button type="button" class="quiz-start" data-apgame="${key}">${t().gameStart}</button></div>`;
+  };
+  body.innerHTML = `<p class="locked-note">${t().apGameIntro}</p><div class="quiz-levels exam-cards">${card("direct", t().apGameDirect, t().apGameDirectDesc)}${card("world", t().apGameWorld, t().apGameWorldDesc)}</div>`;
+  body.querySelectorAll("[data-apgame]").forEach((b) => b.addEventListener("click", () => startApGame(b.getAttribute("data-apgame"))));
+}
+function apGameShuffle(arr) { const a = [...arr]; for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); const tmp = a[i]; a[i] = a[j]; a[j] = tmp; } return a; }
+function apGameOptions(answer, pool, key) {
+  const others = pool.filter((p) => p.iata !== answer.iata);
+  let distractors;
+  if (key === "world") {
+    const same = apGameShuffle(others.filter((p) => p.region === answer.region));
+    const rest = apGameShuffle(others.filter((p) => p.region !== answer.region));
+    distractors = same.concat(rest).slice(0, 3);
+  } else {
+    distractors = apGameShuffle(others).slice(0, 3);
+  }
+  return apGameShuffle([answer].concat(distractors));
+}
+function apGameCityOptions(answer, pool, key) {
+  // Options are cities (deduped by cityEn|cityZh so e.g. NRT/HND both "Tokyo" never repeat);
+  // each option keeps an airport iata as its data key, so scoring/missed machinery is unchanged.
+  const cityKey = (p) => `${p.cityEn}|${p.cityZh}`;
+  const seen = new Map([[cityKey(answer), answer]]);
+  const others = pool.filter((p) => p.iata !== answer.iata);
+  const ordered = key === "world"
+    ? apGameShuffle(others.filter((p) => p.region === answer.region)).concat(apGameShuffle(others.filter((p) => p.region !== answer.region)))
+    : apGameShuffle(others);
+  for (const p of ordered) {
+    if (seen.size >= 4) break;
+    if (!seen.has(cityKey(p))) seen.set(cityKey(p), p);
+  }
+  return apGameShuffle([...seen.values()]);
+}
+function startApGame(key) {
+  const pool = apGamePoolOf(key);
+  if (pool.length < 4) return;
+  stopApGameTimer();
+  apgame = { key, pool, score: 0, streak: 0, maxStreak: 0, correct: 0, total: 0, last: null, locked: false, missed: [], endAt: Date.now() + 60000 };
+  nextApGameQ();
+  apgameTimer = setInterval(tickApGame, 100);
+  tickApGame();
+}
+function destroyApgMap() { if (apgMap) { try { apgMap.remove(); } catch (e) { /* ignore */ } apgMap = null; apgMarker = null; } }
+function initApgMap(a) {
+  destroyApgMap();
+  if (!window.L || !$("apgMap")) return;
+  apgMap = L.map("apgMap", { minZoom: 2, maxZoom: 10 }).setView([a.lat, a.lng], 6);
+  apBasemap(0).addTo(apgMap);
+  const icon = L.divIcon({ className: "ap-pin-wrap", html: `<span class="ap-pin apg-qpin">?</span>`, iconSize: null });
+  apgMarker = L.marker([a.lat, a.lng], { icon }).addTo(apgMap);
+  setTimeout(() => { if (apgMap) apgMap.invalidateSize(); }, 120);
+}
+function nextApGameQ() {
+  if (!apgame) return;
+  let a = apgame.pool[Math.floor(Math.random() * apgame.pool.length)];
+  if (apgame.pool.length > 1) while (a.iata === apgame.last) a = apgame.pool[Math.floor(Math.random() * apgame.pool.length)];
+  apgame.last = a.iata; apgame.locked = false; apgame.total += 1;
+  let types = window.L ? ["code2name", "name2code", "name2city", "icao2name", "map2code"] : ["code2name", "name2code", "name2city", "icao2name"];
+  if (!a.icao) types = types.filter((x) => x !== "icao2name");
+  apgame.type = types[Math.floor(Math.random() * types.length)];
+  apgame.answer = a.iata;
+  const opts = apgame.type === "name2city" ? apGameCityOptions(a, apgame.pool, apgame.key) : apGameOptions(a, apgame.pool, apgame.key);
+  const remain = Math.max(0, apgame.endAt - Date.now());
+  let stage;
+  if (apgame.type === "code2name") stage = `<div class="apg-stage"><span class="apg-code">${a.iata}</span><span class="apg-hint">${esc(apCity(a))}</span></div>`;
+  else if (apgame.type === "name2code") stage = `<div class="apg-stage"><span class="apg-name">${esc(apName(a))}</span><span class="apg-hint">${esc(apCity(a))}</span></div>`;
+  else if (apgame.type === "name2city") stage = `<div class="apg-stage"><span class="apg-name">${esc(apName(a))}</span><span class="apg-hint">${a.iata}</span></div><p class="exam-prompt">${t().apGameQCity}</p>`;
+  else if (apgame.type === "icao2name") stage = `<div class="apg-stage"><span class="apg-code">${a.icao}</span><span class="apg-hint">${esc(apCity(a))}</span></div>`;
+  else stage = `<p class="locked-note">${t().apGameMapHint}</p><div id="apgMap" class="apg-map" role="application" aria-label="Airport location map"></div>`;
+  $("apGameBody").innerHTML = `<div class="game-hud">
+      <span class="game-stat">${t().gameScore} <b id="apGameScore">${apgame.score}</b></span>
+      <span class="game-stat">${t().gameStreak} <b id="apGameStreak">x${apgame.streak}</b></span>
+      <span class="game-timebar"><i id="apGameBar" style="width:${(remain / 600).toFixed(1)}%"></i></span>
+      <b class="game-clock" id="apGameClock">${Math.ceil(remain / 1000)}s</b>
+      <button type="button" class="quiz-start alt game-quit" id="apGameQuit">${t().gameQuit}</button>
+    </div>
+    ${stage}
+    <div class="quiz-opts">${opts.map((p) => `<button type="button" class="quiz-opt" data-apgopt="${p.iata}">${apgame.type === "code2name" || apgame.type === "icao2name" ? esc(apName(p)) : apgame.type === "name2city" ? esc(apCity(p)) : p.iata}</button>`).join("")}</div>
+    <div id="apGameFb"></div>`;
+  document.querySelectorAll("[data-apgopt]").forEach((b) => b.addEventListener("click", () => answerApGame(b)));
+  $("apGameQuit").addEventListener("click", () => { stopApGameTimer(); destroyApgMap(); apgame = null; renderApGameIntro(); });
+  if (apgame.type === "map2code") initApgMap(a);
+}
+function answerApGame(btn) {
+  if (!apgame || apgame.locked) return;
+  apgame.locked = true;
+  const a = apgame.pool.find((p) => p.iata === apgame.answer);
+  const right = btn.getAttribute("data-apgopt") === apgame.answer;
+  document.querySelectorAll("[data-apgopt]").forEach((b) => {
+    b.disabled = true;
+    if (b.getAttribute("data-apgopt") === apgame.answer) b.classList.add("right");
+    else if (b === btn) b.classList.add("wrong");
+  });
+  let note;
+  if (right) {
+    apgame.correct += 1; apgame.streak += 1; apgame.maxStreak = Math.max(apgame.maxStreak, apgame.streak);
+    apgame.score += 10;
+    note = `${a.iata} — ${esc(apName(a))}（${esc(apCity(a))}）`;
+    if (apgame.streak % 5 === 0) { apgame.score += 25; note += ` · ${t().gameBonus}`; }
+  } else {
+    apgame.streak = 0; apgame.endAt -= 3000;
+    if (!apgame.missed.includes(a.iata)) apgame.missed.push(a.iata);
+    note = `${t().wrong}${a.iata} — ${esc(apName(a))}（${esc(apCity(a))}）`;
+  }
+  const sc = $("apGameScore"); if (sc) sc.textContent = apgame.score;
+  const st = $("apGameStreak"); if (st) st.textContent = `x${apgame.streak}`;
+  const fb = $("apGameFb"); if (fb) fb.innerHTML = `<p class="quiz-feedback">${note}</p>`;
+  setTimeout(() => { if (apgame) { if (Date.now() >= apgame.endAt) finishApGame(); else nextApGameQ(); } }, right ? 320 : 900);
+}
+function tickApGame() {
+  if (!apgame) { stopApGameTimer(); return; }
+  const remain = apgame.endAt - Date.now();
+  const bar = $("apGameBar"), clock = $("apGameClock");
+  if (bar) { bar.style.width = `${Math.max(0, remain / 600)}%`; bar.classList.toggle("low", remain < 10000); }
+  if (clock) clock.textContent = `${Math.max(0, Math.ceil(remain / 1000))}s`;
+  if (remain <= 0) finishApGame();
+}
+function finishApGame() {
+  if (!apgame) return;
+  stopApGameTimer();
+  destroyApgMap();
+  const g = apgame; apgame = null;
+  try {
+    const b = loadApGameBest();
+    if (!b[g.key] || g.score > b[g.key].score) { b[g.key] = { score: g.score, correct: g.correct, streak: g.maxStreak }; localStorage.setItem(APGAME_BEST_KEY, JSON.stringify(b)); }
+  } catch (e) { /* ignore */ }
+  const label = g.key === "direct" ? t().apGameDirect : t().apGameWorld;
+  const review = g.missed.length
+    ? `<p class="locked-note">${t().apGameReview}</p><ul class="apg-review">${g.missed.map((code) => { const p = AIRPORTS.airports.find((x) => x.iata === code); return `<li><b>${code}</b> — ${esc(p ? apName(p) : code)}${p ? `（${esc(apCity(p))}）` : ""}</li>`; }).join("")}</ul>`
+    : `<p class="locked-note">${t().apGameNone}</p>`;
+  $("apGameBody").innerHTML = `<p class="quiz-score">${t().gameOver} ${esc(label)}</p>
+    <p class="game-result">${t().gameScore} <b>${g.score}</b> · ${t().gameRight} ${g.correct}/${g.total} ${t().gameQuestions} · ${t().gameMaxStreak} x${g.maxStreak}</p>
+    ${review}
+    <p><button type="button" class="quiz-start" id="apGameAgain">${t().gameAgain}</button> <button type="button" class="quiz-start alt" id="apGameBack">${t().gameBack}</button></p>`;
+  $("apGameAgain").addEventListener("click", () => startApGame(g.key));
+  $("apGameBack").addEventListener("click", () => renderApGameIntro());
+}
+
+// ---------- airline logo library + logo challenge (v0.25; data from verified airlines.json only) ----------
+const LOGOGAME_BEST_KEY = "aircraft-encyclopedia.logogame-best";
+let AIRLINES_DATA = null, airlineQuery = "", airlineGroup = "all";
+let logogame = null, logogameTimer = null, AL_TYPES_CACHE = null;
+function loadLogoGameBest() { try { const v = JSON.parse(localStorage.getItem(LOGOGAME_BEST_KEY) || "null"); return v && typeof v.score === "number" ? v : null; } catch (e) { return null; } }
+const alName = (e) => lang === "en" ? e.nameEn : e.nameZh;
+const alOtherName = (e) => lang === "en" ? e.nameZh : e.nameEn;
+const alAirport = (e) => (AIRPORTS && e.hubIata) ? AIRPORTS.airports.find((p) => p.iata === e.hubIata) : null;
+const alHubLabel = (e) => { const p = alAirport(e); if (!p) return ""; return lang === "en" ? `${p.cityEn} (${p.iata})` : `${p.cityZh}（${p.iata}）`; };
+function airlineTypesMap() {
+  if (AL_TYPES_CACHE) return AL_TYPES_CACHE;
+  const map = {};
+  if (!AIRLINES_DATA || !DATA) return map;
+  const byIdx = {};
+  verifiedList().forEach((ac) => { const m = airlineMatchOf(ac); if (!m) return; (byIdx[m.ai] = byIdx[m.ai] || []).push(ac); });
+  for (const e of AIRLINES_DATA.airlines) {
+    const ai = AIRLINES.findIndex((al) => al.a.includes(e.nameEn) || al.a.includes(e.nameZh) || al.en === e.nameEn || e.nameEn.startsWith(al.en) || al.en.startsWith(e.nameEn));
+    if (ai >= 0 && byIdx[ai]) map[e.iata] = byIdx[ai].slice(0, 3);
+  }
+  AL_TYPES_CACHE = map;
+  return map;
+}
+function renderAirlines() {
+  const body = $("airlineBody"); if (!body) return;
+  if (!AIRLINES_DATA) { body.innerHTML = `<p class="locked-note">${t().examLocked}</p>`; return; }
+  const list = AIRLINES_DATA.airlines;
+  const groups = [["all", t().airlineAll], ["hk", t().airlineHK], ["apac", t().airlineAPAC], ["world", t().airlineWorld]];
+  const q = airlineQuery.trim().toLowerCase();
+  const shown = list.filter((e) => (airlineGroup === "all" || e.group === airlineGroup) && (!q || [e.iata, e.icao, e.nameEn, e.nameZh, e.hubIata || ""].join(" ").toLowerCase().includes(q)));
+  const types = airlineTypesMap();
+  const cards = shown.map((e) => {
+    const plate = e.logo
+      ? `<div class="al-plate"><img src="${e.logo.img}" alt="${esc(alName(e))} ${lang === "en" ? "logo" : "標誌"}" loading="lazy"></div>`
+      : `<div class="al-plate al-texttile"><span class="al-tile-iata">${e.iata}</span><span class="al-tile-name">${esc(alName(e))}</span></div>`;
+    const hub = alAirport(e) ? `<p class="al-hub">${t().airlineHub}：${esc(alHubLabel(e))}</p>` : "";
+    const tp = types[e.iata] || [];
+    const typesLine = tp.length ? `<p class="al-types">${t().airlineTypes}：${tp.map((a) => esc(nameOf(a))).join("、")}</p>` : "";
+    const credit = e.logo ? `<p class="al-credit">${t().airlineCredit} · <a href="${e.logo.page}" target="_blank" rel="noopener">${esc(e.logo.file)}</a></p>` : `<p class="al-credit">${t().airlineNoLogo}</p>`;
+    return `<article class="al-card">${plate}<h3 class="al-name">${esc(alName(e))}</h3><p class="al-sub">${esc(alOtherName(e))}</p><p class="al-codes"><span class="al-code">IATA ${e.iata}</span><span class="al-code">ICAO ${e.icao}</span>${e.hkRegistered ? `<span class="al-code hk">${t().airlineHKReg}</span>` : ""}</p>${hub}${typesLine}${credit}</article>`;
+  }).join("");
+  body.innerHTML = `<p class="locked-note">${t().airlineIntro}</p>
+    <label class="search ap-search"><span>${t().searchLabel}</span><input id="airlineSearch" type="search" placeholder="${t().airlineSearchPh}" value="${esc(airlineQuery)}"></label>
+    <div class="ap-filters" role="group">${groups.map(([k, label]) => `<button type="button" class="ap-chip${airlineGroup === k ? " on" : ""}" data-alg="${k}">${esc(label)} (${k === "all" ? list.length : list.filter((e) => e.group === k).length})</button>`).join("")}</div>
+    <p class="ap-count">${shown.length} ${t().airlineCount}</p>
+    <div class="al-grid">${cards}</div>
+    <p class="ap-src">${t().airlineTm}</p>
+    <p class="ap-src">${t().airlineSrc}</p>`;
+  $("airlineSearch").addEventListener("input", (e) => { airlineQuery = e.target.value; renderAirlines(); const el = $("airlineSearch"); el.focus(); el.setSelectionRange(el.value.length, el.value.length); });
+  body.querySelectorAll("[data-alg]").forEach((b) => b.addEventListener("click", () => { airlineGroup = b.getAttribute("data-alg"); renderAirlines(); }));
+}
+function logoPool() { return AIRLINES_DATA ? AIRLINES_DATA.airlines.filter((e) => e.logo) : []; }
+function renderLogoGameIntro() {
+  const body = $("logoGameBody"); if (!body || logogame) return;
+  if (!AIRLINES_DATA) { body.innerHTML = `<p class="locked-note">${t().examLocked}</p>`; return; }
+  const best = loadLogoGameBest();
+  const bestTxt = best ? `${t().quizBest} ${best.score}（${best.correct} ${t().gameQuestions}）` : t().quizNone;
+  body.innerHTML = `<h3 class="lg-subtitle">${t().logoGameTitle}</h3><p class="locked-note">${t().logoGameIntro}</p>
+    <div class="quiz-levels"><div class="quiz-level"><h3>${logoPool().length} ${lang === "en" ? "logos" : "個標誌"}</h3><p>${esc(bestTxt)}</p><p><button type="button" class="quiz-start" id="logoGameStart">${t().gameStart}</button></p></div></div>`;
+  $("logoGameStart").addEventListener("click", startLogoGame);
+}
+function stopLogoGameTimer() { if (logogameTimer) { clearInterval(logogameTimer); logogameTimer = null; } }
+function logoGameOptions(answer, pool) {
+  const others = pool.filter((e) => e.iata !== answer.iata);
+  const same = apGameShuffle(others.filter((e) => e.group === answer.group));
+  const rest = apGameShuffle(others.filter((e) => e.group !== answer.group));
+  return apGameShuffle([answer].concat(same.concat(rest).slice(0, 3)));
+}
+function startLogoGame() {
+  const pool = logoPool();
+  if (pool.length < 4) return;
+  stopLogoGameTimer();
+  logogame = { pool, score: 0, streak: 0, maxStreak: 0, correct: 0, total: 0, last: null, locked: false, missed: [], endAt: Date.now() + 60000 };
+  nextLogoGameQ();
+  logogameTimer = setInterval(tickLogoGame, 100);
+  tickLogoGame();
+}
+function nextLogoGameQ() {
+  if (!logogame) return;
+  let a = logogame.pool[Math.floor(Math.random() * logogame.pool.length)];
+  if (logogame.pool.length > 1) while (a.iata === logogame.last) a = logogame.pool[Math.floor(Math.random() * logogame.pool.length)];
+  logogame.last = a.iata; logogame.locked = false; logogame.total += 1;
+  const types = ["logo2name", "logo2iata", "name2logo"];
+  if (alAirport(a)) types.push("logo2hub");
+  logogame.type = types[Math.floor(Math.random() * types.length)];
+  logogame.answer = a.iata;
+  let opts = logoGameOptions(a, logogame.pool);
+  if (logogame.type === "logo2hub") {
+    const seen = new Set([a.hubIata]);
+    const picked = [];
+    for (const e of apGameShuffle(logogame.pool.filter((x) => x.iata !== a.iata && x.hubIata))) {
+      if (!seen.has(e.hubIata)) { seen.add(e.hubIata); picked.push(e); }
+      if (picked.length === 3) break;
+    }
+    opts = apGameShuffle([a].concat(picked));
+    if (opts.length < 4) { logogame.type = "logo2name"; opts = logoGameOptions(a, logogame.pool); }
+  }
+  const remain = Math.max(0, logogame.endAt - Date.now());
+  const plate = `<div class="al-plate lg-plate"><img src="${a.logo.img}" alt=""></div>`;
+  let stage, optsHtml;
+  if (logogame.type === "logo2name") {
+    stage = `${plate}<p class="exam-prompt">${t().logoGameQName}</p>`;
+    optsHtml = opts.map((e) => `<button type="button" class="quiz-opt" data-lgopt="${e.iata}">${esc(alName(e))}</button>`).join("");
+  } else if (logogame.type === "logo2iata") {
+    stage = `${plate}<p class="exam-prompt">${t().logoGameQIata}</p>`;
+    optsHtml = opts.map((e) => `<button type="button" class="quiz-opt" data-lgopt="${e.iata}">${e.iata}</button>`).join("");
+  } else if (logogame.type === "logo2hub") {
+    stage = `${plate}<p class="exam-prompt">${t().logoGameQHub}</p>`;
+    optsHtml = opts.map((e) => `<button type="button" class="quiz-opt" data-lgopt="${e.iata}">${esc(alHubLabel(e))}</button>`).join("");
+  } else {
+    stage = `<p class="exam-prompt">${lang === "en" ? `Which of these is the ${esc(a.nameEn)} logo?` : `邊一個先係${esc(a.nameZh)}嘅標誌？`}</p>`;
+    optsHtml = opts.map((e) => `<button type="button" class="quiz-opt lg-opt" data-lgopt="${e.iata}"><img src="${e.logo.img}" alt=""></button>`).join("");
+  }
+  $("logoGameBody").innerHTML = `<div class="game-hud">
+      <span class="game-stat">${t().gameScore} <b id="logoGameScore">${logogame.score}</b></span>
+      <span class="game-stat">${t().gameStreak} <b id="logoGameStreak">x${logogame.streak}</b></span>
+      <span class="game-timebar"><i id="logoGameBar" style="width:${(remain / 600).toFixed(1)}%"></i></span>
+      <b class="game-clock" id="logoGameClock">${Math.ceil(remain / 1000)}s</b>
+      <button type="button" class="quiz-start alt game-quit" id="logoGameQuit">${t().gameQuit}</button>
+    </div>
+    ${stage}
+    <div class="quiz-opts">${optsHtml}</div>
+    <div id="logoGameFb"></div>`;
+  document.querySelectorAll("[data-lgopt]").forEach((b) => b.addEventListener("click", () => answerLogoGame(b)));
+  $("logoGameQuit").addEventListener("click", () => { stopLogoGameTimer(); logogame = null; renderLogoGameIntro(); });
+}
+function answerLogoGame(btn) {
+  if (!logogame || logogame.locked) return;
+  logogame.locked = true;
+  const a = logogame.pool.find((e) => e.iata === logogame.answer);
+  const right = btn.getAttribute("data-lgopt") === logogame.answer;
+  document.querySelectorAll("[data-lgopt]").forEach((b) => {
+    b.disabled = true;
+    if (b.getAttribute("data-lgopt") === logogame.answer) b.classList.add("right");
+    else if (b === btn) b.classList.add("wrong");
+  });
+  const fact = `${esc(alName(a))} · ${a.iata}${alAirport(a) ? ` · ${esc(alHubLabel(a))}` : ""}`;
+  let note;
+  if (right) {
+    logogame.correct += 1; logogame.streak += 1; logogame.maxStreak = Math.max(logogame.maxStreak, logogame.streak);
+    logogame.score += 10;
+    note = fact;
+    if (logogame.streak % 5 === 0) { logogame.score += 25; note += ` · ${t().gameBonus}`; }
+  } else {
+    logogame.streak = 0; logogame.endAt -= 3000;
+    if (!logogame.missed.includes(a.iata)) logogame.missed.push(a.iata);
+    note = `${t().wrong}${fact}`;
+  }
+  const sc = $("logoGameScore"); if (sc) sc.textContent = logogame.score;
+  const st = $("logoGameStreak"); if (st) st.textContent = `x${logogame.streak}`;
+  const fb = $("logoGameFb"); if (fb) fb.innerHTML = `<p class="quiz-feedback">${note}</p>`;
+  setTimeout(() => { if (logogame) { if (Date.now() >= logogame.endAt) finishLogoGame(); else nextLogoGameQ(); } }, right ? 320 : 900);
+}
+function tickLogoGame() {
+  if (!logogame) { stopLogoGameTimer(); return; }
+  const remain = logogame.endAt - Date.now();
+  const bar = $("logoGameBar"), clock = $("logoGameClock");
+  if (bar) { bar.style.width = `${Math.max(0, remain / 600)}%`; bar.classList.toggle("low", remain < 10000); }
+  if (clock) clock.textContent = `${Math.max(0, Math.ceil(remain / 1000))}s`;
+  if (remain <= 0) finishLogoGame();
+}
+function finishLogoGame() {
+  if (!logogame) return;
+  stopLogoGameTimer();
+  const g = logogame; logogame = null;
+  try {
+    const b = loadLogoGameBest();
+    if (!b || g.score > b.score) localStorage.setItem(LOGOGAME_BEST_KEY, JSON.stringify({ score: g.score, correct: g.correct, streak: g.maxStreak }));
+  } catch (e) { /* ignore */ }
+  const review = g.missed.length
+    ? `<p class="locked-note">${t().apGameReview}</p><ul class="apg-review">${g.missed.map((code) => { const e = AIRLINES_DATA.airlines.find((x) => x.iata === code); return `<li>${e && e.logo ? `<img class="lg-review-img" src="${e.logo.img}" alt=""> ` : ""}<b>${code}</b> — ${esc(e ? alName(e) : code)}${e && alAirport(e) ? `（${esc(alHubLabel(e))}）` : ""}</li>`; }).join("")}</ul>`
+    : `<p class="locked-note">${t().apGameNone}</p>`;
+  $("logoGameBody").innerHTML = `<p class="quiz-score">${t().gameOver} ${t().logoGameTitle}</p>
+    <p class="game-result">${t().gameScore} <b>${g.score}</b> · ${t().gameRight} ${g.correct}/${g.total} ${t().gameQuestions} · ${t().gameMaxStreak} x${g.maxStreak}</p>
+    ${review}
+    <p><button type="button" class="quiz-start" id="logoGameAgain">${t().gameAgain}</button> <button type="button" class="quiz-start alt" id="logoGameBack">${t().gameBack}</button></p>`;
+  $("logoGameAgain").addEventListener("click", () => startLogoGame());
+  $("logoGameBack").addEventListener("click", () => renderLogoGameIntro());
+}
+
+// ---------- airline matching game (v0.26; questions generated from verified airlines.json only) ----------
+const MATCH_BEST_KEY = "aircraft-encyclopedia.matchgame-best";
+let matchgame = null, matchTimer = null;
+function loadMatchBest() { try { const v = JSON.parse(localStorage.getItem(MATCH_BEST_KEY) || "{}"); return v && typeof v === "object" ? v : {}; } catch (e) { return {}; } }
+function stopMatchTimer() { if (matchTimer) { clearInterval(matchTimer); matchTimer = null; } }
+const MATCH_LEVELS = {
+  L1: { types: ["name2iata", "iata2name"], label: () => t().matchL1, desc: () => t().matchL1Desc },
+  L2: { types: ["name2icao", "icao2name"], label: () => t().matchL2, desc: () => t().matchL2Desc },
+  L3: { types: ["name2iata", "name2icao", "iata2icao", "icao2iata", "logo2iata", "logo2icao"], label: () => t().matchL3, desc: () => t().matchL3Desc }
+};
+function renderMatchIntro() {
+  const body = $("matchGameBody"); if (!body || matchgame) return;
+  if (!AIRLINES_DATA) { body.innerHTML = `<p class="locked-note">${t().examLocked}</p>`; return; }
+  const best = loadMatchBest();
+  const card = (key) => {
+    const b = best[key];
+    const bestTxt = b ? `${t().quizBest} ${b.score}（${b.correct} ${t().gameQuestions}）` : t().quizNone;
+    return `<div class="quiz-level"><h3>${MATCH_LEVELS[key].label()}</h3><p>${AIRLINES_DATA.airlines.length} ${lang === "en" ? "airlines" : "間航空公司"} · ${esc(bestTxt)}</p><p>${MATCH_LEVELS[key].desc()}</p><button type="button" class="quiz-start" data-match="${key}">${t().gameStart}</button></div>`;
+  };
+  body.innerHTML = `<p class="locked-note">${t().matchIntro}</p><div class="quiz-levels exam-cards">${card("L1")}${card("L2")}${card("L3")}</div>`;
+  body.querySelectorAll("[data-match]").forEach((b) => b.addEventListener("click", () => startMatchGame(b.getAttribute("data-match"))));
+}
+function matchPairing(e) {
+  return `${esc(alName(e))}（${esc(alOtherName(e))}）· IATA ${e.iata} · ICAO ${e.icao}${alAirport(e) ? ` · ${esc(alHubLabel(e))}` : ""}`;
+}
+function matchHintOf(e) {
+  const bits = [];
+  if (e.hkRegistered) bits.push(lang === "en" ? "Hong Kong-registered airline" : "香港註冊航空公司");
+  const hub = alHubLabel(e);
+  if (hub) bits.push((lang === "en" ? "hub: " : "樞紐：") + hub);
+  if (!bits.length) bits.push(lang === "en" ? "international airline" : "國際航空公司");
+  return bits.join(lang === "en" ? " · " : "；");
+}
+function matchOptions(answer, pool) {
+  const others = pool.filter((e) => e.iata !== answer.iata);
+  const same = apGameShuffle(others.filter((e) => e.group === answer.group));
+  const rest = apGameShuffle(others.filter((e) => e.group !== answer.group));
+  return apGameShuffle([answer].concat(same.concat(rest).slice(0, 3)));
+}
+function startMatchGame(level) {
+  if (!AIRLINES_DATA || AIRLINES_DATA.airlines.length < 4) return;
+  stopMatchTimer();
+  matchgame = { level, pool: AIRLINES_DATA.airlines, score: 0, streak: 0, maxStreak: 0, correct: 0, total: 0, last: null, locked: false, missed: [], endAt: Date.now() + 60000 };
+  nextMatchQ();
+  matchTimer = setInterval(tickMatch, 100);
+  tickMatch();
+}
+function nextMatchQ() {
+  if (!matchgame) return;
+  let a = matchgame.pool[Math.floor(Math.random() * matchgame.pool.length)];
+  if (matchgame.pool.length > 1) while (a.iata === matchgame.last) a = matchgame.pool[Math.floor(Math.random() * matchgame.pool.length)];
+  matchgame.last = a.iata; matchgame.locked = false; matchgame.total += 1;
+  const types = MATCH_LEVELS[matchgame.level].types;
+  let type = types[Math.floor(Math.random() * types.length)];
+  if ((type === "logo2iata" || type === "logo2icao") && !a.logo) type = type === "logo2iata" ? "name2iata" : "name2icao";
+  matchgame.type = type;
+  matchgame.answer = a.iata;
+  const opts = matchOptions(a, matchgame.pool);
+  const remain = Math.max(0, matchgame.endAt - Date.now());
+  const nameStage = `<div class="apg-stage"><span class="apg-name">${esc(alName(a))}</span><span class="apg-hint">${esc(alOtherName(a))}</span></div>`;
+  const plateStage = a.logo ? `<div class="al-plate lg-plate"><img src="${a.logo.img}" alt=""></div>` : "";
+  let stage, optsHtml;
+  if (type === "name2iata") {
+    stage = `${nameStage}<p class="exam-prompt">${t().logoGameQIata}</p>`;
+    optsHtml = opts.map((e) => `<button type="button" class="quiz-opt" data-mgopt="${e.iata}">${e.iata}</button>`).join("");
+  } else if (type === "name2icao") {
+    stage = `${nameStage}<p class="exam-prompt">${t().matchQPickIcao}</p>`;
+    optsHtml = opts.map((e) => `<button type="button" class="quiz-opt" data-mgopt="${e.iata}">${e.icao}</button>`).join("");
+  } else if (type === "iata2name") {
+    stage = `<div class="apg-stage"><span class="apg-code">${a.iata}</span></div><p class="exam-prompt">${t().matchQPickName}</p>`;
+    optsHtml = opts.map((e) => `<button type="button" class="quiz-opt" data-mgopt="${e.iata}">${esc(alName(e))}</button>`).join("");
+  } else if (type === "icao2name") {
+    stage = `<div class="apg-stage"><span class="apg-code">${a.icao}</span></div><p class="exam-prompt">${t().matchQPickName}</p>`;
+    optsHtml = opts.map((e) => `<button type="button" class="quiz-opt" data-mgopt="${e.iata}">${esc(alName(e))}</button>`).join("");
+  } else if (type === "iata2icao") {
+    stage = `<div class="apg-stage"><span class="apg-code">${a.iata}</span></div><p class="exam-prompt">${t().matchQIata2Icao}</p>`;
+    optsHtml = opts.map((e) => `<button type="button" class="quiz-opt" data-mgopt="${e.iata}">${e.icao}</button>`).join("");
+  } else if (type === "icao2iata") {
+    stage = `<div class="apg-stage"><span class="apg-code">${a.icao}</span></div><p class="exam-prompt">${t().matchQIcao2Iata}</p>`;
+    optsHtml = opts.map((e) => `<button type="button" class="quiz-opt" data-mgopt="${e.iata}">${e.iata}</button>`).join("");
+  } else if (type === "logo2iata") {
+    stage = `${plateStage}<p class="exam-prompt">${t().logoGameQIata}</p>`;
+    optsHtml = opts.map((e) => `<button type="button" class="quiz-opt" data-mgopt="${e.iata}">${e.iata}</button>`).join("");
+  } else {
+    stage = `${plateStage}<p class="exam-prompt">${t().matchQPickIcao}</p>`;
+    optsHtml = opts.map((e) => `<button type="button" class="quiz-opt" data-mgopt="${e.iata}">${e.icao}</button>`).join("");
+  }
+  $("matchGameBody").innerHTML = `<div class="game-hud">
+      <span class="game-stat">${t().gameScore} <b id="matchScore">${matchgame.score}</b></span>
+      <span class="game-stat">${t().gameStreak} <b id="matchStreak">x${matchgame.streak}</b></span>
+      <span class="game-timebar"><i id="matchBar" style="width:${(remain / 600).toFixed(1)}%"></i></span>
+      <b class="game-clock" id="matchClock">${Math.ceil(remain / 1000)}s</b>
+      <button type="button" class="quiz-start alt game-quit" id="matchQuit">${t().gameQuit}</button>
+    </div>
+    ${stage}
+    <div class="quiz-opts">${optsHtml}</div>
+    <div id="matchFb"></div>`;
+  document.querySelectorAll("[data-mgopt]").forEach((b) => b.addEventListener("click", () => answerMatch(b)));
+  $("matchQuit").addEventListener("click", () => { stopMatchTimer(); matchgame = null; renderMatchIntro(); });
+}
+function answerMatch(btn) {
+  if (!matchgame || matchgame.locked) return;
+  matchgame.locked = true;
+  const a = matchgame.pool.find((e) => e.iata === matchgame.answer);
+  const right = btn.getAttribute("data-mgopt") === matchgame.answer;
+  document.querySelectorAll("[data-mgopt]").forEach((b) => {
+    b.disabled = true;
+    if (b.getAttribute("data-mgopt") === matchgame.answer) b.classList.add("right");
+    else if (b === btn) b.classList.add("wrong");
+  });
+  let note;
+  if (right) {
+    matchgame.correct += 1; matchgame.streak += 1; matchgame.maxStreak = Math.max(matchgame.maxStreak, matchgame.streak);
+    matchgame.score += 10;
+    note = matchPairing(a);
+    if (matchgame.streak % 5 === 0) { matchgame.score += 25; note += ` · ${t().gameBonus}`; }
+  } else {
+    matchgame.streak = 0; matchgame.endAt -= 3000;
+    if (!matchgame.missed.includes(a.iata)) matchgame.missed.push(a.iata);
+    note = `${t().wrong}${matchPairing(a)}<br>${t().matchHint}：${esc(matchHintOf(a))}`;
+  }
+  const sc = $("matchScore"); if (sc) sc.textContent = matchgame.score;
+  const st = $("matchStreak"); if (st) st.textContent = `x${matchgame.streak}`;
+  const fb = $("matchFb"); if (fb) fb.innerHTML = `<p class="quiz-feedback">${note}</p>`;
+  setTimeout(() => { if (matchgame) { if (Date.now() >= matchgame.endAt) finishMatch(); else nextMatchQ(); } }, right ? 320 : 900);
+}
+function tickMatch() {
+  if (!matchgame) { stopMatchTimer(); return; }
+  const remain = matchgame.endAt - Date.now();
+  const bar = $("matchBar"), clock = $("matchClock");
+  if (bar) { bar.style.width = `${Math.max(0, remain / 600)}%`; bar.classList.toggle("low", remain < 10000); }
+  if (clock) clock.textContent = `${Math.max(0, Math.ceil(remain / 1000))}s`;
+  if (remain <= 0) finishMatch();
+}
+function finishMatch() {
+  if (!matchgame) return;
+  stopMatchTimer();
+  const g = matchgame; matchgame = null;
+  try {
+    const b = loadMatchBest();
+    if (!b[g.level] || g.score > b[g.level].score) { b[g.level] = { score: g.score, correct: g.correct, streak: g.maxStreak }; localStorage.setItem(MATCH_BEST_KEY, JSON.stringify(b)); }
+  } catch (e) { /* ignore */ }
+  const review = g.missed.length
+    ? `<p class="locked-note">${t().apGameReview}</p><ul class="apg-review">${g.missed.map((code) => { const e = AIRLINES_DATA.airlines.find((x) => x.iata === code); return `<li><b>${code}</b> — ${e ? matchPairing(e) : code}</li>`; }).join("")}</ul>`
+    : `<p class="locked-note">${t().apGameNone}</p>`;
+  $("matchGameBody").innerHTML = `<p class="quiz-score">${t().gameOver} ${MATCH_LEVELS[g.level].label()}</p>
+    <p class="game-result">${t().gameScore} <b>${g.score}</b> · ${t().gameRight} ${g.correct}/${g.total} ${t().gameQuestions} · ${t().gameMaxStreak} x${g.maxStreak}</p>
+    ${review}
+    <p><button type="button" class="quiz-start" id="matchAgain">${t().gameAgain}</button> <button type="button" class="quiz-start alt" id="matchBack">${t().gameBack}</button></p>`;
+  $("matchAgain").addEventListener("click", () => startMatchGame(g.level));
+  $("matchBack").addEventListener("click", () => renderMatchIntro());
+}
+
+// ---------- spot the airline + type game (v0.27; photos + operators from verified cards only) ----------
+// The operator of a depicted aircraft is taken from the card's verified photo credit
+// (creditEn first with boundary-safe longest-alias matching, then creditZh with >=3-char aliases);
+// cards that cannot be matched unambiguously to an airlines.json airline are excluded (fail closed).
+const SPOT_BEST_KEY = "aircraft-encyclopedia.spotgame-best";
+let spotgame = null, spotTimer = null, SPOT_POOL = null;
+function loadSpotBest() { try { const v = JSON.parse(localStorage.getItem(SPOT_BEST_KEY) || "null"); return v && typeof v.score === "number" ? v : null; } catch (e) { return null; } }
+function stopSpotTimer() { if (spotTimer) { clearInterval(spotTimer); spotTimer = null; } }
+const spotEscRe = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+function spotAirlineOf(a) {
+  if (!a.photo) return null;
+  const en = a.photo.creditEn || "";
+  let best = null;
+  AIRLINES.forEach((al, ai) => al.a.forEach((alias) => {
+    if (!/[A-Za-z]/.test(alias)) return;
+    if (new RegExp("(?<![A-Za-z])" + spotEscRe(alias) + "(?![a-z])").test(en) && (!best || alias.length > best.len)) best = { ai, len: alias.length };
+  }));
+  if (best) return best.ai;
+  const zh = a.photo.creditZh || "";
+  best = null;
+  AIRLINES.forEach((al, ai) => al.a.forEach((alias) => {
+    if (!/[^\x00-\x7F]/.test(alias) || alias.length < 3) return;
+    if (zh.indexOf(alias) >= 0 && (!best || alias.length > best.len)) best = { ai, len: alias.length };
+  }));
+  return best ? best.ai : null;
+}
+function spotEntryForAi(ai) {
+  const al = AIRLINES[ai]; if (!al || !AIRLINES_DATA) return null;
+  return AIRLINES_DATA.airlines.find((e) => al.a.includes(e.nameEn) || al.a.includes(e.nameZh) || al.en === e.nameEn || e.nameEn.startsWith(al.en) || al.en.startsWith(e.nameEn)) || null;
+}
+function spotPool() {
+  if (SPOT_POOL) return SPOT_POOL;
+  if (!DATA || !AIRLINES_DATA) return [];
+  const out = [];
+  for (const a of verifiedList()) {
+    const ai = spotAirlineOf(a); if (ai == null) continue;
+    const e = spotEntryForAi(ai); if (e) out.push({ a, e });
+  }
+  SPOT_POOL = out;
+  return out;
+}
+function renderSpotIntro() {
+  const body = $("spotGameBody"); if (!body || spotgame) return;
+  if (!DATA || !AIRLINES_DATA) { body.innerHTML = `<p class="locked-note">${t().examLocked}</p>`; return; }
+  const pool = spotPool();
+  const na = new Set(pool.map((x) => x.e.iata)).size;
+  const best = loadSpotBest();
+  const bestTxt = best ? `${t().quizBest} ${best.score}（${best.correct} ${t().gameQuestions}）` : t().quizNone;
+  body.innerHTML = `<p class="locked-note">${t().spotIntro}</p>
+    <div class="quiz-levels"><div class="quiz-level"><h3>${pool.length} ${lang === "en" ? "photos" : "張相"} · ${na} ${lang === "en" ? "airlines" : "間航空公司"}</h3><p>${esc(bestTxt)}</p><p><button type="button" class="quiz-start" id="spotStart">${t().gameStart}</button></p></div></div>`;
+  $("spotStart").addEventListener("click", startSpotGame);
+}
+function startSpotGame() {
+  const pool = spotPool();
+  if (pool.length < 8 || new Set(pool.map((x) => x.e.iata)).size < 4) return;
+  stopSpotTimer();
+  spotgame = { pool, score: 0, streak: 0, maxStreak: 0, correct: 0, total: 0, last: null, item: null, phase: "airline", locked: false, missed: [], endAt: Date.now() + 60000 };
+  nextSpotQ();
+  spotTimer = setInterval(tickSpot, 100);
+  tickSpot();
+}
+function spotAirlineOpts(answerE, pool) {
+  const airlines = [...new Map(pool.map((x) => [x.e.iata, x.e])).values()];
+  const others = airlines.filter((x) => x.iata !== answerE.iata);
+  const same = apGameShuffle(others.filter((x) => x.group === answerE.group));
+  const rest = apGameShuffle(others.filter((x) => x.group !== answerE.group));
+  return apGameShuffle([answerE].concat(same.concat(rest).slice(0, 3)));
+}
+function spotTypeOpts(answerA, pool) {
+  const others = pool.map((x) => x.a).filter((x) => x.seq !== answerA.seq);
+  const same = apGameShuffle(others.filter((x) => x.category === answerA.category));
+  const rest = apGameShuffle(others.filter((x) => x.category !== answerA.category));
+  return apGameShuffle([answerA].concat(same.concat(rest).slice(0, 3)));
+}
+function nextSpotQ() {
+  if (!spotgame) return;
+  let item = spotgame.pool[Math.floor(Math.random() * spotgame.pool.length)];
+  if (spotgame.pool.length > 1) while (item.a.seq === spotgame.last) item = spotgame.pool[Math.floor(Math.random() * spotgame.pool.length)];
+  spotgame.last = item.a.seq;
+  spotgame.item = item;
+  spotgame.phase = "airline";
+  spotgame.total += 1;
+  renderSpotQ();
+}
+function renderSpotQ() {
+  if (!spotgame || !spotgame.item) return;
+  const { a, e } = spotgame.item;
+  const isAirline = spotgame.phase === "airline";
+  const remain = Math.max(0, spotgame.endAt - Date.now());
+  let prompt, optsHtml;
+  if (isAirline) {
+    prompt = t().spotQAirline;
+    optsHtml = spotAirlineOpts(e, spotgame.pool).map((x) => `<button type="button" class="quiz-opt" data-spotopt="${x.iata}">${esc(alName(x))}</button>`).join("");
+  } else {
+    prompt = t().spotQType;
+    optsHtml = spotTypeOpts(a, spotgame.pool).map((x) => `<button type="button" class="quiz-opt" data-spotopt="${x.seq}">${esc(nameOf(x))}</button>`).join("");
+  }
+  $("spotGameBody").innerHTML = `<div class="game-hud">
+      <span class="game-stat">${t().gameScore} <b id="spotScore">${spotgame.score}</b></span>
+      <span class="game-stat">${t().gameStreak} <b id="spotStreak">x${spotgame.streak}</b></span>
+      <span class="game-timebar"><i id="spotBar" style="width:${(remain / 600).toFixed(1)}%"></i></span>
+      <b class="game-clock" id="spotClock">${Math.ceil(remain / 1000)}s</b>
+      <button type="button" class="quiz-start alt game-quit" id="spotQuit">${t().gameQuit}</button>
+    </div>
+    <div class="spot-photo">${photoImg(a, "spot-img")}</div>
+    <p class="exam-prompt">${prompt}</p>
+    <div class="quiz-opts">${optsHtml}</div>
+    <div id="spotFb"></div>`;
+  document.querySelectorAll("[data-spotopt]").forEach((b) => b.addEventListener("click", () => answerSpot(b)));
+  $("spotQuit").addEventListener("click", () => { stopSpotTimer(); spotgame = null; renderSpotIntro(); });
+}
+function answerSpot(btn) {
+  if (!spotgame || spotgame.locked) return;
+  spotgame.locked = true;
+  const { a, e } = spotgame.item;
+  const isAirline = spotgame.phase === "airline";
+  const answerVal = isAirline ? e.iata : a.seq;
+  const right = btn.getAttribute("data-spotopt") === answerVal;
+  document.querySelectorAll("[data-spotopt]").forEach((b) => {
+    b.disabled = true;
+    if (b.getAttribute("data-spotopt") === answerVal) b.classList.add("right");
+    else if (b === btn) b.classList.add("wrong");
+  });
+  const credit = esc(lang === "en" ? a.photo.creditEn : a.photo.creditZh);
+  let note;
+  if (right) {
+    spotgame.correct += 1; spotgame.streak += 1; spotgame.maxStreak = Math.max(spotgame.maxStreak, spotgame.streak);
+    spotgame.score += 10;
+    note = isAirline ? `${esc(alName(e))} · ${e.iata} / ${e.icao}` : `${esc(nameOf(a))}<br><span class="spot-credit">${credit}</span>`;
+    if (spotgame.streak % 5 === 0) { spotgame.score += 25; note += ` · ${t().gameBonus}`; }
+  } else {
+    spotgame.streak = 0; spotgame.endAt -= 3000;
+    if (!spotgame.missed.includes(a.seq)) spotgame.missed.push(a.seq);
+    note = isAirline ? `${t().wrong}${esc(alName(e))} · ${e.iata} / ${e.icao}` : `${t().wrong}${esc(nameOf(a))}<br><span class="spot-credit">${credit}</span>`;
+  }
+  const sc = $("spotScore"); if (sc) sc.textContent = spotgame.score;
+  const st = $("spotStreak"); if (st) st.textContent = `x${spotgame.streak}`;
+  const fb = $("spotFb"); if (fb) fb.innerHTML = `<p class="quiz-feedback">${note}</p>`;
+  setTimeout(() => {
+    if (!spotgame) return;
+    spotgame.locked = false;
+    if (Date.now() >= spotgame.endAt) { finishSpot(); return; }
+    if (spotgame.phase === "airline") { spotgame.phase = "type"; spotgame.total += 1; renderSpotQ(); }
+    else nextSpotQ();
+  }, right ? 600 : 1200);
+}
+function tickSpot() {
+  if (!spotgame) { stopSpotTimer(); return; }
+  const remain = spotgame.endAt - Date.now();
+  const bar = $("spotBar"), clock = $("spotClock");
+  if (bar) { bar.style.width = `${Math.max(0, remain / 600)}%`; bar.classList.toggle("low", remain < 10000); }
+  if (clock) clock.textContent = `${Math.max(0, Math.ceil(remain / 1000))}s`;
+  if (remain <= 0) finishSpot();
+}
+function finishSpot() {
+  if (!spotgame) return;
+  stopSpotTimer();
+  const g = spotgame; spotgame = null;
+  try {
+    const b = loadSpotBest();
+    if (!b || g.score > b.score) localStorage.setItem(SPOT_BEST_KEY, JSON.stringify({ score: g.score, correct: g.correct, streak: g.maxStreak }));
+  } catch (e) { /* ignore */ }
+  const bySeq = new Map(g.pool.map((x) => [x.a.seq, x]));
+  const review = g.missed.length
+    ? `<p class="locked-note">${t().apGameReview}</p><ul class="apg-review">${g.missed.map((seq) => { const it = bySeq.get(seq); if (!it) return ""; return `<li>${photoImg(it.a, "spot-review-img")}<b>${esc(alName(it.e))} ${it.e.iata}</b> · ${esc(nameOf(it.a))}<br><span class="spot-credit">${esc(lang === "en" ? it.a.photo.creditEn : it.a.photo.creditZh)}</span></li>`; }).join("")}</ul>`
+    : `<p class="locked-note">${t().apGameNone}</p>`;
+  $("spotGameBody").innerHTML = `<p class="quiz-score">${t().gameOver} ${t().spotTitle}</p>
+    <p class="game-result">${t().gameScore} <b>${g.score}</b> · ${t().gameRight} ${g.correct}/${g.total} ${t().gameQuestions} · ${t().gameMaxStreak} x${g.maxStreak}</p>
+    ${review}
+    <p><button type="button" class="quiz-start" id="spotAgain">${t().gameAgain}</button> <button type="button" class="quiz-start alt" id="spotBack">${t().gameBack}</button></p>`;
+  $("spotAgain").addEventListener("click", () => startSpotGame());
+  $("spotBack").addEventListener("click", () => renderSpotIntro());
+}
+
+$("langToggle").addEventListener("click", () => { lang = lang === "en" ? "zh" : "en"; quiz = null; examModel = null; examKeyShown = false; stopGameTimer(); game = null; stopShooter(); stopApGameTimer(); apgame = null; destroyApgMap(); stopLogoGameTimer(); logogame = null; stopMatchTimer(); matchgame = null; stopSpotTimer(); spotgame = null; applyLang(); renderAirlines(); renderLogoGameIntro(); renderMatchIntro(); renderSpotIntro(); });
 $("searchInput").addEventListener("input", (e) => { query = e.target.value; render(); });
 $("detailClose").addEventListener("click", () => { const d = $("detailDialog"); if (d.close) d.close(); else d.removeAttribute("open"); });
 
 fetch("data/aircraft-inventory.json").then((r) => { if (!r.ok) throw new Error("load"); return r.json(); })
-  .then((d) => { DATA = d; applyLang(); })
+  .then((d) => { DATA = d; applyLang(); fetch("data/exam-blueprints.json").then((r) => { if (!r.ok) throw new Error("bp"); return r.json(); }).then((b) => { BLUEPRINTS = b; renderExamIntro(); }).catch(() => {}); fetch("data/airports.json").then((r) => { if (!r.ok) throw new Error("ap"); return r.json(); }).then((d) => { AIRPORTS = d; renderAirports(); renderApGameIntro(); renderAirlines(); }).catch(() => {}); fetch("data/airlines.json").then((r) => { if (!r.ok) throw new Error("al"); return r.json(); }).then((d) => { AIRLINES_DATA = d; renderAirlines(); renderLogoGameIntro(); renderMatchIntro(); renderSpotIntro(); }).catch(() => {}); })
   .catch(() => { $("loadError").hidden = false; applyLang(); });

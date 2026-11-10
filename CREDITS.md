@@ -165,9 +165,51 @@
 | AC-0143 洪都 K-8 喀喇崑崙教練機 | https://commons.wikimedia.org/wiki/File:19332_-_Hongdu_K-8W_Karakorum_-_Bangladesh_-_Air_Force_-_VGHS.jpg | Md Shaifuzzaman Ayon | CC BY-SA 4.0 | 圖下 credit 行＋本表 |
 | AC-0144 南昌 初教-6 初級教練機 | https://commons.wikimedia.org/wiki/File:Nanchang_CJ-6_N22591_FDK_MD1.jpg | Acroterion | CC BY-SA 4.0 | 圖下 credit 行＋本表 |
 | AC-0145 成都 翼龍 II 無人攻擊機 | https://commons.wikimedia.org/wiki/File:Wing_Loong_II_side_view.jpg | Mztourist | CC BY-SA 4.0 | 圖下 credit 行＋本表 |
+| AC-0146 德哈維蘭 彗星 | https://commons.wikimedia.org/wiki/File:BEA_de_Havilland_DH-106_Comet_4B_Berlin.jpg | Ralf Manteufel | GFDL 1.2 only | 圖下 credit 行＋本表 |
+| AC-0147 波音 707 | https://commons.wikimedia.org/wiki/File:Boeing_707-321B,_Pan_American_World_Airways_-_Pan_Am_AN0938388.jpg | Michel Gilliand | GFDL 1.2 only | 圖下 credit 行＋本表 |
+| AC-0148 超級馬林 噴火 | https://commons.wikimedia.org/wiki/File:Temora_Aviation_Museum_(VH-XVI)_Supermarine_Spitfire_Mk_XVI_taking_off_at_the_2019_Australian_International_Airshow.jpg | Bidgee | CC BY-SA 3.0 au | 圖下 credit 行＋本表 |
+| AC-0149 北美 P-51 野馬 | https://commons.wikimedia.org/wiki/File:P-51-361.jpg | USAAF / 361st FG Association | Public domain | 圖下 credit 行＋本表 |
+| AC-0150 波音 B-29 超級堡壘 | https://commons.wikimedia.org/wiki/File:Olive-drab_painted_B-29_superfortress.jpg | U.S. Army Air Corps | Public domain | 圖下 credit 行＋本表 |
+| AC-0151 三菱 A6M 零式 | https://commons.wikimedia.org/wiki/File:A6M3_Zero_N712Z_1.jpg | Kogo | GFDL | 圖下 credit 行＋本表 |
+| AC-0152 麥道 F-4 幽靈 II | https://commons.wikimedia.org/wiki/File:F-4_Phantom_in_flight_Apr_1982.jpg | Garfield F. Jones, U.S. Air Force | Public domain | 圖下 credit 行＋本表 |
+| AC-0153 貝爾 UH-1 易洛魁「休伊」 | https://commons.wikimedia.org/wiki/File:Iraqi_air_force_UH-1H_II_Huey_helicopter.JPG | Michael B. Keller, U.S. Air Force | Public domain | 圖下 credit 行＋本表 |
+| AC-0154 格魯曼 F-14 雄貓 | https://commons.wikimedia.org/wiki/File:F-14A_Tomcat_over_Iraq_during_Southern_Watch.jpg | Cdr. David Baranek, U.S. Navy | Public domain | 圖下 credit 行＋本表 |
+| AC-0155 波音 AH-64 阿帕契 | https://commons.wikimedia.org/wiki/File:AH-64D_Apache_Longbow.jpg | Tech. Sgt. Andy Dunaway, U.S. Army | Public domain | 圖下 credit 行＋本表 |
+| AC-0156 諾斯洛普·格魯曼 B-2 幽靈 | https://commons.wikimedia.org/wiki/File:B-2_Spirit_takes_off_in_Guam.jpg | Airman Miranda U. Moorer, U.S. Air Force | Public domain | 圖下 credit 行＋本表 |
+| AC-0157 通用原子 MQ-9 收割者 | https://commons.wikimedia.org/wiki/File:62d_Expeditionary_Reconnaissance_Squadron_-_MQ-9_Reaper.jpg | Staff Sgt. James L. Harper Jr., U.S. Air Force | Public domain | 圖下 credit 行＋本表 |
 
 規格來源逐項記喺 `data/aircraft-inventory.json` 每格的 `source` 連結；
 來源優先次序見 `docs/04-data-schema-and-verification.md`。參考網站只作體驗研究（見 docs/01），無搬用其文字或圖片。
 
 ---
 © SCOUT SYSTEM · COPYRIGHT SCOUT SYSTEM · Aircraft-Encyclopedia v0.11
+
+## 航空公司標誌（v0.25）
+
+標誌圖全部外連 Wikimedia Commons 縮圖（唔入 Git），逐檔以 Commons imageinfo 核實存在、現行版本同授權（2026-11-10），只用 Public domain 檔案。注意：Public domain 只指圖檔本身版權；標誌嘅商標權仍屬各航空公司，本站只作教學辨認用途。5 間未有可自由使用現行標誌嘅航空公司（香港快運只有 2013 年舊版、香港航空、大灣區航空、中國東方航空、聯合航空只有歷史標誌）唔用圖，以文字牌顯示。
+
+| 航空公司 | Commons 檔案頁 | 作者 | 授權 | 標示方式 |
+|---|---|---|---|---|
+| 國泰航空 CX | https://commons.wikimedia.org/wiki/File:Cathay_Pacific_Ltd._logo.svg | Cathay Pacific | Public domain | 圖下 credit 行＋本表 |
+| 新加坡航空 SQ | https://commons.wikimedia.org/wiki/File:Singapore_Airlines_Logo.svg | EEIM / Sushant savla | Public domain | 圖下 credit 行＋本表 |
+| 全日空 NH | https://commons.wikimedia.org/wiki/File:All_Nippon_Airways_Logo.svg | All Nippon Airways Co., Ltd. | Public domain | 圖下 credit 行＋本表 |
+| 日本航空 JL | https://commons.wikimedia.org/wiki/File:Japan_Airlines_Wordmark_(2011).svg | Japan Airlines | Public domain | 圖下 credit 行＋本表 |
+| 大韓航空 KE | https://commons.wikimedia.org/wiki/File:Korean_Air_2025.svg | Korean Air (designed by Lippincott) | Public domain | 圖下 credit 行＋本表 |
+| 韓亞航空 OZ | https://commons.wikimedia.org/wiki/File:Asiana_Airlines_(2024).svg | Asiana Airlines | Public domain | 圖下 credit 行＋本表 |
+| 長榮航空 BR | https://commons.wikimedia.org/wiki/File:Logo_EVA_Air.svg | EVA Air | Public domain | 圖下 credit 行＋本表 |
+| 中華航空 CI | https://commons.wikimedia.org/wiki/File:China_Airlines_wordmark.svg | China Airlines | Public domain | 圖下 credit 行＋本表 |
+| 中國國際航空 CA | https://commons.wikimedia.org/wiki/File:Air_China_wordmark.svg | Air China Limited | Public domain | 圖下 credit 行＋本表 |
+| 中國南方航空 CZ | https://commons.wikimedia.org/wiki/File:China_Southern_Airlines_wordmark_logo.svg | China Southern Air Holding | Public domain | 圖下 credit 行＋本表 |
+| 亞洲航空 AK | https://commons.wikimedia.org/wiki/File:AirAsia_New_Logo.svg | AirAsia | Public domain | 圖下 credit 行＋本表 |
+| 泰國國際航空 TG | https://commons.wikimedia.org/wiki/File:Thai_Airways_logo.svg | Thai Airways | Public domain | 圖下 credit 行＋本表 |
+| 越南航空 VN | https://commons.wikimedia.org/wiki/File:Vietnam_Airlines_2015_wordmark.svg | Vietnam Airlines JSC | Public domain | 圖下 credit 行＋本表 |
+| 澳洲航空 QF | https://commons.wikimedia.org/wiki/File:Qantas_wordmark_2016.svg | Qantas Airways Limited | Public domain | 圖下 credit 行＋本表 |
+| 新西蘭航空 NZ | https://commons.wikimedia.org/wiki/File:Air_New_Zealand_logo.svg | Air New Zealand | Public domain | 圖下 credit 行＋本表 |
+| 宿霧太平洋航空 5J | https://commons.wikimedia.org/wiki/File:Cebu_Pacific_wordmark.svg | Cebu Air, Inc. | Public domain | 圖下 credit 行＋本表 |
+| 英國航空 BA | https://commons.wikimedia.org/wiki/File:BRITISH_AIRWAYS_logo.svg | British Airways Plc. | Public domain | 圖下 credit 行＋本表 |
+| 漢莎航空 LH | https://commons.wikimedia.org/wiki/File:Lufthansa_Logo_2018.svg | Lufthansa Group | Public domain | 圖下 credit 行＋本表 |
+| 阿聯酋航空 EK | https://commons.wikimedia.org/wiki/File:Emirates_Logo.svg | The Emirates Group | Public domain | 圖下 credit 行＋本表 |
+| 卡塔爾航空 QR | https://commons.wikimedia.org/wiki/File:Qatar_Airways_logo.svg | Qatar Airways | Public domain | 圖下 credit 行＋本表 |
+| 土耳其航空 TK | https://commons.wikimedia.org/wiki/File:Turkish_Airlines_logo_2019_compact.svg | Turkish Airlines | Public domain | 圖下 credit 行＋本表 |
+| 聯邦快遞航空 FX | https://commons.wikimedia.org/wiki/File:FedEx_Express.svg | FedEx Express | Public domain | 圖下 credit 行＋本表 |
+| 達美航空 DL | https://commons.wikimedia.org/wiki/File:Delta_logo.svg | Delta Air Lines | Public domain | 圖下 credit 行＋本表 |

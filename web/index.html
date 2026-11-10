@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="copyright" content="© SCOUT SYSTEM">
-<meta name="app-version" content="0.11.0">
+<meta name="app-version" content="0.30.0">
 <meta name="description" content="飛機圖鑑 Aircraft Encyclopedia：由圖片認識飛機，學識辨認。資料逐款核實。">
 <meta property="og:type" content="website">
 <meta property="og:title" content="飛機圖鑑 Aircraft Encyclopedia v0.7">
@@ -17,6 +17,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
 <link rel="manifest" href="manifest.webmanifest">
 <title>飛機圖鑑 v0.7｜Aircraft Encyclopedia</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -49,6 +50,9 @@
     </label>
     <div class="chip-group"><span class="chip-label" data-i18n="catLabel">類別</span><div id="categoryChips" class="chips" role="group" aria-label="Category"></div></div>
     <div class="chip-group"><span class="chip-label" data-i18n="scoutLabel">章級別</span><div id="scoutChips" class="chips" role="group" aria-label="Scout badge"></div></div>
+    <div class="chip-group"><span class="chip-label" data-i18n="colLabel">探索系列</span><div id="collectionChips" class="chips" role="group" aria-label="Collections"></div></div>
+    <div class="chip-group"><span class="chip-label" data-i18n="eraLabel">首飛年代</span><div id="eraChips" class="chips" role="group" aria-label="First-flight era"></div></div>
+    <div class="chip-group"><span class="chip-label" data-i18n="originLabel">製造國</span><div id="originChips" class="chips" role="group" aria-label="Country of origin"></div></div>
     <div class="chip-group"><span class="chip-label" data-i18n="statusLabel">狀態</span><div id="statusChips" class="chips" role="group" aria-label="Status"></div></div>
     <div class="chip-group"><span class="chip-label" data-i18n="facetLabel">特徵</span><select id="facetSelect" class="facet-select" aria-label="Features"></select></div>
   </section>
@@ -72,15 +76,46 @@
     <div id="quizBody"></div>
   </section>
 
-  <section class="locked">
-    <article>
-      <h2 data-i18n="examTitle">考卷（領袖出卷）</h2>
-      <p data-i18n="examLocked">按章級別出試卷連領袖答案紙，要等嗰一級核實的機型夠數先開放，確保每條題目答案正確。</p>
-    </article>
-    <article>
-      <h2 data-i18n="gamesTitle">未來小遊戲</h2>
-      <p data-i18n="gamesLocked">航空公司配對同機場名稱遊戲會喺資料核實後推出，對應航空活動章同空勤員章的辨認要求。</p>
-    </article>
+  <section id="examSection" class="panel" aria-labelledby="examTitle">
+    <h2 id="examTitle" data-i18n="examTitle">考卷（領袖出卷）</h2>
+    <div id="examBody"></div>
+    <div id="examPaper"></div>
+  </section>
+
+  <section id="gameSection" class="panel" aria-labelledby="gamesTitle">
+    <h2 id="gamesTitle" data-i18n="gamesTitle">小遊戲：限時認機大挑戰</h2>
+    <div id="gameBody"></div>
+  </section>
+
+  <section id="shooterSection" class="panel" aria-labelledby="shTitle">
+    <h2 id="shTitle" data-i18n="shTitle">小遊戲：認機空防戰</h2>
+    <div id="shooterBody"></div>
+  </section>
+
+  <section id="apGameSection" class="panel" aria-labelledby="apGameTitle">
+    <h2 id="apGameTitle" data-i18n="apGameTitle">小遊戲：機場代碼大挑戰</h2>
+    <div id="apGameBody"></div>
+  </section>
+
+  <section id="airportSection" class="panel" aria-labelledby="airportTitle">
+    <h2 id="airportTitle" data-i18n="airportTitle">機場代碼與世界地圖</h2>
+    <div id="airportBody"></div>
+  </section>
+
+  <section id="airlineSection" class="panel" aria-labelledby="airlineTitle">
+    <h2 id="airlineTitle" data-i18n="airlineTitle">航空公司標誌圖鑑</h2>
+    <div id="airlineBody"></div>
+    <div id="logoGameBody"></div>
+  </section>
+
+  <section id="matchSection" class="panel" aria-labelledby="matchTitle">
+    <h2 id="matchTitle" data-i18n="matchTitle">小遊戲：航空公司配對</h2>
+    <div id="matchGameBody"></div>
+  </section>
+
+  <section id="spotSection" class="panel" aria-labelledby="spotTitle">
+    <h2 id="spotTitle" data-i18n="spotTitle">小遊戲：睇相認公司＋機種</h2>
+    <div id="spotGameBody"></div>
   </section>
 </main>
 
@@ -96,6 +131,7 @@
   <p>© SCOUT SYSTEM · COPYRIGHT SCOUT SYSTEM · Aircraft-Encyclopedia v0.7 · <a href="https://github.com/playerkousas-rgb/Aircraft-Encyclopedia/blob/main/CREDITS.md">CREDITS</a> · MIT License</p>
   <p data-i18n="footerNote">相片未核實前唔會上載；規格要有來源先會顯示。第三方相片依原授權標示，不加本站水印。</p>
 </footer>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 <script src="app.js"></script>
 </body>
 </html>
