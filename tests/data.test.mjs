@@ -128,6 +128,9 @@ test("機場資料：160 個國際機場（151 個香港直航），代碼唯一
     assert.ok(REGIONS.has(p.region), p.iata + " region 唔識：" + p.region);
   }
   assert.equal(aps.filter((p) => p.hkDirect).length, 151, "香港直航航點數");
+  const directPool = aps.filter((p) => p.hkDirect || p.iata === "HKG");
+  assert.equal(directPool.length, 152, "代碼遊戲直航線題池（直航 151＋主場）");
+  assert.ok(aps.length >= 4 && directPool.length >= 4, "代碼遊戲題池夠出四選一");
   const hkg = aps.find((p) => p.iata === "HKG");
   assert.ok(hkg && Math.abs(hkg.lat - 22.308) < 0.1 && Math.abs(hkg.lng - 113.91) < 0.1, "HKG 座標合理");
   assert.equal(hkg.region, "home");

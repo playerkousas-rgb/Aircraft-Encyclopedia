@@ -148,6 +148,14 @@ table.compare img{width:100%;max-width:300px;aspect-ratio:16/10;object-fit:cover
 .ap-legend .ap-pin{transform:none}
 .ap-tag{align-self:flex-start;font-size:.7rem;font-weight:800;color:#92580a;background:#fdf0d5;border-radius:99px;padding:.1rem .5rem;margin-top:.1rem}
 .ap-tag.home{color:#6b4e00;background:#fbe9a8}
+.apg-stage{display:flex;flex-direction:column;align-items:center;gap:.3rem;padding:1.1rem .6rem;border:1.5px solid var(--line);border-radius:12px;background:var(--card);margin:.4rem 0}
+.apg-code{font-size:2.6rem;font-weight:900;letter-spacing:.14em;color:var(--navy);line-height:1.1}
+.apg-name{font-size:1.3rem;font-weight:900;color:var(--navy);text-align:center;line-height:1.35}
+.apg-hint{color:var(--muted);font-weight:700}
+.apg-map{height:280px;border-radius:12px;border:1px solid var(--line);isolation:isolate;background:#dcebf4;margin:.4rem 0}
+.apg-qpin{background:#c0392b;font-size:13px}
+.apg-review{margin:.3rem 0 .7rem;padding-left:1.3rem;line-height:1.6}
+@media (max-width:560px){.apg-map{height:230px}.apg-code{font-size:2.1rem}}
 @media (max-width:560px){.airport-map{height:320px}}
 .quiz-pick{font-weight:800;color:var(--navy);margin:.6rem 0 .2rem}
 .quiz-levels{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.7rem;max-width:640px;margin:.4rem 0 1rem}
