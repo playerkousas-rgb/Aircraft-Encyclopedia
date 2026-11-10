@@ -238,6 +238,7 @@ table.specs a{color:var(--sky)}
 .exam-line{border-bottom:1px solid #9a917e;min-height:1.6rem;margin:.3rem 0;color:var(--muted)}
 .exam-match{display:grid;grid-template-columns:1fr 1fr;gap:.6rem 2rem;max-width:760px}
 .exam-match ol{margin:.2rem 0;padding-left:1.4rem;line-height:2}
+.exam-al-logo{height:18px;max-width:64px;object-fit:contain;background:#fff;border:1px solid var(--line);border-radius:4px;vertical-align:middle;margin:.1rem .4rem .1rem 0;padding:1px 3px}
 .exam-key{display:none;background:var(--ok-bg);border:1px dashed var(--ok);border-radius:8px;padding:.55rem .75rem;margin:.45rem 0;line-height:1.65}
 .exam-sheet.show-key .exam-key{display:block}
 .exam-sheet.show-key .exam-opts .is-answer{font-weight:900;text-decoration:underline}

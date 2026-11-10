@@ -1,6 +1,6 @@
 "use strict";
 /* Aircraft-Encyclopedia v0.7 · © SCOUT SYSTEM · APP_VERSION 0.9.0 */
-const APP_VERSION = "0.29.0";
+const APP_VERSION = "0.30.0";
 const LANG_KEY = "aircraft-encyclopedia.lang";
 const QUIZ_BEST_KEY = "aircraft-encyclopedia.quiz-best";
 function loadQuizBest() { try { const v = JSON.parse(localStorage.getItem(QUIZ_BEST_KEY) || "{}"); return v && typeof v === "object" ? v : {}; } catch (e) { return {}; } }
@@ -711,7 +711,13 @@ function renderExamSection(s, si, bySeq) {
   } else if (s.def.type === "airline-matching") {
     marks = s.items.length;
     const left = s.items.map((it, i) => `<li>${esc(nameOf(bySeq.get(it.seq)))}（　）</li>`).join("");
-    const right = s.right.map((ai, i) => `<li>${String.fromCharCode(65 + i)}. ${esc(lang === "en" ? AIRLINES[ai].en : AIRLINES[ai].zh)}</li>`).join("");
+    // Logos from the verified PD library (airlines.json) sit beside the already-visible names —
+    // the pairing is the answer, so a decorative logo leaks nothing; logo-less airlines stay text-only.
+    const right = s.right.map((ai, i) => {
+      const e = spotEntryForAi(ai);
+      const logo = e && e.logo ? `<img class="exam-al-logo" src="${esc(e.logo.img)}" alt="">` : "";
+      return `<li>${String.fromCharCode(65 + i)}. ${logo}${esc(lang === "en" ? AIRLINES[ai].en : AIRLINES[ai].zh)}</li>`;
+    }).join("");
     const key = s.items.map((it, i) => {
       const li = s.right.indexOf(it.ai);
       const snip = lang === "en" ? (it.snippetEn || it.snippetZh) : (it.snippetZh || it.snippetEn);
