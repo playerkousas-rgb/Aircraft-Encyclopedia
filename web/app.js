@@ -1,7 +1,10 @@
 "use strict";
 /* Aircraft-Encyclopedia v0.7 · © SCOUT SYSTEM · APP_VERSION 0.9.0 */
-const APP_VERSION = "0.15.0";
+const APP_VERSION = "0.16.0";
 const LANG_KEY = "aircraft-encyclopedia.lang";
+const QUIZ_BEST_KEY = "aircraft-encyclopedia.quiz-best";
+function loadQuizBest() { try { const v = JSON.parse(localStorage.getItem(QUIZ_BEST_KEY) || "{}"); return v && typeof v === "object" ? v : {}; } catch (e) { return {}; } }
+function saveQuizBest(level, score) { try { const b = loadQuizBest(); if (b[level] == null || score > b[level]) { b[level] = score; localStorage.setItem(QUIZ_BEST_KEY, JSON.stringify(b)); } } catch (e) { /* ignore */ } }
 
 const STR = {
   zh: {
@@ -34,6 +37,7 @@ const STR = {
     quizLocked: "要等至少四款飛機連相片完成核實先開放測驗，而家題目池未夠。",
     quizIntro: "題目只用已核實的圖卡：睇相揀啱機型名。答錯會即刻講返點認，唔使死背。",
     quizStart: "開始測驗", quizNext: "下一題", quizAgain: "再玩一次", quizQ: "呢架係邊款飛機？",
+    quizPickLevel: "按章級數分開操：揀你考緊嗰級，只出嗰級的機型。", quizFree: "自由練習（唔分級）", quizBest: "最佳", quizNone: "未開始", quizBack: "返去揀級數",
     correct: "啱咗！", wrong: "唔啱，正確答案係：", score: "完成！你啱咗",
     checks: { identity: "身份：中英名、製造商、ICAO 代碼", history: "歷史：首飛與現況", specs: "規格：尺寸、引擎、座位/載重、航程", recognition: "辨認：肉眼特徵與相似機型分別", photo: "相片：授權與標註座標", links: "深度連結：官方、維基、FR24、圖庫", bilingual: "英文：名稱與辨認特徵", quiz: "測驗：題目與答案核對" }
   },
@@ -67,6 +71,7 @@ const STR = {
     quizLocked: "The quiz opens after at least four aircraft with photos are fully verified.",
     quizIntro: "Questions use verified cards only: look at the photo and pick the right type. Wrong answers explain how to tell, so you learn instead of memorising.",
     quizStart: "Start quiz", quizNext: "Next question", quizAgain: "Play again", quizQ: "Which aircraft is this?",
+    quizPickLevel: "Drill by badge level: pick your level to face only its aircraft.", quizFree: "Free practice (any level)", quizBest: "Best", quizNone: "Not started", quizBack: "Back to levels",
     correct: "Correct!", wrong: "Not quite — the answer is: ", score: "Done! You scored",
     checks: { identity: "Identity: names, manufacturer, ICAO code", history: "History: first flight and status", specs: "Specs: dimensions, engines, seats/payload, range", recognition: "Recognition: visible features and look-alikes", photo: "Photo: licence and annotation points", links: "Deep links: official, Wikipedia, FR24, gallery", bilingual: "English: names and recognition notes", quiz: "Quiz: questions and answers checked" }
   }
@@ -340,9 +345,17 @@ function renderQuizIntro() {
   const body = $("quizBody"); if (!body || quiz) return;
   const pool = verifiedList();
   if (pool.length < 4) { body.innerHTML = `<p class="locked-note">${t().quizLocked} (${pool.length}/4)</p>`; return; }
+  const best = loadQuizBest();
+  const levelCards = Object.entries(SCOUT_LABEL).map(([k, v]) => {
+    const n = pool.filter((a) => a.scout && a.scout.level === k).length;
+    const b = best[k];
+    const bestTxt = b == null ? t().quizNone : `${t().quizBest} ${b}/12`;
+    return `<div class="quiz-level"><h3>${esc(lang === "en" ? v[1] : v[0])}</h3><p>${n} ${lang === "en" ? "types" : "款"} · 12 ${lang === "en" ? "questions" : "題"} · ${esc(bestTxt)}</p><button type="button" class="quiz-start" data-level="${k}">${t().quizStart}</button></div>`;
+  }).join("");
   const opt = (v, label) => `<option value="${v}"${quizScope === v ? " selected" : ""}>${esc(label)}</option>`;
-  const scopeSel = `<label class="quiz-scope">${t().quizScopeLabel}<select id="quizScopeSel">${opt("all", t().quizAll)}<optgroup label="${esc(t().scoutLabel)}">${Object.entries(SCOUT_LABEL).map(([k, v]) => opt("scout:" + k, lang === "en" ? v[1] : v[0])).join("")}</optgroup><optgroup label="${esc(t().colLabel)}">${Object.entries(COLLECTION_LABEL).map(([k, v]) => opt("coll:" + k, lang === "en" ? v[1] : v[0])).join("")}</optgroup><optgroup label="${esc(t().eraLabel)}">${ERA_BANDS.map((b) => opt("era:" + b[0], (lang === "en" ? b[4] : b[3]) + " " + b[5])).join("")}</optgroup></select></label>`;
-  body.innerHTML = `<p class="locked-note">${t().quizIntro}</p>${scopeSel}<button type="button" class="quiz-start" id="quizStart">${t().quizStart}</button>`;
+  const scopeSel = `<label class="quiz-scope">${t().quizScopeLabel}<select id="quizScopeSel">${opt("all", t().quizAll)}<optgroup label="${esc(t().colLabel)}">${Object.entries(COLLECTION_LABEL).map(([k, v]) => opt("coll:" + k, lang === "en" ? v[1] : v[0])).join("")}</optgroup><optgroup label="${esc(t().eraLabel)}">${ERA_BANDS.map((b) => opt("era:" + b[0], (lang === "en" ? b[4] : b[3]) + " " + b[5])).join("")}</optgroup></select></label>`;
+  body.innerHTML = `<p class="locked-note">${t().quizIntro}</p><p class="quiz-pick">${t().quizPickLevel}</p><div class="quiz-levels">${levelCards}</div><div class="quiz-free"><p class="quiz-pick">${t().quizFree}</p>${scopeSel}<button type="button" class="quiz-start" id="quizStart">${t().quizStart}</button></div>`;
+  body.querySelectorAll("[data-level]").forEach((b) => b.addEventListener("click", () => startLevelQuiz(b.getAttribute("data-level"))));
   $("quizScopeSel").addEventListener("change", (e) => { quizScope = e.target.value; });
   $("quizStart").addEventListener("click", startQuiz);
 }
@@ -351,14 +364,22 @@ function startQuiz() {
   const scopePool = quizPool();
   const pool = scopePool.length ? scopePool : verifiedList();
   const shuffled = [...pool].sort(() => Math.random() - 0.5);
-  quiz = { items: shuffled.slice(0, Math.min(5, shuffled.length)), idx: 0, score: 0, answered: false };
+  quiz = { items: shuffled.slice(0, Math.min(5, shuffled.length)), idx: 0, score: 0, answered: false, level: null, pool };
+  showQuestion();
+}
+
+function startLevelQuiz(level) {
+  const pool = verifiedList().filter((a) => a.scout && a.scout.level === level);
+  if (pool.length < 4) return;
+  const shuffled = [...pool].sort(() => Math.random() - 0.5);
+  quiz = { items: shuffled.slice(0, Math.min(12, shuffled.length)), idx: 0, score: 0, answered: false, level, pool };
   showQuestion();
 }
 
 function showQuestion() {
   const body = $("quizBody");
   const a = quiz.items[quiz.idx];
-  const inScope = quizPool().filter((x) => x.seq !== a.seq).sort(() => Math.random() - 0.5);
+  const inScope = quiz.pool.filter((x) => x.seq !== a.seq).sort(() => Math.random() - 0.5);
   const extra = verifiedList().filter((x) => x.seq !== a.seq && !inScope.some((s) => s.seq === x.seq)).sort(() => Math.random() - 0.5);
   const others = [...inScope, ...extra].slice(0, 3);
   const options = [...others, a].sort(() => Math.random() - 0.5);
@@ -387,10 +408,16 @@ function answerQuiz(btn, a) {
   $("quizNext").addEventListener("click", () => {
     quiz.idx += 1;
     if (quiz.idx < quiz.items.length) { showQuestion(); return; }
-    const finalScore = quiz.score, totalQ = quiz.items.length;
+    const finalScore = quiz.score, totalQ = quiz.items.length, level = quiz.level;
+    if (level) saveQuizBest(level, finalScore);
     quiz = null;
-    $("quizBody").innerHTML = `<p class="quiz-score">${t().score} ${finalScore}/${totalQ}</p><p><button type="button" class="quiz-start" id="quizAgain">${t().quizAgain}</button></p>`;
-    $("quizAgain").addEventListener("click", startQuiz);
+    const head = level ? `${esc(lang === "en" ? SCOUT_LABEL[level][1] : SCOUT_LABEL[level][0])} — ` : "";
+    const again = level
+      ? `<button type="button" class="quiz-start" id="quizAgain">${t().quizAgain}</button> <button type="button" class="quiz-start alt" id="quizLevels">${t().quizBack}</button>`
+      : `<button type="button" class="quiz-start" id="quizAgain">${t().quizAgain}</button>`;
+    $("quizBody").innerHTML = `<p class="quiz-score">${head}${t().score} ${finalScore}/${totalQ}</p><p>${again}</p>`;
+    $("quizAgain").addEventListener("click", () => { if (level) startLevelQuiz(level); else startQuiz(); });
+    const lv = $("quizLevels"); if (lv) lv.addEventListener("click", () => { renderQuizIntro(); });
   });
 }
 
