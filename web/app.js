@@ -1,6 +1,6 @@
 "use strict";
 /* Aircraft-Encyclopedia v0.7 · © SCOUT SYSTEM · APP_VERSION 0.9.0 */
-const APP_VERSION = "0.20.0";
+const APP_VERSION = "0.21.0";
 const LANG_KEY = "aircraft-encyclopedia.lang";
 const QUIZ_BEST_KEY = "aircraft-encyclopedia.quiz-best";
 function loadQuizBest() { try { const v = JSON.parse(localStorage.getItem(QUIZ_BEST_KEY) || "{}"); return v && typeof v === "object" ? v : {}; } catch (e) { return {}; } }
@@ -21,6 +21,7 @@ const STR = {
     gameIntro: "60 秒內認得幾多款？答啱 +10 分，每連對 5 題額外 +25 分；答錯扣 3 秒、連對歸零。按章級揀題池，或者全部機型一齊玩。",
     gameStart: "開始挑戰", gameAll: "全部機型", gameTime: "時間", gameScore: "分數", gameStreak: "連對", gameBest: "最佳", gameNone: "未開始",
     gameOver: "時間到！", gameRight: "答啱", gameQuestions: "題", gameMaxStreak: "最長連對", gameAgain: "再玩一次", gameQuit: "放棄", gameBack: "返去揀模式", gameBonus: "連對獎分 +25！",
+    airportTitle: "機場代碼與世界地圖", airportIntro: "第一步：52 個世界主要國際機場，代碼同座標逐個經維基百科核實。撳地圖上嘅代碼牌或者下面清單，即刻知嗰個機場喺邊。", airportSearchPh: "搜尋代碼、機場、城市…", airportCount: "個機場", airportNoMap: "地圖底圖載入唔到（可能離線），下面清單仍然用得。", airportSrc: "底圖 © OpenStreetMap contributors（後備 Esri）；機場資料來源：Wikipedia，2026-11 核實。",
     shTitle: "小遊戲：認機空防戰", shIntro: "飛機飛過防區：軍機要認啱機名先開火擊落，民航機就認啱影低佢。飛走三架就失守；每波越來越快。打完每架都會出特徵卡，教你點認——唔係齋鬥快。",
     shStart: "出擊", shLives: "防線", shWave: "第", shPromptMil: "⚠ 軍機接近——認啱機名開火！", shPromptCiv: "民航機經過——認啱機名影低佢！",
     shShot: "擊落！", shCaptured: "拍低咗！", shEscaped: "飛走咗…", shFeature: "認機特徵", shOver: "防線失守！", shDown: "擊落", shCaps: "拍低",
@@ -67,6 +68,7 @@ const STR = {
     gameIntro: "How many can you spot in 60 seconds? +10 per correct answer, +25 bonus every 5 in a row; a miss costs 3 seconds and resets your streak. Pick a badge-level pool, or play with every type.",
     gameStart: "Start challenge", gameAll: "All types", gameTime: "Time", gameScore: "Score", gameStreak: "Streak", gameBest: "Best", gameNone: "Not played",
     gameOver: "Time up!", gameRight: "Correct", gameQuestions: "questions", gameMaxStreak: "Best streak", gameAgain: "Play again", gameQuit: "Quit", gameBack: "Back to modes", gameBonus: "Streak bonus +25!",
+    airportTitle: "Airport codes & world map", airportIntro: "Step one: 52 major international airports worldwide, every code and coordinate verified against Wikipedia. Tap a code badge on the map or an item below to see where it is.", airportSearchPh: "Search code, airport, city…", airportCount: "airports", airportNoMap: "Map tiles could not load (possibly offline); the list below still works.", airportSrc: "Basemap © OpenStreetMap contributors (Esri fallback); airport data: Wikipedia, verified 2026-11.",
     shTitle: "Game: Sky Defence Spotter", shIntro: "Aircraft crossing your sector: name military types correctly to shoot them down; name civil types to photograph them. Three escapes and the line falls; every wave is faster. Each target ends with a feature card teaching the recognition points — not just speed.",
     shStart: "Launch", shLives: "Line", shWave: "Wave", shPromptMil: "⚠ Military contact — name it to fire!", shPromptCiv: "Civil traffic — name it to photograph!",
     shShot: "Shot down!", shCaptured: "Captured!", shEscaped: "It got away…", shFeature: "Recognition features", shOver: "The line has fallen!", shDown: "Downed", shCaps: "Snapped",
@@ -106,6 +108,7 @@ try { const v = localStorage.getItem(LANG_KEY); if (v === "en" || v === "zh") la
 let DATA = null, category = "all", query = "", scout = "all", statusFilter = "all", facet = "all", collection = "all", era = "all", origin = "all", quizScope = "all";
 let cmpA = null, cmpB = null, quiz = null;
 let BLUEPRINTS = null, examModel = null, examKeyShown = false;
+let AIRPORTS = null, airportMap = null, airportLayer = null, airportMarkers = {}, airportQuery = "";
 const SCOUT_LABEL = { BAAB: ["初級航空活動章", "Basic Air Activity"], IAAB: ["中級航空活動章", "Intermediate Air Activity"], AAAB: ["高級航空活動章", "Advanced Air Activity"] };
 const COLLECTION_LABEL = { hk: ["香港常見", "Hong Kong regulars"], world: ["世界常見", "Worldwide common"], china: ["中國自產", "China-built"], classic: ["歷史名機", "Historic icons"] };
 function collTags(a) { return (a.collections || []).filter((c) => COLLECTION_LABEL[c]).map((c) => `<span class="tag coll coll-${c}">${esc(lang === "en" ? COLLECTION_LABEL[c][1] : COLLECTION_LABEL[c][0])}</span>`).join(""); }
@@ -270,6 +273,7 @@ function render() {
   renderExamPaper();
   renderGameIntro();
   renderShooterIntro();
+  renderAirports();
 }
 
 function specRows(a) {
@@ -1052,10 +1056,74 @@ function finishShooter() {
   $("shBack").addEventListener("click", () => renderShooterIntro());
 }
 
+
+// ---------- airports & world map (v0.21; Leaflet/OSM pattern follows scoutworld repo) ----------
+const AP_REGION = { home: ["香港與大灣區", "Hong Kong & Greater Bay"], china: ["中國內地", "Mainland China"], taiwan: ["台灣", "Taiwan"], eastasia: ["東北亞", "Northeast Asia"], seasia: ["東南亞", "Southeast Asia"], sasia: ["南亞", "South Asia"], meast: ["中東", "Middle East"], europe: ["歐洲", "Europe"], africa: ["非洲", "Africa"], namerica: ["北美洲", "North America"], samerica: ["南美洲", "South America"], oceania: ["大洋洲", "Oceania"] };
+const AP_REGION_ORDER = Object.keys(AP_REGION);
+const apName = (p) => lang === "en" ? p.nameEn : p.nameZh;
+const apCity = (p) => lang === "en" ? `${p.cityEn}, ${p.countryEn}` : `${p.cityZh}・${p.countryZh}`;
+let apTileErrors = 0, apBasemapIdx = 0;
+function apBasemap(idx) {
+  const cfgs = [
+    { url: "https://tile.openstreetmap.org/{z}/{x}/{y}.png", attribution: "&copy; <a href=\"https://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributors", maxZoom: 19 },
+    { url: "https://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}", attribution: "Tiles &copy; <a href=\"https://www.esri.com/\">Esri</a> — Esri, HERE, Garmin, &copy; OpenStreetMap contributors", maxZoom: 16 }
+  ];
+  const layer = L.tileLayer(cfgs[idx].url, { attribution: cfgs[idx].attribution, maxZoom: cfgs[idx].maxZoom });
+  layer.on("tileerror", () => { apTileErrors += 1; if (apTileErrors >= 4 && idx < cfgs.length - 1 && airportMap) { airportMap.removeLayer(layer); apBasemap(idx + 1); } });
+  return layer;
+}
+function initAirportMap() {
+  if (airportMap || !window.L || !$("airportMap")) return;
+  airportMap = L.map("airportMap", { minZoom: 2, maxZoom: 18 }).setView([22.3, 114.2], 3);
+  apBasemap(0).addTo(airportMap);
+  airportLayer = L.layerGroup().addTo(airportMap);
+  setTimeout(() => { if (airportMap) airportMap.invalidateSize(); }, 150);
+}
+function renderAirports() {
+  const body = $("airportBody"); if (!body) return;
+  if (!AIRPORTS) { body.innerHTML = `<p class="locked-note">${t().examLocked}</p>`; return; }
+  const list = [...AIRPORTS.airports].sort((a, b) => AP_REGION_ORDER.indexOf(a.region) - AP_REGION_ORDER.indexOf(b.region) || a.iata.localeCompare(b.iata));
+  const q = airportQuery.trim().toLowerCase();
+  const shown = q ? list.filter((p) => [p.iata, p.nameEn, p.nameZh, p.cityEn, p.cityZh, p.countryEn, p.countryZh].join(" ").toLowerCase().includes(q)) : list;
+  const cards = shown.map((p) => `<button type="button" class="ap-card" data-ap="${p.iata}"><span class="ap-code">${p.iata}</span><span class="ap-name">${esc(apName(p))}</span><span class="ap-city">${esc(apCity(p))}</span></button>`).join("");
+  body.innerHTML = `<p class="locked-note">${t().airportIntro}</p>
+    <div id="airportMap" class="airport-map" role="application" aria-label="World airport map"></div>
+    <label class="search ap-search"><span>${t().searchLabel}</span><input id="airportSearch" type="search" placeholder="${t().airportSearchPh}" value="${esc(airportQuery)}"></label>
+    <p class="ap-count">${shown.length} ${t().airportCount}</p>
+    <div class="ap-grid">${cards}</div>
+    <p class="ap-src">${t().airportSrc}</p>`;
+  $("airportSearch").addEventListener("input", (e) => { airportQuery = e.target.value; renderAirports(); const el = $("airportSearch"); el.focus(); el.setSelectionRange(el.value.length, el.value.length); });
+  body.querySelectorAll("[data-ap]").forEach((b) => b.addEventListener("click", () => focusAirport(b.getAttribute("data-ap"))));
+  if (window.L) {
+    initAirportMap();
+    if (airportMap && airportLayer) {
+      airportLayer.clearLayers();
+      airportMarkers = {};
+      list.forEach((p) => {
+        const icon = L.divIcon({ className: "ap-pin-wrap", html: `<span class="ap-pin">${p.iata}</span>`, iconSize: null });
+        const m = L.marker([p.lat, p.lng], { icon }).bindPopup(`<b class="ap-pop-code">${p.iata}</b><br>${esc(apName(p))}<br>${esc(apCity(p))}`);
+        m.addTo(airportLayer);
+        airportMarkers[p.iata] = m;
+      });
+    }
+  } else {
+    $("airportMap").innerHTML = `<p class="locked-note">${t().airportNoMap}</p>`;
+  }
+}
+function focusAirport(iata) {
+  const p = AIRPORTS && AIRPORTS.airports.find((x) => x.iata === iata);
+  if (!p) return;
+  const sec = $("airportSection"); if (sec) sec.scrollIntoView({ behavior: "smooth", block: "start" });
+  if (airportMap && airportMarkers[iata]) {
+    airportMap.flyTo([p.lat, p.lng], Math.max(airportMap.getZoom(), 5), { duration: 1.1 });
+    setTimeout(() => { if (airportMarkers[iata]) airportMarkers[iata].openPopup(); }, 1150);
+  }
+}
+
 $("langToggle").addEventListener("click", () => { lang = lang === "en" ? "zh" : "en"; quiz = null; examModel = null; examKeyShown = false; stopGameTimer(); game = null; stopShooter(); applyLang(); });
 $("searchInput").addEventListener("input", (e) => { query = e.target.value; render(); });
 $("detailClose").addEventListener("click", () => { const d = $("detailDialog"); if (d.close) d.close(); else d.removeAttribute("open"); });
 
 fetch("data/aircraft-inventory.json").then((r) => { if (!r.ok) throw new Error("load"); return r.json(); })
-  .then((d) => { DATA = d; applyLang(); fetch("data/exam-blueprints.json").then((r) => { if (!r.ok) throw new Error("bp"); return r.json(); }).then((b) => { BLUEPRINTS = b; renderExamIntro(); }).catch(() => {}); })
+  .then((d) => { DATA = d; applyLang(); fetch("data/exam-blueprints.json").then((r) => { if (!r.ok) throw new Error("bp"); return r.json(); }).then((b) => { BLUEPRINTS = b; renderExamIntro(); }).catch(() => {}); fetch("data/airports.json").then((r) => { if (!r.ok) throw new Error("ap"); return r.json(); }).then((d) => { AIRPORTS = d; renderAirports(); }).catch(() => {}); })
   .catch(() => { $("loadError").hidden = false; applyLang(); });

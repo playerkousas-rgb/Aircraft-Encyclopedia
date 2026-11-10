@@ -112,3 +112,18 @@ test("出卷題池足夠：每節所需核實機型／標註／辨認資料齊�
     }
   }
 });
+
+const airportsDoc = JSON.parse(readFileSync(new URL("../web/data/airports.json", import.meta.url), "utf8"));
+test("機場資料：52 個國際機場，代碼唯一、座標合法、雙語齊全", () => {
+  const aps = airportsDoc.airports;
+  assert.equal(aps.length, 52);
+  assert.equal(new Set(aps.map((p) => p.iata)).size, aps.length, "IATA 唔可以重複");
+  for (const p of aps) {
+    assert.match(p.iata, /^[A-Z]{3}$/, p.iata);
+    assert.ok(p.lat >= -90 && p.lat <= 90 && p.lng >= -180 && p.lng <= 180, p.iata + " 座標");
+    for (const k of ["nameEn", "nameZh", "cityEn", "cityZh", "countryEn", "countryZh", "source"]) assert.ok(p[k], `${p.iata} 缺 ${k}`);
+    assert.ok(p.source.startsWith("https://en.wikipedia.org/wiki/"), p.iata + " source");
+  }
+  const hkg = aps.find((p) => p.iata === "HKG");
+  assert.ok(hkg && Math.abs(hkg.lat - 22.308) < 0.1 && Math.abs(hkg.lng - 113.91) < 0.1, "HKG 座標合理");
+});

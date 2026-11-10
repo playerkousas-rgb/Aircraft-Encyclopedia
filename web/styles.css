@@ -126,6 +126,20 @@ table.compare img{width:100%;max-width:300px;aspect-ratio:16/10;object-fit:cover
 .sh-feature{max-width:640px}
 .sh-legend{margin:.5rem 0;padding-left:1.3rem;line-height:1.65}
 @media (max-width:560px){.sky{height:230px}}
+.airport-map{height:400px;border-radius:12px;border:1px solid var(--line);isolation:isolate;background:#dcebf4;margin:.4rem 0 .8rem}
+.ap-search{max-width:420px;margin:.2rem 0}
+.ap-count{color:var(--muted);font-weight:700;margin:.3rem 0}
+.ap-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.6rem}
+.ap-card{display:flex;flex-direction:column;align-items:flex-start;gap:.15rem;border:1.5px solid var(--line);background:var(--card);border-radius:12px;padding:.6rem .75rem;cursor:pointer;text-align:left;min-height:44px}
+.ap-card:hover{border-color:var(--sky);background:var(--sky-soft)}
+.ap-code{font-weight:900;font-size:1.15rem;color:var(--navy);letter-spacing:.06em}
+.ap-name{font-weight:700;line-height:1.35}
+.ap-city{color:var(--muted);font-size:.85rem}
+.ap-pin-wrap{background:transparent;border:none}
+.ap-pin{display:inline-block;background:var(--navy);color:#fff;font-weight:800;font-size:10px;letter-spacing:.04em;padding:.14rem .34rem;border-radius:99px;border:1.5px solid #fff;box-shadow:0 1px 4px rgba(10,42,74,.4);white-space:nowrap;transform:translate(-50%,-50%)}
+.ap-pop-code{font-size:1.05rem;color:var(--navy)}
+.ap-src{color:var(--muted);font-size:.75rem;margin-top:.7rem}
+@media (max-width:560px){.airport-map{height:320px}}
 .quiz-pick{font-weight:800;color:var(--navy);margin:.6rem 0 .2rem}
 .quiz-levels{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.7rem;max-width:640px;margin:.4rem 0 1rem}
 .quiz-level{border:1.5px solid var(--line);border-radius:12px;padding:.8rem .9rem;background:var(--card)}
