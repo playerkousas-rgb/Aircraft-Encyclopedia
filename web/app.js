@@ -1,6 +1,6 @@
 "use strict";
 /* Aircraft-Encyclopedia v0.7 · © SCOUT SYSTEM · APP_VERSION 0.9.0 */
-const APP_VERSION = "0.19.0";
+const APP_VERSION = "0.20.0";
 const LANG_KEY = "aircraft-encyclopedia.lang";
 const QUIZ_BEST_KEY = "aircraft-encyclopedia.quiz-best";
 function loadQuizBest() { try { const v = JSON.parse(localStorage.getItem(QUIZ_BEST_KEY) || "{}"); return v && typeof v === "object" ? v : {}; } catch (e) { return {}; } }
@@ -21,6 +21,9 @@ const STR = {
     gameIntro: "60 秒內認得幾多款？答啱 +10 分，每連對 5 題額外 +25 分；答錯扣 3 秒、連對歸零。按章級揀題池，或者全部機型一齊玩。",
     gameStart: "開始挑戰", gameAll: "全部機型", gameTime: "時間", gameScore: "分數", gameStreak: "連對", gameBest: "最佳", gameNone: "未開始",
     gameOver: "時間到！", gameRight: "答啱", gameQuestions: "題", gameMaxStreak: "最長連對", gameAgain: "再玩一次", gameQuit: "放棄", gameBack: "返去揀模式", gameBonus: "連對獎分 +25！",
+    shTitle: "小遊戲：認機空防戰", shIntro: "飛機飛過防區：軍機要認啱機名先開火擊落，民航機就認啱影低佢。飛走三架就失守；每波越來越快。打完每架都會出特徵卡，教你點認——唔係齋鬥快。",
+    shStart: "出擊", shLives: "防線", shWave: "第", shPromptMil: "⚠ 軍機接近——認啱機名開火！", shPromptCiv: "民航機經過——認啱機名影低佢！",
+    shShot: "擊落！", shCaptured: "拍低咗！", shEscaped: "飛走咗…", shFeature: "認機特徵", shOver: "防線失守！", shDown: "擊落", shCaps: "拍低",
     footerNote: "相片未核實前唔會上載；規格要有來源先會顯示。第三方相片依原授權標示，不加本站水印。",
     all: "全部", pending: "資料待核實", verifiedOnly: "已核實", pendingOnly: "待核實", codePending: "代碼待核實", verified: "已核實",
     viewCard: "睇圖卡", checkBtn: "查看核實清單", progress: "核實進度", total: "總清單", done: "已完成核實", types: "類別", batch1: "第一批已出卡",
@@ -64,6 +67,9 @@ const STR = {
     gameIntro: "How many can you spot in 60 seconds? +10 per correct answer, +25 bonus every 5 in a row; a miss costs 3 seconds and resets your streak. Pick a badge-level pool, or play with every type.",
     gameStart: "Start challenge", gameAll: "All types", gameTime: "Time", gameScore: "Score", gameStreak: "Streak", gameBest: "Best", gameNone: "Not played",
     gameOver: "Time up!", gameRight: "Correct", gameQuestions: "questions", gameMaxStreak: "Best streak", gameAgain: "Play again", gameQuit: "Quit", gameBack: "Back to modes", gameBonus: "Streak bonus +25!",
+    shTitle: "Game: Sky Defence Spotter", shIntro: "Aircraft crossing your sector: name military types correctly to shoot them down; name civil types to photograph them. Three escapes and the line falls; every wave is faster. Each target ends with a feature card teaching the recognition points — not just speed.",
+    shStart: "Launch", shLives: "Line", shWave: "Wave", shPromptMil: "⚠ Military contact — name it to fire!", shPromptCiv: "Civil traffic — name it to photograph!",
+    shShot: "Shot down!", shCaptured: "Captured!", shEscaped: "It got away…", shFeature: "Recognition features", shOver: "The line has fallen!", shDown: "Downed", shCaps: "Snapped",
     footerNote: "No photo is published before its licence is verified; no spec is shown without a source. Third-party photos keep their own credit, never our watermark.",
     all: "All", pending: "Data pending", verifiedOnly: "Verified", pendingOnly: "Pending", codePending: "Code to verify", verified: "Verified",
     viewCard: "View card", checkBtn: "View checklist", progress: "Verification", total: "In list", done: "Verified", types: "Categories", batch1: "Batch 1 cards out",
@@ -263,6 +269,7 @@ function render() {
   renderExamIntro();
   renderExamPaper();
   renderGameIntro();
+  renderShooterIntro();
 }
 
 function specRows(a) {
@@ -889,7 +896,163 @@ function finishGame() {
   $("gameBack").addEventListener("click", () => renderGameIntro());
 }
 
-$("langToggle").addEventListener("click", () => { lang = lang === "en" ? "zh" : "en"; quiz = null; examModel = null; examKeyShown = false; stopGameTimer(); game = null; applyLang(); });
+
+// ---------- side-scrolling recognition shooter (v0.20) ----------
+const SHOOTER_BEST_KEY = "aircraft-encyclopedia.shooter-best";
+let shooter = null, shooterRaf = null, shooterTimeout = null;
+const isMil = (a) => a.category === "military";
+function loadShooterBest() { try { const v = JSON.parse(localStorage.getItem(SHOOTER_BEST_KEY) || "{}"); return v && typeof v === "object" ? v : {}; } catch (e) { return {}; } }
+function stopShooter() {
+  if (shooterRaf) { cancelAnimationFrame(shooterRaf); shooterRaf = null; }
+  if (shooterTimeout) { clearTimeout(shooterTimeout); shooterTimeout = null; }
+  shooter = null;
+}
+function renderShooterIntro() {
+  const body = $("shooterBody"); if (!body || shooter) return;
+  const best = loadShooterBest();
+  const card = (key, label) => {
+    const n = gamePoolOf(key).length;
+    const b = best[key];
+    const bestTxt = b ? `${t().gameBest} ${b.score}` : t().gameNone;
+    return `<div class="quiz-level"><h3>${esc(label)}</h3><p>${n} ${lang === "en" ? "types" : "款"} · ${esc(bestTxt)}</p><button type="button" class="quiz-start" data-shooter="${key}">${t().shStart}</button></div>`;
+  };
+  const cards = Object.entries(SCOUT_LABEL).map(([k, v]) => card(k, lang === "en" ? v[1] : v[0])).join("") + card("all", t().gameAll);
+  body.innerHTML = `<p class="locked-note">${t().shIntro}</p><div class="quiz-levels exam-cards">${cards}</div>`;
+  body.querySelectorAll("[data-shooter]").forEach((b) => b.addEventListener("click", () => startShooter(b.getAttribute("data-shooter"))));
+}
+function startShooter(key) {
+  const pool = gamePoolOf(key);
+  if (pool.length < 4) return;
+  stopShooter();
+  shooter = { key, pool, score: 0, streak: 0, lives: 3, wave: 1, hits: 0, downed: 0, snapped: 0, lastSeq: null, plane: null, phase: "fly" };
+  spawnPlane();
+}
+function spawnPlane() {
+  if (!shooter) return;
+  const pool = shooter.pool;
+  let a = pool[Math.floor(Math.random() * pool.length)];
+  if (pool.length > 1) while (a.seq === shooter.lastSeq) a = pool[Math.floor(Math.random() * pool.length)];
+  shooter.lastSeq = a.seq;
+  const dir = Math.random() < 0.5 ? 1 : -1;
+  const speed = (0.055 + shooter.wave * 0.006) * (0.9 + Math.random() * 0.25);
+  shooter.plane = { a, dir, lane: Math.floor(Math.random() * 3), speed, x: dir === 1 ? -340 : 0, startedAt: null };
+  shooter.phase = "fly";
+  const item = mkPhoto(a, pool);
+  shooter.answer = item.answer;
+  const bySeq = bySeqMap();
+  const mil = isMil(a);
+  $("shooterBody").innerHTML = `<div class="game-hud">
+      <span class="game-stat">${t().gameScore} <b>${shooter.score}</b></span>
+      <span class="game-stat">${t().gameStreak} <b>x${shooter.streak}</b></span>
+      <span class="game-stat">${t().shWave} ${shooter.wave}${lang === "en" ? "" : " 波"}</span>
+      <span class="game-stat">${t().shLives} <b class="sh-lives">${"♥".repeat(shooter.lives)}</b></span>
+      <button type="button" class="quiz-start alt game-quit" id="shQuit">${t().gameQuit}</button>
+    </div>
+    <div class="sky" id="shSky">
+      <div class="cloud c1"></div><div class="cloud c2"></div><div class="cloud c3"></div>
+      <div class="plane" id="shPlane"><img src="${esc(a.photo.imageUrl)}" alt="" style="${dir === -1 ? "transform:scaleX(-1);" : ""}"></div>
+      <div class="turret" aria-hidden="true"></div>
+    </div>
+    <p class="sh-prompt">${mil ? t().shPromptMil : t().shPromptCiv}</p>
+    <div class="quiz-opts">${item.options.map((sq) => { const o = bySeq.get(sq); return `<button type="button" class="quiz-opt" data-sopt="${sq}">${esc(nameOf(o))} · ${esc(o.icao)}</button>`; }).join("")}</div>
+    <div id="shFb"></div>`;
+  document.querySelectorAll("[data-sopt]").forEach((b) => b.addEventListener("click", () => answerShooter(b)));
+  $("shQuit").addEventListener("click", () => { stopShooter(); renderShooterIntro(); });
+  shooterRaf = requestAnimationFrame(shooterLoop);
+}
+function shooterLoop(ts) {
+  if (!shooter || shooter.phase !== "fly") return;
+  const sky = $("shSky"), planeEl = $("shPlane");
+  if (!sky || !planeEl) return;
+  const p = shooter.plane;
+  if (p.startedAt == null) { p.startedAt = ts; p.x = p.dir === 1 ? -340 : sky.clientWidth + 40; }
+  const elapsed = ts - p.startedAt;
+  const dist = p.speed * elapsed;
+  const x = p.dir === 1 ? -340 + dist : sky.clientWidth + 40 - dist;
+  planeEl.style.transform = `translateX(${x}px)`; planeEl.style.setProperty("--px", `${x}px`);
+  planeEl.style.top = `${8 + p.lane * 22}%`;
+  const exited = p.dir === 1 ? x > sky.clientWidth + 60 : x < -380;
+  if (exited) { escapePlane(); return; }
+  shooterRaf = requestAnimationFrame(shooterLoop);
+}
+function answerShooter(btn) {
+  if (!shooter || shooter.phase !== "fly") return;
+  const right = btn.getAttribute("data-sopt") === shooter.answer;
+  if (!right) {
+    shooter.streak = 0;
+    btn.disabled = true; btn.classList.add("wrong");
+    return;
+  }
+  shooter.phase = "hit";
+  if (shooterRaf) cancelAnimationFrame(shooterRaf);
+  const a = shooter.plane.a;
+  const mil = isMil(a);
+  shooter.hits += 1; shooter.streak += 1;
+  shooter.score += 100;
+  if (shooter.streak % 5 === 0) shooter.score += 50;
+  if (mil) shooter.downed += 1; else shooter.snapped += 1;
+  if (shooter.hits % 5 === 0) shooter.wave += 1;
+  document.querySelectorAll("[data-sopt]").forEach((b) => {
+    b.disabled = true;
+    if (b.getAttribute("data-sopt") === shooter.answer) b.classList.add("right");
+  });
+  const sky = $("shSky"), planeEl = $("shPlane");
+  if (sky && planeEl) {
+    if (mil) {
+      const boom = document.createElement("div");
+      boom.className = "boom"; boom.style.left = "38%"; boom.style.top = "18%";
+      planeEl.appendChild(boom); planeEl.classList.add("shot");
+    } else {
+      const fl = document.createElement("div"); fl.className = "skyflash"; sky.appendChild(fl);
+      const stamp = document.createElement("div"); stamp.className = "stamp"; stamp.textContent = t().shCaptured;
+      planeEl.appendChild(stamp);
+    }
+  }
+  const fb = $("shFb");
+  if (fb) fb.innerHTML = `<p class="quiz-feedback"><b>${mil ? t().shShot : t().shCaptured}</b> ${esc(nameOf(a))}</p>`;
+  shooterTimeout = setTimeout(() => showFeatureCard(a), 620);
+}
+function escapePlane() {
+  if (!shooter) return;
+  shooter.phase = "hit";
+  const a = shooter.plane.a;
+  shooter.lives -= 1; shooter.streak = 0;
+  const fb = $("shFb");
+  if (fb) fb.innerHTML = `<p class="quiz-feedback"><b>${t().shEscaped}</b> ${esc(nameOf(a))}</p>`;
+  document.querySelectorAll("[data-sopt]").forEach((b) => { b.disabled = true; if (b.getAttribute("data-sopt") === shooter.answer) b.classList.add("right"); });
+  if (shooter.lives <= 0) { shooterTimeout = setTimeout(finishShooter, 700); return; }
+  shooterTimeout = setTimeout(() => showFeatureCard(a), 700);
+}
+function showFeatureCard(a) {
+  if (!shooter) return;
+  const ann = a.photo.annotations || [];
+  const dots = ann.map((d, i) => `<span class="dot static" style="left:${d.x}%;top:${d.y}%">${i + 1}</span>`).join("");
+  const legend = ann.slice(0, 4).map((d, i) => `<li>${i + 1}. ${esc(lang === "en" ? d.en : d.zh)}</li>`).join("");
+  $("shooterBody").innerHTML = `<div class="sh-feature">
+      <p class="sh-prompt">${t().shFeature}：<b>${esc(nameOf(a))}</b> · ${esc(a.icao)}</p>
+      <div class="quiz-photo natural">${photoImg(a)}${dots}</div>
+      <ul class="sh-legend">${legend}</ul>
+      <p class="caption">${esc(lang === "en" ? a.weft.fuselage.en : a.weft.fuselage.zh)}</p>
+    </div>`;
+  shooterTimeout = setTimeout(spawnPlane, 2100);
+}
+function finishShooter() {
+  if (!shooter) return;
+  const g = shooter;
+  stopShooter();
+  try {
+    const b = loadShooterBest();
+    if (!b[g.key] || g.score > b[g.key].score) { b[g.key] = { score: g.score, hits: g.hits }; localStorage.setItem(SHOOTER_BEST_KEY, JSON.stringify(b)); }
+  } catch (e) { /* ignore */ }
+  const label = g.key === "all" ? t().gameAll : (lang === "en" ? SCOUT_LABEL[g.key][1] : SCOUT_LABEL[g.key][0]);
+  $("shooterBody").innerHTML = `<p class="quiz-score">${t().shOver} ${esc(label)}</p>
+    <p class="game-result">${t().gameScore} <b>${g.score}</b> · ${t().shDown} ${g.downed} · ${t().shCaps} ${g.snapped} · ${t().shWave} ${g.wave}${lang === "en" ? "" : " 波"}</p>
+    <p><button type="button" class="quiz-start" id="shAgain">${t().gameAgain}</button> <button type="button" class="quiz-start alt" id="shBack">${t().gameBack}</button></p>`;
+  $("shAgain").addEventListener("click", () => startShooter(g.key));
+  $("shBack").addEventListener("click", () => renderShooterIntro());
+}
+
+$("langToggle").addEventListener("click", () => { lang = lang === "en" ? "zh" : "en"; quiz = null; examModel = null; examKeyShown = false; stopGameTimer(); game = null; stopShooter(); applyLang(); });
 $("searchInput").addEventListener("input", (e) => { query = e.target.value; render(); });
 $("detailClose").addEventListener("click", () => { const d = $("detailDialog"); if (d.close) d.close(); else d.removeAttribute("open"); });
 
