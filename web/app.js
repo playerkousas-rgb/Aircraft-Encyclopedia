@@ -1,6 +1,6 @@
 "use strict";
 /* Aircraft-Encyclopedia v0.7 · © SCOUT SYSTEM · APP_VERSION 0.9.0 */
-const APP_VERSION = "0.25.0";
+const APP_VERSION = "0.26.0";
 const LANG_KEY = "aircraft-encyclopedia.lang";
 const QUIZ_BEST_KEY = "aircraft-encyclopedia.quiz-best";
 function loadQuizBest() { try { const v = JSON.parse(localStorage.getItem(QUIZ_BEST_KEY) || "{}"); return v && typeof v === "object" ? v : {}; } catch (e) { return {}; } }
@@ -21,7 +21,7 @@ const STR = {
     gameIntro: "60 秒內認得幾多款？答啱 +10 分，每連對 5 題額外 +25 分；答錯扣 3 秒、連對歸零。按章級揀題池，或者全部機型一齊玩。",
     gameStart: "開始挑戰", gameAll: "全部機型", gameTime: "時間", gameScore: "分數", gameStreak: "連對", gameBest: "最佳", gameNone: "未開始",
     gameOver: "時間到！", gameRight: "答啱", gameQuestions: "題", gameMaxStreak: "最長連對", gameAgain: "再玩一次", gameQuit: "放棄", gameBack: "返去揀模式", gameBonus: "連對獎分 +25！",
-    airportTitle: "機場代碼與世界地圖", airportIntro: "203 個國際機場：151 個係香港有客運直航嘅航點（琥珀色代碼牌）、香港係金色主場牌、其餘係世界主要國際機場（深藍牌，香港暫無直航）；代碼、座標同中文名逐個經維基百科核實。撳地圖上嘅代碼牌或者下面清單，即刻知嗰個機場喺邊；亦可只睇香港直航。", airportSearchPh: "搜尋代碼、機場、城市…", airportCount: "個機場", airportShowAll: "全部機場", airportDirectOnly: "只睇香港直航", airportDirectTag: "香港直航", airportHomeTag: "主場・香港", airportLegendHome: "香港（主場）", airportLegendDirect: "香港直航航點", airportLegendOther: "其他國際機場", apGameTitle: "小遊戲：機場代碼大挑戰", apGameIntro: "60 秒認碼挑戰：睇代碼估機場、睇機場估代碼、睇地圖估碼，三種題型隨機出。啱 +10 分、連對 5 題 +25 獎分、答錯扣 3 秒兼記低錯題，完局即刻回顧學返。題目全部嚟自下面 203 個已核實機場。", apGameDirect: "香港直航線", apGameDirectDesc: "香港主場＋151 個直航航點；干擾選項環球亂抽，啱晒熱身", apGameWorld: "環球挑戰", apGameWorldDesc: "全部 203 個機場；干擾選項多數嚟自同一地區，認錯隔籬城市就輸", apGameMapHint: "地圖上「？」嗰個機場，佢嘅代碼係咩？", apGameReview: "錯題回顧", apGameNone: "今輪冇答錯，好嘢！", airportNoMap: "地圖底圖載入唔到（可能離線），下面清單仍然用得。", airportSrc: "底圖 © OpenStreetMap contributors（後備 Esri）；機場資料來源：Wikipedia（代碼、座標與香港客運直航航點），2026-11 核實。", airlineTitle: "航空公司標誌圖鑑", airlineIntro: "28 間航空公司（香港 4 間、亞太 16 間、國際 8 間）：IATA／ICAO 代碼同主要樞紐逐間經維基百科核實；標誌圖只用 Wikimedia Commons 上面版權屬公有領域（Public domain）嘅檔案並逐檔核實授權——23 間有標誌圖，5 間未搵到可自由使用嘅現行標誌，用文字牌顯示。可以搜尋同按地區篩選，仲可以玩下面嘅認標誌挑戰。", airlineSearchPh: "搜尋航空公司、代碼、樞紐…", airlineCount: "間航空公司", airlineAll: "全部", airlineHK: "香港", airlineAPAC: "亞太", airlineWorld: "國際", airlineHKReg: "香港註冊", airlineHub: "樞紐", airlineTypes: "本站圖卡提及", airlineNoLogo: "暫時冇已核實可自由使用嘅現行標誌圖，以文字牌顯示", airlineCredit: "標誌圖：Public domain（Wikimedia Commons）", airlineTm: "註：所有標誌均屬各航空公司嘅商標；公有領域只指圖檔本身嘅版權狀態，本站只作教學辨認用途，逐檔標示來源。", airlineSrc: "資料來源：各航空公司英文維基百科條目（IATA／ICAO／樞紐）＋ Wikimedia Commons（標誌圖授權），2026-11-10 核實。", logoGameTitle: "小遊戲：認標誌挑戰", logoGameIntro: "60 秒認標誌：睇標誌估航空公司、估 IATA 代碼、估樞紐，或者睇公司名揀返個標誌，四種題型隨機出。啱 +10 分、連對 5 題 +25 獎分、答錯扣 3 秒兼記低錯題，完局即刻回顧學返。題目全部嚟自上面 23 間有已核實標誌嘅航空公司。", logoGameQName: "呢個標誌係邊間航空公司？", logoGameQIata: "呢間航空公司嘅 IATA 代碼係咩？", logoGameQHub: "呢間航空公司嘅主要樞紐喺邊？",
+    airportTitle: "機場代碼與世界地圖", airportIntro: "203 個國際機場：151 個係香港有客運直航嘅航點（琥珀色代碼牌）、香港係金色主場牌、其餘係世界主要國際機場（深藍牌，香港暫無直航）；代碼、座標同中文名逐個經維基百科核實。撳地圖上嘅代碼牌或者下面清單，即刻知嗰個機場喺邊；亦可只睇香港直航。", airportSearchPh: "搜尋代碼、機場、城市…", airportCount: "個機場", airportShowAll: "全部機場", airportDirectOnly: "只睇香港直航", airportDirectTag: "香港直航", airportHomeTag: "主場・香港", airportLegendHome: "香港（主場）", airportLegendDirect: "香港直航航點", airportLegendOther: "其他國際機場", apGameTitle: "小遊戲：機場代碼大挑戰", apGameIntro: "60 秒認碼挑戰：睇代碼估機場、睇機場估代碼、睇地圖估碼，三種題型隨機出。啱 +10 分、連對 5 題 +25 獎分、答錯扣 3 秒兼記低錯題，完局即刻回顧學返。題目全部嚟自下面 203 個已核實機場。", apGameDirect: "香港直航線", apGameDirectDesc: "香港主場＋151 個直航航點；干擾選項環球亂抽，啱晒熱身", apGameWorld: "環球挑戰", apGameWorldDesc: "全部 203 個機場；干擾選項多數嚟自同一地區，認錯隔籬城市就輸", apGameMapHint: "地圖上「？」嗰個機場，佢嘅代碼係咩？", apGameReview: "錯題回顧", apGameNone: "今輪冇答錯，好嘢！", airportNoMap: "地圖底圖載入唔到（可能離線），下面清單仍然用得。", airportSrc: "底圖 © OpenStreetMap contributors（後備 Esri）；機場資料來源：Wikipedia（代碼、座標與香港客運直航航點），2026-11 核實。", airlineTitle: "航空公司標誌圖鑑", airlineIntro: "28 間航空公司（香港 4 間、亞太 16 間、國際 8 間）：IATA／ICAO 代碼同主要樞紐逐間經維基百科核實；標誌圖只用 Wikimedia Commons 上面版權屬公有領域（Public domain）嘅檔案並逐檔核實授權——23 間有標誌圖，5 間未搵到可自由使用嘅現行標誌，用文字牌顯示。可以搜尋同按地區篩選，仲可以玩下面嘅認標誌挑戰。", airlineSearchPh: "搜尋航空公司、代碼、樞紐…", airlineCount: "間航空公司", airlineAll: "全部", airlineHK: "香港", airlineAPAC: "亞太", airlineWorld: "國際", airlineHKReg: "香港註冊", airlineHub: "樞紐", airlineTypes: "本站圖卡提及", airlineNoLogo: "暫時冇已核實可自由使用嘅現行標誌圖，以文字牌顯示", airlineCredit: "標誌圖：Public domain（Wikimedia Commons）", airlineTm: "註：所有標誌均屬各航空公司嘅商標；公有領域只指圖檔本身嘅版權狀態，本站只作教學辨認用途，逐檔標示來源。", airlineSrc: "資料來源：各航空公司英文維基百科條目（IATA／ICAO／樞紐）＋ Wikimedia Commons（標誌圖授權），2026-11-10 核實。", logoGameTitle: "小遊戲：認標誌挑戰", logoGameIntro: "60 秒認標誌：睇標誌估航空公司、估 IATA 代碼、估樞紐，或者睇公司名揀返個標誌，四種題型隨機出。啱 +10 分、連對 5 題 +25 獎分、答錯扣 3 秒兼記低錯題，完局即刻回顧學返。題目全部嚟自上面 23 間有已核實標誌嘅航空公司。", logoGameQName: "呢個標誌係邊間航空公司？", logoGameQIata: "呢間航空公司嘅 IATA 代碼係咩？", logoGameQHub: "呢間航空公司嘅主要樞紐喺邊？", matchTitle: "小遊戲：航空公司配對", matchIntro: "將航空公司名、IATA 兩字代碼同 ICAO 三字代碼配返埋一齊，逐級加難。60 秒，啱 +10 分、連對 5 題 +25 獎分、答錯扣 3 秒；答錯會即刻顯示正確配對同意記憶提示，完局有錯題回顧。題目全部嚟自上面已核實嘅 28 間航空公司。", matchL1: "第一級 · 認 IATA", matchL1Desc: "睇公司名揀 IATA 兩字碼、睇碼揀返公司名", matchL2: "第二級 · 認 ICAO", matchL2Desc: "睇公司名揀 ICAO 三字碼、睇碼揀返公司名", matchL3: "第三級 · 混合高手", matchL3Desc: "名、IATA、ICAO 互估，加埋睇標誌估代碼", matchQPickName: "呢個代碼係邊間航空公司？", matchQPickIcao: "呢間航空公司嘅 ICAO 代碼係咩？", matchQIata2Icao: "呢個 IATA 代碼對應嘅 ICAO 代碼係咩？", matchQIcao2Iata: "呢個 ICAO 代碼對應嘅 IATA 代碼係咩？", matchHint: "記憶提示",
     shTitle: "小遊戲：認機空防戰", shIntro: "飛機飛過防區：軍機要認啱機名先開火擊落，民航機就認啱影低佢。飛走三架就失守；每波越來越快。打完每架都會出特徵卡，教你點認——唔係齋鬥快。",
     shStart: "出擊", shLives: "防線", shWave: "第", shPromptMil: "⚠ 軍機接近——認啱機名開火！", shPromptCiv: "民航機經過——認啱機名影低佢！",
     shShot: "擊落！", shCaptured: "拍低咗！", shEscaped: "飛走咗…", shFeature: "認機特徵", shOver: "防線失守！", shDown: "擊落", shCaps: "拍低",
@@ -68,7 +68,7 @@ const STR = {
     gameIntro: "How many can you spot in 60 seconds? +10 per correct answer, +25 bonus every 5 in a row; a miss costs 3 seconds and resets your streak. Pick a badge-level pool, or play with every type.",
     gameStart: "Start challenge", gameAll: "All types", gameTime: "Time", gameScore: "Score", gameStreak: "Streak", gameBest: "Best", gameNone: "Not played",
     gameOver: "Time up!", gameRight: "Correct", gameQuestions: "questions", gameMaxStreak: "Best streak", gameAgain: "Play again", gameQuit: "Quit", gameBack: "Back to modes", gameBonus: "Streak bonus +25!",
-    airportTitle: "Airport codes & world map", airportIntro: "203 international airports: 151 with direct passenger flights from Hong Kong (amber badges), Hong Kong itself in gold, and the rest major world airports (dark-blue badges, no direct Hong Kong flights yet); every code, coordinate and Chinese name verified against Wikipedia. Tap a code badge on the map or an item below to fly there, or filter to Hong Kong direct destinations only.", airportSearchPh: "Search code, airport, city…", airportCount: "airports", airportShowAll: "All airports", airportDirectOnly: "Hong Kong direct only", airportDirectTag: "Direct from HK", airportHomeTag: "Home base", airportLegendHome: "Hong Kong (home)", airportLegendDirect: "Direct from Hong Kong", airportLegendOther: "Other international airports", apGameTitle: "Mini-game: Airport Code Challenge", apGameIntro: "A 60-second code challenge: guess the airport from its code, the code from the airport, or the code from the map, in random order. +10 per correct answer, +25 bonus every 5 in a row; a wrong answer costs 3 seconds and is saved for review at the end. Every question is generated from the 203 verified airports below.", apGameDirect: "Hong Kong direct routes", apGameDirectDesc: "Home base plus the 151 direct destinations; distractors drawn from all over the world", apGameWorld: "World challenge", apGameWorldDesc: "All 203 airports; distractors mostly from the same region, so neighbouring cities are the trap", apGameMapHint: "Which airport is marked ? on the map? What is its code?", apGameReview: "Review your misses", apGameNone: "No misses this round — well done!", airportNoMap: "Map tiles could not load (possibly offline); the list below still works.", airportSrc: "Basemap © OpenStreetMap contributors (Esri fallback); airport data: Wikipedia (codes, coordinates and Hong Kong passenger destinations), verified 2026-11.", airlineTitle: "Airline logo library", airlineIntro: "28 airlines (4 Hong Kong, 16 Asia-Pacific, 8 international): every IATA/ICAO code and main hub verified against Wikipedia; logo images use only public-domain files from Wikimedia Commons, each checked individually — 23 airlines have a logo image, and 5 without a verified freely-usable current logo are shown as text tiles. Search or filter by region, then try the logo challenge below.", airlineSearchPh: "Search airline, code, hub…", airlineCount: "airlines", airlineAll: "All", airlineHK: "Hong Kong", airlineAPAC: "Asia-Pacific", airlineWorld: "International", airlineHKReg: "HK-registered", airlineHub: "Hub", airlineTypes: "On this site's cards", airlineNoLogo: "No verified freely-usable current logo yet — shown as a text tile", airlineCredit: "Logo image: Public domain (Wikimedia Commons)", airlineTm: "Note: all logos are trademarks of their airlines; public domain refers only to the copyright status of the image file, used here for educational recognition with per-file sources.", airlineSrc: "Sources: English Wikipedia airline articles (IATA/ICAO/hubs) and Wikimedia Commons (logo licences), verified 2026-11-10.", logoGameTitle: "Mini-game: Logo Challenge", logoGameIntro: "A 60-second logo challenge: name the airline from its logo, guess its IATA code, guess its hub, or pick the right logo for a named airline, in random order. +10 per correct answer, +25 bonus every 5 in a row; a wrong answer costs 3 seconds and is saved for review at the end. Every question comes from the 23 airlines above with verified logos.", logoGameQName: "Which airline does this logo belong to?", logoGameQIata: "What is this airline's IATA code?", logoGameQHub: "Where is this airline's main hub?",
+    airportTitle: "Airport codes & world map", airportIntro: "203 international airports: 151 with direct passenger flights from Hong Kong (amber badges), Hong Kong itself in gold, and the rest major world airports (dark-blue badges, no direct Hong Kong flights yet); every code, coordinate and Chinese name verified against Wikipedia. Tap a code badge on the map or an item below to fly there, or filter to Hong Kong direct destinations only.", airportSearchPh: "Search code, airport, city…", airportCount: "airports", airportShowAll: "All airports", airportDirectOnly: "Hong Kong direct only", airportDirectTag: "Direct from HK", airportHomeTag: "Home base", airportLegendHome: "Hong Kong (home)", airportLegendDirect: "Direct from Hong Kong", airportLegendOther: "Other international airports", apGameTitle: "Mini-game: Airport Code Challenge", apGameIntro: "A 60-second code challenge: guess the airport from its code, the code from the airport, or the code from the map, in random order. +10 per correct answer, +25 bonus every 5 in a row; a wrong answer costs 3 seconds and is saved for review at the end. Every question is generated from the 203 verified airports below.", apGameDirect: "Hong Kong direct routes", apGameDirectDesc: "Home base plus the 151 direct destinations; distractors drawn from all over the world", apGameWorld: "World challenge", apGameWorldDesc: "All 203 airports; distractors mostly from the same region, so neighbouring cities are the trap", apGameMapHint: "Which airport is marked ? on the map? What is its code?", apGameReview: "Review your misses", apGameNone: "No misses this round — well done!", airportNoMap: "Map tiles could not load (possibly offline); the list below still works.", airportSrc: "Basemap © OpenStreetMap contributors (Esri fallback); airport data: Wikipedia (codes, coordinates and Hong Kong passenger destinations), verified 2026-11.", airlineTitle: "Airline logo library", airlineIntro: "28 airlines (4 Hong Kong, 16 Asia-Pacific, 8 international): every IATA/ICAO code and main hub verified against Wikipedia; logo images use only public-domain files from Wikimedia Commons, each checked individually — 23 airlines have a logo image, and 5 without a verified freely-usable current logo are shown as text tiles. Search or filter by region, then try the logo challenge below.", airlineSearchPh: "Search airline, code, hub…", airlineCount: "airlines", airlineAll: "All", airlineHK: "Hong Kong", airlineAPAC: "Asia-Pacific", airlineWorld: "International", airlineHKReg: "HK-registered", airlineHub: "Hub", airlineTypes: "On this site's cards", airlineNoLogo: "No verified freely-usable current logo yet — shown as a text tile", airlineCredit: "Logo image: Public domain (Wikimedia Commons)", airlineTm: "Note: all logos are trademarks of their airlines; public domain refers only to the copyright status of the image file, used here for educational recognition with per-file sources.", airlineSrc: "Sources: English Wikipedia airline articles (IATA/ICAO/hubs) and Wikimedia Commons (logo licences), verified 2026-11-10.", logoGameTitle: "Mini-game: Logo Challenge", logoGameIntro: "A 60-second logo challenge: name the airline from its logo, guess its IATA code, guess its hub, or pick the right logo for a named airline, in random order. +10 per correct answer, +25 bonus every 5 in a row; a wrong answer costs 3 seconds and is saved for review at the end. Every question comes from the 23 airlines above with verified logos.", logoGameQName: "Which airline does this logo belong to?", logoGameQIata: "What is this airline's IATA code?", logoGameQHub: "Where is this airline's main hub?", matchTitle: "Mini-game: Airline Matching", matchIntro: "Match airline names with their IATA two-letter and ICAO three-letter codes, level by level. 60 seconds: +10 per correct answer, +25 bonus every 5 in a row; a wrong answer costs 3 seconds and shows the correct pairing with a memory hint, saved for review at the end. Every question comes from the 28 verified airlines above.", matchL1: "Level 1 · IATA codes", matchL1Desc: "Pick the IATA code for a named airline, or the airline for a code", matchL2: "Level 2 · ICAO codes", matchL2Desc: "Pick the ICAO code for a named airline, or the airline for a code", matchL3: "Level 3 · Mixed master", matchL3Desc: "Names, IATA and ICAO codes in every direction, plus logo-to-code questions", matchQPickName: "Which airline uses this code?", matchQPickIcao: "What is this airline's ICAO code?", matchQIata2Icao: "Which ICAO code matches this IATA code?", matchQIcao2Iata: "Which IATA code matches this ICAO code?", matchHint: "Memory hint",
     shTitle: "Game: Sky Defence Spotter", shIntro: "Aircraft crossing your sector: name military types correctly to shoot them down; name civil types to photograph them. Three escapes and the line falls; every wave is faster. Each target ends with a feature card teaching the recognition points — not just speed.",
     shStart: "Launch", shLives: "Line", shWave: "Wave", shPromptMil: "⚠ Military contact — name it to fire!", shPromptCiv: "Civil traffic — name it to photograph!",
     shShot: "Shot down!", shCaptured: "Captured!", shEscaped: "It got away…", shFeature: "Recognition features", shOver: "The line has fallen!", shDown: "Downed", shCaps: "Snapped",
@@ -1444,10 +1444,163 @@ function finishLogoGame() {
   $("logoGameBack").addEventListener("click", () => renderLogoGameIntro());
 }
 
-$("langToggle").addEventListener("click", () => { lang = lang === "en" ? "zh" : "en"; quiz = null; examModel = null; examKeyShown = false; stopGameTimer(); game = null; stopShooter(); stopApGameTimer(); apgame = null; destroyApgMap(); stopLogoGameTimer(); logogame = null; applyLang(); renderAirlines(); renderLogoGameIntro(); });
+// ---------- airline matching game (v0.26; questions generated from verified airlines.json only) ----------
+const MATCH_BEST_KEY = "aircraft-encyclopedia.matchgame-best";
+let matchgame = null, matchTimer = null;
+function loadMatchBest() { try { const v = JSON.parse(localStorage.getItem(MATCH_BEST_KEY) || "{}"); return v && typeof v === "object" ? v : {}; } catch (e) { return {}; } }
+function stopMatchTimer() { if (matchTimer) { clearInterval(matchTimer); matchTimer = null; } }
+const MATCH_LEVELS = {
+  L1: { types: ["name2iata", "iata2name"], label: () => t().matchL1, desc: () => t().matchL1Desc },
+  L2: { types: ["name2icao", "icao2name"], label: () => t().matchL2, desc: () => t().matchL2Desc },
+  L3: { types: ["name2iata", "name2icao", "iata2icao", "icao2iata", "logo2iata", "logo2icao"], label: () => t().matchL3, desc: () => t().matchL3Desc }
+};
+function renderMatchIntro() {
+  const body = $("matchGameBody"); if (!body || matchgame) return;
+  if (!AIRLINES_DATA) { body.innerHTML = `<p class="locked-note">${t().examLocked}</p>`; return; }
+  const best = loadMatchBest();
+  const card = (key) => {
+    const b = best[key];
+    const bestTxt = b ? `${t().quizBest} ${b.score}（${b.correct} ${t().gameQuestions}）` : t().quizNone;
+    return `<div class="quiz-level"><h3>${MATCH_LEVELS[key].label()}</h3><p>${AIRLINES_DATA.airlines.length} ${lang === "en" ? "airlines" : "間航空公司"} · ${esc(bestTxt)}</p><p>${MATCH_LEVELS[key].desc()}</p><button type="button" class="quiz-start" data-match="${key}">${t().gameStart}</button></div>`;
+  };
+  body.innerHTML = `<p class="locked-note">${t().matchIntro}</p><div class="quiz-levels exam-cards">${card("L1")}${card("L2")}${card("L3")}</div>`;
+  body.querySelectorAll("[data-match]").forEach((b) => b.addEventListener("click", () => startMatchGame(b.getAttribute("data-match"))));
+}
+function matchPairing(e) {
+  return `${esc(alName(e))}（${esc(alOtherName(e))}）· IATA ${e.iata} · ICAO ${e.icao}${alAirport(e) ? ` · ${esc(alHubLabel(e))}` : ""}`;
+}
+function matchHintOf(e) {
+  const bits = [];
+  if (e.hkRegistered) bits.push(lang === "en" ? "Hong Kong-registered airline" : "香港註冊航空公司");
+  const hub = alHubLabel(e);
+  if (hub) bits.push((lang === "en" ? "hub: " : "樞紐：") + hub);
+  if (!bits.length) bits.push(lang === "en" ? "international airline" : "國際航空公司");
+  return bits.join(lang === "en" ? " · " : "；");
+}
+function matchOptions(answer, pool) {
+  const others = pool.filter((e) => e.iata !== answer.iata);
+  const same = apGameShuffle(others.filter((e) => e.group === answer.group));
+  const rest = apGameShuffle(others.filter((e) => e.group !== answer.group));
+  return apGameShuffle([answer].concat(same.concat(rest).slice(0, 3)));
+}
+function startMatchGame(level) {
+  if (!AIRLINES_DATA || AIRLINES_DATA.airlines.length < 4) return;
+  stopMatchTimer();
+  matchgame = { level, pool: AIRLINES_DATA.airlines, score: 0, streak: 0, maxStreak: 0, correct: 0, total: 0, last: null, locked: false, missed: [], endAt: Date.now() + 60000 };
+  nextMatchQ();
+  matchTimer = setInterval(tickMatch, 100);
+  tickMatch();
+}
+function nextMatchQ() {
+  if (!matchgame) return;
+  let a = matchgame.pool[Math.floor(Math.random() * matchgame.pool.length)];
+  if (matchgame.pool.length > 1) while (a.iata === matchgame.last) a = matchgame.pool[Math.floor(Math.random() * matchgame.pool.length)];
+  matchgame.last = a.iata; matchgame.locked = false; matchgame.total += 1;
+  const types = MATCH_LEVELS[matchgame.level].types;
+  let type = types[Math.floor(Math.random() * types.length)];
+  if ((type === "logo2iata" || type === "logo2icao") && !a.logo) type = type === "logo2iata" ? "name2iata" : "name2icao";
+  matchgame.type = type;
+  matchgame.answer = a.iata;
+  const opts = matchOptions(a, matchgame.pool);
+  const remain = Math.max(0, matchgame.endAt - Date.now());
+  const nameStage = `<div class="apg-stage"><span class="apg-name">${esc(alName(a))}</span><span class="apg-hint">${esc(alOtherName(a))}</span></div>`;
+  const plateStage = a.logo ? `<div class="al-plate lg-plate"><img src="${a.logo.img}" alt=""></div>` : "";
+  let stage, optsHtml;
+  if (type === "name2iata") {
+    stage = `${nameStage}<p class="exam-prompt">${t().logoGameQIata}</p>`;
+    optsHtml = opts.map((e) => `<button type="button" class="quiz-opt" data-mgopt="${e.iata}">${e.iata}</button>`).join("");
+  } else if (type === "name2icao") {
+    stage = `${nameStage}<p class="exam-prompt">${t().matchQPickIcao}</p>`;
+    optsHtml = opts.map((e) => `<button type="button" class="quiz-opt" data-mgopt="${e.iata}">${e.icao}</button>`).join("");
+  } else if (type === "iata2name") {
+    stage = `<div class="apg-stage"><span class="apg-code">${a.iata}</span></div><p class="exam-prompt">${t().matchQPickName}</p>`;
+    optsHtml = opts.map((e) => `<button type="button" class="quiz-opt" data-mgopt="${e.iata}">${esc(alName(e))}</button>`).join("");
+  } else if (type === "icao2name") {
+    stage = `<div class="apg-stage"><span class="apg-code">${a.icao}</span></div><p class="exam-prompt">${t().matchQPickName}</p>`;
+    optsHtml = opts.map((e) => `<button type="button" class="quiz-opt" data-mgopt="${e.iata}">${esc(alName(e))}</button>`).join("");
+  } else if (type === "iata2icao") {
+    stage = `<div class="apg-stage"><span class="apg-code">${a.iata}</span></div><p class="exam-prompt">${t().matchQIata2Icao}</p>`;
+    optsHtml = opts.map((e) => `<button type="button" class="quiz-opt" data-mgopt="${e.iata}">${e.icao}</button>`).join("");
+  } else if (type === "icao2iata") {
+    stage = `<div class="apg-stage"><span class="apg-code">${a.icao}</span></div><p class="exam-prompt">${t().matchQIcao2Iata}</p>`;
+    optsHtml = opts.map((e) => `<button type="button" class="quiz-opt" data-mgopt="${e.iata}">${e.iata}</button>`).join("");
+  } else if (type === "logo2iata") {
+    stage = `${plateStage}<p class="exam-prompt">${t().logoGameQIata}</p>`;
+    optsHtml = opts.map((e) => `<button type="button" class="quiz-opt" data-mgopt="${e.iata}">${e.iata}</button>`).join("");
+  } else {
+    stage = `${plateStage}<p class="exam-prompt">${t().matchQPickIcao}</p>`;
+    optsHtml = opts.map((e) => `<button type="button" class="quiz-opt" data-mgopt="${e.iata}">${e.icao}</button>`).join("");
+  }
+  $("matchGameBody").innerHTML = `<div class="game-hud">
+      <span class="game-stat">${t().gameScore} <b id="matchScore">${matchgame.score}</b></span>
+      <span class="game-stat">${t().gameStreak} <b id="matchStreak">x${matchgame.streak}</b></span>
+      <span class="game-timebar"><i id="matchBar" style="width:${(remain / 600).toFixed(1)}%"></i></span>
+      <b class="game-clock" id="matchClock">${Math.ceil(remain / 1000)}s</b>
+      <button type="button" class="quiz-start alt game-quit" id="matchQuit">${t().gameQuit}</button>
+    </div>
+    ${stage}
+    <div class="quiz-opts">${optsHtml}</div>
+    <div id="matchFb"></div>`;
+  document.querySelectorAll("[data-mgopt]").forEach((b) => b.addEventListener("click", () => answerMatch(b)));
+  $("matchQuit").addEventListener("click", () => { stopMatchTimer(); matchgame = null; renderMatchIntro(); });
+}
+function answerMatch(btn) {
+  if (!matchgame || matchgame.locked) return;
+  matchgame.locked = true;
+  const a = matchgame.pool.find((e) => e.iata === matchgame.answer);
+  const right = btn.getAttribute("data-mgopt") === matchgame.answer;
+  document.querySelectorAll("[data-mgopt]").forEach((b) => {
+    b.disabled = true;
+    if (b.getAttribute("data-mgopt") === matchgame.answer) b.classList.add("right");
+    else if (b === btn) b.classList.add("wrong");
+  });
+  let note;
+  if (right) {
+    matchgame.correct += 1; matchgame.streak += 1; matchgame.maxStreak = Math.max(matchgame.maxStreak, matchgame.streak);
+    matchgame.score += 10;
+    note = matchPairing(a);
+    if (matchgame.streak % 5 === 0) { matchgame.score += 25; note += ` · ${t().gameBonus}`; }
+  } else {
+    matchgame.streak = 0; matchgame.endAt -= 3000;
+    if (!matchgame.missed.includes(a.iata)) matchgame.missed.push(a.iata);
+    note = `${t().wrong}${matchPairing(a)}<br>${t().matchHint}：${esc(matchHintOf(a))}`;
+  }
+  const sc = $("matchScore"); if (sc) sc.textContent = matchgame.score;
+  const st = $("matchStreak"); if (st) st.textContent = `x${matchgame.streak}`;
+  const fb = $("matchFb"); if (fb) fb.innerHTML = `<p class="quiz-feedback">${note}</p>`;
+  setTimeout(() => { if (matchgame) { if (Date.now() >= matchgame.endAt) finishMatch(); else nextMatchQ(); } }, right ? 320 : 900);
+}
+function tickMatch() {
+  if (!matchgame) { stopMatchTimer(); return; }
+  const remain = matchgame.endAt - Date.now();
+  const bar = $("matchBar"), clock = $("matchClock");
+  if (bar) { bar.style.width = `${Math.max(0, remain / 600)}%`; bar.classList.toggle("low", remain < 10000); }
+  if (clock) clock.textContent = `${Math.max(0, Math.ceil(remain / 1000))}s`;
+  if (remain <= 0) finishMatch();
+}
+function finishMatch() {
+  if (!matchgame) return;
+  stopMatchTimer();
+  const g = matchgame; matchgame = null;
+  try {
+    const b = loadMatchBest();
+    if (!b[g.level] || g.score > b[g.level].score) { b[g.level] = { score: g.score, correct: g.correct, streak: g.maxStreak }; localStorage.setItem(MATCH_BEST_KEY, JSON.stringify(b)); }
+  } catch (e) { /* ignore */ }
+  const review = g.missed.length
+    ? `<p class="locked-note">${t().apGameReview}</p><ul class="apg-review">${g.missed.map((code) => { const e = AIRLINES_DATA.airlines.find((x) => x.iata === code); return `<li><b>${code}</b> — ${e ? matchPairing(e) : code}</li>`; }).join("")}</ul>`
+    : `<p class="locked-note">${t().apGameNone}</p>`;
+  $("matchGameBody").innerHTML = `<p class="quiz-score">${t().gameOver} ${MATCH_LEVELS[g.level].label()}</p>
+    <p class="game-result">${t().gameScore} <b>${g.score}</b> · ${t().gameRight} ${g.correct}/${g.total} ${t().gameQuestions} · ${t().gameMaxStreak} x${g.maxStreak}</p>
+    ${review}
+    <p><button type="button" class="quiz-start" id="matchAgain">${t().gameAgain}</button> <button type="button" class="quiz-start alt" id="matchBack">${t().gameBack}</button></p>`;
+  $("matchAgain").addEventListener("click", () => startMatchGame(g.level));
+  $("matchBack").addEventListener("click", () => renderMatchIntro());
+}
+
+$("langToggle").addEventListener("click", () => { lang = lang === "en" ? "zh" : "en"; quiz = null; examModel = null; examKeyShown = false; stopGameTimer(); game = null; stopShooter(); stopApGameTimer(); apgame = null; destroyApgMap(); stopLogoGameTimer(); logogame = null; stopMatchTimer(); matchgame = null; applyLang(); renderAirlines(); renderLogoGameIntro(); renderMatchIntro(); });
 $("searchInput").addEventListener("input", (e) => { query = e.target.value; render(); });
 $("detailClose").addEventListener("click", () => { const d = $("detailDialog"); if (d.close) d.close(); else d.removeAttribute("open"); });
 
 fetch("data/aircraft-inventory.json").then((r) => { if (!r.ok) throw new Error("load"); return r.json(); })
-  .then((d) => { DATA = d; applyLang(); fetch("data/exam-blueprints.json").then((r) => { if (!r.ok) throw new Error("bp"); return r.json(); }).then((b) => { BLUEPRINTS = b; renderExamIntro(); }).catch(() => {}); fetch("data/airports.json").then((r) => { if (!r.ok) throw new Error("ap"); return r.json(); }).then((d) => { AIRPORTS = d; renderAirports(); renderApGameIntro(); renderAirlines(); }).catch(() => {}); fetch("data/airlines.json").then((r) => { if (!r.ok) throw new Error("al"); return r.json(); }).then((d) => { AIRLINES_DATA = d; renderAirlines(); renderLogoGameIntro(); }).catch(() => {}); })
+  .then((d) => { DATA = d; applyLang(); fetch("data/exam-blueprints.json").then((r) => { if (!r.ok) throw new Error("bp"); return r.json(); }).then((b) => { BLUEPRINTS = b; renderExamIntro(); }).catch(() => {}); fetch("data/airports.json").then((r) => { if (!r.ok) throw new Error("ap"); return r.json(); }).then((d) => { AIRPORTS = d; renderAirports(); renderApGameIntro(); renderAirlines(); }).catch(() => {}); fetch("data/airlines.json").then((r) => { if (!r.ok) throw new Error("al"); return r.json(); }).then((d) => { AIRLINES_DATA = d; renderAirlines(); renderLogoGameIntro(); renderMatchIntro(); }).catch(() => {}); })
   .catch(() => { $("loadError").hidden = false; applyLang(); });
