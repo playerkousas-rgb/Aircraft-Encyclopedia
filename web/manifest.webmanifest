@@ -1,6 +1,6 @@
 {
-  "name": "飛機圖鑑 Aircraft Encyclopedia",
-  "short_name": "飛機圖鑑",
+  "name": "航空圖鑑 Aircraft Encyclopedia",
+  "short_name": "航空圖鑑",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#f7f3ea",

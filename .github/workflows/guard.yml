@@ -28,7 +28,7 @@ jobs:
         run: node --test
       - name: Bilingual UI check (L2-L5; only if the checker was copied in)
         if: hashFiles('scripts/i18n_check_v1.0.mjs') != ''
-        run: node scripts/i18n_check_v1.0.mjs .
+        run: node scripts/i18n_check_v1.0.mjs web  # docs/00-quickcard：只掃 app 目錄（`.` 會掃埋 scripts/ 假 fail）
         # L applies only to apps newly created after 2026-11-08; existing repos are not retroactive.
         # Default-required but exemptible: no bilingual implementation = WARN, not FAIL.
         # Exemptions must be recorded as `EXCEPTION: L1 - reason - mitigation` in the PR/SCOPE.

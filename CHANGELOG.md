@@ -6,6 +6,27 @@
 
 - （暫無排定新批次；157 款已全數核實，其後以功能完善為主。）
 
+## [0.32.0] - 2026-11-10
+
+### Changed
+- **空防戰重做（用戶糾正：唔倒飛、唔係相片卡、又唔係純黑剪影）**：目標改成「圖鑑相片去背後嘅飛機剪影」——保留塗裝/細節可認得出機型（遊戲目的=認飛機），飛行時機頭永遠領跑（只按已核實機頭方向做鏡像，唔再盲 `scaleX(-1)`），移除相片卡外框（radius/shadow），天空加落影令剪影浮起；每架飛機帶署名+授權細字（只署名、唔出機型名——防泄底 W8 規則照舊）。
+- **去背管線（fail-closed）**：逐張由圖鑑自有相片（同源同授權）做邊緣播種 floodfill＋多輪＋最大連通區塊去背，ASCII 逐張覆核形狀/機頭方向；做唔乾淨（背景黏連/太細）嘅機型唔入空防戰 pool（圖鑑卡不受影響）。入庫41款：BAAB 12／IAAB 14／AAAB 15；剪影 vendored 喺 `web/assets/planes/`，清單 `web/data/plane-sprites.json`（file/nose/author/licence/source）。
+
+### Added
+- 空防戰 pool 改用 `shooterPoolOf`（只計剪影齊全機型；限時睇相等其他遊戲繼續用相片、pool 不變）。
+## [0.31.0] - 2026-11-10
+
+### Changed
+- **改名**：全站「飛機圖鑑」→「**航空圖鑑**」（title／og／meta／manifest／README／品牌列；EN Aircraft Encyclopedia 不變）。
+- **三層分頁（用戶 #1、#2）**：tab「飛機／航空公司／航點」×「學習／遊戲／試卷」；預設「飛機 · 學習」；認標誌挑戰搬入航空公司/遊戲、睇相遊戲歸航點/遊戲；列印改印當前類別試卷區；Leaflet 地圖喺航點頁先建＋切頁 invalidateSize。
+- **試卷防泄底（#3、#4）**：睇圖辨認卷相片來源只印署名＋授權（描述尾段含機型名＝泄答案）；ap-game `code2name`／`icao2name` 去城市提示（`name2code`／`name2city` 保留）。
+- **內容清理（#5、#6）**：hero 宣傳堆疊（kicker／大標／宣傳句）刪除，只留進度＋sr-only h1；footer「相片未核實前…」註刪除。
+
+### Added
+- **試卷隱形水印（#7）**：三類試卷每頁「© SCOUT SYSTEM · 航空圖鑑 · 卷號」5% 旋轉平鋪＋print 保留（唔碰第三方相片——W8；唔用 DCT codec——hotlink 無 CORS）。
+- **航空公司卷**（`AE-AL-*`）：28 間已核實公司 runtime 出 10 題×2 分（名稱↔IATA/ICAO、標誌、樞紐）。
+- **航點卷**（`AE-AP-*`）：香港直航已核實機場 runtime 出 10 題×2 分（機場↔IATA/ICAO、城市）。
+
 ## [0.30.0] - 2026-11-10
 
 ### Added
