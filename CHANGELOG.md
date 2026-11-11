@@ -6,6 +6,18 @@
 
 - （暫無排定新批次；157 款已全數核實，其後以功能完善為主。）
 
+## [0.33.1] - 2026-11-11
+
+### Fixed
+- **列印四邊冇邊距（用戶回報①）**：雙保險——`@page` 收細做 8mm，同時 print 下 `.exam-sheet` 加 `padding:10mm 8mm`；就算 print dialog 邊距揀咗「無」（Chrome 用家設定會蓋過 @page）或 CSS 快取落後，內容都有 8–18mm 邊距。
+- **快取混版（用戶回報②嘅根因）**：證據＝© 行同無水印（新 app.js）同冇邊距（舊 styles.css）同時出現——`index.html` 全部 asset（styles.css／app.js／leaflet.css／leaflet.js）加 `?v=0.33.1` 查詢參數，index.html 一更新即刻強制重新攞 CSS/JS，唔再混版（舊 v0.32 app.js 嘅切頁卡死都會一併消失）。
+- **遊戲「開唔出」無反饋**：8 個開始鈕（quiz level／限時睇相／空防戰／機場遊戲／睇相認公司／認標誌／配對 ×2）pool 唔夠門檻時 `disabled`＋灰樣式——之前係 silent return＝撳咗冇反應好似卡死（數據齊全時 pool 全部過檻：157/157/41/152/23/28/20，模擬證實）。
+
+- **4 個滯留版號面修正**：`og:title`／`<title>`／HTML 註解／header 品牌行歷來停喺 `v0.31`（guard V1/V2 只管 templates＋code 檔，HTML 呢幾處冇人跟）——同步升 0.33.1。
+
+### Tests
+- 全流程 vm 模擬 **102/102**：boot 並行、地圖三合一、4卷×中英、ap-game 四題型、stopAllGames、**8 款遊戲逐一開→tick×3→玩緊時 render() 不重置→quit 返 intro**、9 個 tab 組合、答題計分。
+
 ## [0.33.0] - 2026-11-11
 
 ### Fixed

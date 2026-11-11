@@ -1,6 +1,6 @@
 "use strict";
 /* Aircraft-Encyclopedia v0.7 · © SCOUT SYSTEM · APP_VERSION 0.9.0 */
-const APP_VERSION = "0.33.0";
+const APP_VERSION = "0.33.1";
 const LANG_KEY = "aircraft-encyclopedia.lang";
 const QUIZ_BEST_KEY = "aircraft-encyclopedia.quiz-best";
 function loadQuizBest() { try { const v = JSON.parse(localStorage.getItem(QUIZ_BEST_KEY) || "{}"); return v && typeof v === "object" ? v : {}; } catch (e) { return {}; } }
@@ -379,7 +379,7 @@ function renderQuizIntro() {
     const n = pool.filter((a) => a.scout && a.scout.level === k).length;
     const b = best[k];
     const bestTxt = b == null ? t().quizNone : `${t().quizBest} ${b}/12`;
-    return `<div class="quiz-level"><h3>${esc(lang === "en" ? v[1] : v[0])}</h3><p>${n} ${lang === "en" ? "types" : "款"} · 12 ${lang === "en" ? "questions" : "題"} · ${esc(bestTxt)}</p><button type="button" class="quiz-start" data-level="${k}">${t().quizStart}</button></div>`;
+    return `<div class="quiz-level"><h3>${esc(lang === "en" ? v[1] : v[0])}</h3><p>${n} ${lang === "en" ? "types" : "款"} · 12 ${lang === "en" ? "questions" : "題"} · ${esc(bestTxt)}</p><button type="button" class="quiz-start" data-level="${k}"${n < 4 ? " disabled" : ""}>${t().quizStart}</button></div>`;
   }).join("");
   const opt = (v, label) => `<option value="${v}"${quizScope === v ? " selected" : ""}>${esc(label)}</option>`;
   const scopeSel = `<label class="quiz-scope">${t().quizScopeLabel}<select id="quizScopeSel">${opt("all", t().quizAll)}<optgroup label="${esc(t().colLabel)}">${Object.entries(COLLECTION_LABEL).map(([k, v]) => opt("coll:" + k, lang === "en" ? v[1] : v[0])).join("")}</optgroup><optgroup label="${esc(t().eraLabel)}">${ERA_BANDS.map((b) => opt("era:" + b[0], (lang === "en" ? b[4] : b[3]) + " " + b[5])).join("")}</optgroup></select></label>`;
@@ -993,7 +993,7 @@ function renderGameIntro() {
     const n = gamePoolOf(key).length;
     const b = best[key];
     const bestTxt = b ? `${t().gameBest} ${b.score}` : t().gameNone;
-    return `<div class="quiz-level"><h3>${esc(label)}</h3><p>${n} ${lang === "en" ? "types" : "款"} · ${esc(bestTxt)}</p><button type="button" class="quiz-start" data-game="${key}">${t().gameStart}</button></div>`;
+    return `<div class="quiz-level"><h3>${esc(label)}</h3><p>${n} ${lang === "en" ? "types" : "款"} · ${esc(bestTxt)}</p><button type="button" class="quiz-start" data-game="${key}"${n < 4 ? " disabled" : ""}>${t().gameStart}</button></div>`;
   };
   const cards = Object.entries(SCOUT_LABEL).map(([k, v]) => card(k, lang === "en" ? v[1] : v[0])).join("") + card("all", t().gameAll);
   body.innerHTML = `<p class="locked-note">${t().gameIntro}</p><div class="quiz-levels exam-cards">${cards}</div>`;
@@ -1096,7 +1096,7 @@ function renderShooterIntro() {
     const n = shooterPoolOf(key).length;
     const b = best[key];
     const bestTxt = b ? `${t().gameBest} ${b.score}` : t().gameNone;
-    return `<div class="quiz-level"><h3>${esc(label)}</h3><p>${n} ${lang === "en" ? "types" : "款"} · ${esc(bestTxt)}</p><button type="button" class="quiz-start" data-shooter="${key}">${t().shStart}</button></div>`;
+    return `<div class="quiz-level"><h3>${esc(label)}</h3><p>${n} ${lang === "en" ? "types" : "款"} · ${esc(bestTxt)}</p><button type="button" class="quiz-start" data-shooter="${key}"${n < 4 ? " disabled" : ""}>${t().shStart}</button></div>`;
   };
   const cards = Object.entries(SCOUT_LABEL).map(([k, v]) => card(k, lang === "en" ? v[1] : v[0])).join("") + card("all", t().gameAll);
   body.innerHTML = `<p class="locked-note">${t().shIntro}</p><div class="quiz-levels exam-cards">${cards}</div>`;
@@ -1376,7 +1376,7 @@ function renderApGameIntro() {
     const n = apGamePoolOf(key).length;
     const b = best[key];
     const bestTxt = b ? `${t().gameBest} ${b.score}` : t().gameNone;
-    return `<div class="quiz-level"><h3>${esc(label)}</h3><p>${n} ${lang === "en" ? "airports" : "個機場"} · ${esc(bestTxt)}</p><p>${esc(desc)}</p><button type="button" class="quiz-start" data-apgame="${key}">${t().gameStart}</button></div>`;
+    return `<div class="quiz-level"><h3>${esc(label)}</h3><p>${n} ${lang === "en" ? "airports" : "個機場"} · ${esc(bestTxt)}</p><p>${esc(desc)}</p><button type="button" class="quiz-start" data-apgame="${key}"${n < 4 ? " disabled" : ""}>${t().gameStart}</button></div>`;
   };
   body.innerHTML = `<p class="locked-note">${t().apGameIntro}</p><div class="quiz-levels exam-cards">${card("direct", t().apGameDirect, t().apGameDirectDesc)}${card("world", t().apGameWorld, t().apGameWorldDesc)}</div>`;
   body.querySelectorAll("[data-apgame]").forEach((b) => b.addEventListener("click", () => startApGame(b.getAttribute("data-apgame"))));
@@ -1557,7 +1557,7 @@ function renderLogoGameIntro() {
   const best = loadLogoGameBest();
   const bestTxt = best ? `${t().quizBest} ${best.score}（${best.correct} ${t().gameQuestions}）` : t().quizNone;
   body.innerHTML = `<h3 class="lg-subtitle">${t().logoGameTitle}</h3><p class="locked-note">${t().logoGameIntro}</p>
-    <div class="quiz-levels"><div class="quiz-level"><h3>${logoPool().length} ${lang === "en" ? "logos" : "個標誌"}</h3><p>${esc(bestTxt)}</p><p><button type="button" class="quiz-start" id="logoGameStart">${t().gameStart}</button></p></div></div>`;
+    <div class="quiz-levels"><div class="quiz-level"><h3>${logoPool().length} ${lang === "en" ? "logos" : "個標誌"}</h3><p>${esc(bestTxt)}</p><p><button type="button" class="quiz-start" id="logoGameStart"${logoPool().length < 4 ? " disabled" : ""}>${t().gameStart}</button></p></div></div>`;
   $("logoGameStart").addEventListener("click", startLogoGame);
 }
 function stopLogoGameTimer() { if (logogameTimer) { clearInterval(logogameTimer); logogameTimer = null; } }
@@ -1696,7 +1696,7 @@ function renderMatchIntro() {
   const card = (key) => {
     const b = best[key];
     const bestTxt = b ? `${t().quizBest} ${b.score}（${b.correct} ${t().gameQuestions}）` : t().quizNone;
-    return `<div class="quiz-level"><h3>${MATCH_LEVELS[key].label()}</h3><p>${AIRLINES_DATA.airlines.length} ${lang === "en" ? "airlines" : "間航空公司"} · ${esc(bestTxt)}</p><p>${MATCH_LEVELS[key].desc()}</p><button type="button" class="quiz-start" data-match="${key}">${t().gameStart}</button></div>`;
+    return `<div class="quiz-level"><h3>${MATCH_LEVELS[key].label()}</h3><p>${AIRLINES_DATA.airlines.length} ${lang === "en" ? "airlines" : "間航空公司"} · ${esc(bestTxt)}</p><p>${MATCH_LEVELS[key].desc()}</p><button type="button" class="quiz-start" data-match="${key}"${AIRLINES_DATA.airlines.length < 4 ? " disabled" : ""}>${t().gameStart}</button></div>`;
   };
   body.innerHTML = `<p class="locked-note">${t().matchIntro}</p><div class="quiz-levels exam-cards">${card("L1")}${card("L2")}${card("L3")}</div>`;
   body.querySelectorAll("[data-match]").forEach((b) => b.addEventListener("click", () => startMatchGame(b.getAttribute("data-match"))));
@@ -1881,7 +1881,7 @@ function renderSpotIntro() {
   const best = loadSpotBest();
   const bestTxt = best ? `${t().quizBest} ${best.score}（${best.correct} ${t().gameQuestions}）` : t().quizNone;
   body.innerHTML = `<p class="locked-note">${t().spotIntro}</p>
-    <div class="quiz-levels"><div class="quiz-level"><h3>${pool.length} ${lang === "en" ? "photos" : "張相"} · ${na} ${lang === "en" ? "airlines" : "間航空公司"}</h3><p>${esc(bestTxt)}</p><p><button type="button" class="quiz-start" id="spotStart">${t().gameStart}</button></p></div></div>`;
+    <div class="quiz-levels"><div class="quiz-level"><h3>${pool.length} ${lang === "en" ? "photos" : "張相"} · ${na} ${lang === "en" ? "airlines" : "間航空公司"}</h3><p>${esc(bestTxt)}</p><p><button type="button" class="quiz-start" id="spotStart"${pool.length < 8 ? " disabled" : ""}>${t().gameStart}</button></p></div></div>`;
   $("spotStart").addEventListener("click", startSpotGame);
 }
 function startSpotGame() {
