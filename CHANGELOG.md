@@ -6,6 +6,14 @@
 
 - （暫無排定新批次；157 款已全數核實，其後以功能完善為主。）
 
+## [0.35.0] - 2026-11-12
+
+### Added
+- **遊戲開局圖片預載（用戶診斷：認到飛機要等原圖＝瀏覽器未緩存）**：小測驗／限時睇相／睇相認公司／空防戰四個遊戲撳開始後先將題目相片（Wikimedia 960px 原圖／本機剪影 PNG）下載入瀏覽器快取，齊先出第一題。開局按鈕位置即時顯示載入面板：「圖片載入中… x／y」進度＋一句解釋（中英雙語 `gamePreload`／`gamePreloadHint`），用戶唔再唔知發生咩事。**8 秒 fail-open 上限**——網絡有問題都照開局，未下載完嘅相後台繼續下載；切頁／重啟／切語言用 generation token 中止等待，冇殘留狀態。
+
+### Fixed
+- **語言切換後飛機遊戲 intro 滯留舊語言**：`renderGameIntro`／`renderQuizIntro`／`renderShooterIntro` 之前冇喺 `applyLang()` 後重繪——順手修（`stopAllGames` 改無條件重繪四個相片遊戲 intro，`langToggle` 補齊三個 render）。
+
 ## [0.34.0] - 2026-11-12
 
 ### Added

@@ -1,6 +1,6 @@
 "use strict";
 /* Aircraft-Encyclopedia v0.7 · © SCOUT SYSTEM · APP_VERSION 0.9.0 */
-const APP_VERSION = "0.34.0";
+const APP_VERSION = "0.35.0";
 const LANG_KEY = "aircraft-encyclopedia.lang";
 const QUIZ_BEST_KEY = "aircraft-encyclopedia.quiz-best";
 function loadQuizBest() { try { const v = JSON.parse(localStorage.getItem(QUIZ_BEST_KEY) || "{}"); return v && typeof v === "object" ? v : {}; } catch (e) { return {}; } }
@@ -11,6 +11,7 @@ const STR = {
     brand: "航空圖鑑",
     searchLabel: "搜尋", searchPh: "名稱、代碼、製造商…", catLabel: "類別", scoutLabel: "章級別", colLabel: "探索系列", eraLabel: "首飛年代", originLabel: "製造國", quizScopeLabel: "出題範圍", quizAll: "全部（已核實）", statusLabel: "狀態", facetLabel: "特徵", allFeatures: "全部特徵",
     loadStatus: "載入資料中…",
+    gamePreload: "圖片載入中…", gamePreloadHint: "首次玩要下載題目相片，下載完成即開局",
     loadErrorTitle: "資料載入失敗", loadErrorText: "請檢查網絡後重新整理；如果用檔案方式打開，請改用靜態伺服器開本站。",
     noResults: "搵唔到符合嘅飛機，試下改搜尋字或清除分類。",
     compareTitle: "比較兩款飛機", quizTitle: "小測驗：睇相認飛機",
@@ -58,6 +59,7 @@ const STR = {
     brand: "Aircraft Encyclopedia",
     searchLabel: "Search", searchPh: "Name, code, manufacturer…", catLabel: "Category", scoutLabel: "Badge level", colLabel: "Collections", eraLabel: "First-flight era", originLabel: "Made in", quizScopeLabel: "Quiz scope", quizAll: "All (verified)", statusLabel: "Status", facetLabel: "Features", allFeatures: "All features",
     loadStatus: "Loading data…",
+    gamePreload: "Loading images…", gamePreloadHint: "First play downloads the question photos; the game starts when they are ready",
     loadErrorTitle: "Could not load data", loadErrorText: "Check your connection and reload. If you opened this as a file, serve the folder with a static server instead.",
     noResults: "No aircraft match. Try another search or clear the filters.",
     compareTitle: "Compare two aircraft", quizTitle: "Quiz: name that plane",
@@ -476,8 +478,23 @@ function startQuiz() {
 function startLevelQuiz(level) {
   const pool = verifiedList().filter((a) => a.scout && a.scout.level === level);
   if (pool.length < 4) return;
-  quiz = { items: genLevelItems(level, pool), idx: 0, score: 0, answered: false, level, pool };
-  showQuestion();
+  const gen = ++quizLoadGen;
+  const items = genLevelItems(level, pool);
+  const bySeq = bySeqMap();
+  const urlSet = new Set();
+  items.forEach((it) => {
+    [it.seq].concat(Array.isArray(it.options) ? it.options : []).forEach((sq) => {
+      const ac = bySeq.get(sq);
+      if (ac && ac.photo && ac.photo.imageUrl) urlSet.add(ac.photo.imageUrl);
+    });
+  });
+  const urls = [...urlSet];
+  $("quizBody").innerHTML = preloadPanel("quizPreloadN", urls.length);
+  preloadImages(urls, () => {
+    if (gen !== quizLoadGen) return;
+    quiz = { items, idx: 0, score: 0, answered: false, level, pool };
+    showQuestion();
+  }, preloadCountCb("quizPreloadN"));
 }
 
 function showQuestion() {
@@ -1001,14 +1018,51 @@ function renderGameIntro() {
   body.innerHTML = `<p class="locked-note">${t().gameIntro}</p><div class="quiz-levels exam-cards">${cards}</div>`;
   body.querySelectorAll("[data-game]").forEach((b) => b.addEventListener("click", () => startGame(b.getAttribute("data-game"))));
 }
+// ---------- photo preload before game start ----------
+// Cache question images first so a round never stalls on an uncached Wikimedia photo.
+// Fail-open: the game starts when every image settles OR after 8s, whichever is first;
+// any still-running downloads keep warming the cache in the background. Generation
+// tokens let a tab switch / restart / lang switch abort a pending start cleanly.
+let gameLoadGen = 0, quizLoadGen = 0, spotLoadGen = 0, shooterLoadGen = 0;
+function preloadPanel(id, n) {
+  return `<p class="locked-note"><b id="${id}">${t().gamePreload} 0/${n}</b></p><p class="locked-note">${t().gamePreloadHint}</p>`;
+}
+function preloadCountCb(id) {
+  return (d, n) => { const el = $(id); if (el) el.textContent = `${t().gamePreload} ${d}/${n}`; };
+}
+function preloadImages(urls, onDone, onProgress) {
+  const list = [...new Set(urls.filter((u) => !!u))];
+  let done = 0, finished = false, capT = null;
+  const finish = () => { if (finished) return; finished = true; if (capT) { clearTimeout(capT); capT = null; } onDone(); }
+  const tick = () => {
+    done += 1;
+    if (onProgress) onProgress(Math.min(done, list.length), list.length);
+    if (done >= list.length) finish();
+  };
+  if (!list.length) { if (onProgress) onProgress(0, 0); finish(); return; }
+  capT = setTimeout(finish, 8000); // fail-open cap: never block the game forever
+  list.forEach((u) => {
+    const im = new Image();
+    im.onload = tick;
+    im.onerror = tick;
+    im.src = u;
+  });
+}
 function startGame(key) {
   const pool = gamePoolOf(key);
   if (pool.length < 4) return;
   stopGameTimer();
-  game = { key, pool, score: 0, streak: 0, maxStreak: 0, correct: 0, total: 0, lastSeq: null, locked: false, endAt: Date.now() + 60000 };
-  nextGameQ();
-  gameTimer = setInterval(tickGame, 100);
-  tickGame();
+  game = null;
+  const gen = ++gameLoadGen;
+  const urls = [...new Set(pool.map((a) => (a.photo ? a.photo.imageUrl : null)).filter(Boolean))];
+  $("gameBody").innerHTML = preloadPanel("gamePreloadN", urls.length);
+  preloadImages(urls, () => {
+    if (gen !== gameLoadGen) return;
+    game = { key, pool, score: 0, streak: 0, maxStreak: 0, correct: 0, total: 0, lastSeq: null, locked: false, endAt: Date.now() + 60000 };
+    nextGameQ();
+    gameTimer = setInterval(tickGame, 100);
+    tickGame();
+  }, preloadCountCb("gamePreloadN"));
 }
 function nextGameQ() {
   if (!game) return;
@@ -1112,8 +1166,17 @@ function startShooter(key) {
   const pool = shooterPoolOf(key);
   if (pool.length < 4) return;
   stopShooter();
-  shooter = { key, pool, score: 0, streak: 0, lives: 3, wave: 1, hits: 0, downed: 0, snapped: 0, lastSeq: null, plane: null, phase: "fly" };
-  spawnPlane();
+  shooter = null;
+  const gen = ++shooterLoadGen;
+  const urlSet = new Set();
+  pool.forEach((a) => { const sp = PLANE_SPRITES && PLANE_SPRITES[a.seq]; if (sp && sp.file) urlSet.add(sp.file); });
+  const urls = [...urlSet];
+  $("shooterBody").innerHTML = preloadPanel("shooterPreloadN", urls.length);
+  preloadImages(urls, () => {
+    if (gen !== shooterLoadGen) return;
+    shooter = { key, pool, score: 0, streak: 0, lives: 3, wave: 1, hits: 0, downed: 0, snapped: 0, lastSeq: null, plane: null, phase: "fly" };
+    spawnPlane();
+  }, preloadCountCb("shooterPreloadN"));
 }
 function spawnPlane() {
   if (!shooter) return;
@@ -1905,10 +1968,19 @@ function startSpotGame() {
   const pool = spotPool();
   if (pool.length < 8 || new Set(pool.map((x) => x.e.iata)).size < 4) return;
   stopSpotTimer();
-  spotgame = { pool, score: 0, streak: 0, maxStreak: 0, correct: 0, total: 0, last: null, item: null, phase: "airline", locked: false, missed: [], endAt: Date.now() + 60000 };
-  nextSpotQ();
-  spotTimer = setInterval(tickSpot, 100);
-  tickSpot();
+  spotgame = null;
+  const gen = ++spotLoadGen;
+  const urlSet = new Set();
+  pool.forEach((x) => { if (x.a && x.a.photo && x.a.photo.imageUrl) urlSet.add(x.a.photo.imageUrl); });
+  const urls = [...urlSet];
+  $("spotGameBody").innerHTML = preloadPanel("spotPreloadN", urls.length);
+  preloadImages(urls, () => {
+    if (gen !== spotLoadGen) return;
+    spotgame = { pool, score: 0, streak: 0, maxStreak: 0, correct: 0, total: 0, last: null, item: null, phase: "airline", locked: false, missed: [], endAt: Date.now() + 60000 };
+    nextSpotQ();
+    spotTimer = setInterval(tickSpot, 100);
+    tickSpot();
+  }, preloadCountCb("spotPreloadN"));
 }
 function spotAirlineOpts(answerE, pool) {
   const airlines = [...new Map(pool.map((x) => [x.e.iata, x.e])).values()];
@@ -2032,19 +2104,18 @@ let curCat = "ac", curPart = "learn";
 // Switching tabs must stop every running game — timers/RAF used to keep
 // re-rendering hidden panels and stacked up until the page froze (user report #6).
 function stopAllGames() {
-  const was = { game, shooter, apgame, logogame, matchgame, spotgame };
+  const was = { apgame, logogame, matchgame };
+  gameLoadGen += 1; quizLoadGen += 1; spotLoadGen += 1; shooterLoadGen += 1; // abort pending photo preloads
   stopGameTimer(); game = null;
   stopShooter();
   stopApGameTimer(); apgame = null; destroyApgMap();
   stopLogoGameTimer(); logogame = null;
   stopMatchTimer(); matchgame = null;
   stopSpotTimer(); spotgame = null;
-  if (was.game) renderGameIntro();
-  if (was.shooter) renderShooterIntro();
   if (was.apgame) renderApGameIntro();
   if (was.logogame) renderLogoGameIntro();
   if (was.matchgame) renderMatchIntro();
-  if (was.spotgame) renderSpotIntro();
+  renderGameIntro(); renderQuizIntro(); renderSpotIntro(); renderShooterIntro(); // restore intros even if only a preload panel was up
 }
 function showCatPart(cat, part) {
   stopAllGames();
@@ -2064,7 +2135,7 @@ function showCatPart(cat, part) {
 document.querySelectorAll(".cat-btn").forEach((b) => b.addEventListener("click", () => showCatPart(b.getAttribute("data-cat"), curPart)));
 document.querySelectorAll(".part-btn").forEach((b) => b.addEventListener("click", () => showCatPart(curCat, b.getAttribute("data-part"))));
 
-$("langToggle").addEventListener("click", () => { lang = lang === "en" ? "zh" : "en"; quiz = null; examModel = null; examKeyShown = false; stopAllGames(); alExamModel = null; alExamKeyShown = false; apExamModel = null; apExamKeyShown = false; applyLang(); renderAirlines(); renderLogoGameIntro(); renderMatchIntro(); renderSpotIntro(); renderAlExamIntro(); renderApExamIntro(); renderAlExamPaper(); renderApExamPaper(); });
+$("langToggle").addEventListener("click", () => { lang = lang === "en" ? "zh" : "en"; quiz = null; examModel = null; examKeyShown = false; stopAllGames(); alExamModel = null; alExamKeyShown = false; apExamModel = null; apExamKeyShown = false; applyLang(); renderAirlines(); renderGameIntro(); renderQuizIntro(); renderShooterIntro(); renderLogoGameIntro(); renderMatchIntro(); renderSpotIntro(); renderAlExamIntro(); renderApExamIntro(); renderAlExamPaper(); renderApExamPaper(); });
 $("searchInput").addEventListener("input", (e) => { query = e.target.value; render(); });
 $("detailClose").addEventListener("click", () => { const d = $("detailDialog"); if (d.close) d.close(); else d.removeAttribute("open"); });
 

@@ -4,7 +4,7 @@
 > 類型：輕量靜態 App（無帳號、無後台）· 技術棧：純靜態多檔（HTML/CSS/原生 JS＋JSON）· 授權：MIT
 > 原始需求 brief 保留喺根目錄 `README` 檔；本檔係 5 分鐘入口。
 
-更新日期：2026-11-12 · 版本：v0.34.0 · 負責：playerkousas-rgb
+更新日期：2026-11-12 · 版本：v0.35.0 · 負責：playerkousas-rgb
 
 ---
 
@@ -38,6 +38,7 @@
 
 **v0.30**：檢卷「航空公司配對」右欄加 23 個已核實 PD 標誌（5 間文字牌照舊；標誌唔係答案，key 照舊純文字）。見 docs/05 第 61 項。
 
+**v0.35.0**：四個相片遊戲開局前預載題目相片（「圖片載入中… x/y」進度＋解釋句，8 秒 fail-open，切頁 token 中止）——治「認到飛機要等原圖」嘅卡頓；順修語言切換後飛機遊戲 intro 滯留舊語言。見 docs/05 第 67 項。
 **v0.34.0**：載入狀態指示（hero「載入資料中…」＋三份 JSON preload 慳串行往返）＋ `web/vercel.json`（安全 headers＋versioned assets 一年 immutable）；空防戰出處行移除＋16 張殘留剪影 fail-closed（pool 餘25，各池仍≥4）；五個答題 handler「先排定推進＋try/catch」防鎖死，配對遊戲壓測3500題0凍結。見 docs/05 第 66 項。
 **v0.33.1**：列印邊距雙保險（@page 8mm ＋ print sheet padding 10mm/8mm——對抗 print dialog「無邊距」覆蓋）；全部 asset 加 `?v=0.33.1` 破快取（修「styles.css 落後 app.js」混版）；遊戲開始鈕 pool 唔夠時 disabled（唔再 silent 死掣）；全流程模擬 102/102（8 款遊戲開/tick/quit/render/切頁安全）。見 docs/05 第 65 項。
 **v0.33**：用戶六點修復——機場地圖（首訪0代碼牌＋搜尋後地圖變空＋瓦片零載入提示，Leaflet self-host 掹 unpkg）、ap-game 移除「睇名估城市」題型（問題或答案必係代碼，剩四題型）、試卷引擎題 `[object Object]` 修正、平鋪水印全刪改 print 頁底 © 行、列印 A4 邊距、切頁即停遊戲修卡死；boot 五份數據並行載入治慢載。見 docs/05 第 64 項。
