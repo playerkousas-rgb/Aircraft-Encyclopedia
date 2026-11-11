@@ -38,7 +38,7 @@
 
 **v0.30**：檢卷「航空公司配對」右欄加 23 個已核實 PD 標誌（5 間文字牌照舊；標誌唔係答案，key 照舊純文字）。見 docs/05 第 61 項。
 
-**v0.35.2**：修比較兩款飛機後閃屏卡死——render 篩選篩誤綁靜態 catnav／cat-panel 容器（click 冒泡→listener 指數疊加→全頁 render 風暴＋category 污染清空列表）；7 個綁定收返落各自容器。見 docs/05 第 69 項。
+**v0.35.2**：修比較兩款飛機後閃屏卡死——render 篩選篩誤綁靜態 catnav／cat-panel 容器（click 冒泡→listener 指數疊加→全頁 render 風暴＋category 污染清空列表）；7 個綁定收返落各自容器＋ readme 方式全面審計（75 綁定審計無第二處、G11 圖標9/9、seo0/0）。見 docs/05 第 69–70 項。
 **v0.35.1**：空防戰剪影 round2——6 張機頭方向修正（治倒飛）、4 張殘留 fail-closed 移除（pool 21）、暗 C-17 提亮保留；載入面板最少顯示 800ms（治「無痕都見唔到」）。見 docs/05 第 68 項。
 **v0.35.0**：四個相片遊戲開局前預載題目相片（「圖片載入中… x/y」進度＋解釋句，8 秒 fail-open，切頁 token 中止）——治「認到飛機要等原圖」嘅卡頓；順修語言切換後飛機遊戲 intro 滯留舊語言。見 docs/05 第 67 項。
 **v0.34.0**：載入狀態指示（hero「載入資料中…」＋三份 JSON preload 慳串行往返）＋ `web/vercel.json`（安全 headers＋versioned assets 一年 immutable）；空防戰出處行移除＋16 張殘留剪影 fail-closed（pool 餘25，各池仍≥4）；五個答題 handler「先排定推進＋try/catch」防鎖死，配對遊戲壓測3500題0凍結。見 docs/05 第 66 項。

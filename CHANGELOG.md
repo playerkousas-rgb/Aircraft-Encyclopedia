@@ -11,6 +11,7 @@
 ### Fixed
 - **比較兩款飛機後閃屏卡死（用戶回報）**：根因＝`render()` 用 `document.querySelectorAll("[data-cat]")` 綁篩選篩——除咗動態 chips，仲會揀中**靜態** catnav 按鈕同成個 `.cat-panel[data-cat]` 容器（click 會冒泡）。每次 render 疊加1個 listener，容器內任何一撳就跑齊全部 → listener 指數翻倍（重現：1,2,4,8,16,32…），幾次互動後一次撳掣觸發幾千次全頁 render＝閃屏＋卡死＋主線程頂死（一直 load／按鈕冇反應）；同時 handler 將 `category` 設成 `"ac"`（唔係合法 category 鍵）→ 篩選清空列表＝「選不到」。
 - 修法：7 個 render 時段綁定全部收返落自己容器（`categoryChips/scoutChips/collectionChips/eraChips/originChips/statusChips/grid`），靜態導航/面板唔會再被綁上 render 篩選篩；重現腳本三大指標全綠（靜態 listener 0、無增長、category 保持 all）。
+- **readme 方式全面審計（用戶要求「確保無 bug」）**：75 個 `addEventListener` 綁定逐一分組審計（render 時段 vs top-level 一次性 vs 動態 innerHTML 節點）——**無第二處同型累積**（airportSearch/airlineSearch/sopt/quizNext 等全部隨 innerHTML 重寫；showCatPart 綁定係 top-level 一次過）；G11 圖標9/9齊（全部 ≤260KB、og 1200×630、manifest4 icons）；seo_check 由3 WARN → **0 FAIL 0 WARN**（og:image 改絕對網址、加 canonical／twitter:card 四件套／JSON-LD WebSite）；consistency6 FAIL 全屬真理倉結構檢查（docs/32 §7 明言唔適用 app repo）、audit_single_html V1/V2/W2 屬單一 HTML 交付物規則（本站 Vercel 多檔，C13-g 分類 N/A）、npm check/build 無 package.json = N/A；repo_health 10/0/0、preflight8/8、seo0/0。
 
 ## [0.35.1] - 2026-11-12
 
