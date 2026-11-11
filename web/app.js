@@ -1,6 +1,6 @@
 "use strict";
 /* Aircraft-Encyclopedia v0.7 · © SCOUT SYSTEM · APP_VERSION 0.9.0 */
-const APP_VERSION = "0.35.1";
+const APP_VERSION = "0.35.2";
 const LANG_KEY = "aircraft-encyclopedia.lang";
 const QUIZ_BEST_KEY = "aircraft-encyclopedia.quiz-best";
 function loadQuizBest() { try { const v = JSON.parse(localStorage.getItem(QUIZ_BEST_KEY) || "{}"); return v && typeof v === "object" ? v : {}; } catch (e) { return {}; } }
@@ -197,33 +197,33 @@ function render() {
   const chips = [["all", t().all]].concat(Object.entries(DATA.categories).map(([k, v]) => [k, lang === "en" ? v.en : v.zh]));
   $("categoryChips").innerHTML = chips.map(([k, label]) =>
     `<button type="button" class="chip" data-cat="${k}" aria-pressed="${category === k}">${esc(label)}</button>`).join("");
-  document.querySelectorAll("[data-cat]").forEach((b) => b.addEventListener("click", () => { category = b.getAttribute("data-cat"); render(); }));
+  $("categoryChips").querySelectorAll("[data-cat]").forEach((b) => b.addEventListener("click", () => { category = b.getAttribute("data-cat"); render(); }));
 
   const scoutChips = [["all", t().all]].concat(Object.entries(SCOUT_LABEL).map(([k, v]) => [k, lang === "en" ? v[1] : v[0]]));
   $("scoutChips").innerHTML = scoutChips.map(([k, label]) =>
     `<button type="button" class="chip" data-scout="${k}" aria-pressed="${scout === k}">${esc(label)}</button>`).join("");
-  document.querySelectorAll("[data-scout]").forEach((b) => b.addEventListener("click", () => { scout = b.getAttribute("data-scout"); render(); }));
+  $("scoutChips").querySelectorAll("[data-scout]").forEach((b) => b.addEventListener("click", () => { scout = b.getAttribute("data-scout"); render(); }));
 
   const colChips = [["all", t().all]].concat(Object.entries(COLLECTION_LABEL).map(([k, v]) => [k, lang === "en" ? v[1] : v[0]]));
   $("collectionChips").innerHTML = colChips.map(([k, label]) =>
     `<button type="button" class="chip" data-coll="${k}" aria-pressed="${collection === k}">${esc(label)}</button>`).join("");
-  document.querySelectorAll("[data-coll]").forEach((b) => b.addEventListener("click", () => { collection = b.getAttribute("data-coll"); render(); }));
+  $("collectionChips").querySelectorAll("[data-coll]").forEach((b) => b.addEventListener("click", () => { collection = b.getAttribute("data-coll"); render(); }));
 
   const eraChips = [["all", t().all]].concat(ERA_BANDS.map((b) => [b[0], (lang === "en" ? b[4] : b[3]) + " " + b[5]]));
   $("eraChips").innerHTML = eraChips.map(([k, label]) =>
     `<button type="button" class="chip" data-era="${k}" aria-pressed="${era === k}">${esc(label)}</button>`).join("");
-  document.querySelectorAll("[data-era]").forEach((b) => b.addEventListener("click", () => { era = b.getAttribute("data-era"); render(); }));
+  $("eraChips").querySelectorAll("[data-era]").forEach((b) => b.addEventListener("click", () => { era = b.getAttribute("data-era"); render(); }));
 
   const originCounts = {}; for (const a of list) { const o = originOf(a); if (o) originCounts[o] = (originCounts[o] || 0) + 1; }
   const originChips = [["all", t().all]].concat(Object.keys(ORIGIN_LABEL).filter((k) => originCounts[k]).sort((x, y) => originCounts[y] - originCounts[x]).map((k) => [k, lang === "en" ? ORIGIN_LABEL[k][1] : ORIGIN_LABEL[k][0]]));
   $("originChips").innerHTML = originChips.map(([k, label]) =>
     `<button type="button" class="chip" data-origin="${k}" aria-pressed="${origin === k}">${esc(label)}</button>`).join("");
-  document.querySelectorAll("[data-origin]").forEach((b) => b.addEventListener("click", () => { origin = b.getAttribute("data-origin"); render(); }));
+  $("originChips").querySelectorAll("[data-origin]").forEach((b) => b.addEventListener("click", () => { origin = b.getAttribute("data-origin"); render(); }));
 
   const statusChips = [["all", t().all], ["verified", t().verifiedOnly], ["pending", t().pendingOnly]];
   $("statusChips").innerHTML = statusChips.map(([k, label]) =>
     `<button type="button" class="chip" data-status="${k}" aria-pressed="${statusFilter === k}">${esc(label)}</button>`).join("");
-  document.querySelectorAll("[data-status]").forEach((b) => b.addEventListener("click", () => { statusFilter = b.getAttribute("data-status"); render(); }));
+  $("statusChips").querySelectorAll("[data-status]").forEach((b) => b.addEventListener("click", () => { statusFilter = b.getAttribute("data-status"); render(); }));
 
   const facetOpts = [["all", t().allFeatures], ["fixed", lang === "en" ? "Fixed-wing" : "定翼機"], ["rotor", lang === "en" ? "Rotorcraft" : "旋翼機"]]
     .concat(FACET_FILTER_KEYS.filter((k) => TAG_LABEL[k]).map((k) => [k, lang === "en" ? TAG_LABEL[k][1] : TAG_LABEL[k][0]]));
@@ -265,7 +265,7 @@ function render() {
       </div>
     </article>`;
   }).join("");
-  document.querySelectorAll("[data-seq]").forEach((b) => b.addEventListener("click", () => openDetail(b.getAttribute("data-seq"))));
+  $("grid").querySelectorAll("[data-seq]").forEach((b) => b.addEventListener("click", () => openDetail(b.getAttribute("data-seq"))));
   renderCompare();
   renderQuizIntro();
   renderExamIntro();

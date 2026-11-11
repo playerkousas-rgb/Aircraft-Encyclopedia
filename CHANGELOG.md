@@ -6,6 +6,12 @@
 
 - （暫無排定新批次；157 款已全數核實，其後以功能完善為主。）
 
+## [0.35.2] - 2026-11-12
+
+### Fixed
+- **比較兩款飛機後閃屏卡死（用戶回報）**：根因＝`render()` 用 `document.querySelectorAll("[data-cat]")` 綁篩選篩——除咗動態 chips，仲會揀中**靜態** catnav 按鈕同成個 `.cat-panel[data-cat]` 容器（click 會冒泡）。每次 render 疊加1個 listener，容器內任何一撳就跑齊全部 → listener 指數翻倍（重現：1,2,4,8,16,32…），幾次互動後一次撳掣觸發幾千次全頁 render＝閃屏＋卡死＋主線程頂死（一直 load／按鈕冇反應）；同時 handler 將 `category` 設成 `"ac"`（唔係合法 category 鍵）→ 篩選清空列表＝「選不到」。
+- 修法：7 個 render 時段綁定全部收返落自己容器（`categoryChips/scoutChips/collectionChips/eraChips/originChips/statusChips/grid`），靜態導航/面板唔會再被綁上 render 篩選篩；重現腳本三大指標全綠（靜態 listener 0、無增長、category 保持 all）。
+
 ## [0.35.1] - 2026-11-12
 
 ### Fixed
