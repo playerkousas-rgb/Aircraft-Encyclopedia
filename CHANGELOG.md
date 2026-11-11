@@ -10,7 +10,7 @@
 
 ### Fixed
 - **機場地圖三合一修復（用戶回報「地圖都係睇唔到」）**：(1) 首次入航點頁 0 個代碼牌——`syncAirportMap` 嘅 layer 由 `initAirportMap` 建咗先，`if (!airportLayer)` 永遠唔入 → 改為 markers 空即 build（離線模擬重現＋修後 203 牌過）；(2) 搜尋／篩選成個 `body.innerHTML` 重建 → 舊地圖 div detach 但實例未釋放 → 一打字地圖變空框——加 detached 檢測，release 後按原視野重建；(3) 瓦片零載入（OSM+Esri 都唔到）→ 9 秒後出「底圖載入唔到，清單照用」提示，`tileload` 到咗自動撤回。
-- **ap-game「睇機場名估城市」泄答案**：題面掛嘅 IATA 提示（LHR→London）抽走，淨低機場名（name2code 城市提示保留——嗰個唔會答到問題）。
+- **ap-game「睇機場名估城市」題型整個移除（用戶定案，上一版只抽走題面 IATA 提示係修錯方向）**：機場名多數自帶城市（香港國際機場一睇就知香港），名→城市兩邊都唔係代碼、根本冇難度——規則＝問題或者答案必係代碼。淨低四題型：`code2name`（出 IATA 估名）、`name2code`（出名答 IATA，城市提示保留——唔會泄 IATA）、`icao2name`（出 ICAO 估名）、`map2code`（地圖答 IATA）；`apGameIntro` 同步改「四種題型（問題或者答案必係代碼）」，`apGameQCity` i18n ＋ `apGameCityOptions` 一併移除。
 - **試卷引擎題答案 `[object Object]`**：`specs.engines` 係物件 `{value,…}`，直接入 `esc()` → 改 `.value`（157/157 卡有值）；quiz「邊間公司製造」嘅提示同款病一併修（落錯分支顯示引擎物件 → 改顯示製造商）。
 - **切頁卡死（用戶回報「點著點著成個網頁卡死」）**：`showCatPart` 唔停遊戲——多個100ms interval＋空防戰 RAF 對隱藏 DOM 重繪堆疊至主線程飽和。新增 `stopAllGames()`（langToggle 同款全套清理＋還原 intro），切「飛機／航空公司／航點」或「學習／遊戲／試卷」即停。
 
