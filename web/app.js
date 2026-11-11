@@ -1,6 +1,6 @@
 "use strict";
 /* Aircraft-Encyclopedia v0.7 · © SCOUT SYSTEM · APP_VERSION 0.9.0 */
-const APP_VERSION = "0.35.0";
+const APP_VERSION = "0.35.1";
 const LANG_KEY = "aircraft-encyclopedia.lang";
 const QUIZ_BEST_KEY = "aircraft-encyclopedia.quiz-best";
 function loadQuizBest() { try { const v = JSON.parse(localStorage.getItem(QUIZ_BEST_KEY) || "{}"); return v && typeof v === "object" ? v : {}; } catch (e) { return {}; } }
@@ -1024,6 +1024,7 @@ function renderGameIntro() {
 // any still-running downloads keep warming the cache in the background. Generation
 // tokens let a tab switch / restart / lang switch abort a pending start cleanly.
 let gameLoadGen = 0, quizLoadGen = 0, spotLoadGen = 0, shooterLoadGen = 0;
+const PRELOAD_MIN_MS = 800; // keep the loading panel visible long enough to be seen
 function preloadPanel(id, n) {
   return `<p class="locked-note"><b id="${id}">${t().gamePreload} 0/${n}</b></p><p class="locked-note">${t().gamePreloadHint}</p>`;
 }
@@ -1032,8 +1033,16 @@ function preloadCountCb(id) {
 }
 function preloadImages(urls, onDone, onProgress) {
   const list = [...new Set(urls.filter((u) => !!u))];
+  const t0 = Date.now();
   let done = 0, finished = false, capT = null;
-  const finish = () => { if (finished) return; finished = true; if (capT) { clearTimeout(capT); capT = null; } onDone(); }
+  const finish = () => {
+    if (finished) return;
+    finished = true;
+    if (capT) { clearTimeout(capT); capT = null; }
+    const wait = PRELOAD_MIN_MS - (Date.now() - t0); // fast cache still shows the panel briefly
+    if (wait > 0) setTimeout(onDone, wait);
+    else onDone();
+  };
   const tick = () => {
     done += 1;
     if (onProgress) onProgress(Math.min(done, list.length), list.length);
