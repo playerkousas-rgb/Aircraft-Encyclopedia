@@ -1,6 +1,6 @@
 "use strict";
 /* Aircraft-Encyclopedia v0.7 · © SCOUT SYSTEM · APP_VERSION 0.9.0 */
-const APP_VERSION = "0.33.1";
+const APP_VERSION = "0.34.0";
 const LANG_KEY = "aircraft-encyclopedia.lang";
 const QUIZ_BEST_KEY = "aircraft-encyclopedia.quiz-best";
 function loadQuizBest() { try { const v = JSON.parse(localStorage.getItem(QUIZ_BEST_KEY) || "{}"); return v && typeof v === "object" ? v : {}; } catch (e) { return {}; } }
@@ -10,6 +10,7 @@ const STR = {
   zh: {
     brand: "航空圖鑑",
     searchLabel: "搜尋", searchPh: "名稱、代碼、製造商…", catLabel: "類別", scoutLabel: "章級別", colLabel: "探索系列", eraLabel: "首飛年代", originLabel: "製造國", quizScopeLabel: "出題範圍", quizAll: "全部（已核實）", statusLabel: "狀態", facetLabel: "特徵", allFeatures: "全部特徵",
+    loadStatus: "載入資料中…",
     loadErrorTitle: "資料載入失敗", loadErrorText: "請檢查網絡後重新整理；如果用檔案方式打開，請改用靜態伺服器開本站。",
     noResults: "搵唔到符合嘅飛機，試下改搜尋字或清除分類。",
     compareTitle: "比較兩款飛機", quizTitle: "小測驗：睇相認飛機",
@@ -56,6 +57,7 @@ const STR = {
   en: {
     brand: "Aircraft Encyclopedia",
     searchLabel: "Search", searchPh: "Name, code, manufacturer…", catLabel: "Category", scoutLabel: "Badge level", colLabel: "Collections", eraLabel: "First-flight era", originLabel: "Made in", quizScopeLabel: "Quiz scope", quizAll: "All (verified)", statusLabel: "Status", facetLabel: "Features", allFeatures: "All features",
+    loadStatus: "Loading data…",
     loadErrorTitle: "Could not load data", loadErrorText: "Check your connection and reload. If you opened this as a file, serve the folder with a static server instead.",
     noResults: "No aircraft match. Try another search or clear the filters.",
     compareTitle: "Compare two aircraft", quizTitle: "Quiz: name that plane",
@@ -1034,6 +1036,9 @@ function answerGame(btn) {
   if (!game || game.locked) return;
   game.locked = true;
   const right = btn.getAttribute("data-gopt") === game.answer;
+  // schedule the advance first so feedback errors can never lock the game
+  setTimeout(() => { if (game) { if (Date.now() >= game.endAt) finishGame(); else nextGameQ(); } }, right ? 320 : 800);
+  try {
   document.querySelectorAll("[data-gopt]").forEach((b) => {
     b.disabled = true;
     if (b.getAttribute("data-gopt") === game.answer) b.classList.add("right");
@@ -1052,7 +1057,8 @@ function answerGame(btn) {
   const sc = $("gameScore"); if (sc) sc.textContent = game.score;
   const st = $("gameStreak"); if (st) st.textContent = `x${game.streak}`;
   const fb = $("gameFb"); if (fb && note) fb.innerHTML = `<p class="quiz-feedback">${esc(note)}</p>`;
-  setTimeout(() => { if (game) { if (Date.now() >= game.endAt) finishGame(); else nextGameQ(); } }, right ? 320 : 800);
+  
+  } catch (e) { console.error("answerGame feedback error", e); }
 }
 function tickGame() {
   if (!game) { stopGameTimer(); return; }
@@ -1126,7 +1132,6 @@ function spawnPlane() {
   const sp = PLANE_SPRITES && PLANE_SPRITES[a.seq];
   /* 機頭一律領跑：只按已核實嘅機頭方向做鏡像，唔再盲反轉 */
   const flip = !!sp && ((sp.nose === "right" && dir === -1) || (sp.nose === "left" && dir === 1));
-  const credit = sp ? `${lang === "en" ? "Photo" : "相片"}：${esc(sp.author)}／Wikimedia Commons（${esc(sp.licence)}）` : "";
   $("shooterBody").innerHTML = `<div class="game-hud">
       <span class="game-stat">${t().gameScore} <b>${shooter.score}</b></span>
       <span class="game-stat">${t().gameStreak} <b>x${shooter.streak}</b></span>
@@ -1136,7 +1141,7 @@ function spawnPlane() {
     </div>
     <div class="sky" id="shSky">
       <div class="cloud c1"></div><div class="cloud c2"></div><div class="cloud c3"></div>
-      <div class="plane" id="shPlane">${sp ? `<img src="${esc(sp.file)}" alt="" style="${flip ? "transform:scaleX(-1);" : ""}">` : ""}<div class="sh-credit">${credit}</div></div>
+      <div class="plane" id="shPlane">${sp ? `<img src="${esc(sp.file)}" alt="" style="${flip ? "transform:scaleX(-1);" : ""}">` : ""}</div>
       <div class="turret" aria-hidden="true"></div>
     </div>
     <p class="sh-prompt">${mil ? t().shPromptMil : t().shPromptCiv}</p>
@@ -1450,6 +1455,9 @@ function answerApGame(btn) {
   apgame.locked = true;
   const a = apgame.pool.find((p) => p.iata === apgame.answer);
   const right = btn.getAttribute("data-apgopt") === apgame.answer;
+  // schedule the advance first so feedback errors can never lock the game
+  setTimeout(() => { if (apgame) { if (Date.now() >= apgame.endAt) finishApGame(); else nextApGameQ(); } }, right ? 320 : 900);
+  try {
   document.querySelectorAll("[data-apgopt]").forEach((b) => {
     b.disabled = true;
     if (b.getAttribute("data-apgopt") === apgame.answer) b.classList.add("right");
@@ -1469,7 +1477,8 @@ function answerApGame(btn) {
   const sc = $("apGameScore"); if (sc) sc.textContent = apgame.score;
   const st = $("apGameStreak"); if (st) st.textContent = `x${apgame.streak}`;
   const fb = $("apGameFb"); if (fb) fb.innerHTML = `<p class="quiz-feedback">${note}</p>`;
-  setTimeout(() => { if (apgame) { if (Date.now() >= apgame.endAt) finishApGame(); else nextApGameQ(); } }, right ? 320 : 900);
+  
+  } catch (e) { console.error("answerApGame feedback error", e); }
 }
 function tickApGame() {
   if (!apgame) { stopApGameTimer(); return; }
@@ -1630,6 +1639,9 @@ function answerLogoGame(btn) {
   logogame.locked = true;
   const a = logogame.pool.find((e) => e.iata === logogame.answer);
   const right = btn.getAttribute("data-lgopt") === logogame.answer;
+  // schedule the advance first so feedback errors can never lock the game
+  setTimeout(() => { if (logogame) { if (Date.now() >= logogame.endAt) finishLogoGame(); else nextLogoGameQ(); } }, right ? 320 : 900);
+  try {
   document.querySelectorAll("[data-lgopt]").forEach((b) => {
     b.disabled = true;
     if (b.getAttribute("data-lgopt") === logogame.answer) b.classList.add("right");
@@ -1650,7 +1662,8 @@ function answerLogoGame(btn) {
   const sc = $("logoGameScore"); if (sc) sc.textContent = logogame.score;
   const st = $("logoGameStreak"); if (st) st.textContent = `x${logogame.streak}`;
   const fb = $("logoGameFb"); if (fb) fb.innerHTML = `<p class="quiz-feedback">${note}</p>`;
-  setTimeout(() => { if (logogame) { if (Date.now() >= logogame.endAt) finishLogoGame(); else nextLogoGameQ(); } }, right ? 320 : 900);
+  
+  } catch (e) { console.error("answerLogoGame feedback error", e); }
 }
 function tickLogoGame() {
   if (!logogame) { stopLogoGameTimer(); return; }
@@ -1784,6 +1797,9 @@ function answerMatch(btn) {
   matchgame.locked = true;
   const a = matchgame.pool.find((e) => e.iata === matchgame.answer);
   const right = btn.getAttribute("data-mgopt") === matchgame.answer;
+  // schedule the advance first so feedback errors can never lock the game
+  setTimeout(() => { if (matchgame) { if (Date.now() >= matchgame.endAt) finishMatch(); else nextMatchQ(); } }, right ? 320 : 900);
+  try {
   document.querySelectorAll("[data-mgopt]").forEach((b) => {
     b.disabled = true;
     if (b.getAttribute("data-mgopt") === matchgame.answer) b.classList.add("right");
@@ -1803,7 +1819,8 @@ function answerMatch(btn) {
   const sc = $("matchScore"); if (sc) sc.textContent = matchgame.score;
   const st = $("matchStreak"); if (st) st.textContent = `x${matchgame.streak}`;
   const fb = $("matchFb"); if (fb) fb.innerHTML = `<p class="quiz-feedback">${note}</p>`;
-  setTimeout(() => { if (matchgame) { if (Date.now() >= matchgame.endAt) finishMatch(); else nextMatchQ(); } }, right ? 320 : 900);
+  
+  } catch (e) { console.error("answerMatch feedback error", e); }
 }
 function tickMatch() {
   if (!matchgame) { stopMatchTimer(); return; }
@@ -1950,6 +1967,15 @@ function answerSpot(btn) {
   const isAirline = spotgame.phase === "airline";
   const answerVal = isAirline ? e.iata : a.seq;
   const right = btn.getAttribute("data-spotopt") === answerVal;
+  // schedule the advance first so feedback errors can never lock the game
+  setTimeout(() => {
+    if (!spotgame) return;
+    spotgame.locked = false;
+    if (Date.now() >= spotgame.endAt) { finishSpot(); return; }
+    if (spotgame.phase === "airline") { spotgame.phase = "type"; spotgame.total += 1; renderSpotQ(); }
+    else nextSpotQ();
+  }, right ? 600 : 1200);
+  try {
   document.querySelectorAll("[data-spotopt]").forEach((b) => {
     b.disabled = true;
     if (b.getAttribute("data-spotopt") === answerVal) b.classList.add("right");
@@ -1970,13 +1996,8 @@ function answerSpot(btn) {
   const sc = $("spotScore"); if (sc) sc.textContent = spotgame.score;
   const st = $("spotStreak"); if (st) st.textContent = `x${spotgame.streak}`;
   const fb = $("spotFb"); if (fb) fb.innerHTML = `<p class="quiz-feedback">${note}</p>`;
-  setTimeout(() => {
-    if (!spotgame) return;
-    spotgame.locked = false;
-    if (Date.now() >= spotgame.endAt) { finishSpot(); return; }
-    if (spotgame.phase === "airline") { spotgame.phase = "type"; spotgame.total += 1; renderSpotQ(); }
-    else nextSpotQ();
-  }, right ? 600 : 1200);
+  
+  } catch (e) { console.error("answerSpot feedback error", e); }
 }
 function tickSpot() {
   if (!spotgame) { stopSpotTimer(); return; }
@@ -2057,9 +2078,11 @@ function refreshAfterData() {
   if (DATA && PLANE_SPRITES && !shooter) renderShooterIntro();
   if (DATA && AIRLINES_DATA && !spotgame) renderSpotIntro();
 }
+let bootPending = 5;
+const bootSettled = () => { bootPending -= 1; if (bootPending <= 0) { const el = $("loadStatus"); if (el) el.hidden = true; } };
 applyLang();
-bootFetch("data/aircraft-inventory.json", "load", (d) => { DATA = d; render(); refreshAfterData(); }, () => { $("loadError").hidden = false; });
-bootFetch("data/exam-blueprints.json", "bp", (b) => { BLUEPRINTS = b; refreshAfterData(); });
-bootFetch("data/airports.json", "ap", (d) => { AIRPORTS = d; renderAirports(); renderApGameIntro(); renderApExamIntro(); });
-bootFetch("data/airlines.json", "al", (d) => { AIRLINES_DATA = d; renderAirlines(); renderLogoGameIntro(); renderMatchIntro(); renderAlExamIntro(); refreshAfterData(); });
-bootFetch("data/plane-sprites.json", "sp", (s) => { PLANE_SPRITES = s && s.sprites ? s.sprites : {}; renderShooterIntro(); refreshAfterData(); }, () => { PLANE_SPRITES = {}; renderShooterIntro(); });
+bootFetch("data/aircraft-inventory.json", "load", (d) => { DATA = d; render(); refreshAfterData(); }, () => { $("loadError").hidden = false; }).then(bootSettled);
+bootFetch("data/exam-blueprints.json", "bp", (b) => { BLUEPRINTS = b; refreshAfterData(); }).then(bootSettled);
+bootFetch("data/airports.json", "ap", (d) => { AIRPORTS = d; renderAirports(); renderApGameIntro(); renderApExamIntro(); }).then(bootSettled);
+bootFetch("data/airlines.json", "al", (d) => { AIRLINES_DATA = d; renderAirlines(); renderLogoGameIntro(); renderMatchIntro(); renderAlExamIntro(); refreshAfterData(); }).then(bootSettled);
+bootFetch("data/plane-sprites.json", "sp", (s) => { PLANE_SPRITES = s && s.sprites ? s.sprites : {}; renderShooterIntro(); refreshAfterData(); }, () => { PLANE_SPRITES = {}; renderShooterIntro(); }).then(bootSettled);

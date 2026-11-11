@@ -6,6 +6,18 @@
 
 - （暫無排定新批次；157 款已全數核實，其後以功能完善為主。）
 
+## [0.34.0] - 2026-11-12
+
+### Added
+- **載入狀態指示（用戶回報①）**：hero 加「載入資料中…／Loading data…」——靜態 HTML 一開就見到（app.js 未下載都見到），五份資料全部 settle 先收起；載入失敗照舊出 loadError。
+- **JSON 並行下載（用戶回報②）**：index.html 三條 `<link rel="preload" as="fetch">`（aircraft-inventory ~1MB／airports／airlines），下載同 HTML 解析同步開波，慳 HTML→JS eval→fetch 嘅串行往返。
+- **`web/vercel.json`（真理倉 VL3）**：安全 headers（nosniff／SAMEORIGIN／Referrer-Policy／Permissions-Policy）＋ versioned assets（app.js／styles.css／vendor）一年 immutable 快取；regions 唔加（hkg1 對所有 plan 可用性冇法喺沙箱核實，寧缺勿錯）。
+
+### Fixed
+- **空防戰唔再標出處（用戶回報③）**：機身出處細 pill（`sh-credit`）連 CSS 整個移除；署名資料仍存 `plane-sprites.json`（author/licence/source），圖鑑卡出處照舊。
+- **剪影殘留背景（用戶回報③b）**：洋紅底複檢全庫 41 張，16 張仲有地面／樹林／雲塊／建築殘留（AC-0002/0003/0005/0006/0017/0022/0026/0034/0037/0042/0047/0052/0056/0058/0062/0071）fail-closed 移除＋刪檔；pool 餘 25（BAAB5／IAAB10／AAAB10，各池仍 ≥4）。
+- **遊戲凍結防護（用戶回報④⑤）**：靜態審計六面向全乾淨（無 document/window listener 積累、5 個 interval 全有配對 clear、RAF／timeout 全有 guard、match 邏輯＋數據無 throw 路徑）＋ vm 壓力模擬 3500 題（219 中途退出／372 重開／132 過期／500 雙遊戲同跑）0 凍結 0 異常 0 洩漏——代碼層面證明乾淨；仍加防護＝五個答題 handler 改「先排定推進、回饋包 try/catch」，回饋出錯都唔會令 `locked` 永久卡死。若實機仍然卡＝瀏覽器緊舊 app.js，硬性重新整理（Ctrl/Cmd+Shift+R）。
+
 ## [0.33.1] - 2026-11-11
 
 ### Fixed
