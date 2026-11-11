@@ -1,7 +1,7 @@
 {
- "version": "0.34.0",
+ "version": "0.35.1",
  "updated": "2026-11-12",
- "note": "空防戰目標 = 用圖鑑相片去背後嘅飛機剪影（background removed cutouts），逐張驗證形狀同機頭方向先入庫；剪影同圖鑑卡相片同一來源（同一授權/署名，唔另加水印）。相片做唔到乾淨去背嘅機型 fail-closed 唔入空防戰 pool（圖鑑卡不受影響）；v0.34 全庫複檢：16 張剪影仲有殘留背景（地面／樹林／雲塊／建築），fail-closed 移除出空防戰 pool（餘 25 張：BAAB5／IAAB10／AAAB10，各池仍 ≥4），圖鑑卡不受影響。",
+ "note": "空防戰目標 = 用圖鑑相片去背後嘅飛機剪影（background removed cutouts），逐張驗證形狀同機頭方向先入庫；剪影同圖鑑卡相片同一來源（同一授權/署名，唔另加水印）。相片做唔到乾淨去背嘅機型 fail-closed 唔入空防戰 pool（圖鑑卡不受影響）；v0.34 全庫複檢：16 張剪影仲有殘留背景（地面／樹林／雲塊／建築），fail-closed 移除出空防戰 pool（餘 25 張：BAAB5／IAAB10／AAAB10，各池仍 ≥4），圖鑑卡不受影響；v0.35.1 複檢：再移除4張殘留（AC-0008 灰雲帶／AC-0040 爛圖／AC-0059 尾部樹木／AC-0070 雲塊），6張機頭方向元數據修正（0021/0024/0025/0057/0060/0061，治倒飛），AC-0025 暗 C-17 提亮保留（移除會令 BAAB 跌穿4）；pool 21＝BAAB4／IAAB9／AAAB8。",
  "sprites": {
   "AC-0001": {
    "file": "assets/planes/AC-0001.png",
@@ -9,13 +9,6 @@
    "author": "km30192002",
    "licence": "CC BY 2.0",
    "source": "https://commons.wikimedia.org/wiki/File:B-LRA_Cathay_Pacific_Airbus_A350-900_(34095482335).jpg"
-  },
-  "AC-0008": {
-   "file": "assets/planes/AC-0008.png",
-   "nose": "left",
-   "author": "Mark Harkin",
-   "licence": "CC BY 2.0",
-   "source": "https://commons.wikimedia.org/wiki/File:LX-VCM_Boeing_747-8F_Cargolux_%22Cutaway%22_(22262143611).jpg"
   },
   "AC-0010": {
    "file": "assets/planes/AC-0010.png",
@@ -33,7 +26,7 @@
   },
   "AC-0021": {
    "file": "assets/planes/AC-0021.png",
-   "nose": "left",
+   "nose": "right",
    "author": "Adrian Pingstone (Arpingstone)",
    "licence": "Public domain",
    "source": "https://commons.wikimedia.org/wiki/File:Robinson.r44.astro.g-pfml.arp.jpg"
@@ -47,14 +40,14 @@
   },
   "AC-0024": {
    "file": "assets/planes/AC-0024.png",
-   "nose": "right",
+   "nose": "left",
    "author": "MSgt. Donald R. Allen, U.S. Air Force",
    "licence": "Public domain",
    "source": "https://commons.wikimedia.org/wiki/File:F-35A_flight_(cropped).jpg"
   },
   "AC-0025": {
    "file": "assets/planes/AC-0025.png",
-   "nose": "right",
+   "nose": "left",
    "author": "U.S. Air Force",
    "licence": "Public domain",
    "source": "https://commons.wikimedia.org/wiki/File:C-17_test_sortie.jpg"
@@ -65,13 +58,6 @@
    "author": "Chris Lofting",
    "licence": "GFDL 1.2 only",
    "source": "https://commons.wikimedia.org/wiki/File:RAF_Eurofighter_EF-2000_Typhoon_F2_Lofting-1.jpg"
-  },
-  "AC-0040": {
-   "file": "assets/planes/AC-0040.png",
-   "nose": "left",
-   "author": "James (Flickr: Aircaft @ Gloucestershire Airport By James)",
-   "licence": "CC BY-SA 2.0",
-   "source": "https://commons.wikimedia.org/wiki/File:M-LIZI_Eurocopter_EC155_Helicopter_(25116261325).jpg"
   },
   "AC-0045": {
    "file": "assets/planes/AC-0045.png",
@@ -117,28 +103,21 @@
   },
   "AC-0057": {
    "file": "assets/planes/AC-0057.png",
-   "nose": "right",
+   "nose": "left",
    "author": "emperornie",
    "licence": "CC BY-SA 2.0",
    "source": "https://commons.wikimedia.org/wiki/File:J-20_formation_(cropped).jpg"
   },
-  "AC-0059": {
-   "file": "assets/planes/AC-0059.png",
-   "nose": "right",
-   "author": "Jeroen Stroes Aviation Photography",
-   "licence": "CC BY 2.0",
-   "source": "https://commons.wikimedia.org/wiki/File:Airbus_A300-600ST_Beluga_F-GSTB_(41346659120).jpg"
-  },
   "AC-0060": {
    "file": "assets/planes/AC-0060.png",
-   "nose": "left",
+   "nose": "right",
    "author": "Adrian Pingstone",
    "licence": "Public domain",
    "source": "https://commons.wikimedia.org/wiki/File:Etihad.a340-300.a6-eyc.arp.jpg"
   },
   "AC-0061": {
    "file": "assets/planes/AC-0061.png",
-   "nose": "right",
+   "nose": "left",
    "author": "Eric Salard",
    "licence": "CC BY-SA 2.0",
    "source": "https://commons.wikimedia.org/wiki/File:Boeing_747-409(LCF)_Dreamlifter,_N780BA_-_PAE_(22717086801).jpg"
@@ -170,13 +149,6 @@
    "author": "Konstantin von Wedelstaedt",
    "licence": "GFDL 1.2 only",
    "source": "https://commons.wikimedia.org/wiki/File:Cessna_208B_Grand_Caravan,_SkyDive_Dubai_AN2239587.jpg"
-  },
-  "AC-0070": {
-   "file": "assets/planes/AC-0070.png",
-   "nose": "right",
-   "author": "Sergey Krivchikov",
-   "licence": "GFDL 1.2 only",
-   "source": "https://commons.wikimedia.org/wiki/File:Sukhoi_Su-30_inflight.jpg"
   }
  }
 }
