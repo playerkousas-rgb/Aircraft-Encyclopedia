@@ -4,7 +4,7 @@
 > 類型：輕量靜態 App（無帳號、無後台）· 技術棧：純靜態多檔（HTML/CSS/原生 JS＋JSON）· 授權：MIT
 > 原始需求 brief 保留喺根目錄 `README` 檔；本檔係 5 分鐘入口。
 
-更新日期：2026-11-17 · 版本：v0.36.0 · 負責：playerkousas-rgb
+更新日期：2026-11-17 · 版本：v0.37.0 · 負責：playerkousas-rgb
 
 ---
 
@@ -38,6 +38,7 @@
 
 **v0.30**：檢卷「航空公司配對」右欄加 23 個已核實 PD 標誌（5 間文字牌照舊；標誌唔係答案，key 照舊純文字）。見 docs/05 第 61 項。
 
+**v0.37.0**：新增頂欄及頁尾一鍵「讚好／收藏」按鈕——經 `ScoutStoreGate.getPortal('appstore')` 新分頁直開 APP STORE `?app=aircraft-encyclopedia` 詳情卡（可即場讚好 ❤️ 同收入收藏 ⭐；零後端／零 Supabase 請求／零寫死網址、中英雙語同步、列印考卷自動隱藏）。
 **v0.36.0**：接入準入白名單閘門（`web/store_gate_v1.0.js` 原封不動抄自真理倉；`mode: 'entry-gate'`、`portalIds: ['appstore']`＋經註冊表靜默放行 `'library'`、`allowStandalone: true`、`autoRedirectSeconds: 0`、`supportNudge: 關`）——由 APP STORE、通告圖書館或已加入主畫面直開正常放行；直打網址顯示簡短提示卡，只導向 APP STORE 主站。
 **v0.35.2**：修比較兩款飛機後閃屏卡死——render 篩選篩誤綁靜態 catnav／cat-panel 容器（click 冒泡→listener 指數疊加→全頁 render 風暴＋category 污染清空列表）；7 個綁定收返落各自容器＋ readme 方式全面審計（75 綁定審計無第二處、G11 圖標9/9、seo0/0）。見 docs/05 第 69–70 項。
 **v0.35.1**：空防戰剪影 round2——6 張機頭方向修正（治倒飛）、4 張殘留 fail-closed 移除（pool 21）、暗 C-17 提亮保留；載入面板最少顯示 800ms（治「無痕都見唔到」）。見 docs/05 第 68 項。

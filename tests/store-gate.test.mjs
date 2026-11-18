@@ -7,9 +7,13 @@ import { fileURLToPath } from "node:url";
 const require = createRequire(import.meta.url);
 const gatePath = new URL("../web/store_gate_v1.0.js", import.meta.url);
 const htmlPath = new URL("../web/index.html", import.meta.url);
+const appJsPath = new URL("../web/app.js", import.meta.url);
+const cssPath = new URL("../web/styles.css", import.meta.url);
 const manifestPath = new URL("../web/manifest.webmanifest", import.meta.url);
 
 const html = readFileSync(htmlPath, "utf8");
+const appJs = readFileSync(appJsPath, "utf8");
+const css = readFileSync(cssPath, "utf8");
 const manifest = JSON.parse(readFileSync(manifestPath, "utf8"));
 const Gate = require(fileURLToPath(gatePath));
 
@@ -149,4 +153,21 @@ test("情境 3：已加入主畫面（display-mode: standalone 或 iOS navigator
   });
   assert.equal(d.allowed, true);
   assert.equal(d.reason, "standalone-pwa");
+});
+
+test("一鍵讚好／收藏掣：經註冊表導向 ?app=aircraft-encyclopedia、開新分頁 noopener、零寫死網址、雙語齊備", () => {
+  assert.match(html, /id="storeSupportTop"[^>]*target="_blank"[^>]*rel="noopener"/);
+  assert.match(html, /id="storeSupportFoot"[^>]*target="_blank"[^>]*rel="noopener"/);
+  assert.ok(!html.includes("scoutappstore.vercel.app"), "index.html 零寫死主站網址");
+  assert.ok(!appJs.includes("scoutappstore.vercel.app"), "app.js 零寫死主站網址");
+  assert.match(appJs, /const APP_STORE_SLUG = "aircraft-encyclopedia"/);
+  assert.match(appJs, /ScoutStoreGate\.getPortal\("appstore"\)/);
+
+  const portal = Gate.getPortal("appstore");
+  const url = portal.url.replace(/\/?$/, "/") + "?app=" + encodeURIComponent("aircraft-encyclopedia");
+  assert.equal(url, "https://scoutappstore.vercel.app/?app=aircraft-encyclopedia");
+
+  // [hidden] 唔會被 display:inline-flex / display:flex 蓋過；列印自動隱藏 topbar 同 footer
+  assert.match(css, /\.support-btn\[hidden\],\.support-bar\[hidden\]\{display:none\}/);
+  assert.match(css, /@media print\{[\s\S]*?\.topbar,footer/);
 });
