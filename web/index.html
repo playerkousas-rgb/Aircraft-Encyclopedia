@@ -2,12 +2,25 @@
 <html lang="zh-Hant-HK" data-lang="zh">
 <head>
 <meta charset="UTF-8">
+<script src="/store_gate_v1.0.js"></script>
+<script>
+  initStoreGate({
+    appKey: 'aircraft-encyclopedia',
+    mode: 'entry-gate',
+    portalIds: ['appstore'],
+    allowedOrigins: ScoutStoreGate.portalsFromIds(['appstore', 'library']).map(function (p) { return p.origin; }),
+    customTitle: '需經由 SCOUT APP STORE 開啟',
+    customMessage: '請按下方按鈕前往 APP STORE 開啟。',
+    allowStandalone: true,
+    autoRedirectSeconds: 0
+  });
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="copyright" content="© SCOUT SYSTEM">
-<meta name="app-version" content="0.35.2">
+<meta name="app-version" content="0.36.0">
 <meta name="description" content="航空圖鑑 Aircraft Encyclopedia：由圖片認識飛機、航空公司同航點，學識辨認。資料逐款核實。">
 <meta property="og:type" content="website">
-<meta property="og:title" content="航空圖鑑 Aircraft Encyclopedia v0.35.2">
+<meta property="og:title" content="航空圖鑑 Aircraft Encyclopedia v0.36.0">
 <meta property="og:description" content="航空圖鑑：由圖片認識飛機，資料逐款核實。">
 <meta property="og:image" content="https://aircraft-encyclopedia-web.vercel.app/icons/og-image.png">
 <meta name="twitter:card" content="summary">
@@ -22,19 +35,19 @@
 <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
 <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
 <link rel="manifest" href="manifest.webmanifest">
-<title>航空圖鑑 v0.35.2｜Aircraft Encyclopedia</title>
-<link rel="stylesheet" href="vendor/leaflet/leaflet.css?v=0.35.2">
-<link rel="stylesheet" href="styles.css?v=0.35.2">
+<title>航空圖鑑 v0.36.0｜Aircraft Encyclopedia</title>
+<link rel="stylesheet" href="vendor/leaflet/leaflet.css?v=0.36.0">
+<link rel="stylesheet" href="styles.css?v=0.36.0">
 <link rel="preload" as="fetch" href="data/aircraft-inventory.json" crossorigin>
 <link rel="preload" as="fetch" href="data/airports.json" crossorigin>
 <link rel="preload" as="fetch" href="data/airlines.json" crossorigin>
 </head>
 <body>
-<!-- Aircraft-Encyclopedia v0.35.2 · © SCOUT SYSTEM -->
+<!-- Aircraft-Encyclopedia v0.36.0 · © SCOUT SYSTEM -->
 <header class="topbar">
   <a class="brand" href="./" aria-label="Aircraft Encyclopedia home">
     <img src="icons/icon-192.png" alt="" width="38" height="38">
-    <span><strong data-i18n="brand">航空圖鑑</strong><small>Aircraft Encyclopedia v0.35.2</small></span>
+    <span><strong data-i18n="brand">航空圖鑑</strong><small>Aircraft Encyclopedia v0.36.0</small></span>
   </a>
   <button id="langToggle" data-lang-toggle type="button" class="lang-btn" aria-label="Switch to English" title="Switch to English">EN</button>
 </header>
@@ -173,9 +186,9 @@
 </dialog>
 
 <footer>
-  <p>© SCOUT SYSTEM · COPYRIGHT SCOUT SYSTEM · Aircraft-Encyclopedia v0.35.2 · <a href="https://github.com/playerkousas-rgb/Aircraft-Encyclopedia/blob/main/CREDITS.md">CREDITS</a> · MIT License</p>
+  <p>© SCOUT SYSTEM · COPYRIGHT SCOUT SYSTEM · Aircraft-Encyclopedia v0.36.0 · <a href="https://github.com/playerkousas-rgb/Aircraft-Encyclopedia/blob/main/CREDITS.md">CREDITS</a> · MIT License</p>
 </footer>
-<script src="vendor/leaflet/leaflet.js?v=0.35.2"></script>
-<script src="app.js?v=0.35.2"></script>
+<script src="vendor/leaflet/leaflet.js?v=0.36.0"></script>
+<script src="app.js?v=0.36.0"></script>
 </body>
 </html>
