@@ -6,6 +6,11 @@
 
 - （暫無排定新批次；157 款已全數核實，其後以功能完善為主。）
 
+## [0.36.0] - 2026-11-17
+
+### Added
+- **準入白名單閘門（真理倉 SG1–SG17 / docs/50 / docs/51 A 組）**：原封不動抄入 `templates/vercel/store_gate_v1.0.js` 至 `web/store_gate_v1.0.js`，並於 `web/index.html` `<head>` 頂部掛入 `initStoreGate`（`appKey: 'aircraft-encyclopedia'`、`mode: 'entry-gate'`、`portalIds: ['appstore']`、`allowedOrigins` 由 `ScoutStoreGate.portalsFromIds(['appstore', 'library'])` 展開、`allowStandalone: true`、`autoRedirectSeconds: 0`、`supportNudge` 關閉）；由 SCOUT APP STORE、通告圖書館或已裝主畫面 PWA 進入均正常放行，直打網址顯示簡短提示卡且只顯示前往 APP STORE 主站按鈕。同步記錄於 `SCOPE.md` 與 `README.md`。
+
 ## [0.35.2] - 2026-11-12
 
 ### Fixed

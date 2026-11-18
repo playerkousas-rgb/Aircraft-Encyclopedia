@@ -32,7 +32,8 @@
 | 圖片 | Wikimedia Commons 授權真照片為主，逐張標作者/授權 |
 | 圖卡 | 真照片＋疊加標註；v1 只做網頁互動圖卡，唔做列印卡 |
 | 功能 | 首頁＋圖卡＋比較＋小測驗全做 |
-| 儲存 | 純靜態本機；localStorage 只記語言（key `aircraft-encyclopedia.lang`） |
+| 儲存 | 純靜態本機；localStorage 只記語言（key `aircraft-encyclopedia.lang`）及小測驗／小遊戲個人最高分（`*-best` 共 7 個 key），無成員紀錄 |
+| 準入白名單（SG1–SG17） | `web/store_gate_v1.0.js`（原封不動抄自真理倉）：`appKey: 'aircraft-encyclopedia'`、`mode: 'entry-gate'`、`portalIds: ['appstore']`（提示卡只顯示 APP STORE 主站掣）、`allowedOrigins` 由 `ScoutStoreGate.portalsFromIds(['appstore', 'library'])` 取得（同時靜默放行通告圖書館直入）、簡短提示文案、`allowStandalone: true`、`autoRedirectSeconds: 0`、`supportNudge: 關`（2026-11-17 用戶定案） |
 | 收集感 | 輕借鑑：編號/三問/深度連結；內容全開放，唔遮剪影、無「已學識」標記 |
 | 節奏 | 先收大清單逐項核實，資料齊先出圖卡；慢慢做（現有總清單 71 款） |
 | 第一批次序 | 改跟香港童軍總會航空活動章辨認清單：第一批初級 18、第二批中級 18、第三批高級 18（docs/06）；空勤員章冇指定機型清單，只做機場辨認應用層 |
