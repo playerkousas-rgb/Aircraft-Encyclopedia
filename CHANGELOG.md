@@ -6,6 +6,11 @@
 
 - （暫無排定新批次；157 款已全數核實，其後以功能完善為主。）
 
+## [0.37.0] - 2026-11-17
+
+### Added
+- **一鍵返回 SCOUT APP STORE 讚好／收藏（SG9／SG12／SG13）**：於頂欄右側（`#storeSupportTop`）及頁尾（`#storeSupportBar`／`#storeSupportFoot`）新增非阻塞「讚好／收藏（Like / Save）」連結，經 `ScoutStoreGate.getPortal('appstore').url` 動態組出 `https://scoutappstore.vercel.app/?app=aircraft-encyclopedia`（新分頁開啟 `target="_blank" rel="noopener"`，直彈本 App 詳情卡畀 ❤️／⭐）；零 Supabase 請求、零 API key、零寫死入口網址、中英雙語同步、窄屏自適應、列印考卷自動隱藏。
+
 ## [0.36.0] - 2026-11-17
 
 ### Added

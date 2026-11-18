@@ -1,6 +1,13 @@
 "use strict";
 /* Aircraft-Encyclopedia v0.7 · © SCOUT SYSTEM · APP_VERSION 0.9.0 */
-const APP_VERSION = "0.36.0";
+const APP_VERSION = "0.37.0";
+const APP_STORE_SLUG = "aircraft-encyclopedia";
+function storeSupportUrl() {
+  if (typeof ScoutStoreGate === "undefined" || typeof ScoutStoreGate.getPortal !== "function") return "";
+  const portal = ScoutStoreGate.getPortal("appstore");
+  if (!portal || !portal.url) return "";
+  return portal.url.replace(/\/?$/, "/") + "?app=" + encodeURIComponent(APP_STORE_SLUG);
+}
 const LANG_KEY = "aircraft-encyclopedia.lang";
 const QUIZ_BEST_KEY = "aircraft-encyclopedia.quiz-best";
 function loadQuizBest() { try { const v = JSON.parse(localStorage.getItem(QUIZ_BEST_KEY) || "{}"); return v && typeof v === "object" ? v : {}; } catch (e) { return {}; } }
@@ -50,6 +57,7 @@ const STR = {
     secPhotoId: "認相", secParts: "標示部件", secWeft: "WEFT 簡答", secAirline: "航空公司配對", secKnowledge: "航空知識簡答", secLookalike: "相似機型分辨", secTeach: "教返人認機", secSpotting: "機場認機",
     examNote: "本卷由已核實圖卡即時隨機產生；相片版權屬原作者，依圖卡標示的授權使用。", examKey: "答案", examTypes: "款可用題池",
     navAc: "飛機", navAl: "航空公司", navAp: "航點", partLearn: "學習", partGame: "遊戲", partExam: "試卷",
+    supportBtn: "讚好／收藏", supportAria: "前往主站讚好或收藏此程式（開新分頁）", supportPrompt: "覺得呢個工具有用？撳一下話我哋知，幫手留住佢喺書架：", supportFootBtn: "前往主站讚好／收藏 ↗",
     alExamTitle: "試卷：航空公司（領袖出卷）", alExamIntro: "由已核實航空公司資料即場出卷：名稱↔IATA/ICAO 填空、睇標誌寫公司、樞紐題；10 題各 2 分，答案紙可顯示可列印。",
     apExamTitle: "試卷：航點（領袖出卷）", apExamIntro: "由香港直航嘅已核實機場即場出卷：機場↔IATA/ICAO 填空、城市題；10 題各 2 分，答案紙可顯示可列印。",
     correct: "啱咗！", wrong: "唔啱，正確答案係：", score: "完成！你啱咗",
@@ -98,6 +106,7 @@ const STR = {
     secPhotoId: "Photo identification", secParts: "Label the parts", secWeft: "WEFT short answers", secAirline: "Airline matching", secKnowledge: "Aviation knowledge", secLookalike: "Tell look-alikes apart", secTeach: "Teach it back", secSpotting: "Airport spotting",
     examNote: "This paper was generated at random from verified cards; photos remain under their credited licences.", examKey: "Key", examTypes: "types in pool",
     navAc: "Aircraft", navAl: "Airlines", navAp: "Airports", partLearn: "Learn", partGame: "Games", partExam: "Exams",
+    supportBtn: "Like / Save", supportAria: "Like or save this app on SCOUT APP STORE (opens new tab)", supportPrompt: "Find this useful? Give it a like or save to help keep it on the shelf:", supportFootBtn: "Like / Save on APP STORE ↗",
     alExamTitle: "Exam: Airlines (leader-generated)", alExamIntro: "Generated on the spot from the verified airline dataset: name ↔ IATA/ICAO blanks, logo identification, hub questions; 10 questions × 2 marks, key shown and printable.",
     apExamTitle: "Exam: Airports (leader-generated)", apExamIntro: "Generated on the spot from verified airports with direct Hong Kong flights: airport ↔ IATA/ICAO blanks, city questions; 10 questions × 2 marks, key shown and printable.",
     correct: "Correct!", wrong: "Not quite — the answer is: ", score: "Done! You scored",
@@ -176,6 +185,11 @@ function applyLang() {
   btn.textContent = lang === "en" ? "中文" : "EN";
   btn.setAttribute("aria-label", lang === "en" ? "切換至中文介面" : "Switch to English");
   btn.setAttribute("title", lang === "en" ? "切換至中文介面" : "Switch to English");
+  const sUrl = storeSupportUrl();
+  const sTop = $("storeSupportTop"), sFoot = $("storeSupportFoot"), sBar = $("storeSupportBar");
+  if (sTop) { sTop.hidden = !sUrl; if (sUrl) sTop.href = sUrl; sTop.setAttribute("aria-label", t().supportAria); sTop.setAttribute("title", t().supportAria); }
+  if (sFoot && sUrl) { sFoot.href = sUrl; sFoot.setAttribute("aria-label", t().supportAria); sFoot.setAttribute("title", t().supportAria); }
+  if (sBar) sBar.hidden = !sUrl;
   render();
 }
 
